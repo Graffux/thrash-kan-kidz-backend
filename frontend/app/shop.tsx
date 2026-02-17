@@ -34,7 +34,11 @@ export default function ShopScreen() {
   const [totalCards, setTotalCards] = useState(0);
   const [showCelebration, setShowCelebration] = useState(false);
   const [unlockedCard, setUnlockedCard] = useState<any>(null);
+  const [celebrationType, setCelebrationType] = useState<'rare' | 'milestone'>('rare');
+  const [milestoneInfo, setMilestoneInfo] = useState<any>(null);
   const [loadingRare, setLoadingRare] = useState(false);
+
+  const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
   // Fetch rare card status when user changes or after purchase
   const fetchRareCardStatus = async () => {
@@ -47,10 +51,12 @@ export default function ShopScreen() {
       
       setRareCardsStatus(data.rare_cards || []);
       setTotalCards(data.total_cards || 0);
+      setMilestoneInfo(data.milestone_info || null);
       
       // Check if any card was newly unlocked
       if (data.newly_unlocked) {
         setUnlockedCard(data.newly_unlocked);
+        setCelebrationType('rare');
         setShowCelebration(true);
       }
     } catch (error) {
@@ -67,8 +73,10 @@ export default function ShopScreen() {
   if (!user) {
     return (
       <SafeAreaView style={styles.container}>
+        <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
+        <View style={styles.backgroundOverlay} />
         <View style={styles.centerContainer}>
-          <Ionicons name="lock-closed" size={64} color="#666" />
+          <Text style={styles.lockIcon}>🔒</Text>
           <Text style={styles.lockedText}>Please login to visit the shop</Text>
         </View>
       </SafeAreaView>
@@ -98,9 +106,16 @@ export default function ShopScreen() {
             try {
               const result = await purchaseCard(cardId);
               
+              // Check if a milestone bonus was awarded
+              if (result?.milestone_reward) {
+                setUnlockedCard(result.milestone_reward.card);
+                setCelebrationType('milestone');
+                setShowCelebration(true);
+              }
               // Check if a rare card was unlocked with this purchase
-              if (result?.newly_unlocked_rare_card) {
+              else if (result?.newly_unlocked_rare_card) {
                 setUnlockedCard(result.newly_unlocked_rare_card);
+                setCelebrationType('rare');
                 setShowCelebration(true);
               } else {
                 Alert.alert('Success!', `You got ${cardName}!`);
