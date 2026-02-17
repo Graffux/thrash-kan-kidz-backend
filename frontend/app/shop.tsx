@@ -189,19 +189,20 @@ const styles = StyleSheet.create({
   cardsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 16,
+    justifyContent: 'space-between',
   },
   shopCard: {
-    width: CARD_WIDTH,
+    width: '48%',
     backgroundColor: '#1a1a2e',
     borderRadius: 16,
     overflow: 'hidden',
     borderWidth: 2,
     borderColor: 'rgba(128, 128, 128, 0.3)',
+    marginBottom: 16,
   },
   cardImage: {
     width: '100%',
-    height: CARD_WIDTH * 1.1,
+    height: 180,
   },
   cardInfo: {
     padding: 12,
