@@ -145,7 +145,10 @@ export default function ShopScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Celebration Modal for Rare Card Unlock */}
+      <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
+      <View style={styles.backgroundOverlay} />
+      
+      {/* Celebration Modal for Card Unlock */}
       <Modal
         visible={showCelebration}
         transparent={true}
@@ -154,8 +157,12 @@ export default function ShopScreen() {
       >
         <View style={styles.celebrationOverlay}>
           <View style={styles.celebrationModal}>
-            <Text style={styles.celebrationEmoji}>🎉✨🏆✨🎉</Text>
-            <Text style={styles.celebrationTitle}>RARE CARD UNLOCKED!</Text>
+            <Text style={styles.celebrationEmoji}>
+              {celebrationType === 'rare' ? '🎉✨🏆✨🎉' : '🎁✨🃏✨🎁'}
+            </Text>
+            <Text style={styles.celebrationTitle}>
+              {celebrationType === 'rare' ? 'RARE CARD UNLOCKED!' : 'MILESTONE BONUS!'}
+            </Text>
             {unlockedCard && (
               <>
                 <Image
@@ -165,7 +172,9 @@ export default function ShopScreen() {
                 />
                 <Text style={styles.celebrationCardName}>{unlockedCard.name}</Text>
                 <Text style={styles.celebrationDescription}>
-                  You've earned this legendary card by collecting cards!
+                  {celebrationType === 'rare' 
+                    ? "You've earned this legendary card by collecting cards!"
+                    : "Free card for reaching a 5-card milestone!"}
                 </Text>
               </>
             )}
@@ -194,6 +203,29 @@ export default function ShopScreen() {
       </View>
 
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        {/* Milestone Progress Section */}
+        {milestoneInfo && (
+          <View style={styles.milestoneBanner}>
+            <Text style={styles.milestoneTitle}>🎁 Milestone Bonus 🎁</Text>
+            <Text style={styles.milestoneSubtitle}>
+              Get a FREE card every 5 cards collected!
+            </Text>
+            <View style={styles.milestoneProgressContainer}>
+              <View style={styles.milestoneProgressBar}>
+                <View 
+                  style={[
+                    styles.milestoneProgressFill,
+                    { width: `${(milestoneInfo.progress_to_next / 5) * 100}%` }
+                  ]} 
+                />
+              </View>
+              <Text style={styles.milestoneProgressText}>
+                {milestoneInfo.progress_to_next}/5 to next free card
+              </Text>
+            </View>
+          </View>
+        )}
+
         {/* Rare Cards Section */}
         <View style={styles.rareSectionHeader}>
           <Text style={styles.rareSectionTitle}>⭐ Rare Achievement Cards ⭐</Text>
