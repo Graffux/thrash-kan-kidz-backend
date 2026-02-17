@@ -80,6 +80,13 @@ export default function HomeScreen() {
           style={styles.loginContainer}
         >
           <View style={styles.loginContent}>
+            {/* Logo */}
+            <Image
+              source={{ uri: 'https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/tf5khv09_enhanced-1771280968644.jpg' }}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
+            
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
@@ -102,6 +109,8 @@ export default function HomeScreen() {
                 )}
               </TouchableOpacity>
             </View>
+            
+            <Text style={styles.creditText}>Art by Graffux Graphics</Text>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
