@@ -127,17 +127,17 @@ export default function HomeScreen() {
         {/* Stats Cards */}
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
-            <Ionicons name="wallet" size={32} color="#FFD700" />
+            <Ionicons name="cash-outline" size={32} color="#FFD700" />
             <Text style={styles.statValue}>{user.coins}</Text>
             <Text style={styles.statLabel}>Coins</Text>
           </View>
           <View style={styles.statCard}>
-            <Ionicons name="flame" size={32} color="#FF4500" />
+            <Ionicons name="flame-outline" size={32} color="#FF4500" />
             <Text style={styles.statValue}>{user.daily_login_streak}</Text>
             <Text style={styles.statLabel}>Day Streak</Text>
           </View>
           <View style={styles.statCard}>
-            <Ionicons name="albums" size={32} color="#4CAF50" />
+            <Ionicons name="layers-outline" size={32} color="#4CAF50" />
             <Text style={styles.statValue}>{userCards.length}</Text>
             <Text style={styles.statLabel}>Cards</Text>
           </View>
