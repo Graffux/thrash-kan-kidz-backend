@@ -8,10 +8,14 @@ import {
   Image,
   Alert,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - 48) / 2;
 
 export default function ShopScreen() {
   const { user, allCards, userCards, purchaseCard } = useApp();
@@ -57,32 +61,6 @@ export default function ShopScreen() {
     );
   };
 
-  const getRarityColor = (rarity: string) => {
-    switch (rarity) {
-      case 'common':
-        return '#808080';
-      case 'rare':
-        return '#4169E1';
-      case 'epic':
-        return '#9932CC';
-      default:
-        return '#808080';
-    }
-  };
-
-  const getRarityGlow = (rarity: string) => {
-    switch (rarity) {
-      case 'common':
-        return 'rgba(128, 128, 128, 0.3)';
-      case 'rare':
-        return 'rgba(65, 105, 225, 0.3)';
-      case 'epic':
-        return 'rgba(153, 50, 204, 0.3)';
-      default:
-        return 'rgba(128, 128, 128, 0.3)';
-    }
-  };
-
   const getOwnedQuantity = (cardId: string) => {
     const uc = userCards.find(uc => uc.card.id === cardId);
     return uc?.quantity || 0;
@@ -102,145 +80,45 @@ export default function ShopScreen() {
       </View>
 
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Common Cards */}
-        <Text style={styles.sectionTitle}>Common Cards</Text>
-        <View style={styles.cardsRow}>
-          {allCards
-            .filter(card => card.rarity === 'common')
-            .map(card => (
-              <View key={card.id} style={[styles.shopCard, { borderColor: getRarityGlow(card.rarity) }]}>
-                <Image
-                  source={{ uri: card.front_image_url }}
-                  style={styles.cardImage}
-                  resizeMode="cover"
-                />
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardName}>{card.name}</Text>
-                  <View style={[styles.rarityBadge, { backgroundColor: getRarityColor(card.rarity) }]}>
-                    <Text style={styles.rarityText}>{card.rarity.toUpperCase()}</Text>
-                  </View>
-                  {getOwnedQuantity(card.id) > 0 && (
-                    <Text style={styles.ownedText}>Owned: x{getOwnedQuantity(card.id)}</Text>
-                  )}
-                </View>
-                <TouchableOpacity
-                  style={[
-                    styles.buyButton,
-                    user.coins < card.coin_cost && styles.buyButtonDisabled,
-                  ]}
-                  onPress={() => handlePurchase(card.id, card.coin_cost, card.name)}
-                  disabled={purchasing === card.id || user.coins < card.coin_cost}
-                >
-                  {purchasing === card.id ? (
-                    <ActivityIndicator size="small" color="#000" />
-                  ) : (
-                    <>
-                      <Ionicons name="wallet" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
-                      <Text style={[
-                        styles.buyButtonText,
-                        user.coins < card.coin_cost && styles.buyButtonTextDisabled
-                      ]}>
-                        {card.coin_cost}
-                      </Text>
-                    </>
-                  )}
-                </TouchableOpacity>
+        <Text style={styles.sectionTitle}>Thrash Kan Kidz Cards</Text>
+        <View style={styles.cardsGrid}>
+          {allCards.map(card => (
+            <View key={card.id} style={styles.shopCard}>
+              <Image
+                source={{ uri: card.front_image_url }}
+                style={styles.cardImage}
+                resizeMode="cover"
+              />
+              <View style={styles.cardInfo}>
+                <Text style={styles.cardName}>{card.name}</Text>
+                {getOwnedQuantity(card.id) > 0 && (
+                  <Text style={styles.ownedText}>Owned: x{getOwnedQuantity(card.id)}</Text>
+                )}
               </View>
-            ))}
-        </View>
-
-        {/* Rare Cards */}
-        <Text style={styles.sectionTitle}>Rare Cards</Text>
-        <View style={styles.cardsRow}>
-          {allCards
-            .filter(card => card.rarity === 'rare')
-            .map(card => (
-              <View key={card.id} style={[styles.shopCard, { borderColor: getRarityGlow(card.rarity) }]}>
-                <Image
-                  source={{ uri: card.front_image_url }}
-                  style={styles.cardImage}
-                  resizeMode="cover"
-                />
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardName}>{card.name}</Text>
-                  <View style={[styles.rarityBadge, { backgroundColor: getRarityColor(card.rarity) }]}>
-                    <Text style={styles.rarityText}>{card.rarity.toUpperCase()}</Text>
-                  </View>
-                  {getOwnedQuantity(card.id) > 0 && (
-                    <Text style={styles.ownedText}>Owned: x{getOwnedQuantity(card.id)}</Text>
-                  )}
-                </View>
-                <TouchableOpacity
-                  style={[
-                    styles.buyButton,
-                    user.coins < card.coin_cost && styles.buyButtonDisabled,
-                  ]}
-                  onPress={() => handlePurchase(card.id, card.coin_cost, card.name)}
-                  disabled={purchasing === card.id || user.coins < card.coin_cost}
-                >
-                  {purchasing === card.id ? (
-                    <ActivityIndicator size="small" color="#000" />
-                  ) : (
-                    <>
-                      <Ionicons name="wallet" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
-                      <Text style={[
-                        styles.buyButtonText,
-                        user.coins < card.coin_cost && styles.buyButtonTextDisabled
-                      ]}>
-                        {card.coin_cost}
-                      </Text>
-                    </>
-                  )}
-                </TouchableOpacity>
-              </View>
-            ))}
-        </View>
-
-        {/* Epic Cards */}
-        <Text style={styles.sectionTitle}>Epic Cards</Text>
-        <View style={styles.cardsRow}>
-          {allCards
-            .filter(card => card.rarity === 'epic')
-            .map(card => (
-              <View key={card.id} style={[styles.shopCard, styles.epicCard, { borderColor: getRarityGlow(card.rarity) }]}>
-                <Image
-                  source={{ uri: card.front_image_url }}
-                  style={styles.cardImage}
-                  resizeMode="cover"
-                />
-                <View style={styles.cardInfo}>
-                  <Text style={styles.cardName}>{card.name}</Text>
-                  <View style={[styles.rarityBadge, { backgroundColor: getRarityColor(card.rarity) }]}>
-                    <Text style={styles.rarityText}>{card.rarity.toUpperCase()}</Text>
-                  </View>
-                  {getOwnedQuantity(card.id) > 0 && (
-                    <Text style={styles.ownedText}>Owned: x{getOwnedQuantity(card.id)}</Text>
-                  )}
-                </View>
-                <TouchableOpacity
-                  style={[
-                    styles.buyButton,
-                    user.coins < card.coin_cost && styles.buyButtonDisabled,
-                  ]}
-                  onPress={() => handlePurchase(card.id, card.coin_cost, card.name)}
-                  disabled={purchasing === card.id || user.coins < card.coin_cost}
-                >
-                  {purchasing === card.id ? (
-                    <ActivityIndicator size="small" color="#000" />
-                  ) : (
-                    <>
-                      <Ionicons name="wallet" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
-                      <Text style={[
-                        styles.buyButtonText,
-                        user.coins < card.coin_cost && styles.buyButtonTextDisabled
-                      ]}>
-                        {card.coin_cost}
-                      </Text>
-                    </>
-                  )}
-                </TouchableOpacity>
-              </View>
-            ))}
+              <TouchableOpacity
+                style={[
+                  styles.buyButton,
+                  user.coins < card.coin_cost && styles.buyButtonDisabled,
+                ]}
+                onPress={() => handlePurchase(card.id, card.coin_cost, card.name)}
+                disabled={purchasing === card.id || user.coins < card.coin_cost}
+              >
+                {purchasing === card.id ? (
+                  <ActivityIndicator size="small" color="#000" />
+                ) : (
+                  <>
+                    <Ionicons name="wallet" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
+                    <Text style={[
+                      styles.buyButtonText,
+                      user.coins < card.coin_cost && styles.buyButtonTextDisabled
+                    ]}>
+                      {card.coin_cost}
+                    </Text>
+                  </>
+                )}
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
 
         <View style={styles.spacer} />
@@ -308,47 +186,33 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 8,
   },
-  cardsRow: {
+  cardsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
-    marginBottom: 24,
   },
   shopCard: {
-    width: '47%',
+    width: CARD_WIDTH,
     backgroundColor: '#1a1a2e',
     borderRadius: 16,
     overflow: 'hidden',
     borderWidth: 2,
-  },
-  epicCard: {
-    width: '100%',
+    borderColor: 'rgba(128, 128, 128, 0.3)',
   },
   cardImage: {
     width: '100%',
-    height: 180,
+    height: CARD_WIDTH * 1.2,
   },
   cardInfo: {
     padding: 12,
     alignItems: 'center',
   },
   cardName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 8,
+    marginBottom: 4,
     textAlign: 'center',
-  },
-  rarityBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginBottom: 8,
-  },
-  rarityText: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: 'bold',
   },
   ownedText: {
     color: '#4CAF50',
