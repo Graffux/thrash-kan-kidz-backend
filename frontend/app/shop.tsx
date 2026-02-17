@@ -84,7 +84,7 @@ export default function ShopScreen() {
           <Text style={styles.subtitle}>Buy cards with your coins</Text>
         </View>
         <View style={styles.coinDisplay}>
-          <Ionicons name="wallet" size={20} color="#FFD700" />
+          <Ionicons name="cash-outline" size={20} color="#FFD700" />
           <Text style={styles.coinText}>{user.coins}</Text>
         </View>
       </View>
