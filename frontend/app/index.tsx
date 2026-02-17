@@ -161,7 +161,7 @@ export default function HomeScreen() {
               <ActivityIndicator color="#000" />
             ) : (
               <>
-                <Ionicons name="gift" size={24} color={canClaimDaily ? '#000' : '#666'} />
+                <Ionicons name="gift-outline" size={24} color={canClaimDaily ? '#000' : '#666'} />
                 <Text style={[styles.dailyButtonText, !canClaimDaily && styles.dailyButtonTextDisabled]}>
                   {canClaimDaily ? 'CLAIM DAILY BONUS' : 'ALREADY CLAIMED TODAY'}
                 </Text>
