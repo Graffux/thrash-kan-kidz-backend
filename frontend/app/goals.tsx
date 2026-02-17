@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   },
   goalCard: {
     flexDirection: 'row',
-    backgroundColor: '#1a1a2e',
+    backgroundColor: 'rgba(26, 26, 46, 0.9)',
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,
@@ -275,6 +275,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
+  },
+  goalIconEmoji: {
+    fontSize: 24,
   },
   goalIconCompleted: {
     backgroundColor: 'rgba(76, 175, 80, 0.1)',
