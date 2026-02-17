@@ -551,11 +551,96 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     unique_cards = await db.user_cards.count_documents({"user_id": user_id})
     await check_and_update_goals(user_id, "collect_cards", unique_cards)
     
+    # Check for rare card achievements
+    newly_unlocked_rare = await check_rare_card_achievements(user_id)
+    
     return {
         "success": True,
         "remaining_coins": new_coins,
-        "card": Card(**card)
+        "card": Card(**card),
+        "newly_unlocked_rare_card": newly_unlocked_rare
     }
+
+# =====================
+# Rare Card Achievement System
+# =====================
+
+async def check_rare_card_achievements(user_id: str):
+    """Check if user has unlocked any rare achievement cards based on their collection size"""
+    # Count total cards (including duplicates) owned by user
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
+    total_cards = sum(uc.get("quantity", 1) for uc in user_cards)
+    
+    # Get all rare cards that require achievements
+    rare_cards = await db.cards.find({"rarity": "rare", "achievement_required": {"$ne": None}}).to_list(100)
+    
+    newly_unlocked = None
+    
+    for rare_card in rare_cards:
+        required_cards = rare_card.get("achievement_required", 0)
+        
+        if total_cards >= required_cards:
+            # Check if user already has this rare card
+            existing = await db.user_cards.find_one({
+                "user_id": user_id,
+                "card_id": rare_card["id"]
+            })
+            
+            if not existing:
+                # Award the rare card!
+                user_card = UserCard(user_id=user_id, card_id=rare_card["id"])
+                await db.user_cards.insert_one(user_card.dict())
+                logger.info(f"User {user_id} unlocked rare card: {rare_card['name']}")
+                newly_unlocked = Card(**rare_card)
+    
+    return newly_unlocked
+
+@api_router.get("/users/{user_id}/check-rare-cards")
+async def check_user_rare_cards(user_id: str):
+    """Check and award any unlocked rare cards, return status of all rare cards"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check for newly unlocked rare cards
+    newly_unlocked = await check_rare_card_achievements(user_id)
+    
+    # Get user's total card count
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
+    total_cards = sum(uc.get("quantity", 1) for uc in user_cards)
+    
+    # Get all rare cards and their status for this user
+    rare_cards = await db.cards.find({"rarity": "rare"}).to_list(100)
+    
+    rare_cards_status = []
+    for rare_card in rare_cards:
+        owned = await db.user_cards.find_one({
+            "user_id": user_id,
+            "card_id": rare_card["id"]
+        })
+        
+        required = rare_card.get("achievement_required", 0)
+        progress = min(total_cards, required) if required else 0
+        
+        rare_cards_status.append({
+            "card": Card(**rare_card),
+            "owned": owned is not None,
+            "required_cards": required,
+            "progress": progress,
+            "can_unlock": total_cards >= required and not owned
+        })
+    
+    return {
+        "total_cards": total_cards,
+        "rare_cards": rare_cards_status,
+        "newly_unlocked": newly_unlocked
+    }
+
+@api_router.get("/cards/rare")
+async def get_rare_cards():
+    """Get all rare achievement cards"""
+    rare_cards = await db.cards.find({"rarity": "rare"}).to_list(100)
+    return [Card(**card) for card in rare_cards]
 
 # =====================
 # Goals System
