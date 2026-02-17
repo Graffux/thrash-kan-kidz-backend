@@ -270,6 +270,8 @@ export default function TradeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
+      <View style={styles.backgroundOverlay} />
       <View style={styles.header}>
         <View>
           <Text style={styles.title}>Trade Center</Text>
