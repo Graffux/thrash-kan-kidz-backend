@@ -642,12 +642,6 @@ async def check_user_rare_cards(user_id: str):
         "newly_unlocked": newly_unlocked
     }
 
-@api_router.get("/cards/rare")
-async def get_rare_cards():
-    """Get all rare achievement cards"""
-    rare_cards = await db.cards.find({"rarity": "rare"}).to_list(100)
-    return [Card(**card) for card in rare_cards]
-
 # =====================
 # Goals System
 # =====================
