@@ -279,13 +279,24 @@ const styles = StyleSheet.create({
     marginTop: 16,
     textAlign: 'center',
   },
+  logoImage: {
+    width: '100%',
+    height: 150,
+    marginBottom: 32,
+  },
+  creditText: {
+    color: '#666',
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 24,
+  },
   subtitle: {
     fontSize: 18,
     color: '#888',
     marginTop: 8,
   },
   inputContainer: {
-    gap: 16,
+    marginBottom: 16,
   },
   input: {
     backgroundColor: 'rgba(26, 26, 46, 0.9)',
@@ -295,6 +306,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderWidth: 1,
     borderColor: 'rgba(255, 215, 0, 0.3)',
+    marginBottom: 16,
   },
   loginButton: {
     backgroundColor: '#FFD700',
