@@ -207,13 +207,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const purchaseCard = async (cardId: string) => {
     if (!user) throw new Error('Not logged in');
     
-    await axios.post(`${API_URL}/api/users/${user.id}/purchase-card`, {
+    const response = await axios.post(`${API_URL}/api/users/${user.id}/purchase-card`, {
       user_id: user.id,
       card_id: cardId
     });
     
     // Refresh data
     await refreshData();
+    
+    // Return the response data (includes newly_unlocked_rare_card if any)
+    return response.data;
   };
 
   const updateProfile = async (bio: string) => {
