@@ -123,6 +123,14 @@ CARD_IMAGE_URLS = {
     "scott_eaten": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgbfbhem_file_00000000499871f888b862576600e427.png"
 }
 
+CARD_BACK_IMAGE_URLS = {
+    "silly_mille": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/xnbwdtzm_enhanced-1771276393918.jpg",
+    "scotch_ian": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/z1p5iwct_enhanced-1771276079050.jpg",
+    "chuck_roast": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/k748ickv_enhanced-1771277329420.jpg",
+    "cliff_burpin": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zonv9a4q_enhanced-1771277427890.jpg",
+    "scott_eaten": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/203eblu2_enhanced-1771276134869.jpg"
+}
+
 INITIAL_CARDS = [
     {
         "id": "card_silly_mille",
