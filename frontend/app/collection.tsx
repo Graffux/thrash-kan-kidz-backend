@@ -8,7 +8,6 @@ import {
   Image,
   Modal,
   Dimensions,
-  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,7 +17,9 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   interpolate,
+  runOnJS,
 } from 'react-native-reanimated';
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 48) / 2;
@@ -40,11 +41,119 @@ interface UserCard {
   acquired_at: string;
 }
 
+// Flippable Card Component
+const FlippableCard = ({ 
+  userCard, 
+  isOwned, 
+  onPress 
+}: { 
+  userCard: UserCard; 
+  isOwned: boolean; 
+  onPress: () => void;
+}) => {
+  const flipProgress = useSharedValue(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const flipCard = () => {
+    const newValue = isFlipped ? 0 : 1;
+    flipProgress.value = withTiming(newValue, { duration: 400 });
+    setIsFlipped(!isFlipped);
+  };
+
+  // Swipe gesture for flipping
+  const swipeGesture = Gesture.Pan()
+    .onEnd((event) => {
+      if (Math.abs(event.velocityX) > 200 || Math.abs(event.translationX) > 50) {
+        runOnJS(flipCard)();
+      }
+    });
+
+  // Tap gesture for modal
+  const tapGesture = Gesture.Tap()
+    .onEnd(() => {
+      if (isOwned) {
+        runOnJS(onPress)();
+      }
+    });
+
+  const composedGesture = Gesture.Race(swipeGesture, tapGesture);
+
+  const frontAnimatedStyle = useAnimatedStyle(() => {
+    const rotateY = interpolate(flipProgress.value, [0, 1], [0, 180]);
+    return {
+      transform: [{ perspective: 1000 }, { rotateY: `${rotateY}deg` }],
+      backfaceVisibility: 'hidden',
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    };
+  });
+
+  const backAnimatedStyle = useAnimatedStyle(() => {
+    const rotateY = interpolate(flipProgress.value, [0, 1], [180, 360]);
+    return {
+      transform: [{ perspective: 1000 }, { rotateY: `${rotateY}deg` }],
+      backfaceVisibility: 'hidden',
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    };
+  });
+
+  return (
+    <GestureDetector gesture={composedGesture}>
+      <View style={[styles.cardContainer, !isOwned && styles.cardLocked]}>
+        {/* Front of card */}
+        <Animated.View style={frontAnimatedStyle}>
+          <Image
+            source={{ uri: userCard.card.front_image_url }}
+            style={[styles.cardImage, !isOwned && styles.cardImageLocked]}
+            resizeMode="cover"
+          />
+          {!isOwned && (
+            <View style={styles.lockedOverlay}>
+              <Ionicons name="lock-closed" size={32} color="#fff" />
+            </View>
+          )}
+          {userCard.quantity > 1 && (
+            <View style={styles.quantityBadge}>
+              <Text style={styles.quantityText}>x{userCard.quantity}</Text>
+            </View>
+          )}
+        </Animated.View>
+
+        {/* Back of card */}
+        <Animated.View style={[backAnimatedStyle]}>
+          <View style={styles.cardBack}>
+            <View style={styles.cardBackInner}>
+              <Text style={styles.cardBackTitle}>THRASH</Text>
+              <Text style={styles.cardBackTitle}>KAN</Text>
+              <Text style={styles.cardBackTitle}>KIDZ</Text>
+              <View style={styles.cardBackIcon}>
+                <Ionicons name="flame" size={40} color="#FF4500" />
+              </View>
+              <Text style={styles.cardBackName}>{userCard.card.name}</Text>
+            </View>
+            <View style={styles.cardBackBorder} />
+          </View>
+        </Animated.View>
+
+        {/* Swipe hint */}
+        {isOwned && (
+          <View style={styles.swipeHint}>
+            <Ionicons name="swap-horizontal" size={14} color="#666" />
+          </View>
+        )}
+      </View>
+    </GestureDetector>
+  );
+};
+
 export default function CollectionScreen() {
-  const { user, userCards, allCards, loading } = useApp();
+  const { user, userCards, allCards } = useApp();
   const [selectedCard, setSelectedCard] = useState<UserCard | null>(null);
   const [filter, setFilter] = useState<'all' | 'owned' | 'missing'>('all');
-  const flipAnimation = useSharedValue(0);
+  const modalFlipProgress = useSharedValue(0);
 
   if (!user) {
     return (
@@ -73,7 +182,6 @@ export default function CollectionScreen() {
             acquired_at: '',
           }));
       default:
-        // Show all cards, with owned ones first
         const owned = userCards;
         const missing = allCards
           .filter(card => !ownedCardIds.has(card.id))
@@ -89,165 +197,119 @@ export default function CollectionScreen() {
 
   const filteredCards = getFilteredCards();
 
-  const flipCard = () => {
-    flipAnimation.value = withTiming(flipAnimation.value === 0 ? 1 : 0, { duration: 500 });
+  const flipModalCard = () => {
+    modalFlipProgress.value = withTiming(modalFlipProgress.value === 0 ? 1 : 0, { duration: 500 });
   };
 
-  const frontAnimatedStyle = useAnimatedStyle(() => {
-    const rotateY = interpolate(flipAnimation.value, [0, 1], [0, 180]);
+  const modalFrontStyle = useAnimatedStyle(() => {
+    const rotateY = interpolate(modalFlipProgress.value, [0, 1], [0, 180]);
     return {
-      transform: [{ rotateY: `${rotateY}deg` }],
+      transform: [{ perspective: 1000 }, { rotateY: `${rotateY}deg` }],
       backfaceVisibility: 'hidden',
     };
   });
 
-  const backAnimatedStyle = useAnimatedStyle(() => {
-    const rotateY = interpolate(flipAnimation.value, [0, 1], [180, 360]);
+  const modalBackStyle = useAnimatedStyle(() => {
+    const rotateY = interpolate(modalFlipProgress.value, [0, 1], [180, 360]);
     return {
-      transform: [{ rotateY: `${rotateY}deg` }],
+      transform: [{ perspective: 1000 }, { rotateY: `${rotateY}deg` }],
       backfaceVisibility: 'hidden',
     };
   });
-
-  const getRarityColor = (rarity: string) => {
-    switch (rarity) {
-      case 'common':
-        return '#808080';
-      case 'rare':
-        return '#4169E1';
-      case 'epic':
-        return '#9932CC';
-      default:
-        return '#808080';
-    }
-  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>My Collection</Text>
-        <Text style={styles.subtitle}>
-          {userCards.length} / {allCards.length} Cards
-        </Text>
-      </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>My Collection</Text>
+          <Text style={styles.subtitle}>
+            {userCards.length} / {allCards.length} Cards • Swipe to flip!
+          </Text>
+        </View>
 
-      {/* Filter Tabs */}
-      <View style={styles.filterContainer}>
-        {(['all', 'owned', 'missing'] as const).map((f) => (
-          <TouchableOpacity
-            key={f}
-            style={[styles.filterTab, filter === f && styles.filterTabActive]}
-            onPress={() => setFilter(f)}
-          >
-            <Text style={[styles.filterText, filter === f && styles.filterTextActive]}>
-              {f.charAt(0).toUpperCase() + f.slice(1)}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <View style={styles.cardsGrid}>
-          {filteredCards.map((uc) => (
+        {/* Filter Tabs */}
+        <View style={styles.filterContainer}>
+          {(['all', 'owned', 'missing'] as const).map((f) => (
             <TouchableOpacity
-              key={uc.user_card_id}
-              style={[
-                styles.cardContainer,
-                uc.quantity === 0 && styles.cardLocked,
-              ]}
-              onPress={() => {
-                if (uc.quantity > 0) {
-                  setSelectedCard(uc);
-                  flipAnimation.value = 0;
-                }
-              }}
-              disabled={uc.quantity === 0}
+              key={f}
+              style={[styles.filterTab, filter === f && styles.filterTabActive]}
+              onPress={() => setFilter(f)}
             >
-              <Image
-                source={{ uri: uc.card.front_image_url }}
-                style={[
-                  styles.cardImage,
-                  uc.quantity === 0 && styles.cardImageLocked,
-                ]}
-                resizeMode="cover"
-              />
-              {uc.quantity === 0 && (
-                <View style={styles.lockedOverlay}>
-                  <Ionicons name="lock-closed" size={32} color="#fff" />
-                </View>
-              )}
-              <View
-                style={[styles.rarityBadge, { backgroundColor: getRarityColor(uc.card.rarity) }]}
-              >
-                <Text style={styles.rarityText}>{uc.card.rarity.toUpperCase()}</Text>
-              </View>
-              {uc.quantity > 1 && (
-                <View style={styles.quantityBadge}>
-                  <Text style={styles.quantityText}>x{uc.quantity}</Text>
-                </View>
-              )}
+              <Text style={[styles.filterText, filter === f && styles.filterTextActive]}>
+                {f.charAt(0).toUpperCase() + f.slice(1)}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
-      </ScrollView>
 
-      {/* Card Detail Modal */}
-      <Modal
-        visible={selectedCard !== null}
-        animationType="fade"
-        transparent
-        onRequestClose={() => setSelectedCard(null)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setSelectedCard(null)}
-            >
-              <Ionicons name="close" size={24} color="#fff" />
-            </TouchableOpacity>
-
-            {selectedCard && (
-              <TouchableOpacity onPress={flipCard} activeOpacity={0.9}>
-                <View style={styles.cardDetailContainer}>
-                  <Animated.View style={[styles.cardFace, frontAnimatedStyle]}>
-                    <Image
-                      source={{ uri: selectedCard.card.front_image_url }}
-                      style={styles.cardDetailImage}
-                      resizeMode="cover"
-                    />
-                  </Animated.View>
-                  <Animated.View style={[styles.cardFace, styles.cardBack, backAnimatedStyle]}>
-                    <View style={styles.cardBackContent}>
-                      <Text style={styles.cardName}>{selectedCard.card.name}</Text>
-                      <View
-                        style={[
-                          styles.detailRarityBadge,
-                          { backgroundColor: getRarityColor(selectedCard.card.rarity) },
-                        ]}
-                      >
-                        <Text style={styles.detailRarityText}>
-                          {selectedCard.card.rarity.toUpperCase()}
-                        </Text>
-                      </View>
-                      <Text style={styles.cardDescription}>
-                        {selectedCard.card.description}
-                      </Text>
-                      <View style={styles.cardStats}>
-                        <Text style={styles.statLabel}>Owned:</Text>
-                        <Text style={styles.statValue}>x{selectedCard.quantity}</Text>
-                      </View>
-                    </View>
-                  </Animated.View>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            <Text style={styles.tapHint}>Tap card to flip</Text>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <View style={styles.cardsGrid}>
+            {filteredCards.map((uc) => (
+              <FlippableCard
+                key={uc.user_card_id}
+                userCard={uc}
+                isOwned={uc.quantity > 0}
+                onPress={() => {
+                  setSelectedCard(uc);
+                  modalFlipProgress.value = 0;
+                }}
+              />
+            ))}
           </View>
-        </View>
-      </Modal>
-    </SafeAreaView>
+        </ScrollView>
+
+        {/* Card Detail Modal */}
+        <Modal
+          visible={selectedCard !== null}
+          animationType="fade"
+          transparent
+          onRequestClose={() => setSelectedCard(null)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => setSelectedCard(null)}
+              >
+                <Ionicons name="close" size={24} color="#fff" />
+              </TouchableOpacity>
+
+              {selectedCard && (
+                <TouchableOpacity onPress={flipModalCard} activeOpacity={0.9}>
+                  <View style={styles.cardDetailContainer}>
+                    <Animated.View style={[styles.cardFace, modalFrontStyle]}>
+                      <Image
+                        source={{ uri: selectedCard.card.front_image_url }}
+                        style={styles.cardDetailImage}
+                        resizeMode="cover"
+                      />
+                    </Animated.View>
+                    <Animated.View style={[styles.cardFace, styles.cardBackModal, modalBackStyle]}>
+                      <View style={styles.cardBackContentModal}>
+                        <Text style={styles.modalCardBackTitle}>THRASH KAN KIDZ</Text>
+                        <View style={styles.modalCardBackIcon}>
+                          <Ionicons name="flame" size={60} color="#FF4500" />
+                        </View>
+                        <Text style={styles.cardName}>{selectedCard.card.name}</Text>
+                        <Text style={styles.cardDescription}>
+                          {selectedCard.card.description}
+                        </Text>
+                        <View style={styles.cardStats}>
+                          <Text style={styles.statLabel}>Owned:</Text>
+                          <Text style={styles.statValue}>x{selectedCard.quantity}</Text>
+                        </View>
+                      </View>
+                    </Animated.View>
+                  </View>
+                </TouchableOpacity>
+              )}
+
+              <Text style={styles.tapHint}>Tap card to flip</Text>
+            </View>
+          </View>
+        </Modal>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
@@ -312,15 +374,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 16,
-    gap: 16,
+    justifyContent: 'space-between',
     paddingBottom: 24,
   },
   cardContainer: {
-    width: CARD_WIDTH,
+    width: '48%',
     height: CARD_HEIGHT,
     borderRadius: 12,
     overflow: 'hidden',
     backgroundColor: '#1a1a2e',
+    marginBottom: 16,
   },
   cardLocked: {
     opacity: 0.5,
@@ -328,6 +391,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 12,
   },
   cardImageLocked: {
     opacity: 0.3,
@@ -337,19 +401,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  rarityBadge: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  rarityText: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: 'bold',
+    borderRadius: 12,
   },
   quantityBadge: {
     position: 'absolute',
@@ -364,6 +416,58 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  swipeHint: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 4,
+    borderRadius: 10,
+  },
+  cardBack: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#1a1a2e',
+    borderRadius: 12,
+    borderWidth: 3,
+    borderColor: '#FFD700',
+    overflow: 'hidden',
+  },
+  cardBackInner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f1a',
+    margin: 8,
+    borderRadius: 8,
+    padding: 10,
+  },
+  cardBackTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFD700',
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  cardBackIcon: {
+    marginVertical: 8,
+  },
+  cardBackName: {
+    fontSize: 12,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 4,
+  },
+  cardBackBorder: {
+    position: 'absolute',
+    top: 4,
+    left: 4,
+    right: 4,
+    bottom: 4,
+    borderWidth: 1,
+    borderColor: '#FF4500',
+    borderRadius: 10,
   },
   modalOverlay: {
     flex: 1,
@@ -393,36 +497,40 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
   },
-  cardBack: {
+  cardBackModal: {
     backgroundColor: '#1a1a2e',
+    borderWidth: 4,
+    borderColor: '#FFD700',
   },
   cardDetailImage: {
     width: '100%',
     height: '100%',
   },
-  cardBackContent: {
+  cardBackContentModal: {
     flex: 1,
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0f0f1a',
+    margin: 10,
+    borderRadius: 12,
   },
-  cardName: {
+  modalCardBackTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#FFD700',
     textAlign: 'center',
-    marginBottom: 12,
-  },
-  detailRarityBadge: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 12,
     marginBottom: 16,
   },
-  detailRarityText: {
-    color: '#fff',
-    fontSize: 14,
+  modalCardBackIcon: {
+    marginBottom: 16,
+  },
+  cardName: {
+    fontSize: 22,
     fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 12,
   },
   cardDescription: {
     color: '#ccc',
