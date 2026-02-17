@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     width: '100%',
-    height: CARD_WIDTH * 1.2,
+    height: CARD_WIDTH * 1.1,
   },
   cardInfo: {
     padding: 12,
