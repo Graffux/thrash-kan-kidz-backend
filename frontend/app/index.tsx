@@ -74,8 +74,11 @@ export default function HomeScreen() {
           style={styles.loginContainer}
         >
           <View style={styles.logoContainer}>
-            <Ionicons name="flame" size={80} color="#FF4500" />
-            <Text style={styles.title}>THRASH KAN KIDZ</Text>
+            <Image
+              source={{ uri: 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/dwd2zbom_enhanced-1771280968644.jpg' }}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
             <Text style={styles.subtitle}>Card Collector</Text>
           </View>
 
