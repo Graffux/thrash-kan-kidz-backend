@@ -145,7 +145,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["silly_mille"],
         "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_cliff_burpin",
@@ -154,7 +155,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["cliff_burpin"],
         "back_image_url": CARD_BACK_IMAGE_URLS["cliff_burpin"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_scotch_ian",
@@ -163,7 +165,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["scotch_ian"],
         "back_image_url": CARD_BACK_IMAGE_URLS["scotch_ian"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_chuck_roast",
@@ -172,7 +175,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["chuck_roast"],
         "back_image_url": CARD_BACK_IMAGE_URLS["chuck_roast"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_scott_eaten",
@@ -181,7 +185,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["scott_eaten"],
         "back_image_url": CARD_BACK_IMAGE_URLS["scott_eaten"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_tom_da_playa",
@@ -190,7 +195,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["tom_da_playa"],
         "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     },
     {
         "id": "card_billy_chuck",
@@ -199,7 +205,8 @@ INITIAL_CARDS = [
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["billy_chuck"],
         "back_image_url": CARD_BACK_IMAGE_URLS["billy_chuck"],
-        "coin_cost": 50
+        "coin_cost": 50,
+        "available": True
     }
 ]
 
