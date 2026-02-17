@@ -711,10 +711,21 @@ async def check_user_rare_cards(user_id: str):
             "can_unlock": total_cards >= required and not owned
         })
     
+    # Calculate milestone info
+    milestones_claimed = user.get("milestones_claimed", 0)
+    next_milestone_at = (milestones_claimed + 1) * 5
+    cards_to_next_milestone = max(0, next_milestone_at - total_cards)
+    
     return {
         "total_cards": total_cards,
         "rare_cards": rare_cards_status,
-        "newly_unlocked": newly_unlocked
+        "newly_unlocked": newly_unlocked,
+        "milestone_info": {
+            "milestones_claimed": milestones_claimed,
+            "next_milestone_at": next_milestone_at,
+            "cards_to_next_milestone": cards_to_next_milestone,
+            "progress_to_next": total_cards % 5
+        }
     }
 
 # =====================
