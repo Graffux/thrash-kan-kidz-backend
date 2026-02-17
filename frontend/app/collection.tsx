@@ -278,21 +278,12 @@ export default function CollectionScreen() {
                         resizeMode="cover"
                       />
                     </Animated.View>
-                    <Animated.View style={[styles.cardFace, styles.cardBackModal, modalBackStyle]}>
-                      <View style={styles.cardBackContentModal}>
-                        <Text style={styles.modalCardBackTitle}>THRASH KAN KIDZ</Text>
-                        <View style={styles.modalCardBackIcon}>
-                          <Ionicons name="flame" size={60} color="#FF4500" />
-                        </View>
-                        <Text style={styles.cardName}>{selectedCard.card.name}</Text>
-                        <Text style={styles.cardDescription}>
-                          {selectedCard.card.description}
-                        </Text>
-                        <View style={styles.cardStats}>
-                          <Text style={styles.statLabel}>Owned:</Text>
-                          <Text style={styles.statValue}>x{selectedCard.quantity}</Text>
-                        </View>
-                      </View>
+                    <Animated.View style={[styles.cardFace, modalBackStyle]}>
+                      <Image
+                        source={{ uri: selectedCard.card.back_image_url }}
+                        style={styles.cardDetailImage}
+                        resizeMode="cover"
+                      />
                     </Animated.View>
                   </View>
                 </TouchableOpacity>
