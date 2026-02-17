@@ -69,40 +69,39 @@ export default function HomeScreen() {
   if (!user) {
     return (
       <SafeAreaView style={styles.container}>
+        <Image
+          source={{ uri: 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg' }}
+          style={styles.backgroundImage}
+          resizeMode="cover"
+        />
+        <View style={styles.backgroundOverlay} />
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.loginContainer}
         >
-          <View style={styles.logoContainer}>
-            <Image
-              source={{ uri: 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/dwd2zbom_enhanced-1771280968644.jpg' }}
-              style={styles.logoImage}
-              resizeMode="contain"
-            />
-            <Text style={styles.subtitle}>Card Collector</Text>
-          </View>
-
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your username"
-              placeholderTextColor="#666"
-              value={username}
-              onChangeText={setUsername}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <TouchableOpacity
-              style={styles.loginButton}
-              onPress={handleLogin}
-              disabled={isLoggingIn}
-            >
-              {isLoggingIn ? (
-                <ActivityIndicator color="#000" />
-              ) : (
-                <Text style={styles.loginButtonText}>START COLLECTING</Text>
-              )}
-            </TouchableOpacity>
+          <View style={styles.loginContent}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your username"
+                placeholderTextColor="#999"
+                value={username}
+                onChangeText={setUsername}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={handleLogin}
+                disabled={isLoggingIn}
+              >
+                {isLoggingIn ? (
+                  <ActivityIndicator color="#000" />
+                ) : (
+                  <Text style={styles.loginButtonText}>START COLLECTING</Text>
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
