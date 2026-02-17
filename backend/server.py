@@ -340,6 +340,16 @@ async def seed_database():
             card = Card(**card_data)
             await db.cards.insert_one(card.dict())
             logger.info(f"Seeded card: {card.name}")
+        else:
+            # Update existing cards with new fields (like achievement_required for rare cards)
+            update_fields = {}
+            if card_data.get("achievement_required") is not None:
+                update_fields["achievement_required"] = card_data["achievement_required"]
+            if card_data.get("rarity") != existing.get("rarity"):
+                update_fields["rarity"] = card_data["rarity"]
+            if update_fields:
+                await db.cards.update_one({"id": card_data["id"]}, {"$set": update_fields})
+                logger.info(f"Updated card: {card_data['name']} with {update_fields}")
     
     # Seed goals
     for goal_data in INITIAL_GOALS:
