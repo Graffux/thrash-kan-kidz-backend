@@ -195,6 +195,18 @@ backend:
         agent: "testing"
         comment: "✅ PASS: Trading system working completely. Created second user (ThrashCollector2024), both users purchased different cards. POST /api/trades successfully creates trade offer (User1 offers Silly Mille for User2's Cliff Burpin) with pending status. POST /api/trades/{id}/action with action='accept' properly completes trade, transferring cards between users"
 
+  - task: "Rare card achievement system APIs"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS: Rare card achievement system working perfectly. GET /api/cards/rare returns 2 rare cards (Martin Van Druid: 10 cards required, Tardy Donald: 20 cards required). GET /api/users/{user_id}/check-rare-cards returns correct structure with total_cards count, rare_cards array with progress info (card, owned, required_cards, progress, can_unlock fields), and newly_unlocked field. POST /api/users/{user_id}/purchase-card includes newly_unlocked_rare_card field in response. Achievement tracking accurate: user with 2 cards shows 2/10 progress for Martin Van Druid and 2/20 for Tardy Donald"
+
 frontend:
   - task: "Home screen with login"
     implemented: true
