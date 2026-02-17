@@ -24,6 +24,7 @@ interface Card {
   front_image_url: string;
   back_image_url: string;
   coin_cost: number;
+  available: boolean;
   created_at: string;
 }
 
