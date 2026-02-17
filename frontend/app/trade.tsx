@@ -14,6 +14,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
 
+const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
+
 export default function TradeScreen() {
   const {
     user,
@@ -37,8 +39,10 @@ export default function TradeScreen() {
   if (!user) {
     return (
       <SafeAreaView style={styles.container}>
+        <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
+        <View style={styles.backgroundOverlay} />
         <View style={styles.centerContainer}>
-          <Ionicons name="lock-closed" size={64} color="#666" />
+          <Text style={styles.lockIcon}>🔒</Text>
           <Text style={styles.lockedText}>Please login to trade cards</Text>
         </View>
       </SafeAreaView>
