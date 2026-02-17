@@ -318,6 +318,69 @@ export default function ShopScreen() {
           ))}
         </View>
 
+        {/* Epic Streak Cards Section */}
+        {epicCardsStatus.length > 0 && (
+          <>
+            <View style={styles.epicSectionHeader}>
+              <Text style={styles.epicSectionTitle}>🔥 Epic Streak Cards 🔥</Text>
+              <Text style={styles.epicSectionSubtitle}>Login daily to unlock these legendary cards!</Text>
+              <Text style={styles.epicStreakText}>Current Streak: {currentStreak} days</Text>
+            </View>
+            
+            <View style={styles.rareCardsGrid}>
+              {epicCardsStatus.map((epicStatus) => (
+                <View 
+                  key={epicStatus.card.id} 
+                  style={[
+                    styles.epicCard,
+                    epicStatus.owned && styles.epicCardOwned
+                  ]}
+                >
+                  {epicStatus.owned ? (
+                    <Image
+                      source={{ uri: epicStatus.card.front_image_url }}
+                      style={styles.rareCardImage}
+                      resizeMode="cover"
+                    />
+                  ) : (
+                    <View style={styles.rareBlurContainer}>
+                      <Image
+                        source={{ uri: epicStatus.card.front_image_url }}
+                        style={[styles.rareCardImage, styles.blurredImage]}
+                        resizeMode="cover"
+                        blurRadius={25}
+                      />
+                      <View style={styles.epicLockedOverlay}>
+                        <Text style={styles.epicLockedIcon}>🔒</Text>
+                        <Text style={styles.epicRequirement}>
+                          {epicStatus.required_streak} day streak
+                        </Text>
+                        <View style={styles.progressBarContainer}>
+                          <View 
+                            style={[
+                              styles.epicProgressBar,
+                              { width: `${Math.min((epicStatus.progress / epicStatus.required_streak) * 100, 100)}%` }
+                            ]} 
+                          />
+                        </View>
+                        <Text style={styles.progressNumbers}>
+                          {epicStatus.progress}/{epicStatus.required_streak} days
+                        </Text>
+                      </View>
+                    </View>
+                  )}
+                  <View style={styles.epicCardInfo}>
+                    <Text style={styles.epicCardName}>{epicStatus.card.name}</Text>
+                    {epicStatus.owned && (
+                      <Text style={styles.epicOwnedBadge}>🔥 UNLOCKED</Text>
+                    )}
+                  </View>
+                </View>
+              ))}
+            </View>
+          </>
+        )}
+
         {/* Available Cards */}
         <Text style={styles.sectionTitle}>Thrash Kan Kidz Cards</Text>
         <View style={styles.cardsGrid}>
