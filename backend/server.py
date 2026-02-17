@@ -570,12 +570,77 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     # Check for rare card achievements
     newly_unlocked_rare = await check_rare_card_achievements(user_id)
     
+    # Check for milestone rewards (free card every 5 cards)
+    milestone_reward = await check_milestone_reward(user_id)
+    
     return {
         "success": True,
         "remaining_coins": new_coins,
         "card": Card(**card),
-        "newly_unlocked_rare_card": newly_unlocked_rare
+        "newly_unlocked_rare_card": newly_unlocked_rare,
+        "milestone_reward": milestone_reward
     }
+
+# =====================
+# Milestone Reward System
+# =====================
+
+async def check_milestone_reward(user_id: str):
+    """Award a free common card every 5 cards collected"""
+    # Get user's total cards (including duplicates)
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
+    total_cards = sum(uc.get("quantity", 1) for uc in user_cards)
+    
+    # Get user's milestone tracking (how many milestones have been claimed)
+    user = await db.users.find_one({"id": user_id})
+    milestones_claimed = user.get("milestones_claimed", 0)
+    
+    # Calculate how many milestones user should have based on total cards
+    milestones_earned = total_cards // 5
+    
+    # If user has earned a new milestone they haven't claimed yet
+    if milestones_earned > milestones_claimed:
+        # Get all available common cards
+        common_cards = await db.cards.find({
+            "rarity": "common", 
+            "available": True
+        }).to_list(100)
+        
+        if common_cards:
+            import random
+            # Pick a random common card
+            reward_card = random.choice(common_cards)
+            
+            # Add card to user's collection
+            existing_user_card = await db.user_cards.find_one({
+                "user_id": user_id,
+                "card_id": reward_card["id"]
+            })
+            
+            if existing_user_card:
+                await db.user_cards.update_one(
+                    {"_id": existing_user_card["_id"]},
+                    {"$inc": {"quantity": 1}}
+                )
+            else:
+                user_card = UserCard(user_id=user_id, card_id=reward_card["id"])
+                await db.user_cards.insert_one(user_card.dict())
+            
+            # Update user's milestone count
+            await db.users.update_one(
+                {"id": user_id},
+                {"$set": {"milestones_claimed": milestones_claimed + 1}}
+            )
+            
+            logger.info(f"User {user_id} received milestone reward: {reward_card['name']} (milestone {milestones_claimed + 1})")
+            
+            return {
+                "milestone_number": milestones_claimed + 1,
+                "card": Card(**reward_card),
+                "next_milestone_at": (milestones_claimed + 2) * 5
+            }
+    
+    return None
 
 # =====================
 # Rare Card Achievement System
