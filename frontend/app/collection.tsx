@@ -405,28 +405,29 @@ const styles = StyleSheet.create({
   cardsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 16,
-    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    justifyContent: 'flex-start',
     paddingBottom: 24,
   },
   cardContainer: {
-    width: '48%',
+    width: CARD_WIDTH,
     height: CARD_HEIGHT,
-    borderRadius: 12,
+    borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: '#1a1a2e',
-    marginBottom: 16,
+    marginBottom: 12,
+    marginHorizontal: 4,
   },
   cardLocked: {
-    opacity: 0.5,
+    opacity: 0.7,
   },
   cardImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 12,
+    borderRadius: 10,
   },
   cardImageLocked: {
-    opacity: 0.3,
+    opacity: 0.4,
   },
   cardImageComingSoon: {
     opacity: 0.5,
