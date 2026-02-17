@@ -147,7 +147,7 @@ export default function ShopScreen() {
                       blurRadius={15}
                     />
                     <View style={styles.comingSoonOverlay}>
-                      <Ionicons name="time" size={32} color="#FFD700" />
+                      <Ionicons name="time-outline" size={32} color="#FFD700" />
                       <Text style={styles.comingSoonText}>COMING</Text>
                       <Text style={styles.comingSoonText}>SOON</Text>
                     </View>
