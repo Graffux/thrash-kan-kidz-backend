@@ -118,7 +118,7 @@ export default function ShopScreen() {
                   <ActivityIndicator size="small" color="#000" />
                 ) : (
                   <>
-                    <Ionicons name="cash-outline" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
+                    <Ionicons name="logo-usd" size={16} color={user.coins >= card.coin_cost ? '#000' : '#666'} />
                     <Text style={[
                       styles.buyButtonText,
                       user.coins < card.coin_cost && styles.buyButtonTextDisabled
