@@ -144,10 +144,15 @@ const FlippableCard = ({
           />
         </Animated.View>
 
+        {/* Card name badge */}
+        <View style={styles.cardNameBadge}>
+          <Text style={styles.cardNameText} numberOfLines={1}>{userCard.card.name}</Text>
+        </View>
+
         {/* Swipe hint */}
         {isOwned && (
           <View style={styles.swipeHint}>
-            <Ionicons name="swap-horizontal" size={14} color="#666" />
+            <Text style={styles.swipeHintText}>↔</Text>
           </View>
         )}
       </View>
