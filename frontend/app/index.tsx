@@ -279,13 +279,13 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   input: {
-    backgroundColor: '#1a1a2e',
+    backgroundColor: 'rgba(26, 26, 46, 0.9)',
     borderRadius: 12,
     padding: 16,
     fontSize: 16,
     color: '#fff',
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: 'rgba(255, 215, 0, 0.3)',
   },
   loginButton: {
     backgroundColor: '#FFD700',
