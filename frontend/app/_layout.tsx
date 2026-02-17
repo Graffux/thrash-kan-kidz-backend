@@ -83,4 +83,10 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
   },
+  tabIcon: {
+    fontSize: 24,
+  },
+  tabIconFocused: {
+    transform: [{ scale: 1.1 }],
+  },
 });
