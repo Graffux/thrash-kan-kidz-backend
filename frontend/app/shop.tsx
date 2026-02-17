@@ -451,10 +451,52 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 8,
   },
+  // Milestone Banner
+  milestoneBanner: {
+    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#4CAF50',
+  },
+  milestoneTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#4CAF50',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  milestoneSubtitle: {
+    fontSize: 14,
+    color: '#ccc',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  milestoneProgressContainer: {
+    alignItems: 'center',
+  },
+  milestoneProgressBar: {
+    width: '100%',
+    height: 12,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderRadius: 6,
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  milestoneProgressFill: {
+    height: '100%',
+    backgroundColor: '#4CAF50',
+    borderRadius: 6,
+  },
+  milestoneProgressText: {
+    color: '#4CAF50',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   // Rare Cards Section
   rareSectionHeader: {
-    backgroundColor: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-    backgroundColor: '#2a1a00',
+    backgroundColor: 'rgba(42, 26, 0, 0.9)',
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
