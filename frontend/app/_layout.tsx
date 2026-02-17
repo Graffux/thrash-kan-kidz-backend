@@ -21,7 +21,7 @@ export default function TabLayout() {
           options={{
             title: 'Home',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" size={size} color={color} />
+              <Ionicons name="home-outline" size={size} color={color} />
             ),
           }}
         />
@@ -30,7 +30,7 @@ export default function TabLayout() {
           options={{
             title: 'Collection',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="albums" size={size} color={color} />
+              <Ionicons name="layers-outline" size={size} color={color} />
             ),
           }}
         />
@@ -39,7 +39,7 @@ export default function TabLayout() {
           options={{
             title: 'Shop',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="cart" size={size} color={color} />
+              <Ionicons name="cart-outline" size={size} color={color} />
             ),
           }}
         />
@@ -48,7 +48,7 @@ export default function TabLayout() {
           options={{
             title: 'Goals',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="trophy" size={size} color={color} />
+              <Ionicons name="trophy-outline" size={size} color={color} />
             ),
           }}
         />
@@ -57,7 +57,7 @@ export default function TabLayout() {
           options={{
             title: 'Trade',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="swap-horizontal" size={size} color={color} />
+              <Ionicons name="swap-horizontal-outline" size={size} color={color} />
             ),
           }}
         />
