@@ -251,9 +251,9 @@ INITIAL_GOALS = [
     {
         "id": "goal_collect_all",
         "title": "Thrash Master",
-        "description": "Collect all 5 Thrash Kan Kidz cards",
+        "description": "Collect all 7 Thrash Kan Kidz cards",
         "goal_type": "collect_cards",
-        "target_value": 5,
+        "target_value": 7,
         "reward_coins": 500,
         "reward_card_id": None
     }
