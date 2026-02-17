@@ -359,6 +359,12 @@ async def get_all_cards():
     cards = await db.cards.find().to_list(100)
     return [Card(**card) for card in cards]
 
+@api_router.get("/cards/rare")
+async def get_rare_cards():
+    """Get all rare achievement cards"""
+    rare_cards = await db.cards.find({"rarity": "rare"}).to_list(100)
+    return [Card(**rare_card) for rare_card in rare_cards]
+
 @api_router.get("/cards/{card_id}")
 async def get_card(card_id: str):
     """Get a specific card"""
