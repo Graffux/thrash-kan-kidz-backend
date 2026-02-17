@@ -141,8 +141,8 @@ export default function ShopScreen() {
                 Alert.alert('Success!', `You got ${cardName}!`);
               }
               
-              // Refresh rare card status
-              await fetchRareCardStatus();
+              // Refresh card status
+              await fetchCardStatus();
             } catch (error: any) {
               Alert.alert('Error', error.response?.data?.detail || 'Failed to purchase card');
             } finally {
