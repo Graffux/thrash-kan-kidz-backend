@@ -125,18 +125,11 @@ const FlippableCard = ({
 
         {/* Back of card */}
         <Animated.View style={[backAnimatedStyle]}>
-          <View style={styles.cardBack}>
-            <View style={styles.cardBackInner}>
-              <Text style={styles.cardBackTitle}>THRASH</Text>
-              <Text style={styles.cardBackTitle}>KAN</Text>
-              <Text style={styles.cardBackTitle}>KIDZ</Text>
-              <View style={styles.cardBackIcon}>
-                <Ionicons name="flame" size={40} color="#FF4500" />
-              </View>
-              <Text style={styles.cardBackName}>{userCard.card.name}</Text>
-            </View>
-            <View style={styles.cardBackBorder} />
-          </View>
+          <Image
+            source={{ uri: userCard.card.back_image_url }}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
         </Animated.View>
 
         {/* Swipe hint */}
