@@ -274,6 +274,29 @@ INITIAL_CARDS = [
         "coin_cost": 0,  # Cannot be purchased
         "available": False,  # Achievement only
         "achievement_required": 20  # Unlocked at 20 cards
+    },
+    # EPIC STREAK CARDS - Unlocked by consecutive login days
+    {
+        "id": "card_tom_angeltipper",
+        "name": "Tom Angeltipper",
+        "description": "From the band Sodum! Once a month, Tom Angeltipper drinks ten shots of Schnapps and tosses ten angels off clouds. Why do angels fall? Because they're easily led!...OFF LEDGES!",
+        "rarity": "epic",
+        "front_image_url": CARD_IMAGE_URLS["tom_angeltipper"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_angeltipper"],
+        "coin_cost": 0,  # Cannot be purchased
+        "available": False,  # Streak reward only
+        "streak_required": 7  # Unlocked at 7 day streak
+    },
+    {
+        "id": "card_tom_angelflipper",
+        "name": "Tom Angelflipper",
+        "description": "From the band Sodumb! He's the reason angels had to sign a health waiver. Once a month he flips angels upside down while chugging beer. The ultimate thrash legend!",
+        "rarity": "epic",
+        "front_image_url": CARD_IMAGE_URLS["tom_angelflipper"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_angelflipper"],
+        "coin_cost": 0,  # Cannot be purchased
+        "available": False,  # Streak reward only
+        "streak_required": 14  # Unlocked at 14 day streak
     }
 ]
 
