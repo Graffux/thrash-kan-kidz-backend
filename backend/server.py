@@ -126,7 +126,10 @@ CARD_IMAGE_URLS = {
     "tom_da_playa": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/x9pn7yxa_enhanced-1771255929218.jpg",
     "billy_chuck": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/u4fz71ye_enhanced-1771256129678.jpg",
     "cliff_diver": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/9ty58q1e_enhanced-1771255741945.jpg",
-    "blood_bonder": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/17uzbwmx_enhanced-1771256230913.jpg"
+    "blood_bonder": "https://customer-assets.emergentagent.com/job_earn-cards/artifacts/17uzbwmx_enhanced-1771256230913.jpg",
+    # Rare achievement cards
+    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/1qvok3an_file_00000000b1bc71fda2cfbe35b2441dbe.png",
+    "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/4jtbdfkr_file_00000000bef871fdb4e76de0e490ad1a.png"
 }
 
 CARD_BACK_IMAGE_URLS = {
