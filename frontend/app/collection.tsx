@@ -108,12 +108,24 @@ const FlippableCard = ({
         <Animated.View style={frontAnimatedStyle}>
           <Image
             source={{ uri: userCard.card.front_image_url }}
-            style={[styles.cardImage, !isOwned && styles.cardImageLocked]}
+            style={[
+              styles.cardImage, 
+              !isOwned && styles.cardImageLocked,
+              userCard.card.available === false && styles.cardImageComingSoon
+            ]}
             resizeMode="cover"
+            blurRadius={userCard.card.available === false ? 10 : 0}
           />
-          {!isOwned && (
+          {!isOwned && userCard.card.available !== false && (
             <View style={styles.lockedOverlay}>
-              <Ionicons name="lock-closed" size={32} color="#fff" />
+              <Text style={styles.lockedIcon}>🔒</Text>
+            </View>
+          )}
+          {userCard.card.available === false && (
+            <View style={styles.comingSoonOverlay}>
+              <Text style={styles.comingSoonIcon}>⏰</Text>
+              <Text style={styles.comingSoonText}>COMING</Text>
+              <Text style={styles.comingSoonText}>SOON</Text>
             </View>
           )}
           {userCard.quantity > 1 && (
