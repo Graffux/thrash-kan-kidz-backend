@@ -31,6 +31,7 @@ interface Card {
   description: string;
   rarity: string;
   front_image_url: string;
+  back_image_url: string;
   coin_cost: number;
 }
 
