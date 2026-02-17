@@ -34,7 +34,8 @@ class Card(BaseModel):
     name: str
     description: str
     rarity: str  # common, rare, epic
-    front_image_url: str  # URL to the image
+    front_image_url: str  # URL to the front image
+    back_image_url: str = ""  # URL to the back image
     coin_cost: int = 100
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
