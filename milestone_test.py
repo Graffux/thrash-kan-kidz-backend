@@ -32,30 +32,28 @@ class MilestoneRewardTester:
         })
 
     def create_test_user(self):
-        """Create or use existing test user"""
+        """Create test user for milestone testing"""
         print("\n=== Setting up Test User ===")
         
-        # Use the specific user ID from the request or create new user
-        test_user_id = "87d119b4-edd6-4f8a-897c-9d93dafbd1ca"
-        
+        # Create a new user for testing to ensure clean state
         try:
-            # First, try to get the existing user
-            response = requests.get(f"{self.base_url}/users/{test_user_id}", timeout=10)
+            user_data = {"username": f"MilestoneTestUser_{int(datetime.now().timestamp())}"}
+            response = requests.post(f"{self.base_url}/users", json=user_data, timeout=10)
+            
             if response.status_code == 200:
                 self.test_user = response.json()
-                self.log_test("Using existing test user", True, f"User ID: {test_user_id}")
+                self.log_test("Created new test user", True, f"User ID: {self.test_user['id']}, Username: {self.test_user['username']}")
                 return True
             else:
-                # User doesn't exist, create new one
-                user_data = {"username": f"MilestoneTestUser_{int(datetime.now().timestamp())}"}
-                response = requests.post(f"{self.base_url}/users", json=user_data, timeout=10)
-                
+                # If creation failed, try to use the specified user
+                test_user_id = "87d119b4-edd6-4f8a-897c-9d93dafbd1ca"
+                response = requests.get(f"{self.base_url}/users/{test_user_id}", timeout=10)
                 if response.status_code == 200:
                     self.test_user = response.json()
-                    self.log_test("Created new test user", True, f"User ID: {self.test_user['id']}")
+                    self.log_test("Using existing test user", True, f"User ID: {test_user_id}")
                     return True
                 else:
-                    self.log_test("Failed to create test user", False, f"Status {response.status_code}: {response.text}")
+                    self.log_test("Failed to create or find test user", False, f"Status {response.status_code}: {response.text}")
                     return False
                     
         except Exception as e:
