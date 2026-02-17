@@ -139,6 +139,7 @@ INITIAL_CARDS = [
         "description": "The wild guitarist who rocks harder than anyone! With his flying V guitar and legendary tongue-out pose, he brings the chaos to every show.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["silly_mille"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille"],
         "coin_cost": 50
     },
     {
@@ -147,6 +148,7 @@ INITIAL_CARDS = [
         "description": "The bass-slapping, fire-breathing beast! His legendary burps can melt faces from 50 feet away. Don't stand too close!",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["cliff_burpin"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["cliff_burpin"],
         "coin_cost": 50
     },
     {
@@ -155,6 +157,7 @@ INITIAL_CARDS = [
         "description": "The kilted warrior with a taste for fine spirits! His battle cry echoes through the highlands as he charges into the mosh pit.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["scotch_ian"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["scotch_ian"],
         "coin_cost": 50
     },
     {
@@ -163,6 +166,7 @@ INITIAL_CARDS = [
         "description": "The devil's own pitmaster! With his pitchfork and hellfire grill, he serves up the hottest BBQ this side of the underworld.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["chuck_roast"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["chuck_roast"],
         "coin_cost": 50
     },
     {
@@ -171,6 +175,7 @@ INITIAL_CARDS = [
         "description": "The unluckiest metalhead in the zombie apocalypse! Even undead creatures can't resist his legendary rhythm section.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["scott_eaten"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["scott_eaten"],
         "coin_cost": 50
     }
 ]
