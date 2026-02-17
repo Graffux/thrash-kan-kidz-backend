@@ -207,6 +207,18 @@ backend:
         agent: "testing"
         comment: "✅ PASS: Rare card achievement system working perfectly. GET /api/cards/rare returns 2 rare cards (Martin Van Druid: 10 cards required, Tardy Donald: 20 cards required). GET /api/users/{user_id}/check-rare-cards returns correct structure with total_cards count, rare_cards array with progress info (card, owned, required_cards, progress, can_unlock fields), and newly_unlocked field. POST /api/users/{user_id}/purchase-card includes newly_unlocked_rare_card field in response. Achievement tracking accurate: user with 2 cards shows 2/10 progress for Martin Van Druid and 2/20 for Tardy Donald"
 
+  - task: "Milestone reward system with enhanced check-rare-cards endpoint"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS: Milestone reward system fully functional. GET /api/users/{user_id}/check-rare-cards now includes milestone_info with all required fields: milestones_claimed, next_milestone_at, cards_to_next_milestone, progress_to_next. POST /api/users/{user_id}/purchase-card includes milestone_reward field (null when no milestone reached, object with milestone_number, card, next_milestone_at when milestone achieved). System correctly calculates milestones every 5 cards collected. Free common card awarded properly through milestone system. All API endpoints responding correctly with proper data structures."
+
 frontend:
   - task: "Home screen with login"
     implemented: true
