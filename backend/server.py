@@ -723,9 +723,34 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     if not card:
         raise HTTPException(status_code=404, detail="Card not found")
     
-    # Check if card is available
-    if not card.get("available", True):
-        raise HTTPException(status_code=400, detail="This card is not yet available")
+    # Check if card is available for purchase
+    card_available = card.get("available", True)
+    card_rarity = card.get("rarity", "common")
+    
+    # For rare/epic cards, check if user has unlocked them
+    if not card_available:
+        if card_rarity == "rare":
+            # Check if user has unlocked this rare card
+            unlocked_rares = user.get("unlocked_rare_cards", [])
+            if card["id"] not in unlocked_rares:
+                # Check if they should have it unlocked based on card count
+                user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
+                total_cards = sum(uc.get("quantity", 1) for uc in user_cards)
+                required = card.get("achievement_required", 0)
+                if total_cards < required:
+                    raise HTTPException(status_code=400, detail=f"Collect {required} cards to unlock this rare card")
+        elif card_rarity == "epic":
+            # Check if user has unlocked this epic card
+            unlocked_epics = user.get("unlocked_epic_cards", [])
+            if card["id"] not in unlocked_epics:
+                # Check if they should have it unlocked based on streak
+                current_streak = user.get("daily_login_streak", 0)
+                required = card.get("streak_required", 0)
+                if current_streak < required:
+                    raise HTTPException(status_code=400, detail=f"Reach a {required}-day login streak to unlock this epic card")
+        else:
+            # Coming soon cards - not purchasable
+            raise HTTPException(status_code=400, detail="This card is not yet available")
     
     if user.get("coins", 0) < card["coin_cost"]:
         raise HTTPException(status_code=400, detail="Not enough coins")
