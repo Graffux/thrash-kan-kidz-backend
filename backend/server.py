@@ -134,7 +134,13 @@ CARD_IMAGE_URLS = {
     "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/4jtbdfkr_file_00000000bef871fdb4e76de0e490ad1a.png",
     # Epic streak cards
     "tom_angeltipper": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/ils699vw_file_00000000f3cc71fda6baa4d7c29e92a0.png",
-    "tom_angelflipper": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/38vylb1j_file_00000000617471fd90c3846604962dda.png"
+    "tom_angelflipper": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/38vylb1j_file_00000000617471fd90c3846604962dda.png",
+    # Coming Soon cards (Wave 2)
+    "don_doody": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/gha4gfuz_enhanced-1771278042580.jpg",
+    "billy_mylanta": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/xkucxxap_enhanced-1771278196496.jpg",
+    "tommy_spewart": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/r8qvr3ex_enhanced-1771278293743.jpg",
+    "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/6hzy2lu5_enhanced-1771278589241.jpg",
+    "beer_schmier": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/o7ytl1mj_enhanced-1771279108828.jpg"
 }
 
 CARD_BACK_IMAGE_URLS = {
