@@ -156,8 +156,8 @@ const FlippableCard = ({
           <Text style={styles.cardNameText} numberOfLines={1}>{userCard.card.name}</Text>
         </View>
 
-        {/* Swipe hint */}
-        {isOwned && (
+        {/* Swipe hint - only show for owned, available cards */}
+        {canFlip && (
           <View style={styles.swipeHint}>
             <Text style={styles.swipeHintText}>↔</Text>
           </View>
