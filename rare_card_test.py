@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 
 # Backend URL configuration
-BACKEND_URL = "https://card-collector-45.preview.emergentagent.com/api"
+BACKEND_URL = "https://card-collector-46.preview.emergentagent.com/api"
 
 class RareCardTester:
     def __init__(self):

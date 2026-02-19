@@ -296,7 +296,7 @@ agent_communication:
   - agent: "main"
     message: "MVP implementation complete. All 5 screens working (Home, Collection, Shop, Goals, Trade). Card images correctly mapped. Need backend testing to verify all API endpoints."
   - agent: "testing"
-    message: "✅ Backend API testing COMPLETE - All 13 tests passed (100% success rate). Full user flow tested: Cards API (5 cards with correct rarities), User management (create/get/update), Daily login (streak system with duplicate prevention), Card purchase (50 coin deduction working), Goals system (6 goals with progress tracking), Trading system (full trade cycle working). Backend ready for production. All endpoints at https://card-collector-45.preview.emergentagent.com/api working perfectly."
+    message: "✅ Backend API testing COMPLETE - All 13 tests passed (100% success rate). Full user flow tested: Cards API (5 cards with correct rarities), User management (create/get/update), Daily login (streak system with duplicate prevention), Card purchase (50 coin deduction working), Goals system (6 goals with progress tracking), Trading system (full trade cycle working). Backend ready for production. All endpoints at https://card-collector-46.preview.emergentagent.com/api working perfectly."
   - agent: "testing"
     message: "✅ Rare Card Achievement System TESTED - All new APIs working perfectly: GET /api/cards/rare (returns 2 rare cards: Martin Van Druid at 10 cards, Tardy Donald at 20 cards), GET /api/users/{user_id}/check-rare-cards (proper structure with total_cards, rare_cards progress array, newly_unlocked field), POST purchase endpoint includes newly_unlocked_rare_card field. Achievement tracking accurate with correct progress calculations. System ready for production use."
   - agent: "testing"

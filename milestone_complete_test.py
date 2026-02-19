@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timedelta
 
 # Backend URL configuration
-BACKEND_URL = "https://card-collector-45.preview.emergentagent.com/api"
+BACKEND_URL = "https://card-collector-46.preview.emergentagent.com/api"
 
 def test_milestone_reward_complete():
     """Test complete milestone reward system"""

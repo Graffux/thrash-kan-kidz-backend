@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 
 # Backend URL configuration - using the URL from frontend/.env
-BACKEND_URL = "https://card-collector-45.preview.emergentagent.com/api"
+BACKEND_URL = "https://card-collector-46.preview.emergentagent.com/api"
 
 class MilestoneRewardTester:
     def __init__(self):
