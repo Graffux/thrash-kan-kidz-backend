@@ -863,6 +863,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 4,
   },
+  epicCardUnlocked: {
+    borderColor: '#FF4500',
+    borderWidth: 3,
+  },
+  epicPurchaseButton: {
+    backgroundColor: '#FF4500',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginTop: 8,
+  },
+  epicPurchaseButtonDisabled: {
+    backgroundColor: '#555',
+  },
+  epicPurchaseButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   // Celebration Modal
   celebrationOverlay: {
     flex: 1,
