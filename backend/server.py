@@ -652,6 +652,7 @@ async def check_user_epic_cards(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     
     current_streak = user.get("daily_login_streak", 0)
+    unlocked_epics = user.get("unlocked_epic_cards", [])
     
     # Get all epic cards and their status for this user
     epic_cards = await db.cards.find({"rarity": "epic"}).to_list(100)
@@ -665,13 +666,23 @@ async def check_user_epic_cards(user_id: str):
         
         required = epic_card.get("streak_required", 0)
         progress = min(current_streak, required) if required else 0
+        is_unlocked = epic_card["id"] in unlocked_epics or current_streak >= required
+        
+        # Auto-unlock if streak requirement met
+        if current_streak >= required and epic_card["id"] not in unlocked_epics:
+            await db.users.update_one(
+                {"id": user_id},
+                {"$addToSet": {"unlocked_epic_cards": epic_card["id"]}}
+            )
+            is_unlocked = True
         
         epic_cards_status.append({
             "card": Card(**epic_card),
             "owned": owned is not None,
+            "unlocked": is_unlocked,  # Can purchase
             "required_streak": required,
             "progress": progress,
-            "can_unlock": current_streak >= required and not owned
+            "can_purchase": is_unlocked and not owned
         })
     
     return {
