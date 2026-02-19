@@ -262,7 +262,7 @@ export default function ShopScreen() {
         {/* Rare Cards Section */}
         <View style={styles.rareSectionHeader}>
           <Text style={styles.rareSectionTitle}>⭐ Rare Achievement Cards ⭐</Text>
-          <Text style={styles.rareSectionSubtitle}>Collect cards to unlock these special rewards!</Text>
+          <Text style={styles.rareSectionSubtitle}>Collect cards to unlock these for purchase!</Text>
           <Text style={styles.progressText}>Your Collection: {totalCards} cards</Text>
         </View>
         
@@ -272,7 +272,8 @@ export default function ShopScreen() {
               key={rareStatus.card.id} 
               style={[
                 styles.rareCard,
-                rareStatus.owned && styles.rareCardOwned
+                rareStatus.owned && styles.rareCardOwned,
+                rareStatus.unlocked && !rareStatus.owned && styles.rareCardUnlocked
               ]}
             >
               {rareStatus.owned ? (
@@ -282,8 +283,15 @@ export default function ShopScreen() {
                   style={styles.rareCardImage}
                   resizeMode="cover"
                 />
+              ) : rareStatus.unlocked ? (
+                // Unlocked but not owned - show card with purchase option
+                <Image
+                  source={{ uri: rareStatus.card.front_image_url }}
+                  style={styles.rareCardImage}
+                  resizeMode="cover"
+                />
               ) : (
-                // Show blurred/locked version if not owned
+                // Show blurred/locked version if not unlocked
                 <View style={styles.rareBlurContainer}>
                   <Image
                     source={{ uri: rareStatus.card.front_image_url }}
@@ -312,9 +320,26 @@ export default function ShopScreen() {
               )}
               <View style={styles.rareCardInfo}>
                 <Text style={styles.rareCardName}>{rareStatus.card.name}</Text>
-                {rareStatus.owned && (
-                  <Text style={styles.rareOwnedBadge}>✅ UNLOCKED</Text>
-                )}
+                {rareStatus.owned ? (
+                  <Text style={styles.rareOwnedBadge}>✅ OWNED</Text>
+                ) : rareStatus.unlocked ? (
+                  <TouchableOpacity
+                    style={[
+                      styles.rarePurchaseButton,
+                      (user?.coins || 0) < rareStatus.card.coin_cost && styles.rarePurchaseButtonDisabled
+                    ]}
+                    onPress={() => handlePurchase(rareStatus.card.id, rareStatus.card.coin_cost, rareStatus.card.name, true)}
+                    disabled={purchasing === rareStatus.card.id || (user?.coins || 0) < rareStatus.card.coin_cost}
+                  >
+                    {purchasing === rareStatus.card.id ? (
+                      <ActivityIndicator size="small" color="#000" />
+                    ) : (
+                      <Text style={styles.rarePurchaseButtonText}>
+                        BUY {rareStatus.card.coin_cost} 💰
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                ) : null}
               </View>
             </View>
           ))}
