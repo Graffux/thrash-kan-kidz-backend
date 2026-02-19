@@ -323,7 +323,7 @@ INITIAL_CARDS = [
         "rarity": "rare",
         "front_image_url": CARD_IMAGE_URLS["martin_van_druid"],
         "back_image_url": CARD_BACK_IMAGE_URLS["martin_van_druid"],
-        "coin_cost": 0,  # Cannot be purchased
+        "coin_cost": 75,  # Value: 75 coins
         "available": False,  # Achievement only
         "achievement_required": 10  # Unlocked at 10 cards
     },
@@ -334,7 +334,7 @@ INITIAL_CARDS = [
         "rarity": "rare",
         "front_image_url": CARD_IMAGE_URLS["tardy_donald"],
         "back_image_url": CARD_BACK_IMAGE_URLS["tardy_donald"],
-        "coin_cost": 0,  # Cannot be purchased
+        "coin_cost": 75,  # Value: 75 coins
         "available": False,  # Achievement only
         "achievement_required": 20  # Unlocked at 20 cards
     },
