@@ -604,8 +604,8 @@ async def claim_daily_login(user_id: str):
     # Check coin collection goals
     await check_and_update_goals(user_id, "collect_coins", new_coins)
     
-    # Check for epic streak card achievements
-    newly_unlocked_epic = await check_epic_streak_achievements(user_id, new_streak)
+    # Check for newly unlocked epic cards (notify user they can now purchase)
+    newly_unlocked_epic = await check_epic_streak_unlocks(user_id, new_streak)
     
     return {
         "streak": new_streak,
@@ -619,8 +619,12 @@ async def claim_daily_login(user_id: str):
 # Epic Streak Card Achievement System
 # =====================
 
-async def check_epic_streak_achievements(user_id: str, current_streak: int):
-    """Check if user has unlocked any epic cards based on their login streak"""
+async def check_epic_streak_unlocks(user_id: str, current_streak: int):
+    """Check if user has unlocked any epic cards for purchase based on their login streak"""
+    # Get user's unlocked achievements
+    user = await db.users.find_one({"id": user_id})
+    unlocked_epics = user.get("unlocked_epic_cards", [])
+    
     # Get all epic cards that require streak achievements
     epic_cards = await db.cards.find({"rarity": "epic", "streak_required": {"$ne": None}}).to_list(100)
     
@@ -629,19 +633,14 @@ async def check_epic_streak_achievements(user_id: str, current_streak: int):
     for epic_card in epic_cards:
         required_streak = epic_card.get("streak_required", 0)
         
-        if current_streak >= required_streak:
-            # Check if user already has this epic card
-            existing = await db.user_cards.find_one({
-                "user_id": user_id,
-                "card_id": epic_card["id"]
-            })
-            
-            if not existing:
-                # Award the epic card!
-                user_card = UserCard(user_id=user_id, card_id=epic_card["id"])
-                await db.user_cards.insert_one(user_card.dict())
-                logger.info(f"User {user_id} unlocked epic card: {epic_card['name']} (streak: {current_streak})")
-                newly_unlocked = Card(**epic_card)
+        if current_streak >= required_streak and epic_card["id"] not in unlocked_epics:
+            # Mark as unlocked (purchasable) - don't auto-award
+            await db.users.update_one(
+                {"id": user_id},
+                {"$addToSet": {"unlocked_epic_cards": epic_card["id"]}}
+            )
+            logger.info(f"User {user_id} unlocked epic card for purchase: {epic_card['name']} (streak: {current_streak})")
+            newly_unlocked = Card(**epic_card)
     
     return newly_unlocked
 
