@@ -1024,9 +1024,13 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     if user.get("coins", 0) < card["coin_cost"]:
         raise HTTPException(status_code=400, detail="Not enough coins")
     
-    # Deduct coins
+    # Deduct coins and track total spent
     new_coins = user.get("coins", 0) - card["coin_cost"]
-    await db.users.update_one({"id": user_id}, {"$set": {"coins": new_coins}})
+    new_total_spent = user.get("total_spent_coins", 0) + card["coin_cost"]
+    await db.users.update_one(
+        {"id": user_id}, 
+        {"$set": {"coins": new_coins, "total_spent_coins": new_total_spent}}
+    )
     
     # Add card to collection
     existing_user_card = await db.user_cards.find_one({
@@ -1053,15 +1057,19 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     # Check for rare card achievements
     newly_unlocked_rare = await check_rare_card_achievements(user_id)
     
-    # Check for milestone rewards (free card every 5 cards)
+    # Check for milestone rewards (free card every 10 cards)
     milestone_reward = await check_milestone_reward(user_id)
+    
+    # Check for engagement milestone unlocks (including Big Spender)
+    engagement_unlock = await check_engagement_milestones(user_id)
     
     return {
         "success": True,
         "remaining_coins": new_coins,
         "card": Card(**card),
         "newly_unlocked_rare_card": newly_unlocked_rare,
-        "milestone_reward": milestone_reward
+        "milestone_reward": milestone_reward,
+        "engagement_unlock": engagement_unlock
     }
 
 # =====================
