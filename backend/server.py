@@ -139,11 +139,13 @@ CARD_IMAGE_URLS = {
     "don_doody": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/gha4gfuz_enhanced-1771278042580.jpg",
     "billy_mylanta": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/xkucxxap_enhanced-1771278196496.jpg",
     "tommy_spewart": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/r8qvr3ex_enhanced-1771278293743.jpg",
-    "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/6hzy2lu5_enhanced-1771278589241.jpg",
+    "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/w8mjufnl_enhanced-1771278196496.jpg",
     "beer_schmier": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/o7ytl1mj_enhanced-1771279108828.jpg",
     # New Rare achievement cards (30 and 40 cards)
     "kerry_the_king": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/8sfdw92q_file_000000001f5071fd88973aa9c05bebac.png",
-    "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/s0jimvhs_file_000000006fcc71fd80e12f47bd0524f3.png"
+    "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/s0jimvhs_file_000000006fcc71fd80e12f47bd0524f3.png",
+    # Coming Soon Wave 3
+    "philled_up": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/i3cgqtwz_enhanced-1771278999569.jpg"
 }
 
 CARD_BACK_IMAGE_URLS = {
