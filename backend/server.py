@@ -272,7 +272,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True
     },
-    # COMING SOON CARDS (Wave 2)
+    # WAVE 2 CARDS (Now Available!)
     {
         "id": "card_don_doody",
         "name": "Don Doody",
@@ -281,7 +281,7 @@ INITIAL_CARDS = [
         "front_image_url": CARD_IMAGE_URLS["don_doody"],
         "back_image_url": CARD_BACK_IMAGE_URLS["don_doody"],
         "coin_cost": 50,
-        "available": False
+        "available": True
     },
     {
         "id": "card_billy_mylanta",
@@ -291,7 +291,7 @@ INITIAL_CARDS = [
         "front_image_url": CARD_IMAGE_URLS["billy_mylanta"],
         "back_image_url": CARD_BACK_IMAGE_URLS["billy_mylanta"],
         "coin_cost": 50,
-        "available": False
+        "available": True
     },
     {
         "id": "card_tommy_spewart",
@@ -301,7 +301,7 @@ INITIAL_CARDS = [
         "front_image_url": CARD_IMAGE_URLS["tommy_spewart"],
         "back_image_url": CARD_BACK_IMAGE_URLS["tommy_spewart"],
         "coin_cost": 50,
-        "available": False
+        "available": True
     },
     {
         "id": "card_piggy_in_a_blanket",
@@ -311,7 +311,7 @@ INITIAL_CARDS = [
         "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket"],
         "back_image_url": CARD_BACK_IMAGE_URLS["piggy_in_a_blanket"],
         "coin_cost": 50,
-        "available": False
+        "available": True
     },
     {
         "id": "card_beer_schmier",
@@ -321,7 +321,7 @@ INITIAL_CARDS = [
         "front_image_url": CARD_IMAGE_URLS["beer_schmier"],
         "back_image_url": CARD_BACK_IMAGE_URLS["beer_schmier"],
         "coin_cost": 50,
-        "available": False
+        "available": True
     },
     # RARE ACHIEVEMENT CARDS - Not purchasable, earned by collecting cards
     {
