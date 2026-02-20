@@ -167,7 +167,10 @@ CARD_BACK_IMAGE_URLS = {
     "billy_mylanta": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/xkucxxap_enhanced-1771278196496.jpg",
     "tommy_spewart": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/r8qvr3ex_enhanced-1771278293743.jpg",
     "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/6hzy2lu5_enhanced-1771278589241.jpg",
-    "beer_schmier": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/o7ytl1mj_enhanced-1771279108828.jpg"
+    "beer_schmier": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/o7ytl1mj_enhanced-1771279108828.jpg",
+    # New Rare achievement cards backs (30 and 40 cards)
+    "kerry_the_king": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/sxac7kjw_file_00000000833071fd8adc51da518e9550.png",
+    "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/hzkwnsri_file_00000000564871fd915c1ecfbac3aacc.png"
 }
 
 # Rare card achievement requirements
