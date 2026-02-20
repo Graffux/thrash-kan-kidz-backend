@@ -308,16 +308,6 @@ INITIAL_CARDS = [
         "available": True
     },
     {
-        "id": "card_piggy_in_a_blanket",
-        "name": "Piggy in a Blanket",
-        "description": "The swine of thrash! Wrapped in his signature blanket, this pork-powered performer squeals through guitar solos that would make any pig proud!",
-        "rarity": "common",
-        "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["piggy_in_a_blanket"],
-        "coin_cost": 50,
-        "available": True
-    },
-    {
         "id": "card_beer_schmier",
         "name": "Beer Schmier",
         "description": "The foam-spewing legend! Beer Schmier drowns crowds in golden showers of brew. His performances are 50% music, 50% alcohol poisoning!",
