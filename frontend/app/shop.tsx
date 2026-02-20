@@ -475,6 +475,114 @@ export default function ShopScreen() {
           </>
         )}
 
+        {/* Engagement Milestones Section */}
+        {engagementStatus.length > 0 && (
+          <>
+            <View style={styles.engagementSectionHeader}>
+              <Text style={styles.engagementSectionTitle}>🏆 Engagement Milestones 🏆</Text>
+              <Text style={styles.engagementSectionSubtitle}>Special achievements unlock exclusive cards!</Text>
+            </View>
+            
+            <View style={styles.rareCardsGrid}>
+              {engagementStatus.map((engStatus) => {
+                // Get icon based on milestone type
+                const getMilestoneIcon = (type: string) => {
+                  switch(type) {
+                    case 'dedicated_fan': return '📅';
+                    case 'big_spender': return '💰';
+                    case 'monthly_master': return '🗓️';
+                    default: return '🏆';
+                  }
+                };
+                
+                const getMilestoneLabel = (type: string) => {
+                  switch(type) {
+                    case 'dedicated_fan': return 'Dedicated Fan';
+                    case 'big_spender': return 'Big Spender';
+                    case 'monthly_master': return 'Monthly Master';
+                    default: return 'Milestone';
+                  }
+                };
+
+                return (
+                  <View 
+                    key={engStatus.card.id} 
+                    style={[
+                      styles.engagementCard,
+                      engStatus.owned && styles.engagementCardOwned,
+                      engStatus.unlocked && !engStatus.owned && styles.engagementCardUnlocked
+                    ]}
+                  >
+                    {engStatus.owned ? (
+                      <Image
+                        source={{ uri: engStatus.card.front_image_url }}
+                        style={styles.rareCardImage}
+                        resizeMode="cover"
+                      />
+                    ) : engStatus.unlocked ? (
+                      <Image
+                        source={{ uri: engStatus.card.front_image_url }}
+                        style={styles.rareCardImage}
+                        resizeMode="cover"
+                      />
+                    ) : (
+                      <View style={styles.rareBlurContainer}>
+                        <Image
+                          source={{ uri: engStatus.card.front_image_url }}
+                          style={[styles.rareCardImage, styles.blurredImage]}
+                          resizeMode="cover"
+                          blurRadius={20}
+                        />
+                        <View style={styles.engagementLockedOverlay}>
+                          <Text style={styles.engagementLockedIcon}>{getMilestoneIcon(engStatus.milestone_type)}</Text>
+                          <Text style={styles.engagementMilestoneLabel}>{getMilestoneLabel(engStatus.milestone_type)}</Text>
+                          <Text style={styles.engagementRequirement}>
+                            {engStatus.description}
+                          </Text>
+                          <View style={styles.progressBarContainer}>
+                            <View 
+                              style={[
+                                styles.engagementProgressBar,
+                                { width: `${Math.min((engStatus.progress / engStatus.requirement) * 100, 100)}%` }
+                              ]} 
+                            />
+                          </View>
+                          <Text style={styles.progressNumbers}>
+                            {engStatus.progress}/{engStatus.requirement}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                    <View style={styles.engagementCardInfo}>
+                      <Text style={styles.engagementCardName}>{engStatus.card.name}</Text>
+                      {engStatus.owned ? (
+                        <Text style={styles.engagementOwnedBadge}>🏆 OWNED</Text>
+                      ) : engStatus.unlocked ? (
+                        <TouchableOpacity
+                          style={[
+                            styles.engagementPurchaseButton,
+                            (user?.coins || 0) < engStatus.card.coin_cost && styles.engagementPurchaseButtonDisabled
+                          ]}
+                          onPress={() => handlePurchase(engStatus.card.id, engStatus.card.coin_cost, engStatus.card.name, true)}
+                          disabled={purchasing === engStatus.card.id || (user?.coins || 0) < engStatus.card.coin_cost}
+                        >
+                          {purchasing === engStatus.card.id ? (
+                            <ActivityIndicator size="small" color="#000" />
+                          ) : (
+                            <Text style={styles.engagementPurchaseButtonText}>
+                              BUY {engStatus.card.coin_cost} 💰
+                            </Text>
+                          )}
+                        </TouchableOpacity>
+                      ) : null}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </>
+        )}
+
         {/* Available Cards */}
         <Text style={styles.sectionTitle}>Thrash Kan Kidz Cards</Text>
         <View style={styles.cardsGrid}>
