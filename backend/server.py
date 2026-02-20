@@ -346,6 +346,28 @@ INITIAL_CARDS = [
         "available": False,  # Achievement only
         "achievement_required": 20  # Unlocked at 20 cards
     },
+    {
+        "id": "card_kerry_the_king",
+        "name": "Kerry The King",
+        "description": "Kerry the King rules the stage with a monstrous ego and an even more monstrous scowl. He makes Slash look like Fred Rogers when he thrashes out blistering solos while glaring daggers into the crowd.",
+        "rarity": "rare",
+        "front_image_url": CARD_IMAGE_URLS["kerry_the_king"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["kerry_the_king"],
+        "coin_cost": 75,  # Value: 75 coins
+        "available": False,  # Achievement only
+        "achievement_required": 30  # Unlocked at 30 cards
+    },
+    {
+        "id": "card_jeff_possess_ya",
+        "name": "Jeff Possess Ya",
+        "description": "Jeff Becerra's brand of possession is a full-body experience. Your head grows horns and your soul is doomed. From the band Pussessed!",
+        "rarity": "rare",
+        "front_image_url": CARD_IMAGE_URLS["jeff_possess_ya"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["jeff_possess_ya"],
+        "coin_cost": 75,  # Value: 75 coins
+        "available": False,  # Achievement only
+        "achievement_required": 40  # Unlocked at 40 cards
+    },
     # EPIC STREAK CARDS - Unlocked by consecutive login days
     {
         "id": "card_tom_angeltipper",
