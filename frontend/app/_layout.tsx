@@ -74,6 +74,13 @@ export default function TabLayout() {
             ),
           }}
         />
+        {/* Hide special files from tab bar */}
+        <Tabs.Screen
+          name="+html"
+          options={{
+            href: null,
+          }}
+        />
       </Tabs>
     </AppProvider>
   );
