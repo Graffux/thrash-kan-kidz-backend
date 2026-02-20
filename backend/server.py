@@ -835,7 +835,7 @@ async def check_milestone_reward(user_id: str):
     milestones_claimed = user.get("milestones_claimed", 0)
     
     # Calculate how many milestones user should have based on total cards
-    milestones_earned = total_cards // 5
+    milestones_earned = total_cards // 10
     
     # If user has earned a new milestone they haven't claimed yet
     if milestones_earned > milestones_claimed:
