@@ -226,7 +226,10 @@ export default function ShopScreen() {
               styles.celebrationTitle,
               celebrationType === 'epic' && styles.celebrationTitleEpic
             ]}>
-              {celebrationType === 'epic' ? 'EPIC CARD UNLOCKED!' : celebrationType === 'rare' ? 'RARE CARD UNLOCKED!' : 'MILESTONE BONUS!'}
+              {celebrationType === 'epic' ? 'EPIC CARD UNLOCKED!' : 
+               celebrationType === 'rare' ? 'RARE CARD UNLOCKED!' : 
+               celebrationType === 'engagement' ? 'MILESTONE ACHIEVED!' :
+               'MILESTONE BONUS!'}
             </Text>
             {unlockedCard && (
               <>
@@ -241,7 +244,9 @@ export default function ShopScreen() {
                     ? "Legendary reward for your dedication! Keep that streak going!"
                     : celebrationType === 'rare' 
                     ? "You've earned this legendary card by collecting cards!"
-                    : "Free card for reaching a 5-card milestone!"}
+                    : celebrationType === 'engagement'
+                    ? "You've unlocked a special card! Go to the shop to purchase it!"
+                    : "Free card for reaching a 10-card milestone!"}
                 </Text>
               </>
             )}
