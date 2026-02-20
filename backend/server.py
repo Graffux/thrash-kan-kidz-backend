@@ -195,6 +195,28 @@ RARE_CARD_ACHIEVEMENTS = {
     "card_jeff_possess_ya": {"required_cards": 40, "name": "Jeff Possess Ya"}
 }
 
+# Engagement Milestone requirements for unlocking Coming Soon cards
+ENGAGEMENT_MILESTONES = {
+    "card_maxi_pad": {
+        "name": "Maxi Pad",
+        "type": "dedicated_fan",
+        "requirement": 30,  # 30-day login streak
+        "description": "Dedicated Fan: 30-day login streak"
+    },
+    "card_musty_dave": {
+        "name": "Musty Dave",
+        "type": "big_spender",
+        "requirement": 750,  # 750 coins spent
+        "description": "Big Spender: Spend 750 total coins"
+    },
+    "card_chum_araya": {
+        "name": "Chum Araya",
+        "type": "monthly_master",
+        "requirement": 20,  # 20 days in a single month
+        "description": "Monthly Master: Log in 20 days in a single month"
+    }
+}
+
 INITIAL_CARDS = [
     {
         "id": "card_silly_mille",
