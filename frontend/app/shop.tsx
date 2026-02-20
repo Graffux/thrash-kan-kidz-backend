@@ -261,7 +261,7 @@ export default function ShopScreen() {
                 />
               </View>
               <Text style={styles.milestoneProgressText}>
-                {milestoneInfo.progress_to_next}/5 to next free card
+                {milestoneInfo.progress_to_next}/10 to next free card
               </Text>
             </View>
           </View>
