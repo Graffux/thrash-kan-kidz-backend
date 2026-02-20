@@ -53,17 +53,20 @@ export default function ShopScreen() {
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [rareCardsStatus, setRareCardsStatus] = useState<RareCardStatus[]>([]);
   const [epicCardsStatus, setEpicCardsStatus] = useState<EpicCardStatus[]>([]);
+  const [engagementStatus, setEngagementStatus] = useState<EngagementMilestoneStatus[]>([]);
   const [totalCards, setTotalCards] = useState(0);
   const [currentStreak, setCurrentStreak] = useState(0);
+  const [totalSpent, setTotalSpent] = useState(0);
+  const [currentMonthLogins, setCurrentMonthLogins] = useState(0);
   const [showCelebration, setShowCelebration] = useState(false);
   const [unlockedCard, setUnlockedCard] = useState<any>(null);
-  const [celebrationType, setCelebrationType] = useState<'rare' | 'milestone' | 'epic'>('rare');
+  const [celebrationType, setCelebrationType] = useState<'rare' | 'milestone' | 'epic' | 'engagement'>('rare');
   const [milestoneInfo, setMilestoneInfo] = useState<any>(null);
   const [loadingRare, setLoadingRare] = useState(false);
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
-  // Fetch rare and epic card status
+  // Fetch rare, epic, and engagement card status
   const fetchCardStatus = async () => {
     if (!user) return;
     
@@ -91,6 +94,21 @@ export default function ShopScreen() {
       
       setEpicCardsStatus(epicData.epic_cards || []);
       setCurrentStreak(epicData.current_streak || 0);
+      
+      // Fetch engagement milestones status
+      const engagementResponse = await fetch(`${apiUrl}/api/users/${user.id}/check-engagement-milestones`);
+      const engagementData = await engagementResponse.json();
+      
+      setEngagementStatus(engagementData.engagement_milestones || []);
+      setTotalSpent(engagementData.total_spent_coins || 0);
+      setCurrentMonthLogins(engagementData.current_month_logins || 0);
+      
+      // Check if any engagement card was newly unlocked
+      if (engagementData.newly_unlocked) {
+        setUnlockedCard(engagementData.newly_unlocked);
+        setCelebrationType('engagement');
+        setShowCelebration(true);
+      }
       
     } catch (error) {
       console.error('Error fetching card status:', error);
