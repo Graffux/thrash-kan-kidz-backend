@@ -393,14 +393,16 @@ class TestRareCardUnlockRequirements:
         for card in rare_cards:
             req = card.get('achievement_required')
             assert req is not None, f"Rare card {card['name']} missing achievement_required"
-            assert req in [10, 20], f"Unexpected achievement_required {req} for {card['name']}"
+            assert req in [10, 20, 30, 40], f"Unexpected achievement_required {req} for {card['name']}"
             requirements.append((card['name'], req))
             print(f"✅ Rare card '{card['name']}' unlocks at {req} cards collected")
         
-        # Verify we have cards at both 10 and 20 thresholds
+        # Verify we have cards at 10, 20, 30, 40 thresholds
         reqs_set = set(r[1] for r in requirements)
         assert 10 in reqs_set, "Should have a rare card at 10-card achievement"
         assert 20 in reqs_set, "Should have a rare card at 20-card achievement"
+        assert 30 in reqs_set, "Should have a rare card at 30-card achievement"
+        assert 40 in reqs_set, "Should have a rare card at 40-card achievement"
 
 
 class TestEpicCardStreakRequirements:
