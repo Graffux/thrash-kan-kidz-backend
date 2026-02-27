@@ -1686,6 +1686,47 @@ async def get_coin_packages():
     """Get available coin purchase packages"""
     return list(COIN_PACKAGES.values())
 
+@api_router.get("/users/{user_id}/coin-packages")
+async def get_user_coin_packages(user_id: str):
+    """Get coin packages with first-purchase bonus info for a specific user"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if user has made any successful purchases
+    has_purchased = await db.payment_transactions.find_one({
+        "user_id": user_id,
+        "payment_status": "paid"
+    })
+    
+    is_first_purchase = has_purchased is None
+    
+    packages_with_bonus = []
+    for pkg in COIN_PACKAGES.values():
+        package_copy = pkg.copy()
+        
+        # Calculate bonus coins for first purchase
+        if is_first_purchase:
+            bonus_coins = int(pkg["coins"] * FIRST_PURCHASE_BONUS_PERCENTAGE / 100)
+            package_copy["bonus_coins"] = bonus_coins
+            package_copy["total_coins"] = pkg["coins"] + bonus_coins
+            package_copy["first_purchase_bonus"] = True
+        else:
+            package_copy["bonus_coins"] = 0
+            package_copy["total_coins"] = pkg["coins"]
+            package_copy["first_purchase_bonus"] = False
+        
+        # Calculate effective coins per dollar (including bonus)
+        package_copy["effective_coins_per_dollar"] = round(package_copy["total_coins"] / pkg["price"], 1)
+        
+        packages_with_bonus.append(package_copy)
+    
+    return {
+        "packages": packages_with_bonus,
+        "is_first_purchase": is_first_purchase,
+        "first_purchase_bonus_percentage": FIRST_PURCHASE_BONUS_PERCENTAGE if is_first_purchase else 0
+    }
+
 @api_router.post("/users/{user_id}/purchase-coins")
 async def create_coin_checkout(user_id: str, request: CoinPurchaseRequest, http_request: Request):
     """Create a Stripe checkout session for purchasing coins"""
