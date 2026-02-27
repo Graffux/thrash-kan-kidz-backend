@@ -19,6 +19,7 @@ const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-car
 
 export default function ProfileScreen() {
   const { user, userCards, userGoals, allCards, logout, updateProfile, apiUrl } = useApp();
+  const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [bio, setBio] = useState(user?.bio || '');
   const [saving, setSaving] = useState(false);
