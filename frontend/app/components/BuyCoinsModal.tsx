@@ -19,6 +19,11 @@ interface CoinPackage {
   price: number;
   currency: string;
   description: string;
+  bonus_coins?: number;
+  total_coins?: number;
+  first_purchase_bonus?: boolean;
+  effective_coins_per_dollar?: number;
+  best_value?: boolean;
 }
 
 interface BuyCoinsModalProps {
@@ -32,19 +37,26 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
   const [loading, setLoading] = useState(false);
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isFirstPurchase, setIsFirstPurchase] = useState(false);
+  const [bonusPercentage, setBonusPercentage] = useState(0);
 
   useEffect(() => {
-    if (visible) {
+    if (visible && user) {
       fetchPackages();
     }
-  }, [visible]);
+  }, [visible, user]);
 
   const fetchPackages = async () => {
+    if (!user) return;
+    
     try {
       setLoading(true);
-      const response = await fetch(`${apiUrl}/api/coin-packages`);
+      // Use the user-specific endpoint to get bonus info
+      const response = await fetch(`${apiUrl}/api/users/${user.id}/coin-packages`);
       const data = await response.json();
-      setPackages(data);
+      setPackages(data.packages || []);
+      setIsFirstPurchase(data.is_first_purchase || false);
+      setBonusPercentage(data.first_purchase_bonus_percentage || 0);
     } catch (err) {
       console.error('Error fetching packages:', err);
       setError('Failed to load coin packages');
@@ -107,10 +119,6 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
     }
   };
 
-  const getBestValue = (packageId: string) => {
-    return packageId === 'large';
-  };
-
   return (
     <Modal
       visible={visible}
@@ -126,6 +134,18 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
               <Ionicons name="close" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
+
+          {isFirstPurchase && (
+            <View style={styles.firstPurchaseBanner}>
+              <Text style={styles.firstPurchaseIcon}>🎉</Text>
+              <View style={styles.firstPurchaseTextContainer}>
+                <Text style={styles.firstPurchaseTitle}>First Purchase Bonus!</Text>
+                <Text style={styles.firstPurchaseSubtitle}>
+                  Get {bonusPercentage}% extra coins on your first purchase!
+                </Text>
+              </View>
+            </View>
+          )}
 
           <Text style={styles.subtitle}>Choose a coin package</Text>
 
@@ -147,12 +167,12 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
                   key={pkg.id}
                   style={[
                     styles.packageCard,
-                    getBestValue(pkg.id) && styles.packageCardBestValue,
+                    pkg.best_value && styles.packageCardBestValue,
                   ]}
                   onPress={() => handlePurchase(pkg.id)}
                   disabled={purchasing !== null}
                 >
-                  {getBestValue(pkg.id) && (
+                  {pkg.best_value && (
                     <View style={styles.bestValueBadge}>
                       <Text style={styles.bestValueText}>BEST VALUE</Text>
                     </View>
@@ -160,12 +180,30 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
                   
                   <Text style={styles.packageIcon}>{getPackageIcon(pkg.id)}</Text>
                   <Text style={styles.packageName}>{pkg.name}</Text>
-                  <Text style={styles.packageCoins}>{pkg.coins.toLocaleString()} Coins</Text>
-                  <Text style={styles.packageDescription}>{pkg.description}</Text>
+                  
+                  {/* Show coins with bonus */}
+                  <View style={styles.coinsContainer}>
+                    {pkg.bonus_coins && pkg.bonus_coins > 0 ? (
+                      <>
+                        <Text style={styles.packageCoins}>{pkg.total_coins?.toLocaleString()}</Text>
+                        <View style={styles.bonusBadge}>
+                          <Text style={styles.bonusText}>+{pkg.bonus_coins} BONUS</Text>
+                        </View>
+                      </>
+                    ) : (
+                      <Text style={styles.packageCoins}>{pkg.coins.toLocaleString()}</Text>
+                    )}
+                    <Text style={styles.coinsLabel}>Coins</Text>
+                  </View>
+                  
+                  {/* Savings indicator */}
+                  <Text style={styles.savingsText}>
+                    {pkg.effective_coins_per_dollar?.toFixed(0) || Math.round(pkg.coins / pkg.price)} coins per $1
+                  </Text>
                   
                   <View style={[
                     styles.priceButton,
-                    getBestValue(pkg.id) && styles.priceButtonBestValue,
+                    pkg.best_value && styles.priceButtonBestValue,
                   ]}>
                     {purchasing === pkg.id ? (
                       <ActivityIndicator size="small" color="#000" />
@@ -225,10 +263,36 @@ const styles = StyleSheet.create({
   closeButton: {
     padding: 4,
   },
+  firstPurchaseBanner: {
+    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+    borderRadius: 12,
+    padding: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#4CAF50',
+  },
+  firstPurchaseIcon: {
+    fontSize: 28,
+    marginRight: 12,
+  },
+  firstPurchaseTextContainer: {
+    flex: 1,
+  },
+  firstPurchaseTitle: {
+    color: '#4CAF50',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  firstPurchaseSubtitle: {
+    color: '#81C784',
+    fontSize: 12,
+  },
   subtitle: {
     fontSize: 14,
     color: '#888',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   loadingContainer: {
     padding: 40,
@@ -289,17 +353,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  coinsContainer: {
+    alignItems: 'center',
+    marginVertical: 8,
+  },
   packageCoins: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#FFD700',
-    marginVertical: 4,
   },
-  packageDescription: {
+  coinsLabel: {
     fontSize: 12,
     color: '#888',
-    marginBottom: 12,
-    textAlign: 'center',
+    marginTop: 2,
+  },
+  bonusBadge: {
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 8,
+    marginTop: 4,
+  },
+  bonusText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  savingsText: {
+    fontSize: 11,
+    color: '#888',
+    marginBottom: 8,
   },
   priceButton: {
     backgroundColor: '#FFD700',
