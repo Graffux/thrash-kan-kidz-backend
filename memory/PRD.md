@@ -29,19 +29,26 @@ Special "Coming Soon" cards unlocked by meeting engagement criteria:
 - **Big Spender** (750 total coins spent) → Unlocks "Musty Dave"
 - **Monthly Master** (20 days login in single month) → Unlocks "Chum Araya"
 
-### Coin Purchase System (NEW - Implemented Feb 27, 2026)
+### Coin Purchase System (Implemented Feb 27, 2026)
 Users can purchase coins with real money via Stripe:
-| Package | Coins | Price |
-|---------|-------|-------|
-| Starter Pack | 200 | $1.99 |
-| Collector Pack | 500 | $4.99 |
-| Ultimate Pack | 1000 | $9.99 |
+| Package | Base Coins | Price | Coins/$ |
+|---------|-----------|-------|---------|
+| Starter Pack | 200 | $1.99 | ~100 |
+| Collector Pack | 500 | $4.99 | ~100 |
+| Ultimate Pack | 1000 | $9.99 | ~100 |
+
+**First Purchase Bonus:** New users get **50% extra coins** on their first purchase!
+- Starter: 200 + 100 bonus = 300 coins
+- Collector: 500 + 250 bonus = 750 coins  
+- Ultimate: 1000 + 500 bonus = 1500 coins
 
 Features:
 - Stripe Checkout integration for secure payments
+- First-purchase bonus (50% extra coins)
+- "Best Value" indicator on Ultimate Pack
+- Coins per dollar display for savings comparison
 - Payment transaction history tracking
 - Automatic coin crediting after successful payment
-- Payment status polling for real-time updates
 - Webhook support for payment confirmations
 - IAP structure prepared for future iOS/Android native purchases
 
