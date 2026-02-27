@@ -148,7 +148,9 @@ COIN_PACKAGES = {
         "coins": 200,
         "price": 1.99,
         "currency": "usd",
-        "description": "200 coins for new collectors"
+        "description": "200 coins for new collectors",
+        "coins_per_dollar": 100.5,  # 200 / 1.99
+        "bonus_percentage": 0
     },
     "medium": {
         "id": "medium", 
@@ -156,7 +158,9 @@ COIN_PACKAGES = {
         "coins": 500,
         "price": 4.99,
         "currency": "usd",
-        "description": "500 coins - Best for regular collectors"
+        "description": "500 coins - Best for regular collectors",
+        "coins_per_dollar": 100.2,  # 500 / 4.99
+        "bonus_percentage": 0
     },
     "large": {
         "id": "large",
@@ -164,9 +168,15 @@ COIN_PACKAGES = {
         "coins": 1000,
         "price": 9.99,
         "currency": "usd",
-        "description": "1000 coins - Best value!"
+        "description": "1000 coins - Best value!",
+        "coins_per_dollar": 100.1,  # 1000 / 9.99
+        "bonus_percentage": 0,
+        "best_value": True
     }
 }
+
+# First-time purchase bonus
+FIRST_PURCHASE_BONUS_PERCENTAGE = 50  # 50% extra coins on first purchase
 
 # =====================
 # Seed Data
