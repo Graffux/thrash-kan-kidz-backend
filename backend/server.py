@@ -142,7 +142,7 @@ SERIES_CONFIG = {
     1: {
         "name": "Series 1",
         "cards_required": 16,
-        "rare_reward": "card_martin_van_druid",  # Rare card unlocked after completing series
+        "rare_reward": "card_kerry_the_king",  # Kerry the King is the Series 1 rare reward
         "description": "The Original Thrash Kan Kidz"
     },
     2: {
@@ -154,7 +154,7 @@ SERIES_CONFIG = {
     3: {
         "name": "Series 3",
         "cards_required": 16, 
-        "rare_reward": "card_kerry_the_king",
+        "rare_reward": "card_martin_van_druid",
         "description": "Legends Rise"
     },
     4: {
@@ -254,9 +254,9 @@ CARD_IMAGE_URLS = {
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/qwai8wue_file_00000000442871fd8945003a4fd9662a.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/63m30i4q_file_00000000a374722f8343b54e3a06558f.png",
     # Rare achievement cards (Series completion rewards)
-    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/1qvok3an_file_00000000b1bc71fda2cfbe35b2441dbe.png",
+    "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/gfh1huso_file_000000001f5071fd88973aa9c05bebac.png",
     "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/4jtbdfkr_file_00000000bef871fdb4e76de0e490ad1a.png",
-    "kerry_the_king": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/8sfdw92q_file_000000001f5071fd88973aa9c05bebac.png",
+    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/1qvok3an_file_00000000b1bc71fda2cfbe35b2441dbe.png",
     "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/s0jimvhs_file_000000006fcc71fd80e12f47bd0524f3.png",
 }
 
@@ -286,17 +286,17 @@ CARD_BACK_IMAGE_URLS = {
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/9dv3gzga_file_00000000b82471fdb1ce4df389a3cdb3.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/uknhwlhn_file_00000000e53871f8b1042baf1259181b.png",
     # Rare achievement cards backs (Series completion rewards)
-    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/wzu9cgqo_file_00000000581c71fd9f6943c516c13338.png",
+    "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/cwro1dog_file_00000000833071fd8adc51da518e9550.png",
     "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/aiui1nef_file_000000009e4871f8b270fdb6a2aa38de.png",
-    "kerry_the_king": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/sxac7kjw_file_00000000833071fd8adc51da518e9550.png",
+    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/wzu9cgqo_file_00000000581c71fd9f6943c516c13338.png",
     "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/hzkwnsri_file_00000000564871fd915c1ecfbac3aacc.png",
 }
 
 # Rare card achievement requirements (Series completion rewards)
 RARE_CARD_ACHIEVEMENTS = {
-    "card_martin_van_druid": {"required_cards": 16, "name": "Martin Van Druid"},  # Complete Series 1
+    "card_kerry_the_king": {"required_cards": 16, "name": "Kerry The King"},  # Complete Series 1
     "card_tardy_donald": {"required_cards": 32, "name": "Tardy Donald"},  # Complete Series 2
-    "card_kerry_the_king": {"required_cards": 48, "name": "Kerry The King"},  # Complete Series 3
+    "card_martin_van_druid": {"required_cards": 48, "name": "Martin Van Druid"},  # Complete Series 3
     "card_jeff_possess_ya": {"required_cards": 64, "name": "Jeff Possess Ya"}  # Complete Series 4
 }
 
@@ -524,16 +524,17 @@ INITIAL_CARDS = [
     # RARE CARDS - Series completion rewards
     # =====================
     {
-        "id": "card_martin_van_druid",
-        "name": "Martin Van Druid",
-        "description": "The mystical metal mage! With ancient runes and arcane riffs, Martin Van Druid conjures the heaviest spells known to thrash!",
+        "id": "card_kerry_the_king",
+        "name": "Kerry The King",
+        "description": "Kerry the King rules the stage with a monstrous ego and an even more monstrous scowl. He makes Slash look like Fred Rodgers when he thrashes out blistering solos while glaring daggers into the crowd.",
         "rarity": "rare",
-        "front_image_url": CARD_IMAGE_URLS["martin_van_druid"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["martin_van_druid"],
+        "front_image_url": CARD_IMAGE_URLS["kerry_the_king"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["kerry_the_king"],
         "coin_cost": 100,
         "available": False,
         "achievement_required": 16,  # Unlocks after completing Series 1
-        "series_reward": 1
+        "series_reward": 1,
+        "band": "$LAYA"
     },
     {
         "id": "card_tardy_donald",
@@ -548,12 +549,12 @@ INITIAL_CARDS = [
         "series_reward": 2
     },
     {
-        "id": "card_kerry_the_king",
-        "name": "Kerry The King",
-        "description": "Royalty of the riff! Kerry The King rules the kingdom of thrash with an iron fist and golden guitar!",
+        "id": "card_martin_van_druid",
+        "name": "Martin Van Druid",
+        "description": "The mystical metal mage! With ancient runes and arcane riffs, Martin Van Druid conjures the heaviest spells known to thrash!",
         "rarity": "rare",
-        "front_image_url": CARD_IMAGE_URLS["kerry_the_king"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["kerry_the_king"],
+        "front_image_url": CARD_IMAGE_URLS["martin_van_druid"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["martin_van_druid"],
         "coin_cost": 100,
         "available": False,
         "achievement_required": 48,  # Unlocks after completing Series 3

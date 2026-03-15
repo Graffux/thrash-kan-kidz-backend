@@ -32,9 +32,9 @@ Cards are organized into series. Users must complete one series before accessing
 | Eggsodus | Paul Bawl Off | Blood Bonder |
 
 **Series Rewards:**
-- Series 1 → Martin Van Druid (Rare)
+- Series 1 → **Kerry The King** (Rare) - "Kerry the King rules the stage with a monstrous ego and an even more monstrous scowl."
 - Series 2 → Tardy Donald (Rare)
-- Series 3 → Kerry The King (Rare)
+- Series 3 → Martin Van Druid (Rare)
 - Series 4 → Jeff Possess Ya (Rare)
 
 ### Card Spinner (Gacha System)
@@ -127,12 +127,19 @@ Users can purchase coins with real money via Stripe:
 
 ## What's Been Implemented
 
-### March 15, 2026 - Series 1 Card Update
+### March 15, 2026 - Series 1 Card Update & UI Changes
 - ✅ **Updated all 16 Series 1 cards with user-provided artwork**
   - 8 bands with unique card images (front + back for each)
   - New band names: $LAYA, Megadef, Sepulchura, Testyment, Metallikuh, Anthrash, Kreaturd, Eggsodus
   - New card names and descriptions matching artwork
   - All image URLs updated to user-provided assets
+- ✅ **Kerry The King is now Series 1 rare reward**
+  - Updated with new artwork (front + back)
+  - Martin Van Druid moved to Series 3 reward
+- ✅ **Hidden unowned cards in Collection view**
+  - Unowned cards now show as mystery boxes with "❓" and "???"
+  - Card images AND names are hidden until collected
+  - Creates mystery/excitement for undiscovered cards
 - ✅ **Cleaned up deprecated cards**
   - Removed Epic streak cards (tom_angeltipper, tom_angelflipper)
   - Removed old engagement milestone cards

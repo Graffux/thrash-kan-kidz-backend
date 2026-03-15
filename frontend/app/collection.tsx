@@ -111,19 +111,24 @@ const FlippableCard = ({
       <View style={[styles.cardContainer, !isOwned && styles.cardLocked]}>
         {/* Front of card */}
         <Animated.View style={frontAnimatedStyle}>
-          <Image
-            source={{ uri: userCard.card.front_image_url }}
-            style={[
-              styles.cardImage, 
-              !isOwned && styles.cardImageLocked,
-              userCard.card.available === false && styles.cardImageComingSoon
-            ]}
-            resizeMode="cover"
-            blurRadius={userCard.card.available === false ? 10 : 0}
-          />
-          {!isOwned && userCard.card.available !== false && (
-            <View style={styles.lockedOverlay}>
-              <Text style={styles.lockedIcon}>🔒</Text>
+          {isOwned ? (
+            // Show actual card image for owned cards
+            <Image
+              source={{ uri: userCard.card.front_image_url }}
+              style={[
+                styles.cardImage, 
+                userCard.card.available === false && styles.cardImageComingSoon
+              ]}
+              resizeMode="cover"
+              blurRadius={userCard.card.available === false ? 10 : 0}
+            />
+          ) : (
+            // Show mystery card for unowned cards - hide image
+            <View style={styles.mysteryCard}>
+              <View style={styles.mysteryCardInner}>
+                <Text style={styles.mysteryIcon}>❓</Text>
+                <Text style={styles.mysteryText}>???</Text>
+              </View>
             </View>
           )}
           {userCard.card.available === false && (
@@ -143,17 +148,27 @@ const FlippableCard = ({
         {/* Back of card */}
         <Animated.View style={[backAnimatedStyle]}>
           <View style={styles.cardBackContainer}>
-            <Image
-              source={{ uri: userCard.card.back_image_url }}
-              style={styles.cardImage}
-              resizeMode="cover"
-            />
+            {isOwned ? (
+              <Image
+                source={{ uri: userCard.card.back_image_url }}
+                style={styles.cardImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.mysteryCard}>
+                <View style={styles.mysteryCardInner}>
+                  <Text style={styles.mysteryIcon}>❓</Text>
+                </View>
+              </View>
+            )}
           </View>
         </Animated.View>
 
-        {/* Card name badge */}
+        {/* Card name badge - only show for owned cards */}
         <View style={styles.cardNameBadge}>
-          <Text style={styles.cardNameText} numberOfLines={1}>{userCard.card.name}</Text>
+          <Text style={styles.cardNameText} numberOfLines={1}>
+            {isOwned ? userCard.card.name : '???'}
+          </Text>
         </View>
 
         {/* Swipe hint - only show for owned, available cards */}
@@ -445,6 +460,32 @@ const styles = StyleSheet.create({
   },
   cardImageComingSoon: {
     opacity: 0.5,
+  },
+  mysteryCard: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#1a1a2e',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#333',
+    overflow: 'hidden',
+  },
+  mysteryCardInner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f1a',
+    margin: 4,
+    borderRadius: 8,
+  },
+  mysteryIcon: {
+    fontSize: 32,
+    marginBottom: 4,
+  },
+  mysteryText: {
+    color: '#666',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   lockedOverlay: {
     ...StyleSheet.absoluteFillObject,
