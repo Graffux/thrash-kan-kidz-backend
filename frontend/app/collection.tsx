@@ -206,7 +206,8 @@ export default function CollectionScreen() {
   const ownedCardIds = new Set(userCards.map(uc => uc.card.id));
   
   // Filter out rare cards from the main collection (they have their own section in shop)
-  const commonCards = allCards.filter(card => card.rarity !== 'rare');
+  // Only show Series 1 cards for now
+  const commonCards = allCards.filter(card => card.rarity === 'common' && card.series === 1);
   
   const getFilteredCards = () => {
     switch (filter) {
@@ -265,7 +266,7 @@ export default function CollectionScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>My Collection</Text>
           <Text style={styles.subtitle}>
-            {userCards.length} / {allCards.length} Cards • Swipe to flip!
+            {userCards.filter(uc => uc.card.series === 1 && uc.card.rarity === 'common').length} / {commonCards.length} Cards • Swipe to flip!
           </Text>
         </View>
 
@@ -441,7 +442,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   cardLocked: {
-    opacity: 0.7,
+    // No opacity change - mystery card handles the visual
   },
   cardImage: {
     width: '100%',
@@ -464,9 +465,9 @@ const styles = StyleSheet.create({
   mysteryCard: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#0f0f1a',
     borderRadius: 10,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: '#333',
     overflow: 'hidden',
   },
@@ -474,9 +475,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0f0f1a',
-    margin: 4,
-    borderRadius: 8,
+    backgroundColor: '#1a1a2e',
+    margin: 6,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#2a2a4e',
   },
   mysteryIcon: {
     fontSize: 32,
