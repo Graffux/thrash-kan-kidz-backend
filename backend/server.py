@@ -150,18 +150,6 @@ SERIES_CONFIG = {
         "cards_required": 16,
         "rare_reward": "card_strap_on_taylor",  # Strap-On Taylor is the Series 2 rare reward
         "description": "More Mayhem"
-    },
-    3: {
-        "name": "Series 3",
-        "cards_required": 16, 
-        "rare_reward": "card_tardy_donald",  # Tardy Donald moved to Series 3
-        "description": "Legends Rise"
-    },
-    4: {
-        "name": "Series 4",
-        "cards_required": 16,
-        "rare_reward": "card_martin_van_druid",  # Martin Van Druid moved to Series 4
-        "description": "The Final Chapter"
     }
 }
 
@@ -256,9 +244,6 @@ CARD_IMAGE_URLS = {
     # Rare achievement cards (Series completion rewards)
     "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/gfh1huso_file_000000001f5071fd88973aa9c05bebac.png",
     "strap_on_taylor": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/ruqqtjrv_file_00000000ca38722f86b98bf35e6892e2.png",
-    "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/4jtbdfkr_file_00000000bef871fdb4e76de0e490ad1a.png",
-    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/1qvok3an_file_00000000b1bc71fda2cfbe35b2441dbe.png",
-    "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/s0jimvhs_file_000000006fcc71fd80e12f47bd0524f3.png",
     # =====================
     # SERIES 2 CARDS - Front Images
     # =====================
@@ -316,9 +301,6 @@ CARD_BACK_IMAGE_URLS = {
     # Rare achievement cards backs (Series completion rewards)
     "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/cwro1dog_file_00000000833071fd8adc51da518e9550.png",
     "strap_on_taylor": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/gz3tkef8_file_000000009ed8722f84c332f7ccad83d3.png",
-    "tardy_donald": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/aiui1nef_file_000000009e4871f8b270fdb6a2aa38de.png",
-    "martin_van_druid": "https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/wzu9cgqo_file_00000000581c71fd9f6943c516c13338.png",
-    "jeff_possess_ya": "https://customer-assets.emergentagent.com/job_0530a193-d676-41a8-b42a-392a1e7e6662/artifacts/hzkwnsri_file_00000000564871fd915c1ecfbac3aacc.png",
     # =====================
     # SERIES 2 CARDS - Back Images
     # =====================
@@ -351,9 +333,7 @@ CARD_BACK_IMAGE_URLS = {
 # Rare card achievement requirements (Series completion rewards)
 RARE_CARD_ACHIEVEMENTS = {
     "card_kerry_the_king": {"required_cards": 16, "name": "Kerry The King"},  # Complete Series 1
-    "card_strap_on_taylor": {"required_cards": 32, "name": "Strap-On Taylor"},  # Complete Series 2
-    "card_tardy_donald": {"required_cards": 48, "name": "Tardy Donald"},  # Complete Series 3
-    "card_martin_van_druid": {"required_cards": 64, "name": "Martin Van Druid"}  # Complete Series 4
+    "card_strap_on_taylor": {"required_cards": 32, "name": "Strap-On Taylor"}  # Complete Series 2
 }
 
 INITIAL_CARDS = [
@@ -823,30 +803,6 @@ INITIAL_CARDS = [
         "achievement_required": 32,  # Unlocks after completing Series 2
         "series_reward": 2,
         "band": "Sucrilege B.J."
-    },
-    {
-        "id": "card_tardy_donald",
-        "name": "Tardy Donald",
-        "description": "Always late, never early! Tardy Donald shows up after the show's over but still shreds harder than anyone else there!",
-        "rarity": "rare",
-        "front_image_url": CARD_IMAGE_URLS["tardy_donald"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["tardy_donald"],
-        "coin_cost": 100,
-        "available": False,
-        "achievement_required": 48,  # Unlocks after completing Series 3
-        "series_reward": 3
-    },
-    {
-        "id": "card_martin_van_druid",
-        "name": "Martin Van Druid",
-        "description": "The mystical metal mage! With ancient runes and arcane riffs, Martin Van Druid conjures the heaviest spells known to thrash!",
-        "rarity": "rare",
-        "front_image_url": CARD_IMAGE_URLS["martin_van_druid"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["martin_van_druid"],
-        "coin_cost": 100,
-        "available": False,
-        "achievement_required": 64,  # Unlocks after completing Series 4
-        "series_reward": 4
     },
 ]
 
