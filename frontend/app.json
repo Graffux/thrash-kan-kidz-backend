@@ -7,7 +7,11 @@
     "icon": "./assets/images/tkk-logo.jpg",
     "scheme": "thrashkankidz",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
+    "updates": {
+      "enabled": false
+    },
+    "runtimeVersion": "1.0.0",
     "description": "Collect thrash metal trading cards! Earn coins, complete goals, unlock rare and epic cards. Trade with friends and build the ultimate collection!",
     "githubUrl": "https://github.com/thrashkankidz",
     "primaryColor": "#8B0000",
