@@ -60,6 +60,7 @@ export default function ShopScreen() {
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
   const CARD_BACK_IMAGE = 'https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jlg546ha_file_00000000369c71f580be8b548f7c5be7.png';
+  const PACK_COVER_IMAGE = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qmfr196q_enhanced-1771247671181.jpg';
 
   useEffect(() => {
     fetchSpinData();
@@ -415,7 +416,7 @@ export default function ShopScreen() {
         {/* Card Pack Section */}
         <View style={styles.packSection}>
           <View style={styles.packContainer}>
-            {/* Card Pack Box */}
+            {/* Card Pack Box - Now using the cover image */}
             {packState !== 'revealed' && (
               <Animated.View style={[
                 styles.cardPack,
@@ -427,23 +428,11 @@ export default function ShopScreen() {
                   opacity: packOpacityAnim,
                 }
               ]}>
-                <View style={styles.packBox}>
-                  <View style={styles.packTop}>
-                    <Text style={styles.packLabel}>THRASH</Text>
-                    <Text style={styles.packLabelSub}>KAN KIDZ</Text>
-                  </View>
-                  <View style={styles.packMiddle}>
-                    <Text style={styles.packSeriesText}>{spinPool?.series_name || 'Card Pack'}</Text>
-                    <View style={styles.packDecoration}>
-                      <Text style={styles.packDecoEmoji}>🎸</Text>
-                      <Text style={styles.packDecoEmoji}>💀</Text>
-                      <Text style={styles.packDecoEmoji}>🔥</Text>
-                    </View>
-                  </View>
-                  <View style={styles.packBottom}>
-                    <Text style={styles.packBottomText}>1 Random Card</Text>
-                  </View>
-                </View>
+                <Image 
+                  source={{ uri: PACK_COVER_IMAGE }}
+                  style={styles.packImage}
+                  resizeMode="cover"
+                />
               </Animated.View>
             )}
 
@@ -466,10 +455,11 @@ export default function ShopScreen() {
                   style={styles.cardTouchable}
                   data-testid="reveal-card-btn"
                 >
+                  {/* Show pack cover on back, card front when flipped */}
                   <Image
-                    source={{ uri: cardFlipped && spinResult ? spinResult.won_card.front_image_url : CARD_BACK_IMAGE }}
+                    source={{ uri: cardFlipped && spinResult ? spinResult.won_card.front_image_url : PACK_COVER_IMAGE }}
                     style={styles.revealedCardImage}
-                    resizeMode="contain"
+                    resizeMode="cover"
                   />
                 </TouchableOpacity>
               </Animated.View>
@@ -720,8 +710,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   cardPack: {
-    width: 160,
-    height: 220,
+    width: 180,
+    height: 240,
+    borderRadius: 12,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: '#FFD700',
+    shadowColor: '#FFD700',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  packImage: {
+    width: '100%',
+    height: '100%',
   },
   packBox: {
     flex: 1,
@@ -780,8 +783,17 @@ const styles = StyleSheet.create({
   },
   revealedCard: {
     position: 'absolute',
-    width: 150,
-    height: 200,
+    width: 160,
+    height: 220,
+    borderRadius: 10,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: '#FFD700',
+    shadowColor: '#FFD700',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 10,
   },
   cardTouchable: {
     flex: 1,
@@ -789,9 +801,6 @@ const styles = StyleSheet.create({
   revealedCardImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#FFD700',
   },
   tapPrompt: {
     position: 'absolute',
