@@ -72,8 +72,8 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
     setError(null);
     
     try {
-      // Get the origin URL for redirects - use window.location.origin directly
-      const originUrl = window.location.origin;
+      // Get the origin URL for redirects - use environment variable for Expo compatibility
+      const originUrl = process.env.EXPO_PUBLIC_BACKEND_URL || '';
       
       const response = await fetch(`${apiUrl}/api/users/${user.id}/purchase-coins`, {
         method: 'POST',
