@@ -320,6 +320,11 @@ CARD_IMAGE_URLS = {
     "mille_gorezza_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vub685gp_file_000000003f0471f59809c0b94b90116d.png",
     # Band 8: Eggsodus
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/qwai8wue_file_00000000442871fd8945003a4fd9662a.png",
+    # Paul Bawl Off Variants
+    "paul_bawl_off_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qpl9cxot_file_00000000d00471fb8822de231e69e17e.png",
+    "paul_bawl_off_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wa8zr17p_file_00000000d48871fd82860c470018e081.png",
+    "paul_bawl_off_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q9u38yoo_file_00000000c50071f8ab272c1ec07d5bf3.png",
+    "paul_bawl_off_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/epkvtm5w_file_00000000526471f89cb084328cb8f62f.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/63m30i4q_file_00000000a374722f8343b54e3a06558f.png",
     # Rare achievement cards (Series completion rewards)
     "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/gfh1huso_file_000000001f5071fd88973aa9c05bebac.png",
@@ -471,6 +476,11 @@ CARD_BACK_IMAGE_URLS = {
     "mille_gorezza_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vub685gp_file_000000003f0471f59809c0b94b90116d.png",
     # Band 8: Eggsodus
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/9dv3gzga_file_00000000b82471fdb1ce4df389a3cdb3.png",
+    # Paul Bawl Off Variants (use same as front)
+    "paul_bawl_off_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qpl9cxot_file_00000000d00471fb8822de231e69e17e.png",
+    "paul_bawl_off_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wa8zr17p_file_00000000d48871fd82860c470018e081.png",
+    "paul_bawl_off_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q9u38yoo_file_00000000c50071f8ab272c1ec07d5bf3.png",
+    "paul_bawl_off_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/epkvtm5w_file_00000000526471f89cb084328cb8f62f.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/uknhwlhn_file_00000000e53871f8b1042baf1259181b.png",
     # Rare achievement cards backs (Series completion rewards)
     "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/cwro1dog_file_00000000833071fd8adc51da518e9550.png",
@@ -1656,6 +1666,71 @@ INITIAL_CARDS = [
         "series": 1,
         "band": "Eggsodus",
         "card_type": "A"
+    },
+    # Paul Bawl Off Variants
+    {
+        "id": "card_paul_bawl_off_toxic",
+        "name": "Paul Bawl Off (Toxic)",
+        "description": "The Toxic variant of Paul Bawl Off, his tears are now radioactive acid. One crying session creates a hazmat situation.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["paul_bawl_off_toxic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["paul_bawl_off_toxic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Eggsodus",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_paul_bawl_off",
+        "variant_name": "Toxic"
+    },
+    {
+        "id": "card_paul_bawl_off_electric",
+        "name": "Paul Bawl Off (Electric)",
+        "description": "The Electric variant of Paul Bawl Off, his tears conduct pure electricity. Every sob sends sparks flying through the venue.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["paul_bawl_off_electric"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["paul_bawl_off_electric"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Eggsodus",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_paul_bawl_off",
+        "variant_name": "Electric"
+    },
+    {
+        "id": "card_paul_bawl_off_hellfire",
+        "name": "Paul Bawl Off (Hellfire)",
+        "description": "The Hellfire variant of Paul Bawl Off, his tears burn with demonic flames. Each teardrop is a tiny fireball from the depths of Hell.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["paul_bawl_off_hellfire"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["paul_bawl_off_hellfire"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Eggsodus",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_paul_bawl_off",
+        "variant_name": "Hellfire"
+    },
+    {
+        "id": "card_paul_bawl_off_cosmic",
+        "name": "Paul Bawl Off (Cosmic)",
+        "description": "The Cosmic variant of Paul Bawl Off, his tears contain entire galaxies. When he cries, nebulas form in the puddles.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["paul_bawl_off_cosmic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["paul_bawl_off_cosmic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Eggsodus",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_paul_bawl_off",
+        "variant_name": "Cosmic"
     },
     {
         "id": "card_blood_bonder",
