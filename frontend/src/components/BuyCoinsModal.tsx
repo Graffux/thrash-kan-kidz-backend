@@ -134,38 +134,41 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
             </TouchableOpacity>
           </View>
 
-          {isFirstPurchase && (
-            <View style={styles.firstPurchaseBanner}>
-              <Text style={styles.firstPurchaseIcon}>🎉</Text>
-              <View style={styles.firstPurchaseTextContainer}>
-                <Text style={styles.firstPurchaseTitle}>First Purchase Bonus!</Text>
-                <Text style={styles.firstPurchaseSubtitle}>
-                  Get {bonusPercentage}% extra coins on your first purchase!
-                </Text>
+          <ScrollView 
+            style={styles.scrollContainer}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={true}
+            nestedScrollEnabled={true}
+            bounces={true}
+          >
+            {isFirstPurchase && (
+              <View style={styles.firstPurchaseBanner}>
+                <Text style={styles.firstPurchaseIcon}>🎉</Text>
+                <View style={styles.firstPurchaseTextContainer}>
+                  <Text style={styles.firstPurchaseTitle}>First Purchase Bonus!</Text>
+                  <Text style={styles.firstPurchaseSubtitle}>
+                    Get {bonusPercentage}% extra coins on your first purchase!
+                  </Text>
+                </View>
               </View>
-            </View>
-          )}
+            )}
 
-          <Text style={styles.subtitle}>Choose a coin package</Text>
+            <Text style={styles.subtitle}>Choose a coin package</Text>
 
-          {loading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#FFD700" />
-            </View>
-          ) : error ? (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
-              <TouchableOpacity onPress={fetchPackages} style={styles.retryButton}>
-                <Text style={styles.retryText}>Retry</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <ScrollView 
-              style={styles.scrollContainer}
-              contentContainerStyle={styles.packagesContainer}
-              showsVerticalScrollIndicator={true}
-            >
-              {packages.map((pkg) => (
+            {loading ? (
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#FFD700" />
+              </View>
+            ) : error ? (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+                <TouchableOpacity onPress={fetchPackages} style={styles.retryButton}>
+                  <Text style={styles.retryText}>Retry</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={styles.packagesContainer}>
+                {packages.map((pkg) => (
                 <TouchableOpacity
                   key={pkg.id}
                   style={[
@@ -216,20 +219,21 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
                   </View>
                 </TouchableOpacity>
               ))}
-            </ScrollView>
-          )}
+              </View>
+            )}
 
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>
-              Secure payment powered by Stripe
-            </Text>
-            <View style={styles.iapNote}>
-              <Ionicons name="information-circle-outline" size={14} color="#888" />
-              <Text style={styles.iapNoteText}>
-                In-App Purchases coming soon for iOS/Android
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>
+                Secure payment powered by Stripe
               </Text>
+              <View style={styles.iapNote}>
+                <Ionicons name="information-circle-outline" size={14} color="#888" />
+                <Text style={styles.iapNoteText}>
+                  In-App Purchases coming soon for iOS/Android
+                </Text>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -250,7 +254,7 @@ const styles = StyleSheet.create({
     padding: 20,
     width: '100%',
     maxWidth: 400,
-    maxHeight: '90%',
+    maxHeight: '95%',
   },
   header: {
     flexDirection: 'row',
@@ -319,16 +323,18 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   scrollContainer: {
-    maxHeight: 400,
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 16,
   },
   packagesContainer: {
-    gap: 12,
-    paddingBottom: 8,
+    gap: 10,
   },
   packageCard: {
     backgroundColor: '#252540',
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 12,
+    padding: 12,
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#333',
@@ -342,61 +348,61 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -10,
     backgroundColor: '#FFD700',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 10,
   },
   bestValueText: {
     color: '#000',
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: 'bold',
   },
   packageIcon: {
-    fontSize: 32,
-    marginBottom: 8,
+    fontSize: 24,
+    marginBottom: 4,
   },
   packageName: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#fff',
   },
   coinsContainer: {
     alignItems: 'center',
-    marginVertical: 8,
+    marginVertical: 4,
   },
   packageCoins: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#FFD700',
   },
   coinsLabel: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#888',
-    marginTop: 2,
+    marginTop: 1,
   },
   bonusBadge: {
     backgroundColor: '#4CAF50',
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: 8,
-    marginTop: 4,
+    borderRadius: 6,
+    marginTop: 2,
   },
   bonusText: {
     color: '#fff',
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: 'bold',
   },
   savingsText: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#888',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   priceButton: {
     backgroundColor: '#FFD700',
-    paddingHorizontal: 32,
-    paddingVertical: 12,
-    borderRadius: 25,
-    minWidth: 100,
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 20,
+    minWidth: 80,
     alignItems: 'center',
   },
   priceButtonBestValue: {
@@ -404,11 +410,11 @@ const styles = StyleSheet.create({
   },
   priceText: {
     color: '#000',
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   footer: {
-    marginTop: 20,
+    marginTop: 12,
     alignItems: 'center',
   },
   footerText: {
