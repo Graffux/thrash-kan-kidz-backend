@@ -348,6 +348,11 @@ CARD_IMAGE_URLS = {
     "piggy_in_a_blanket_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sb7p4pej_file_000000006534722f96b6b7103c74b005.png",
     "piggy_in_a_blanket_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7zknda8j_file_00000000a1fc71f5890e45a8cca1352e.png",
     "rotting_away": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/0bqomm5i_enhanced-1771278196496.jpg",
+    # Rotting Away Variants
+    "rotting_away_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zp2cnvz4_file_000000009c4c722f9c290211c77abc32.png",
+    "rotting_away_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rcqmp28y_file_00000000740871f580fc8a4537496ebc.png",
+    "rotting_away_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ulu36sy8_file_00000000e240722f924f92f4b0b4f50f.png",
+    "rotting_away_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1brkt1la_file_000000003a9c722f8c67113dd520abd0.png",
     # Band 3: Hallows Heave
     "tommy_stewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/k4dqnji8_enhanced-1771278246182.jpg",
     "tommy_spewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/f61hd5kz_enhanced-1771278293743.jpg",
@@ -1961,6 +1966,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Voivodka",
         "card_type": "B"
+    },
+    # Rotting Away Variants
+    {
+        "id": "card_rotting_away_bloodbath",
+        "name": "Rotting Away (Bloodbath)",
+        "description": "The Bloodbath variant of Rotting Away. His decay now oozes crimson gore, and every drum beat splatters the crowd with blood.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rotting_away_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_rotting_away",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_rotting_away_ice",
+        "name": "Rotting Away (Ice)",
+        "description": "The Ice variant of Rotting Away. Frozen mid-decay, his maggots are now icicles and his screams echo through glacial halls.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rotting_away_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_rotting_away",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_rotting_away_psychedelic",
+        "name": "Rotting Away (Psychedelic)",
+        "description": "The Psychedelic variant of Rotting Away. His rot now pulses with rainbow colors, his decay is a kaleidoscopic nightmare.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rotting_away_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_rotting_away",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_rotting_away_biomechanical",
+        "name": "Rotting Away (Biomechanical)",
+        "description": "The Biomechanical variant of Rotting Away. Half-zombie, half-machine, his cybernetic implants fight against his endless decay.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rotting_away_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_rotting_away",
+        "variant_name": "Biomechanical"
     },
     # Band 3: Hallows Heave
     {
