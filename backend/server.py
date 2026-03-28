@@ -248,6 +248,11 @@ CARD_IMAGE_URLS = {
     "daves_mustang_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/prdcq3g3_enhanced-1774169621597.jpg",
     "daves_mustang_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mt88cv38_enhanced-1774169804783.jpg",
     "daves_mustang_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/h971vlcd_enhanced-1774169992545.jpg",
+    # Musty Dave Variants
+    "musty_dave_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qgxycgo3_enhanced-1774167107939.jpg",
+    "musty_dave_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x1stt0y5_enhanced-1774167202963.jpg",
+    "musty_dave_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yw3e73lp_enhanced-1774167306194.jpg",
+    "musty_dave_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cazix3sc_enhanced-1774167385926.jpg",
     # Band 3: Sepulchura
     "maxi_pad": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/6cc9oltm_file_000000000a5471f5ae6a72ba59efab72.png",
     "maximum": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/2revzgsz_file_000000000f8c71f5a1ceebe96981364d.png",
@@ -344,6 +349,11 @@ CARD_BACK_IMAGE_URLS = {
     # Band 2: Megadef
     "musty_dave": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/z7kf9k7g_file_00000000ae7c722f8927ccf43d190b52.png",
     "daves_mustang": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/05n3fgpt_file_000000008f0471fd8eb6563d4dc546d5.png",
+    # Musty Dave Variants (use same as front)
+    "musty_dave_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qgxycgo3_enhanced-1774167107939.jpg",
+    "musty_dave_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x1stt0y5_enhanced-1774167202963.jpg",
+    "musty_dave_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yw3e73lp_enhanced-1774167306194.jpg",
+    "musty_dave_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cazix3sc_enhanced-1774167385926.jpg",
     # Band 3: Sepulchura
     "maxi_pad": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/rstninpu_file_00000000ed6c71f8801642ff21a5d10f.png",
     "maximum": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/xkztrnkt_file_00000000ea9871f8985aecfb04305ed7.png",
@@ -681,6 +691,71 @@ INITIAL_CARDS = [
         "card_type": "B",
         "is_variant": True,
         "base_card_id": "card_daves_mustang",
+        "variant_name": "Cosmic"
+    },
+    # Musty Dave Variants
+    {
+        "id": "card_musty_dave_toxic",
+        "name": "Musty Dave (Toxic)",
+        "description": "The Toxic variant of Musty Dave, oozing radioactive slime. His stench has evolved into a weaponized biohazard.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["musty_dave_toxic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["musty_dave_toxic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_musty_dave",
+        "variant_name": "Toxic"
+    },
+    {
+        "id": "card_musty_dave_electric",
+        "name": "Musty Dave (Electric)",
+        "description": "The Electric variant of Musty Dave, crackling with high voltage. His hair stands on end permanently from all the shocks.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["musty_dave_electric"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["musty_dave_electric"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_musty_dave",
+        "variant_name": "Electric"
+    },
+    {
+        "id": "card_musty_dave_hellfire",
+        "name": "Musty Dave (Hellfire)",
+        "description": "The Hellfire variant of Musty Dave, burning with demonic fury. His body odor has reached temperatures that melt steel.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["musty_dave_hellfire"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["musty_dave_hellfire"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_musty_dave",
+        "variant_name": "Hellfire"
+    },
+    {
+        "id": "card_musty_dave_cosmic",
+        "name": "Musty Dave (Cosmic)",
+        "description": "The Cosmic variant of Musty Dave, transcending reality. His funk has spread across galaxies, contaminating entire star systems.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["musty_dave_cosmic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["musty_dave_cosmic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_musty_dave",
         "variant_name": "Cosmic"
     },
     # Band 3: Sepulchura
