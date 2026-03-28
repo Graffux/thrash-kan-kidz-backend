@@ -396,6 +396,11 @@ CARD_IMAGE_URLS = {
     "don_doody_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/804wwp3d_file_000000009430722f8696911ebe26c81b.png",
     "don_doody_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m8zezmdk_file_00000000567871f5914537bed5604952.png",
     "don_rotty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/im3hu6sw_enhanced-1771279057803.jpg",
+    # Don Rotty Variants
+    "don_rotty_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ttif47x7_file_000000005160722fbceac1f2323fad0e.png",
+    "don_rotty_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/83wu0ydg_file_00000000fbe0722fa6e67badbf2932ee.png",
+    "don_rotty_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/015dfeaa_file_00000000f844722fbddca5b8bf26c14d.png",
+    "don_rotty_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wmjcdh1f_file_000000005c5471f5996b99da5d585e71.png",
     # =====================
     # SERIES 3 CARDS - Front Images
     # =====================
@@ -2543,6 +2548,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Dork Angel",
         "card_type": "B"
+    },
+    # Don Rotty Variants
+    {
+        "id": "card_don_rotty_bloodbath",
+        "name": "Don Rotty (Bloodbath)",
+        "description": "The Bloodbath variant of Don Rotty. His decomposing form now oozes fresh crimson gore. The stench of death mixes with the smell of fresh blood.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_rotty_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_don_rotty",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_don_rotty_ice",
+        "name": "Don Rotty (Ice)",
+        "description": "The Ice variant of Don Rotty. Frozen in eternal decay, his screams echo through glacial tombs. The cold has preserved his rot forever.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_rotty_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_don_rotty",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_don_rotty_psychedelic",
+        "name": "Don Rotty (Psychedelic)",
+        "description": "The Psychedelic variant of Don Rotty. His decay now pulses with kaleidoscopic colors. Each rotting piece is a window to another dimension.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_rotty_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_don_rotty",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_don_rotty_biomechanical",
+        "name": "Don Rotty (Biomechanical)",
+        "description": "The Biomechanical variant of Don Rotty. Cybernetic implants fight against his endless decay. Half-zombie, half-machine, all nightmare.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_rotty_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_don_rotty",
+        "variant_name": "Biomechanical"
     },
     # =====================
     # RARE CARDS - Series completion rewards
