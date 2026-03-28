@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Linking,
   Platform,
-  ScrollView,
+  FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../../src/context/AppContext';
@@ -118,6 +118,95 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
     }
   };
 
+  // Render a package card
+  const renderPackageCard = ({ item: pkg }: { item: CoinPackage }) => (
+    <TouchableOpacity
+      key={pkg.id}
+      style={[
+        styles.packageCard,
+        pkg.best_value && styles.packageCardBestValue,
+      ]}
+      onPress={() => handlePurchase(pkg.id)}
+      disabled={purchasing !== null}
+    >
+      {pkg.best_value && (
+        <View style={styles.bestValueBadge}>
+          <Text style={styles.bestValueText}>BEST VALUE</Text>
+        </View>
+      )}
+      
+      <Text style={styles.packageIcon}>{getPackageIcon(pkg.id)}</Text>
+      <Text style={styles.packageName}>{pkg.name}</Text>
+      
+      {/* Show coins with bonus */}
+      <View style={styles.coinsContainer}>
+        {pkg.bonus_coins && pkg.bonus_coins > 0 ? (
+          <>
+            <Text style={styles.packageCoins}>{pkg.total_coins?.toLocaleString()}</Text>
+            <View style={styles.bonusBadge}>
+              <Text style={styles.bonusText}>+{pkg.bonus_coins} BONUS</Text>
+            </View>
+          </>
+        ) : (
+          <Text style={styles.packageCoins}>{pkg.coins.toLocaleString()}</Text>
+        )}
+        <Text style={styles.coinsLabel}>Coins</Text>
+      </View>
+      
+      {/* Savings indicator */}
+      <Text style={styles.savingsText}>
+        {pkg.effective_coins_per_dollar?.toFixed(0) || Math.round(pkg.coins / pkg.price)} coins per $1
+      </Text>
+      
+      <View style={[
+        styles.priceButton,
+        pkg.best_value && styles.priceButtonBestValue,
+      ]}>
+        {purchasing === pkg.id ? (
+          <ActivityIndicator size="small" color="#000" />
+        ) : (
+          <Text style={styles.priceText}>${pkg.price.toFixed(2)}</Text>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+
+  // Header component for FlatList
+  const ListHeader = () => (
+    <>
+      {isFirstPurchase && (
+        <View style={styles.firstPurchaseBanner}>
+          <Text style={styles.firstPurchaseIcon}>🎉</Text>
+          <View style={styles.firstPurchaseTextContainer}>
+            <Text style={styles.firstPurchaseTitle}>First Purchase Bonus!</Text>
+            <Text style={styles.firstPurchaseSubtitle}>
+              Get {bonusPercentage}% extra coins on your first purchase!
+            </Text>
+          </View>
+        </View>
+      )}
+      <Text style={styles.subtitle}>Choose a coin package</Text>
+    </>
+  );
+
+  // Footer component for FlatList
+  const ListFooter = () => (
+    <View style={styles.footer}>
+      <Text style={styles.footerText}>
+        Secure payment powered by Stripe
+      </Text>
+      <View style={styles.iapNote}>
+        <Ionicons name="information-circle-outline" size={14} color="#888" />
+        <Text style={styles.iapNoteText}>
+          In-App Purchases coming soon for iOS/Android
+        </Text>
+      </View>
+    </View>
+  );
+
+  // Item separator for spacing
+  const ItemSeparator = () => <View style={{ height: 10 }} />;
+
   return (
     <Modal
       visible={visible}
@@ -134,106 +223,30 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
             </TouchableOpacity>
           </View>
 
-          <ScrollView 
-            style={styles.scrollContainer}
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={true}
-            nestedScrollEnabled={true}
-            bounces={true}
-          >
-            {isFirstPurchase && (
-              <View style={styles.firstPurchaseBanner}>
-                <Text style={styles.firstPurchaseIcon}>🎉</Text>
-                <View style={styles.firstPurchaseTextContainer}>
-                  <Text style={styles.firstPurchaseTitle}>First Purchase Bonus!</Text>
-                  <Text style={styles.firstPurchaseSubtitle}>
-                    Get {bonusPercentage}% extra coins on your first purchase!
-                  </Text>
-                </View>
-              </View>
-            )}
-
-            <Text style={styles.subtitle}>Choose a coin package</Text>
-
-            {loading ? (
-              <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color="#FFD700" />
-              </View>
-            ) : error ? (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
-                <TouchableOpacity onPress={fetchPackages} style={styles.retryButton}>
-                  <Text style={styles.retryText}>Retry</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.packagesContainer}>
-                {packages.map((pkg) => (
-                <TouchableOpacity
-                  key={pkg.id}
-                  style={[
-                    styles.packageCard,
-                    pkg.best_value && styles.packageCardBestValue,
-                  ]}
-                  onPress={() => handlePurchase(pkg.id)}
-                  disabled={purchasing !== null}
-                >
-                  {pkg.best_value && (
-                    <View style={styles.bestValueBadge}>
-                      <Text style={styles.bestValueText}>BEST VALUE</Text>
-                    </View>
-                  )}
-                  
-                  <Text style={styles.packageIcon}>{getPackageIcon(pkg.id)}</Text>
-                  <Text style={styles.packageName}>{pkg.name}</Text>
-                  
-                  {/* Show coins with bonus */}
-                  <View style={styles.coinsContainer}>
-                    {pkg.bonus_coins && pkg.bonus_coins > 0 ? (
-                      <>
-                        <Text style={styles.packageCoins}>{pkg.total_coins?.toLocaleString()}</Text>
-                        <View style={styles.bonusBadge}>
-                          <Text style={styles.bonusText}>+{pkg.bonus_coins} BONUS</Text>
-                        </View>
-                      </>
-                    ) : (
-                      <Text style={styles.packageCoins}>{pkg.coins.toLocaleString()}</Text>
-                    )}
-                    <Text style={styles.coinsLabel}>Coins</Text>
-                  </View>
-                  
-                  {/* Savings indicator */}
-                  <Text style={styles.savingsText}>
-                    {pkg.effective_coins_per_dollar?.toFixed(0) || Math.round(pkg.coins / pkg.price)} coins per $1
-                  </Text>
-                  
-                  <View style={[
-                    styles.priceButton,
-                    pkg.best_value && styles.priceButtonBestValue,
-                  ]}>
-                    {purchasing === pkg.id ? (
-                      <ActivityIndicator size="small" color="#000" />
-                    ) : (
-                      <Text style={styles.priceText}>${pkg.price.toFixed(2)}</Text>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              ))}
-              </View>
-            )}
-
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>
-                Secure payment powered by Stripe
-              </Text>
-              <View style={styles.iapNote}>
-                <Ionicons name="information-circle-outline" size={14} color="#888" />
-                <Text style={styles.iapNoteText}>
-                  In-App Purchases coming soon for iOS/Android
-                </Text>
-              </View>
+          {loading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#FFD700" />
             </View>
-          </ScrollView>
+          ) : error ? (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{error}</Text>
+              <TouchableOpacity onPress={fetchPackages} style={styles.retryButton}>
+                <Text style={styles.retryText}>Retry</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <FlatList
+              data={packages}
+              renderItem={renderPackageCard}
+              keyExtractor={(item) => item.id}
+              ListHeaderComponent={ListHeader}
+              ListFooterComponent={ListFooter}
+              ItemSeparatorComponent={ItemSeparator}
+              contentContainerStyle={styles.flatListContent}
+              showsVerticalScrollIndicator={true}
+              bounces={true}
+            />
+          )}
         </View>
       </View>
     </Modal>
@@ -327,6 +340,11 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 16,
+  },
+  flatListContent: {
+    paddingHorizontal: 4,
+    paddingBottom: 16,
+    gap: 10,
   },
   packagesContainer: {
     gap: 10,
