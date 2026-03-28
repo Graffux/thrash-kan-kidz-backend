@@ -355,6 +355,11 @@ CARD_IMAGE_URLS = {
     "rotting_away_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1brkt1la_file_000000003a9c722f8c67113dd520abd0.png",
     # Band 3: Hallows Heave
     "tommy_stewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/k4dqnji8_enhanced-1771278246182.jpg",
+    # Tommy Stewart Variants
+    "tommy_stewart_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e4uik3pv_file_00000000f6e071f8882de66a8557a169.png",
+    "tommy_stewart_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xxv96r0f_file_00000000b43871fda4c35295cf7390db.png",
+    "tommy_stewart_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vpzhq4cm_file_00000000612871f88b5f91b298325a76.png",
+    "tommy_stewart_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/adraiy0y_file_00000000446071f8864335af1f30030a.png",
     "tommy_spewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/f61hd5kz_enhanced-1771278293743.jpg",
     # Tommy Spewart Variants
     "tommy_spewart_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/l7ov0tqh_file_0000000032e471f8b3bb69e79bb36030.png",
@@ -2100,6 +2105,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Hallows Heave",
         "card_type": "A"
+    },
+    # Tommy Stewart Variants
+    {
+        "id": "card_tommy_stewart_bloodbath",
+        "name": "Tommy SteWART (Bloodbath)",
+        "description": "The Bloodbath variant of Tommy SteWART. His warts now bleed eternally, covering everything in a cascade of crimson horror.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tommy_stewart_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Hallows Heave",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tommy_stewart",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_tommy_stewart_ice",
+        "name": "Tommy SteWART (Ice)",
+        "description": "The Ice variant of Tommy SteWART. His frozen warts glisten like deadly icicles. Every scream shatters the cold.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tommy_stewart_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Hallows Heave",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tommy_stewart",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_tommy_stewart_psychedelic",
+        "name": "Tommy SteWART (Psychedelic)",
+        "description": "The Psychedelic variant of Tommy SteWART. His rainbow warts pulse with cosmic energy. Every growth is a trip.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tommy_stewart_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Hallows Heave",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tommy_stewart",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_tommy_stewart_biomechanical",
+        "name": "Tommy SteWART (Biomechanical)",
+        "description": "The Biomechanical variant of Tommy SteWART. His cybernetic warts are weapons of mass destruction. Machine meets disease.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tommy_stewart_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Hallows Heave",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tommy_stewart",
+        "variant_name": "Biomechanical"
     },
     {
         "id": "card_tommy_spewart",
