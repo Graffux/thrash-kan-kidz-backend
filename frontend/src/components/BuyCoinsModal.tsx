@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Linking,
   Platform,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../../src/context/AppContext';
@@ -159,7 +160,11 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
               </TouchableOpacity>
             </View>
           ) : (
-            <View style={styles.packagesContainer}>
+            <ScrollView 
+              style={styles.scrollContainer}
+              contentContainerStyle={styles.packagesContainer}
+              showsVerticalScrollIndicator={true}
+            >
               {packages.map((pkg) => (
                 <TouchableOpacity
                   key={pkg.id}
@@ -211,7 +216,7 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
                   </View>
                 </TouchableOpacity>
               ))}
-            </View>
+            </ScrollView>
           )}
 
           <View style={styles.footer}>
@@ -313,8 +318,12 @@ const styles = StyleSheet.create({
   retryText: {
     color: '#fff',
   },
+  scrollContainer: {
+    maxHeight: 400,
+  },
   packagesContainer: {
     gap: 12,
+    paddingBottom: 8,
   },
   packageCard: {
     backgroundColor: '#252540',
