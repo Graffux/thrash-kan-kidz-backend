@@ -287,6 +287,11 @@ CARD_IMAGE_URLS = {
     "cliff_diver_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gvht2fcl_file_00000000e45871f58bb0cd737a148e65.png",
     "cliff_diver_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cbcqxk2v_file_00000000be2871f89046161bc2021442.png",
     "cliff_diver_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pkla48mo_file_000000007b9071fd99ae61a5d7af6f09.png",
+    # Cliff Burpin Variants
+    "cliff_burpin_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/71biwhb5_file_000000000ee4722fa9c2b4c0f6b3139f.png",
+    "cliff_burpin_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4p896zhf_enhanced-1774674468823.jpg",
+    "cliff_burpin_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/irnn5899_file_00000000d8f471fd957140f6f64fbc5e.png",
+    "cliff_burpin_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2kd1s8h7_file_00000000b06071f8803d4356e2c07470.png",
     # Band 6: Anthrash
     "scotch_ian": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/wfx5afyp_file_0000000067c071fd8fbea79ea1359879.png",
     "scott_eaten": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g7kyk9s9_file_00000000d70c71fdb7b87b53d2b770cd.png",
