@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -60,7 +60,19 @@ export default function ShopScreen() {
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
   const CARD_BACK_IMAGE = 'https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jlg546ha_file_00000000369c71f580be8b548f7c5be7.png';
-  const PACK_COVER_IMAGE = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qmfr196q_enhanced-1771247671181.jpg';
+  
+  // Pack cover images per series
+  const PACK_COVERS: { [key: number]: string } = {
+    1: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qmfr196q_enhanced-1771247671181.jpg',
+    2: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/299mm98l_file_00000000e66c71fdbb3b59d1529ea8b0.png',
+    3: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qmfr196q_enhanced-1771247671181.jpg', // Placeholder - will update when Series 3 cover provided
+  };
+  
+  // Get current pack cover based on user's current series - recalculates when spinPool changes
+  const packCoverImage = useMemo(() => {
+    const series = spinPool?.current_series || 1;
+    return PACK_COVERS[series] || PACK_COVERS[1];
+  }, [spinPool?.current_series]);
 
   useEffect(() => {
     fetchSpinData();
@@ -429,7 +441,7 @@ export default function ShopScreen() {
                 }
               ]}>
                 <Image 
-                  source={{ uri: PACK_COVER_IMAGE }}
+                  source={{ uri: packCoverImage }}
                   style={styles.packImage}
                   resizeMode="cover"
                 />
@@ -457,7 +469,7 @@ export default function ShopScreen() {
                 >
                   {/* Show pack cover on back, card front when flipped */}
                   <Image
-                    source={{ uri: cardFlipped && spinResult ? spinResult.won_card.front_image_url : PACK_COVER_IMAGE }}
+                    source={{ uri: cardFlipped && spinResult ? spinResult.won_card.front_image_url : packCoverImage }}
                     style={styles.revealedCardImage}
                     resizeMode="cover"
                   />
