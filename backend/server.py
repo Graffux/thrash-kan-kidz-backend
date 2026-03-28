@@ -378,6 +378,11 @@ CARD_IMAGE_URLS = {
     # Band 7: Sacrud Ryche
     "philled_up": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/a4luonk7_enhanced-1771278919638.jpg",
     "phil_grind": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/535v6r16_enhanced-1771278999569.jpg",
+    # Phil Grind Variants
+    "phil_grind_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/z5cuo22s_file_00000000ac88722fa1b156df4828028d.png",
+    "phil_grind_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/joed1hef_file_00000000bf4071f58a8a96f6ab628567.png",
+    "phil_grind_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ugt3jsoa_file_0000000047c871f5b916416de198a3c8.png",
+    "phil_grind_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wboewn3l_file_00000000012071f8818bc88eb150b4e6.png",
     # Band 8: Dork Angel
     "don_doody": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/zb0sa00g_enhanced-1771279108828.jpg",
     "don_rotty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/im3hu6sw_enhanced-1771279057803.jpg",
@@ -2306,6 +2311,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Sacrud Ryche",
         "card_type": "B"
+    },
+    # Phil Grind Variants
+    {
+        "id": "card_phil_grind_bloodbath",
+        "name": "Phil Grind (Bloodbath)",
+        "description": "The Bloodbath variant of Phil Grind. His meat grinder now oozes crimson gore. The output? Pure bloody terror on a plate.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["phil_grind_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Sacrud Ryche",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_phil_grind",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_phil_grind_ice",
+        "name": "Phil Grind (Ice)",
+        "description": "The Ice variant of Phil Grind. His frozen meat grinder produces frost-bitten chunks. Even the skulls shiver in his arctic presence.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["phil_grind_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Sacrud Ryche",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_phil_grind",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_phil_grind_psychedelic",
+        "name": "Phil Grind (Psychedelic)",
+        "description": "The Psychedelic variant of Phil Grind. His grinder produces rainbow-colored mystery meat. One bite sends you on a trip you'll never forget.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["phil_grind_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Sacrud Ryche",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_phil_grind",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_phil_grind_biomechanical",
+        "name": "Phil Grind (Biomechanical)",
+        "description": "The Biomechanical variant of Phil Grind. Half-man, half-machine, his cybernetic grinder processes flesh and metal alike with terrifying efficiency.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["phil_grind_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Sacrud Ryche",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_phil_grind",
+        "variant_name": "Biomechanical"
     },
     # Band 8: Dork Angel
     {
