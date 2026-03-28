@@ -390,6 +390,11 @@ CARD_IMAGE_URLS = {
     "phil_grind_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wboewn3l_file_00000000012071f8818bc88eb150b4e6.png",
     # Band 8: Dork Angel
     "don_doody": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/zb0sa00g_enhanced-1771279108828.jpg",
+    # Don Doody Variants
+    "don_doody_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/agbprfjp_file_00000000749c722f90cd6da49dbfd536.png",
+    "don_doody_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1g2s5129_file_000000008d14722f93f4775fef82125e.png",
+    "don_doody_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/804wwp3d_file_000000009430722f8696911ebe26c81b.png",
+    "don_doody_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m8zezmdk_file_00000000567871f5914537bed5604952.png",
     "don_rotty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/im3hu6sw_enhanced-1771279057803.jpg",
     # =====================
     # SERIES 3 CARDS - Front Images
@@ -2460,6 +2465,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Dork Angel",
         "card_type": "A"
+    },
+    # Don Doody Variants
+    {
+        "id": "card_don_doody_bloodbath",
+        "name": "Don Doody (Bloodbath)",
+        "description": "The Bloodbath variant of Don Doody. His toilet throne is now soaked in crimson. The smell is indescribable, the mess is legendary.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_doody_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_don_doody",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_don_doody_ice",
+        "name": "Don Doody (Ice)",
+        "description": "The Ice variant of Don Doody. Frozen solid on his porcelain throne. The only thing colder than his stare is his frozen toilet paper.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_doody_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_don_doody",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_don_doody_psychedelic",
+        "name": "Don Doody (Psychedelic)",
+        "description": "The Psychedelic variant of Don Doody. His bathroom experience transcends dimensions. Rainbow-colored chaos erupts from his throne.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_doody_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_don_doody",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_don_doody_biomechanical",
+        "name": "Don Doody (Biomechanical)",
+        "description": "The Biomechanical variant of Don Doody. His cybernetic bowels process waste with mechanical precision. Half-man, half-toilet, all terror.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["don_doody_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Dork Angel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_don_doody",
+        "variant_name": "Biomechanical"
     },
     {
         "id": "card_don_rotty",
