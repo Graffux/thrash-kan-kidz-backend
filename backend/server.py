@@ -394,12 +394,19 @@ CARD_IMAGE_URLS = {
 
 CARD_BACK_IMAGE_URLS = {
     # =====================
-    # UNIVERSAL VARIANT BACKS
+    # UNIVERSAL VARIANT BACKS - SERIES 1
     # =====================
     "variant_back_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wgs923tx_file_000000002efc71f884f1688fbde05ac5.png",
     "variant_back_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rfifnity_enhanced-1774169687540.jpg",
     "variant_back_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xlpkt804_enhanced-1774169889456.jpg",
     "variant_back_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dvr1ivtp_enhanced-1774170032529.jpg",
+    # =====================
+    # UNIVERSAL VARIANT BACKS - SERIES 2
+    # =====================
+    "variant_back_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yc5wu6dn_file_00000000f364722f9b732847c2e993b5.png",
+    "variant_back_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qctkgz9n_file_00000000277c71f5ada9f7e68128291d.png",
+    "variant_back_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/eg5va8ej_file_00000000373c71f59e06f259b07329a2.png",
+    "variant_back_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7p1jdb1p_file_00000000e13871f59e228eb1381b39aa.png",
     # =====================
     # Band 1: $LAYA
     "tom_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jlg546ha_file_00000000369c71f580be8b548f7c5be7.png",
