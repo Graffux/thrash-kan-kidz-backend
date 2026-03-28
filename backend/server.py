@@ -342,6 +342,11 @@ CARD_IMAGE_URLS = {
     "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lutlvn34_enhanced-1771279297015.jpg",
     # Band 2: Voivodka
     "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/dpfv01yo_enhanced-1771278142034.jpg",
+    # Piggy in a Blanket Variants
+    "piggy_in_a_blanket_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7ausfquy_file_000000007b4071f5b73d200c35225f35.png",
+    "piggy_in_a_blanket_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3os4mgu1_file_00000000a35c722fb4e343a7069b26ba.png",
+    "piggy_in_a_blanket_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sb7p4pej_file_000000006534722f96b6b7103c74b005.png",
+    "piggy_in_a_blanket_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7zknda8j_file_00000000a1fc71f5890e45a8cca1352e.png",
     "rotting_away": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/0bqomm5i_enhanced-1771278196496.jpg",
     # Band 3: Hallows Heave
     "tommy_stewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/k4dqnji8_enhanced-1771278246182.jpg",
@@ -1878,6 +1883,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "Voivodka",
         "card_type": "A"
+    },
+    # Piggy in a Blanket Variants
+    {
+        "id": "card_piggy_in_a_blanket_bloodbath",
+        "name": "Piggy in a Blanket (Bloodbath)",
+        "description": "The Bloodbath variant of Piggy. His blanket is now soaked in crimson gore, and his screams echo through blood-drenched halls of horror.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_piggy_in_a_blanket",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_piggy_in_a_blanket_ice",
+        "name": "Piggy in a Blanket (Ice)",
+        "description": "The Ice variant of Piggy. Frozen solid in his blanket, his screams now shatter like icicles in the frozen tundra.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_piggy_in_a_blanket",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_piggy_in_a_blanket_psychedelic",
+        "name": "Piggy in a Blanket (Psychedelic)",
+        "description": "The Psychedelic variant of Piggy. His blanket swirls with mind-bending colors, his screams are now trippy soundwaves from another dimension.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_piggy_in_a_blanket",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_piggy_in_a_blanket_biomechanical",
+        "name": "Piggy in a Blanket (Biomechanical)",
+        "description": "The Biomechanical variant of Piggy. His blanket is now cybernetic coils and cables, merging flesh with machine in unholy fusion.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["piggy_in_a_blanket_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "Voivodka",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_piggy_in_a_blanket",
+        "variant_name": "Biomechanical"
     },
     {
         "id": "card_rotting_away",
