@@ -34,6 +34,11 @@ interface Card {
   front_image_url: string;
   back_image_url: string;
   coin_cost: number;
+  series?: number;
+  band?: string;
+  card_type?: string;
+  base_card_id?: string;
+  variant_name?: string;
 }
 
 interface UserCard {
@@ -333,7 +338,6 @@ export default function CollectionScreen() {
               )}
               keyExtractor={(item) => item.user_card_id}
               numColumns={3}
-              estimatedItemSize={CARD_HEIGHT + 12}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={styles.flashListContent}
             />

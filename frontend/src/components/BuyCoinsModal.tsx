@@ -326,16 +326,6 @@ const styles = StyleSheet.create({
   retryText: {
     color: '#fff',
   },
-  scrollContainer: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingBottom: 16,
-  },
-  flatListContent: {
-    paddingHorizontal: 4,
-    paddingBottom: 8,
-  },
   scrollContent: {
     flex: 1,
   },

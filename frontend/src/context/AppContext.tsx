@@ -26,6 +26,11 @@ interface Card {
   coin_cost: number;
   available: boolean;
   created_at: string;
+  series?: number;
+  band?: string;
+  card_type?: string;
+  base_card_id?: string;
+  variant_name?: string;
 }
 
 interface UserCard {

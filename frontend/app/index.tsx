@@ -279,10 +279,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
     textAlign: 'center',
   },
-  logoImage: {
-    width: '100%',
-    height: 150,
-    marginBottom: 32,
+  giftEmoji: {
+    fontSize: 18,
+    marginRight: 8,
   },
   creditText: {
     color: '#666',
