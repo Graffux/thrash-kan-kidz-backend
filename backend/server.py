@@ -35,7 +35,7 @@ class Card(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
     description: str
-    rarity: str  # common, rare, epic
+    rarity: str  # common, rare, epic, variant
     front_image_url: str  # URL to the front image
     back_image_url: str = ""  # URL to the back image
     coin_cost: int = 100
@@ -47,6 +47,9 @@ class Card(BaseModel):
     series_reward: Optional[int] = None  # Which series this card is a reward for
     band: Optional[str] = None  # Band name for grouping A/B cards
     card_type: Optional[str] = None  # "A" or "B" for band card variants
+    is_variant: bool = False  # Whether this is a variant card
+    base_card_id: Optional[str] = None  # The base card this is a variant of
+    variant_name: Optional[str] = None  # Name of the variant (e.g., "Toxic", "Electric")
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class User(BaseModel):
@@ -230,6 +233,11 @@ CARD_IMAGE_URLS = {
     # Band 2: Megadef
     "musty_dave": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/nggi41l4_file_00000000319871f583003b0145086e96.png",
     "daves_mustang": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8t15nt7u_file_0000000079ec71fdbe0a31c88426db30.png",
+    # Dave's Mustang Variants
+    "daves_mustang_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hmkamrxq_enhanced-1774169523717.jpg",
+    "daves_mustang_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/prdcq3g3_enhanced-1774169621597.jpg",
+    "daves_mustang_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mt88cv38_enhanced-1774169804783.jpg",
+    "daves_mustang_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/h971vlcd_enhanced-1774169992545.jpg",
     # Band 3: Sepulchura
     "maxi_pad": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/6cc9oltm_file_000000000a5471f5ae6a72ba59efab72.png",
     "maximum": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/2revzgsz_file_000000000f8c71f5a1ceebe96981364d.png",
@@ -459,6 +467,71 @@ INITIAL_CARDS = [
         "series": 1,
         "band": "Megadef",
         "card_type": "B"
+    },
+    # Dave's Mustang Variants
+    {
+        "id": "card_daves_mustang_toxic",
+        "name": "Dave's Mustang (Toxic)",
+        "description": "The Toxic variant of Dave's Mustang, dripping with radioactive slime. Nuclear waste and thrash metal don't mix well, but they sure look awesome.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["daves_mustang_toxic"],
+        "back_image_url": CARD_IMAGE_URLS["daves_mustang_toxic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_daves_mustang",
+        "variant_name": "Toxic"
+    },
+    {
+        "id": "card_daves_mustang_electric",
+        "name": "Dave's Mustang (Electric)",
+        "description": "The Electric variant of Dave's Mustang, crackling with lightning energy. When Dave shreds, the sky literally splits open.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["daves_mustang_electric"],
+        "back_image_url": CARD_IMAGE_URLS["daves_mustang_electric"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_daves_mustang",
+        "variant_name": "Electric"
+    },
+    {
+        "id": "card_daves_mustang_hellfire",
+        "name": "Dave's Mustang (Hellfire)",
+        "description": "The Hellfire variant of Dave's Mustang, engulfed in eternal flames. Straight from the depths of metal hell, this ride burns rubber and souls.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["daves_mustang_hellfire"],
+        "back_image_url": CARD_IMAGE_URLS["daves_mustang_hellfire"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_daves_mustang",
+        "variant_name": "Hellfire"
+    },
+    {
+        "id": "card_daves_mustang_cosmic",
+        "name": "Dave's Mustang (Cosmic)",
+        "description": "The Cosmic variant of Dave's Mustang, cruising through galaxies. When the riffs are this heavy, even black holes can't escape.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["daves_mustang_cosmic"],
+        "back_image_url": CARD_IMAGE_URLS["daves_mustang_cosmic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Megadef",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_daves_mustang",
+        "variant_name": "Cosmic"
     },
     # Band 3: Sepulchura
     {
@@ -2176,6 +2249,141 @@ async def check_user_rare_cards(user_id: str):
             "cards_to_next_milestone": cards_to_next_milestone,
             "progress_to_next": total_cards % 5
         }
+    }
+
+# =====================
+# Variant Trade-In System
+# =====================
+
+VARIANT_TYPES = ["Toxic", "Electric", "Hellfire", "Cosmic"]
+
+@api_router.get("/users/{user_id}/trade-in-eligible")
+async def get_trade_in_eligible_cards(user_id: str):
+    """Get cards that are eligible for trade-in (5+ duplicates)"""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Get user's cards with quantities
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
+    
+    eligible_cards = []
+    for uc in user_cards:
+        quantity = uc.get("quantity", 1)
+        if quantity >= 5:
+            # Get the base card info
+            card = await db.cards.find_one({"id": uc["card_id"]})
+            if card and not card.get("is_variant", False):
+                # Check if this card has variants
+                variants = await db.cards.find({
+                    "base_card_id": card["id"],
+                    "is_variant": True
+                }).to_list(10)
+                
+                if variants:
+                    # Get which variants user already owns
+                    owned_variant_ids = []
+                    for v in variants:
+                        owned = await db.user_cards.find_one({
+                            "user_id": user_id,
+                            "card_id": v["id"]
+                        })
+                        if owned:
+                            owned_variant_ids.append(v["id"])
+                    
+                    # Check if user can still get more variants
+                    unowned_variants = [v for v in variants if v["id"] not in owned_variant_ids]
+                    
+                    if unowned_variants:
+                        card_copy = {k: v for k, v in card.items() if k != "_id"}
+                        eligible_cards.append({
+                            "card": Card(**card_copy),
+                            "quantity": quantity,
+                            "variants_owned": len(owned_variant_ids),
+                            "variants_total": len(variants),
+                            "can_trade": True
+                        })
+    
+    return {"eligible_cards": eligible_cards}
+
+@api_router.post("/users/{user_id}/trade-in/{card_id}")
+async def trade_in_for_variant(user_id: str, card_id: str):
+    """Trade in 5 duplicates of a card for a variant"""
+    import random
+    
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check user has this card with 5+ quantity
+    user_card = await db.user_cards.find_one({
+        "user_id": user_id,
+        "card_id": card_id
+    })
+    
+    if not user_card or user_card.get("quantity", 1) < 5:
+        raise HTTPException(status_code=400, detail="Need at least 5 duplicates to trade in")
+    
+    # Get base card
+    base_card = await db.cards.find_one({"id": card_id})
+    if not base_card:
+        raise HTTPException(status_code=404, detail="Card not found")
+    
+    if base_card.get("is_variant", False):
+        raise HTTPException(status_code=400, detail="Cannot trade in variant cards")
+    
+    # Get all variants for this card
+    variants = await db.cards.find({
+        "base_card_id": card_id,
+        "is_variant": True
+    }).to_list(10)
+    
+    if not variants:
+        raise HTTPException(status_code=400, detail="No variants available for this card")
+    
+    # Get which variants user already owns
+    owned_variant_ids = []
+    for v in variants:
+        owned = await db.user_cards.find_one({
+            "user_id": user_id,
+            "card_id": v["id"]
+        })
+        if owned:
+            owned_variant_ids.append(v["id"])
+    
+    # Filter to unowned variants
+    unowned_variants = [v for v in variants if v["id"] not in owned_variant_ids]
+    
+    if not unowned_variants:
+        raise HTTPException(status_code=400, detail="You already own all variants of this card!")
+    
+    # Pick a random unowned variant
+    won_variant = random.choice(unowned_variants)
+    
+    # Deduct 5 from user's card quantity
+    new_quantity = user_card.get("quantity", 1) - 5
+    if new_quantity <= 0:
+        await db.user_cards.delete_one({"_id": user_card["_id"]})
+    else:
+        await db.user_cards.update_one(
+            {"_id": user_card["_id"]},
+            {"$set": {"quantity": new_quantity}}
+        )
+    
+    # Add variant to user's collection
+    variant_user_card = UserCard(user_id=user_id, card_id=won_variant["id"])
+    await db.user_cards.insert_one(variant_user_card.dict())
+    
+    logger.info(f"User {user_id} traded in 5x {base_card['name']} for variant: {won_variant['name']}")
+    
+    won_variant_copy = {k: v for k, v in won_variant.items() if k != "_id"}
+    
+    return {
+        "success": True,
+        "won_variant": Card(**won_variant_copy),
+        "remaining_quantity": max(0, new_quantity),
+        "variants_owned": len(owned_variant_ids) + 1,
+        "variants_total": len(variants)
     }
 
 # =====================

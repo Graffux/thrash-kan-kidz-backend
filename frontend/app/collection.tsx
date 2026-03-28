@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
   Modal,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -183,12 +184,61 @@ const FlippableCard = ({
 };
 
 export default function CollectionScreen() {
-  const { user, userCards, allCards } = useApp();
+  const { user, userCards, allCards, apiUrl, refreshData } = useApp();
   const [selectedCard, setSelectedCard] = useState<UserCard | null>(null);
   const [filter, setFilter] = useState<'all' | 'owned' | 'missing'>('all');
+  const [tradeInEligible, setTradeInEligible] = useState<any[]>([]);
+  const [showTradeInResult, setShowTradeInResult] = useState(false);
+  const [tradeInResult, setTradeInResult] = useState<any>(null);
+  const [isTrading, setIsTrading] = useState(false);
   const modalFlipProgress = useSharedValue(0);
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
+
+  // Fetch trade-in eligible cards
+  useEffect(() => {
+    if (user) {
+      fetchTradeInEligible();
+    }
+  }, [user, userCards]);
+
+  const fetchTradeInEligible = async () => {
+    if (!user) return;
+    try {
+      const response = await fetch(`${apiUrl}/api/users/${user.id}/trade-in-eligible`);
+      const data = await response.json();
+      setTradeInEligible(data.eligible_cards || []);
+    } catch (error) {
+      console.error('Error fetching trade-in eligible cards:', error);
+    }
+  };
+
+  const handleTradeIn = async (cardId: string) => {
+    if (!user || isTrading) return;
+    
+    setIsTrading(true);
+    try {
+      const response = await fetch(`${apiUrl}/api/users/${user.id}/trade-in/${cardId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setTradeInResult(data);
+        setShowTradeInResult(true);
+        refreshData();
+        fetchTradeInEligible();
+      } else {
+        Alert.alert('Trade-In Failed', data.detail || 'Could not complete trade-in');
+      }
+    } catch (error) {
+      console.error('Trade-in error:', error);
+      Alert.alert('Error', 'Failed to complete trade-in');
+    } finally {
+      setIsTrading(false);
+    }
+  };
 
   if (!user) {
     return (
@@ -286,6 +336,39 @@ export default function CollectionScreen() {
         </View>
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          {/* Trade-In Section */}
+          {tradeInEligible.length > 0 && (
+            <View style={styles.tradeInSection}>
+              <Text style={styles.tradeInTitle}>🔄 Trade-In for Variants</Text>
+              <Text style={styles.tradeInSubtitle}>Trade 5 duplicates for a rare variant!</Text>
+              {tradeInEligible.map((item) => (
+                <View key={item.card.id} style={styles.tradeInCard}>
+                  <Image 
+                    source={{ uri: item.card.front_image_url }}
+                    style={styles.tradeInImage}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.tradeInInfo}>
+                    <Text style={styles.tradeInName}>{item.card.name}</Text>
+                    <Text style={styles.tradeInQuantity}>
+                      {item.quantity} duplicates • {item.variants_owned}/{item.variants_total} variants
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={[styles.tradeInButton, isTrading && styles.tradeInButtonDisabled]}
+                    onPress={() => handleTradeIn(item.card.id)}
+                    disabled={isTrading}
+                    data-testid={`trade-in-${item.card.id}`}
+                  >
+                    <Text style={styles.tradeInButtonText}>
+                      {isTrading ? '...' : 'TRADE IN'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          )}
+
           <View style={styles.cardsGrid}>
             {filteredCards.map((uc) => (
               <FlippableCard
@@ -300,6 +383,40 @@ export default function CollectionScreen() {
             ))}
           </View>
         </ScrollView>
+
+        {/* Trade-In Result Modal */}
+        <Modal
+          visible={showTradeInResult}
+          animationType="fade"
+          transparent
+          onRequestClose={() => setShowTradeInResult(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.tradeInResultContainer}>
+              <Text style={styles.tradeInResultTitle}>🎉 NEW VARIANT!</Text>
+              {tradeInResult && (
+                <>
+                  <Image
+                    source={{ uri: tradeInResult.won_variant.front_image_url }}
+                    style={styles.tradeInResultImage}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.tradeInResultName}>{tradeInResult.won_variant.name}</Text>
+                  <Text style={styles.tradeInResultDesc}>
+                    {tradeInResult.variants_owned}/{tradeInResult.variants_total} variants collected
+                  </Text>
+                </>
+              )}
+              <TouchableOpacity
+                style={styles.tradeInResultButton}
+                onPress={() => setShowTradeInResult(false)}
+                data-testid="close-trade-in-result"
+              >
+                <Text style={styles.tradeInResultButtonText}>Awesome!</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
 
         {/* Card Detail Modal */}
         <Modal
@@ -691,5 +808,113 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 14,
     marginTop: 20,
+  },
+  // Trade-In Styles
+  tradeInSection: {
+    backgroundColor: 'rgba(26, 26, 46, 0.9)',
+    borderRadius: 16,
+    padding: 16,
+    marginHorizontal: 12,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#9b59b6',
+  },
+  tradeInTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#9b59b6',
+    marginBottom: 4,
+  },
+  tradeInSubtitle: {
+    fontSize: 12,
+    color: '#888',
+    marginBottom: 12,
+  },
+  tradeInCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 8,
+  },
+  tradeInImage: {
+    width: 50,
+    height: 70,
+    borderRadius: 6,
+    marginRight: 12,
+  },
+  tradeInInfo: {
+    flex: 1,
+  },
+  tradeInName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  tradeInQuantity: {
+    fontSize: 11,
+    color: '#888',
+    marginTop: 2,
+  },
+  tradeInButton: {
+    backgroundColor: '#9b59b6',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 16,
+  },
+  tradeInButtonDisabled: {
+    backgroundColor: '#555',
+  },
+  tradeInButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  tradeInResultContainer: {
+    backgroundColor: '#1a1a2e',
+    borderRadius: 20,
+    padding: 24,
+    alignItems: 'center',
+    width: '85%',
+    maxWidth: 320,
+    borderWidth: 3,
+    borderColor: '#9b59b6',
+  },
+  tradeInResultTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#9b59b6',
+    marginBottom: 16,
+  },
+  tradeInResultImage: {
+    width: 180,
+    height: 240,
+    borderRadius: 12,
+    borderWidth: 3,
+    borderColor: '#9b59b6',
+    marginBottom: 12,
+  },
+  tradeInResultName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 4,
+  },
+  tradeInResultDesc: {
+    fontSize: 13,
+    color: '#888',
+    marginBottom: 16,
+  },
+  tradeInResultButton: {
+    backgroundColor: '#9b59b6',
+    paddingHorizontal: 32,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  tradeInResultButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
