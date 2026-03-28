@@ -288,6 +288,11 @@ CARD_IMAGE_URLS = {
     # Band 7: Kreaturd
     "silly_mille": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/paaodduf_file_0000000018b871fda0fd7e44b8c11def.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g91wp9yv_file_000000002b6871f8adc873413d3619f3.png",
+    # Silly Mille Variants
+    "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
+    "silly_mille_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c4ieu7h8_file_00000000d45c722f8144b642c24a0ed1.png",
+    "silly_mille_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rnv4fjhr_file_00000000a3e471fbbd30932d141bb0fc.png",
+    "silly_mille_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/55afmtp5_file_00000000888071fb925da62eb81eea9f.png",
     # Band 8: Eggsodus
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/qwai8wue_file_00000000442871fd8945003a4fd9662a.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/63m30i4q_file_00000000a374722f8343b54e3a06558f.png",
@@ -409,6 +414,11 @@ CARD_BACK_IMAGE_URLS = {
     # Band 7: Kreaturd
     "silly_mille": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jfks6ym6_file_0000000044cc71f5b295bcd8f73d0398.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/1asg9g5i_file_00000000674c71f5a6ddd9c12c7ffcdb.png",
+    # Silly Mille Variants
+    "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
+    "silly_mille_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c4ieu7h8_file_00000000d45c722f8144b642c24a0ed1.png",
+    "silly_mille_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rnv4fjhr_file_00000000a3e471fbbd30932d141bb0fc.png",
+    "silly_mille_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/55afmtp5_file_00000000888071fb925da62eb81eea9f.png",
     # Band 8: Eggsodus
     "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/9dv3gzga_file_00000000b82471fdb1ce4df389a3cdb3.png",
     "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/uknhwlhn_file_00000000e53871f8b1042baf1259181b.png",
@@ -1192,6 +1202,71 @@ INITIAL_CARDS = [
         "series": 1,
         "band": "Kreaturd",
         "card_type": "B"
+    },
+    # Silly Mille Variants
+    {
+        "id": "card_silly_mille_toxic",
+        "name": "Silly Mille (Toxic)",
+        "description": "The Toxic variant of Silly Mille, his boogers now glow radioactive green. Biohazard crews follow him on tour.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["silly_mille_toxic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille_toxic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Kreaturd",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_silly_mille",
+        "variant_name": "Toxic"
+    },
+    {
+        "id": "card_silly_mille_electric",
+        "name": "Silly Mille (Electric)",
+        "description": "The Electric variant of Silly Mille, his snot now conducts lightning. Every sneeze causes a power surge.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["silly_mille_electric"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille_electric"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Kreaturd",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_silly_mille",
+        "variant_name": "Electric"
+    },
+    {
+        "id": "card_silly_mille_hellfire",
+        "name": "Silly Mille (Hellfire)",
+        "description": "The Hellfire variant of Silly Mille, his mucus now burns with demonic fire. Hell's demons refuse to shake his hand.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["silly_mille_hellfire"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille_hellfire"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Kreaturd",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_silly_mille",
+        "variant_name": "Hellfire"
+    },
+    {
+        "id": "card_silly_mille_cosmic",
+        "name": "Silly Mille (Cosmic)",
+        "description": "The Cosmic variant of Silly Mille, his snot transcends space and time. Alien civilizations have declared him a biohazard.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["silly_mille_cosmic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille_cosmic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "Kreaturd",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_silly_mille",
+        "variant_name": "Cosmic"
     },
     # Band 8: Eggsodus
     {
