@@ -228,8 +228,13 @@ FIRST_PURCHASE_BONUS_PERCENTAGE = 50  # 50% extra coins on first purchase
 
 CARD_IMAGE_URLS = {
     # Band 1: $LAYA
-    "slaya_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8p3eb259_file_00000000172471f8a3d8c4e632f699f7.png",
+    "tom_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8p3eb259_file_00000000172471f8a3d8c4e632f699f7.png",
     "chum_araya": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/19mw7g72_file_000000008df471f5b300702b42b32cd0.png",
+    # Tom Da Playa Variants
+    "tom_da_playa_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8ijovlfp_enhanced-1773602336149.jpg",
+    "tom_da_playa_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3q3w1vwe_enhanced-1773602540143.jpg",
+    "tom_da_playa_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qeil0ghj_enhanced-1773618665694.jpg",
+    "tom_da_playa_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/741jupbe_enhanced-1773618832172.jpg",
     # Band 2: Megadef
     "musty_dave": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/nggi41l4_file_00000000319871f583003b0145086e96.png",
     "daves_mustang": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8t15nt7u_file_0000000079ec71fdbe0a31c88426db30.png",
@@ -319,8 +324,13 @@ CARD_IMAGE_URLS = {
 
 CARD_BACK_IMAGE_URLS = {
     # Band 1: $LAYA
-    "slaya_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jlg546ha_file_00000000369c71f580be8b548f7c5be7.png",
+    "tom_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jlg546ha_file_00000000369c71f580be8b548f7c5be7.png",
     "chum_araya": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/ah6bgu7l_file_000000002aa0722fb5a83a6a51706776.png",
+    # Tom Da Playa Variants (use same as front)
+    "tom_da_playa_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8ijovlfp_enhanced-1773602336149.jpg",
+    "tom_da_playa_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3q3w1vwe_enhanced-1773602540143.jpg",
+    "tom_da_playa_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qeil0ghj_enhanced-1773618665694.jpg",
+    "tom_da_playa_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/741jupbe_enhanced-1773618832172.jpg",
     # Band 2: Megadef
     "musty_dave": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/z7kf9k7g_file_00000000ae7c722f8927ccf43d190b52.png",
     "daves_mustang": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/05n3fgpt_file_000000008f0471fd8eb6563d4dc546d5.png",
@@ -416,17 +426,82 @@ INITIAL_CARDS = [
     # =====================
     # Band 1: $LAYA
     {
-        "id": "card_slaya_da_playa",
-        "name": "Slaya da Playa",
-        "description": "Slaya spends more time flossing gold chains than tuning his guitar. Watch out—he'll sell you merch AND steal your girlfriend.",
+        "id": "card_tom_da_playa",
+        "name": "Tom Da Playa",
+        "description": "Tom Da Playa spends more time flossing gold chains than tuning his bass. Watch out—he'll sell you merch AND steal your girlfriend.",
         "rarity": "common",
-        "front_image_url": CARD_IMAGE_URLS["slaya_da_playa"],
-        "back_image_url": CARD_BACK_IMAGE_URLS["slaya_da_playa"],
+        "front_image_url": CARD_IMAGE_URLS["tom_da_playa"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa"],
         "coin_cost": 50,
         "available": True,
         "series": 1,
         "band": "$LAYA",
         "card_type": "A"
+    },
+    # Tom Da Playa Variants
+    {
+        "id": "card_tom_da_playa_toxic",
+        "name": "Tom Da Playa (Toxic)",
+        "description": "The Toxic variant of Tom Da Playa, dripping with radioactive slime. When he plays, the crowd glows green.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tom_da_playa_toxic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa_toxic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "$LAYA",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tom_da_playa",
+        "variant_name": "Toxic"
+    },
+    {
+        "id": "card_tom_da_playa_electric",
+        "name": "Tom Da Playa (Electric)",
+        "description": "The Electric variant of Tom Da Playa, crackling with lightning energy. His bass lines are literally electrifying.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tom_da_playa_electric"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa_electric"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "$LAYA",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tom_da_playa",
+        "variant_name": "Electric"
+    },
+    {
+        "id": "card_tom_da_playa_hellfire",
+        "name": "Tom Da Playa (Hellfire)",
+        "description": "The Hellfire variant of Tom Da Playa, engulfed in eternal flames. Born to burn, plays to destroy.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tom_da_playa_hellfire"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa_hellfire"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "$LAYA",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tom_da_playa",
+        "variant_name": "Hellfire"
+    },
+    {
+        "id": "card_tom_da_playa_cosmic",
+        "name": "Tom Da Playa (Cosmic)",
+        "description": "The Cosmic variant of Tom Da Playa, cruising through galaxies. His grooves bend space and time.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tom_da_playa_cosmic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa_cosmic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 1,
+        "band": "$LAYA",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tom_da_playa",
+        "variant_name": "Cosmic"
     },
     {
         "id": "card_chum_araya",
