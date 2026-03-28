@@ -361,6 +361,11 @@ CARD_IMAGE_URLS = {
     "chef_becerra": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/iz6crfrh_enhanced-1771278405486.jpg",
     # Band 5: S.T.D.
     "bully_milano": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/rrqcmuzv_enhanced-1771278534417.jpg",
+    # Bully Milano Variants
+    "bully_milano_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xg9q7tmu_file_000000002ff0722fa1bcec7fdecc3a58.png",
+    "bully_milano_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1s53wnt7_file_00000000a4fc722fb1fbb27de3f0cec5.png",
+    "bully_milano_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mhg2fovw_file_00000000af84722fb0ab4b66f6f00771.png",
+    "bully_milano_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ih7ih44l_file_00000000a6d071f5bff6136380f6f8cc.png",
     "billy_mylanta": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/5mr9wy38_enhanced-1771278589241.jpg",
     # Billy Mylanta Variants
     "billy_mylanta_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fad7md56_file_00000000f0b4722f99ff248a683bda81.png",
@@ -2134,6 +2139,71 @@ INITIAL_CARDS = [
         "series": 2,
         "band": "S.T.D.",
         "card_type": "A"
+    },
+    # Bully Milano Variants
+    {
+        "id": "card_bully_milano_bloodbath",
+        "name": "Bully Milano (Bloodbath)",
+        "description": "The Bloodbath variant of Bully Milano. His infections now come with a side of blood splatter. The mosh pit has never been more dangerous.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["bully_milano_bloodbath"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_bloodbath"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "S.T.D.",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_bully_milano",
+        "variant_name": "Bloodbath"
+    },
+    {
+        "id": "card_bully_milano_ice",
+        "name": "Bully Milano (Ice)",
+        "description": "The Ice variant of Bully Milano. Frozen solid with his cigar still lit. His infections now spread through ice crystals.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["bully_milano_ice"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_ice"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "S.T.D.",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_bully_milano",
+        "variant_name": "Ice"
+    },
+    {
+        "id": "card_bully_milano_psychedelic",
+        "name": "Bully Milano (Psychedelic)",
+        "description": "The Psychedelic variant of Bully Milano. His diseases now cause rainbow hallucinations. The trip of a lifetime... literally.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["bully_milano_psychedelic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_psychedelic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "S.T.D.",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_bully_milano",
+        "variant_name": "Psychedelic"
+    },
+    {
+        "id": "card_bully_milano_biomechanical",
+        "name": "Bully Milano (Biomechanical)",
+        "description": "The Biomechanical variant of Bully Milano. His cybernetic implants spread digital viruses. Infection has gone high-tech.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["bully_milano_biomechanical"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_biomechanical"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 2,
+        "band": "S.T.D.",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_bully_milano",
+        "variant_name": "Biomechanical"
     },
     {
         "id": "card_billy_mylanta",
