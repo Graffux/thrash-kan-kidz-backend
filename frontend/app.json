@@ -1,29 +1,17 @@
 {
   "expo": {
     "name": "Thrash Kan Kidz",
-    "slug": "thrash-kan-kidz",
+    "slug": "thrash-kan-kidz-ctau-atpauygk5ki6209",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "thrashkankidz",
     "userInterfaceStyle": "dark",
     "newArchEnabled": false,
-    "updates": {
-      "enabled": false,
-      "fallbackToCacheTimeout": 0,
-      "checkAutomatically": "NEVER"
-    },
-    "description": "Collect thrash metal trading cards! Spin to win cards, complete your collection, unlock rare variants, and trade with friends!",
-    "githubUrl": "https://github.com/thrashkankidz",
-    "primaryColor": "#8B0000",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.thrashkankidz.app",
-      "buildNumber": "1",
-      "infoPlist": {
-        "NSCameraUsageDescription": "Share your card collection with photos",
-        "NSPhotoLibraryUsageDescription": "Save and share your card collection"
-      }
+      "buildNumber": "1"
     },
     "android": {
       "package": "com.thrashkankidz.app",
@@ -31,13 +19,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
-      },
-      "edgeToEdgeEnabled": true,
-      "permissions": [
-        "android.permission.INTERNET",
-        "android.permission.ACCESS_NETWORK_STATE"
-      ],
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.thrashkankidz.app"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -60,11 +42,8 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {
-        "origin": "https://thrash-kan-kidz-card-col-1-pjuqh6f1.stage-preview.emergentagent.com"
-      },
       "eas": {
-        "projectId": "thrash-kan-kidz"
+        "projectId": "1a56af79-9611-437c-93d8-e781a78d99bf"
       }
     }
   }
