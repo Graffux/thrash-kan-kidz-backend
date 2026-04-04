@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs } from 'expo-router';
 import { AppProvider } from '../src/context/AppContext';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as ScreenCapture from 'expo-screen-capture';
 
 // Tab icon component using emojis for reliable rendering
 const TabIcon = ({ emoji, focused }: { emoji: string; focused: boolean }) => (
@@ -14,6 +15,19 @@ export default function TabLayout() {
   // Use a much larger minimum padding to avoid OS nav buttons
   // Android gesture nav bar is typically 48px, add extra buffer
   const bottomPadding = Math.max(insets.bottom, 48);
+  
+  // Prevent screenshots and screen recording
+  useEffect(() => {
+    const preventCapture = async () => {
+      await ScreenCapture.preventScreenCaptureAsync();
+    };
+    preventCapture();
+    
+    // Cleanup on unmount
+    return () => {
+      ScreenCapture.allowScreenCaptureAsync();
+    };
+  }, []);
   
   return (
     <AppProvider>
