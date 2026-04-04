@@ -41,26 +41,48 @@ interface UserCard {
   acquired_at: string;
 }
 
-// Simple Card Component - No animations for now
+const MYSTERY_CARD_IMAGE = 'https://customer-assets.emergentagent.com/job_d1401514-883f-459a-9a0f-b23503598272/artifacts/tf5khv09_enhanced-1771280968644.jpg';
+
+// Simple Card Component - Shows mystery card if not owned
 const SimpleCard = ({ 
-  userCard, 
+  card,
+  isOwned,
+  quantity,
   onPress 
 }: { 
-  userCard: UserCard; 
+  card: Card;
+  isOwned: boolean;
+  quantity: number;
   onPress: () => void;
 }) => {
-  const isVariant = !!userCard.card.base_card_id;
+  const isVariant = !!card.base_card_id;
+
+  // If not owned, show mystery card
+  if (!isOwned) {
+    return (
+      <View style={[styles.cardContainer, styles.mysteryCard]}>
+        <Image
+          source={{ uri: MYSTERY_CARD_IMAGE }}
+          style={styles.cardImage}
+          resizeMode="cover"
+        />
+        <View style={styles.mysteryOverlay}>
+          <Text style={styles.mysteryText}>?</Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <TouchableOpacity onPress={onPress} style={[styles.cardContainer, isVariant && styles.variantCardBorder]}>
       <Image
-        source={{ uri: userCard.card.front_image_url }}
+        source={{ uri: card.front_image_url }}
         style={styles.cardImage}
         resizeMode="cover"
       />
-      {userCard.quantity > 1 && (
+      {quantity > 1 && (
         <View style={styles.quantityBadge}>
-          <Text style={styles.quantityText}>x{userCard.quantity}</Text>
+          <Text style={styles.quantityText}>x{quantity}</Text>
         </View>
       )}
       {isVariant && (
@@ -70,7 +92,7 @@ const SimpleCard = ({
       )}
       <View style={styles.cardNameBadge}>
         <Text style={styles.cardNameText} numberOfLines={1}>
-          {userCard.card.name}
+          {card.name}
         </Text>
       </View>
     </TouchableOpacity>
@@ -145,15 +167,32 @@ export default function CollectionScreen() {
     );
   }
 
-  const ownedBaseCards = userCards.filter(uc => !uc.card.base_card_id);
+  const ownedCardIds = new Set(userCards.map(uc => uc.card.id));
+  const ownedCardQuantities: { [key: string]: number } = {};
+  userCards.forEach(uc => {
+    ownedCardQuantities[uc.card.id] = uc.quantity;
+  });
+  
+  // Get only base cards (non-variants) for display, sorted by series
+  const baseCards = allCards
+    .filter(c => !c.base_card_id && c.rarity !== 'rare' && c.rarity !== 'epic') // Common cards only
+    .sort((a, b) => {
+      if (a.series !== b.series) return (a.series || 0) - (b.series || 0);
+      if (a.band !== b.band) return (a.band || '').localeCompare(b.band || '');
+      return (a.card_type || '').localeCompare(b.card_type || '');
+    });
+  
+  // Get variants the user owns
   const ownedVariants = userCards.filter(uc => uc.card.base_card_id);
   
-  const ownedSeries1Commons = ownedBaseCards.filter(uc => uc.card.series === 1 && uc.card.rarity === 'common').length;
-  const ownedSeries2Commons = ownedBaseCards.filter(uc => uc.card.series === 2 && uc.card.rarity === 'common').length;
-  const ownedSeries3Commons = ownedBaseCards.filter(uc => uc.card.series === 3 && uc.card.rarity === 'common').length;
+  // Get reward cards
+  const rewardCards = allCards.filter(c => c.rarity === 'rare' || c.rarity === 'epic');
+  
+  const ownedSeries1Commons = userCards.filter(uc => uc.card.series === 1 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
+  const ownedSeries2Commons = userCards.filter(uc => uc.card.series === 2 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
+  const ownedSeries3Commons = userCards.filter(uc => uc.card.series === 3 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
   
   const totalOwned = userCards.length;
-  const filteredCards = userCards;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -205,29 +244,38 @@ export default function CollectionScreen() {
         </View>
       )}
 
-      {filteredCards.length === 0 ? (
+      {baseCards.length === 0 ? (
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateIcon}>🃏</Text>
-          <Text style={styles.emptyStateTitle}>No Cards Yet!</Text>
+          <Text style={styles.emptyStateTitle}>Loading Cards...</Text>
           <Text style={styles.emptyStateSubtitle}>
-            Head to the Shop to open some card packs and start your collection!
+            Please wait while cards are loaded.
           </Text>
         </View>
       ) : (
         <View style={styles.flashListContainer}>
           <FlatList
-            data={filteredCards}
-            renderItem={({ item: uc }) => (
-              <SimpleCard
-                key={uc.user_card_id}
-                userCard={uc}
-                onPress={() => {
-                  setSelectedCard(uc);
-                  setShowFront(true);
-                }}
-              />
-            )}
-            keyExtractor={(item) => item.user_card_id}
+            data={[...baseCards, ...rewardCards]}
+            renderItem={({ item: card }) => {
+              const isOwned = ownedCardIds.has(card.id);
+              const quantity = ownedCardQuantities[card.id] || 0;
+              const userCard = userCards.find(uc => uc.card.id === card.id);
+              return (
+                <SimpleCard
+                  key={card.id}
+                  card={card}
+                  isOwned={isOwned}
+                  quantity={quantity}
+                  onPress={() => {
+                    if (isOwned && userCard) {
+                      setSelectedCard(userCard);
+                      setShowFront(true);
+                    }
+                  }}
+                />
+              );
+            }}
+            keyExtractor={(item) => item.id}
             numColumns={3}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flashListContent}
@@ -536,6 +584,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 12,
+  },
+  mysteryCard: {
+    opacity: 0.7,
+  },
+  mysteryOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  mysteryText: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#FFD700',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
   },
   tradeResultOverlay: {
     flex: 1,
