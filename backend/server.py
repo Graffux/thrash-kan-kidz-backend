@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timedelta
 import base64
 import random
+import bcrypt
 from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
 from data.cards_data import INITIAL_CARDS, CARD_IMAGE_URLS, CARD_BACK_IMAGE_URLS, RARE_CARD_ACHIEVEMENTS
 
@@ -57,6 +58,7 @@ class Card(BaseModel):
 class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     username: str
+    password_hash: str = ""  # Hashed password for authentication
     coins: int = 0
     daily_login_streak: int = 0
     last_login_date: Optional[str] = None
@@ -68,6 +70,15 @@ class User(BaseModel):
     unlocked_series: List[int] = Field(default_factory=lambda: [1])  # Series user has access to (starts with series 1)
     completed_series: List[int] = Field(default_factory=list)  # Series user has fully completed
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+# Auth request models
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 class UserCard(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -832,6 +843,76 @@ async def get_user(user_id: str):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return User(**user)
+
+# =====================
+# Authentication
+# =====================
+
+def hash_password(password: str) -> str:
+    """Hash a password using bcrypt"""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(password: str, password_hash: str) -> bool:
+    """Verify a password against its hash"""
+    return bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8'))
+
+@api_router.post("/auth/register")
+async def register(request: RegisterRequest):
+    """Register a new user with username and password"""
+    # Check if username already exists
+    existing_user = await db.users.find_one({"username": request.username})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already taken")
+    
+    # Hash the password
+    password_hash = hash_password(request.password)
+    
+    # Create new user
+    new_user = User(
+        username=request.username,
+        password_hash=password_hash,
+        coins=100  # Starting coins
+    )
+    
+    await db.users.insert_one(new_user.model_dump())
+    
+    # Return user without password hash
+    user_data = new_user.model_dump()
+    del user_data['password_hash']
+    return user_data
+
+@api_router.post("/auth/login")
+async def login(request: LoginRequest):
+    """Login with username and password"""
+    user = await db.users.find_one({"username": request.username})
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    # Check if user has a password set (for legacy users without passwords)
+    if not user.get('password_hash'):
+        raise HTTPException(status_code=401, detail="Please set a password for your account")
+    
+    # Verify password
+    if not verify_password(request.password, user['password_hash']):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    # Return user without password hash
+    user_data = User(**user).model_dump()
+    del user_data['password_hash']
+    return user_data
+
+@api_router.post("/auth/set-password/{user_id}")
+async def set_password(user_id: str, request: LoginRequest):
+    """Set password for existing users (legacy migration)"""
+    user = await db.users.find_one({"id": user_id, "username": request.username})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Hash and set the new password
+    password_hash = hash_password(request.password)
+    await db.users.update_one({"id": user_id}, {"$set": {"password_hash": password_hash}})
+    
+    return {"message": "Password set successfully"}
 
 @api_router.get("/users/username/{username}")
 async def get_user_by_username(username: str):

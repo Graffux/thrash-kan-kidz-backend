@@ -87,7 +87,7 @@ interface AppContextType {
   allUsers: User[];
   loading: boolean;
   apiUrl: string;
-  login: (username: string) => Promise<void>;
+  login: (username: string, password: string, isRegister?: boolean) => Promise<void>;
   logout: () => Promise<void>;
   claimDailyLogin: () => Promise<{ streak: number; bonus_coins: number; message: string }>;
   purchaseCard: (cardId: string) => Promise<any>;
@@ -164,24 +164,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  const login = async (username: string) => {
+  const login = async (username: string, password: string, isRegister: boolean = false) => {
     try {
-      // Try to get existing user
-      try {
-        const response = await axios.get(`${API_URL}/api/users/username/${username}`);
+      if (isRegister) {
+        // Register new user
+        const response = await axios.post(`${API_URL}/api/auth/register`, { username, password });
         setUser(response.data);
         await AsyncStorage.setItem('userId', response.data.id);
-        return;
-      } catch (error) {
-        // User doesn't exist, create new one
+      } else {
+        // Login existing user
+        const response = await axios.post(`${API_URL}/api/auth/login`, { username, password });
+        setUser(response.data);
+        await AsyncStorage.setItem('userId', response.data.id);
       }
-      
-      // Create new user
-      const response = await axios.post(`${API_URL}/api/users`, { username });
-      setUser(response.data);
-      await AsyncStorage.setItem('userId', response.data.id);
     } catch (error: any) {
-      throw new Error(error.response?.data?.detail || 'Failed to login');
+      throw new Error(error.response?.data?.detail || 'Authentication failed');
     }
   };
 

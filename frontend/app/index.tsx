@@ -20,6 +20,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function HomeScreen() {
   const { user, loading, login, logout, claimDailyLogin, userCards, refreshData } = useApp();
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [dailyMessage, setDailyMessage] = useState<string | null>(null);
   const [claiming, setClaiming] = useState(false);
@@ -35,11 +37,35 @@ export default function HomeScreen() {
       Alert.alert('Error', 'Please enter a username');
       return;
     }
+    if (!password.trim()) {
+      Alert.alert('Error', 'Please enter a password');
+      return;
+    }
     setIsLoggingIn(true);
     try {
-      await login(username.trim());
+      await login(username.trim(), password);
     } catch (error: any) {
-      Alert.alert('Error', error.message);
+      Alert.alert('Error', error.message || 'Login failed');
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleRegister = async () => {
+    if (!username.trim()) {
+      Alert.alert('Error', 'Please enter a username');
+      return;
+    }
+    if (!password.trim() || password.length < 4) {
+      Alert.alert('Error', 'Password must be at least 4 characters');
+      return;
+    }
+    setIsLoggingIn(true);
+    try {
+      await login(username.trim(), password, true); // true = register mode
+      Alert.alert('Success', 'Account created! Welcome to Thrash Kan Kidz!');
+    } catch (error: any) {
+      Alert.alert('Error', error.message || 'Registration failed');
     } finally {
       setIsLoggingIn(false);
     }
@@ -90,24 +116,65 @@ export default function HomeScreen() {
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
-                placeholder="Enter your username"
+                placeholder="Username"
                 placeholderTextColor="#999"
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="none"
                 autoCorrect={false}
               />
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={handleLogin}
-                disabled={isLoggingIn}
-              >
-                {isLoggingIn ? (
-                  <ActivityIndicator color="#000" />
-                ) : (
-                  <Text style={styles.loginButtonText}>START COLLECTING</Text>
-                )}
-              </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#999"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              
+              {isRegistering ? (
+                <>
+                  <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={handleRegister}
+                    disabled={isLoggingIn}
+                  >
+                    {isLoggingIn ? (
+                      <ActivityIndicator color="#000" />
+                    ) : (
+                      <Text style={styles.loginButtonText}>CREATE ACCOUNT</Text>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.switchButton}
+                    onPress={() => setIsRegistering(false)}
+                  >
+                    <Text style={styles.switchButtonText}>Already have an account? Login</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={handleLogin}
+                    disabled={isLoggingIn}
+                  >
+                    {isLoggingIn ? (
+                      <ActivityIndicator color="#000" />
+                    ) : (
+                      <Text style={styles.loginButtonText}>LOGIN</Text>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.switchButton}
+                    onPress={() => setIsRegistering(true)}
+                  >
+                    <Text style={styles.switchButtonText}>New here? Create Account</Text>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
             
             <Text style={styles.creditText}>Art by Graffux Graphics</Text>
@@ -317,6 +384,14 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  switchButton: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  switchButtonText: {
+    color: '#FFD700',
+    fontSize: 14,
   },
   header: {
     flexDirection: 'row',
