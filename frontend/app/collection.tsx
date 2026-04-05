@@ -173,7 +173,7 @@ export default function CollectionScreen() {
     ownedCardQuantities[uc.card.id] = uc.quantity;
   });
   
-  // Get only base cards (non-variants) for display, sorted by series
+  // Get only base cards (non-variants, non-reward) for display, sorted by series
   const baseCards = allCards
     .filter(c => !c.base_card_id && c.rarity !== 'rare' && c.rarity !== 'epic') // Common cards only
     .sort((a, b) => {
@@ -182,11 +182,19 @@ export default function CollectionScreen() {
       return (a.card_type || '').localeCompare(b.card_type || '');
     });
   
-  // Get variants the user owns
+  // Get ALL variants from allCards (show as mystery if not owned)
+  const allVariants = allCards
+    .filter(c => c.base_card_id) // Only variant cards
+    .sort((a, b) => {
+      if (a.series !== b.series) return (a.series || 0) - (b.series || 0);
+      if (a.name !== b.name) return (a.name || '').localeCompare(b.name || '');
+      return (a.variant_name || '').localeCompare(b.variant_name || '');
+    });
+  
+  // Get variants the user owns (for stats)
   const ownedVariants = userCards.filter(uc => uc.card.base_card_id);
   
-  // Get reward cards
-  const rewardCards = allCards.filter(c => c.rarity === 'rare' || c.rarity === 'epic');
+  // NO reward cards shown - they stay mystery forever
   
   const ownedSeries1Commons = userCards.filter(uc => uc.card.series === 1 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
   const ownedSeries2Commons = userCards.filter(uc => uc.card.series === 2 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
@@ -255,7 +263,7 @@ export default function CollectionScreen() {
       ) : (
         <View style={styles.flashListContainer}>
           <FlatList
-            data={[...baseCards, ...rewardCards]}
+            data={[...baseCards, ...allVariants]}
             renderItem={({ item: card }) => {
               const isOwned = ownedCardIds.has(card.id);
               const quantity = ownedCardQuantities[card.id] || 0;
