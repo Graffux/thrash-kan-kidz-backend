@@ -1,89 +1,74 @@
 # Thrash Kan Kidz - Product Requirements Document
 
 ## Overview
-A mobile card collecting app featuring thrash/death metal parody cards. Users collect cards through a shop spinner, complete series to unlock rewards, and trade variants.
+A mobile card collecting app featuring thrash/death metal parody cards. Users open card packs for 50 coins to acquire random cards with a series-based progression system.
 
-## Core Features
-- Card pack opening (spinner) for 50 coins
-- Series-based progression (Series 1, 2, 3, 4+)
-- Variant trade-in system (5 duplicates for 1 variant)
-- In-app purchases for coins
-- Collection view with mystery cards for uncollected items
-- Password authentication
+## Live Deployment
+- **Backend:** https://thrash-kan-kidz-api.onrender.com
+- **Database:** MongoDB Atlas (cluster0.fzhrzyb.mongodb.net)
+- **GitHub Repo:** https://github.com/Graffux-spec/thrash-kan-kidz-backend
+- **App:** Google Play Console - Internal Testing (Version 12)
 
-## What's Been Implemented
+## Core Features (Implemented)
+- Card pack opening mechanic (50 coins per spin)
+- Series-based progression (Series 1-4)
+- 16 common cards per series (8 bands with A/B cards)
+- Rare/Epic reward cards for completing series
+- Series 1-3 variant cards (Organic, Metal, Steampunk, Glitched)
+- Password authentication (bcrypt hashing)
+- Collection view with mystery cards for unowned cards
+- Coin purchase system (Stripe integration)
+- Daily login rewards
 
-### April 4, 2026
-- Fixed tab bar overlapping Android navigation buttons (paddingBottom: 48px)
-- Fixed Collection screen crash (replaced FlashList with FlatList)
-- Added 64 Series 3 variants to database:
-  - Variant themes: Organic, Metal, Steampunk, Glitched
-  - All 16 base cards × 4 variants each
-  - Universal back images for each variant type
-- Implemented password authentication:
-  - /api/auth/register - Create account with password
-  - /api/auth/login - Login with username/password
-  - bcrypt password hashing
-- Updated Collection view:
-  - ALL cards show as mystery cards until collected
-  - No names visible for uncollected cards
-  - Reward/accomplishment cards also hidden until earned
-- Built AAB Version 9 for Google Play
+## Tech Stack
+- **Frontend:** React Native (Expo), EAS Build
+- **Backend:** FastAPI, Python
+- **Database:** MongoDB Atlas
+- **Hosting:** Render.com (Free Tier)
+- **Payments:** Stripe
 
-### Previous Sessions
-- Series 1: 16 common cards + Kerry The King (rare reward) + 64 variants
-- Series 2: 16 common cards + Strap-On Taylor (rare reward) + 64 variants  
-- Series 3: 16 common cards + Sean Kill-Again (epic reward) + 64 variants
-- Series 4: 16 common cards added (Death Metal Edition) - NO variants yet
-- Tab bar cleanup (hidden utility screens)
-- Card flip functionality in collection modal
-- Daily login rewards system
-- Stripe payment integration (needs migration to Google Play Billing)
+## Credentials
+- Test User: `Graffux` / `Thrashpw06!`
 
-## Database Schema
-- **users**: id, username, password_hash, coins, unlocked_series, completed_series
-- **cards**: id, name, series, band, card_type, rarity, front_image_url, back_image_url, is_variant, base_card_id
-- **user_cards**: user_id, card_id, quantity
+---
 
-## Current Card Count
-- Total: 260 cards
-- Series 1: 16 common + 1 rare + 64 variants = 81
-- Series 2: 16 common + 1 rare + 64 variants = 81
-- Series 3: 16 common + 1 epic + 64 variants = 81
-- Series 4: 16 common (NO reward or variants yet) = 16
+## Completed Work (April 6, 2026)
 
-## Pending Tasks
+### Render Deployment (MAJOR MILESTONE)
+- Fixed `emergentintegrations` dependency issue (replaced with standard `stripe` library)
+- Pushed backend to `Graffux-spec/thrash-kan-kidz-backend`
+- Configured Render with correct repo and root directory (`backend`)
+- Set up MongoDB Atlas connection with proper Network Access (0.0.0.0/0)
+- Added environment variables: `MONGO_URL`, `DB_NAME`
+- **Backend now live at permanent URL** - no more expiring preview URLs!
 
-### P0 - Critical
-- Deploy backend permanently (Railway/Render) - preview URL dies between sessions
-- Google Play Billing integration (replace Stripe for Android)
+### Previous Session Work
+- Implemented Series 1-4 cards with user-provided artwork
+- Added 64 Series 3 variant images
+- Built password authentication system
+- Fixed Android OS navigation button overlap
+- Fixed collection.tsx crash (FlashList → FlatList)
+- Multiple AAB builds (up to Version 12)
 
-### P1 - High Priority  
-- Series 4 variants (user to provide artwork)
-- Series 4 reward card (user to provide artwork)
-- Legacy user password migration (existing users have no password)
+---
+
+## Known Limitations
+- Render free tier sleeps after 15 mins inactivity (30 sec wake-up time)
+- Card flip animations removed (EAS build compatibility)
+
+## Backlog
+
+### P1 - High Priority
+- [ ] Restore card flip animations in Collection view
+- [ ] Google Play Billing integration (replace Stripe for Android)
+- [ ] Complete Series 4 (need reward card + variants artwork)
 
 ### P2 - Medium Priority
-- Refactor server.py into modules (/routes, /models, /services)
-- Series 5 cards (user mentioned half done)
-- User-to-user trading feature
+- [ ] User-to-user card trading feature
+- [ ] Series 5 cards (awaiting artwork)
+- [ ] Refactor `server.py` into route modules
 
 ### P3 - Future
-- Screenshot prevention (expo-screen-capture has compatibility issues)
-- iOS build and App Store submission
-- Push notifications
-
-## Technical Stack
-- Frontend: React Native (Expo), Expo Router
-- Backend: FastAPI, PyMongo
-- Database: MongoDB
-- Build: EAS Build
-- Distribution: Google Play Console (Internal Testing)
-
-## Test Accounts
-- Graffux, MetalFan, TestUser999 (legacy - no passwords)
-- testuser2 (has password: test123)
-
-## Key URLs
-- Internal Testing: https://play.google.com/apps/internaltest/4701263672225145139
-- Latest AAB (v9): https://expo.dev/artifacts/eas/hE71hG6FSFhvfiQf9n7GH7.aab
+- [ ] Upgrade Render to paid tier for always-on
+- [ ] iOS App Store submission
+- [ ] Push notifications for daily rewards
