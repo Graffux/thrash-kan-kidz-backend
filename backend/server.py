@@ -825,7 +825,7 @@ async def create_user(request: CreateUserRequest):
     if existing:
         raise HTTPException(status_code=400, detail="Username already exists")
     
-    user = User(username=request.username, coins=100)  # Start with 100 coins
+    user = User(username=request.username, coins=5000)  # Start with 5000 coins for testing
     await db.users.insert_one(user.dict())
     
     # Initialize user goals
