@@ -516,10 +516,10 @@ CARD_BACK_IMAGE_URLS = {
     # =====================
     # Band 1: Underkill
     "nobby_blitz": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mhy5e5ke_enhanced-1771735320014.jpg",
-    "bobby_blitzed": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lu063bq0_enhanced-1773629964983.jpg",
+    "bobby_blitzed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3urphabs_file_00000000ea34722f8d04ba8338d3a571.png",
     # Band 2: Meadow Church
     "david_whine": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cq7vs42v_enhanced-1771761582312.jpg",
-    "david_slayne": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lbqueqph_enhanced-1771761582312.jpg",
+    "david_slayne": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kl0n9aqv_enhanced-1773662023348.jpg",
     # Band 3: Sabutt
     "martini_walkyier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/c2di7ijf_enhanced-1771761620137.jpg",
     "martin_wankyier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/7q2a177y_enhanced-1771761655080.jpg",
@@ -530,11 +530,11 @@ CARD_BACK_IMAGE_URLS = {
     "coronos": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/b6qbwv4h_enhanced-1772913854119.jpg",
     "groanos": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/irf0vxsr_enhanced-1772916479578.jpg",
     # Band 6: Sadust
-    "darren_travesty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/mcvafkhx_enhanced-1772919382679.jpg",
-    "daring_travis": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/zs0t04mj_enhanced-1772919920441.jpg",
+    "darren_travesty": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hrp4glk3_enhanced-1772919920441.jpg",
+    "daring_travis": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uy207hha_enhanced-1772920168264.jpg",
     # Band 7: High Racks
     "cretin_w_de_pena": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/bvbuwu6q_enhanced-1772996050805.jpg",
-    "katon_de_pain": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g5w4jwav_enhanced-1772997297722.jpg",
+    "katon_de_pain": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/b32cvuqf_enhanced-1772997410048.jpg",
     # Band 8: Suckrifice
     "rob_urinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/sir3iy8h_enhanced-1773074599887.jpg",
     "slob_urbinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/at4glnr4_enhanced-1774075087938.jpg",
