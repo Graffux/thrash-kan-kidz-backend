@@ -977,8 +977,8 @@ async def claim_daily_login(user_id: str):
     else:
         new_streak = 1
     
-    # Calculate bonus coins (more coins for longer streaks)
-    bonus_coins = min(10 + (new_streak * 5), 50)  # Max 50 coins per day
+    # Calculate bonus coins - flat 50 coins per day
+    bonus_coins = 50
     
     new_coins = user.get("coins", 0) + bonus_coins
     
