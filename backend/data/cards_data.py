@@ -335,6 +335,10 @@ CARD_IMAGE_URLS = {
     # =====================
     # Band 1: Obitchuary
     "tardy_donald": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fmef8kju_enhanced-1771260495032.jpg",
+    "tardy_donald_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sit8byml_enhanced-1775339848666.jpg",
+    "tardy_donald_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/przxfxl3_file_00000000f8d071f588e2087f69196a01.png",
+    "tardy_donald_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/er6t8twx_file_000000004a1471f5bd638702de13d383.png",
+    "tardy_donald_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/877v5hho_file_00000000e83871f582b24ea4849aea53.png",
     "party_tardy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xcp7rubw_enhanced-1771260959725.jpg",
     # Band 2: Deaf
     "emo_chuck": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/myssxyf1_enhanced-1771263476980.jpg",
@@ -4428,6 +4432,71 @@ INITIAL_CARDS = [
         "series": 4,
         "band": "Obitchuary",
         "card_type": "A"
+    },
+    # Tardy Donald Variants
+    {
+        "id": "card_tardy_donald_skeletal",
+        "name": "Tardy Donald (Skeletal)",
+        "description": "The Skeletal variant of Tardy Donald. Even as bones, he's still running late.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tardy_donald_skeletal"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_skeletal"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Obitchuary",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tardy_donald",
+        "variant_name": "Skeletal"
+    },
+    {
+        "id": "card_tardy_donald_oceanic",
+        "name": "Tardy Donald (Oceanic)",
+        "description": "The Oceanic variant of Tardy Donald. Swimming against the current of time.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tardy_donald_oceanic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_oceanic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Obitchuary",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tardy_donald",
+        "variant_name": "Oceanic"
+    },
+    {
+        "id": "card_tardy_donald_diamond",
+        "name": "Tardy Donald (Diamond)",
+        "description": "The Diamond variant of Tardy Donald. Fashionably late and dripping in gems.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tardy_donald_diamond"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_diamond"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Obitchuary",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tardy_donald",
+        "variant_name": "Diamond"
+    },
+    {
+        "id": "card_tardy_donald_stoned",
+        "name": "Tardy Donald (Stoned)",
+        "description": "The Stoned variant of Tardy Donald. Petrified in stone, forever running late.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["tardy_donald_stoned"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stoned"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Obitchuary",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_tardy_donald",
+        "variant_name": "Stoned"
     },
     {
         "id": "card_party_tardy",
