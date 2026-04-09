@@ -82,7 +82,7 @@ CARD_IMAGE_URLS = {
     "scott_eaten_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dmse8kub_file_00000000dd60722f970c4f446e24ed56.png",
     "scott_eaten_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6c4kgqg4_file_00000000dc18722f93a43028ec656e4f.png",
     # Band 7: Kreaturd
-    "silly_mille": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/paaodduf_file_0000000018b871fda0fd7e44b8c11def.png",
+    "silly_mille": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8u8d1laz_file_00000000b8cc71fd995dc5490bb39137.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g91wp9yv_file_000000002b6871f8adc873413d3619f3.png",
     # Silly Mille Variants
     "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
@@ -456,7 +456,7 @@ CARD_BACK_IMAGE_URLS = {
     "scott_eaten_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dmse8kub_file_00000000dd60722f970c4f446e24ed56.png",
     "scott_eaten_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6c4kgqg4_file_00000000dc18722f93a43028ec656e4f.png",
     # Band 7: Kreaturd
-    "silly_mille": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jfks6ym6_file_0000000044cc71f5b295bcd8f73d0398.png",
+    "silly_mille": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2aoozxap_file_00000000c09471fd9e6ee92622783d07.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/1asg9g5i_file_00000000674c71f5a6ddd9c12c7ffcdb.png",
     # Silly Mille Variants
     "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
@@ -1526,8 +1526,8 @@ INITIAL_CARDS = [
     # Band 7: Kreaturd
     {
         "id": "card_silly_mille",
-        "name": "Silly Mille",
-        "description": "Kreaturd shreds noses as much as they shred riffs. Their shredding solos will turn your stomach and they're always ready to start a snotpocalypse.",
+        "name": "Mille Vanille",
+        "description": "Mille Vanille - your shredding sessions are all lip-synced! He's always ready to start a moshpocalypse with his killer fake solos.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["silly_mille"],
         "back_image_url": CARD_BACK_IMAGE_URLS["silly_mille"],
