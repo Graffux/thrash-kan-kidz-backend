@@ -387,6 +387,10 @@ CARD_IMAGE_URLS = {
     # Band 6: Assfux
     "fartin_van_drunen": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/npyshkh5_enhanced-1771264216187.jpg",
     "martin_van_druid": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mwh1mmak_enhanced-1771264269394.jpg",
+    "martin_van_druid_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/90a11i8m_file_0000000067c071f5b54cb971ef72331d.png",
+    "martin_van_druid_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zji55v0i_file_000000002700722fa93216e07f024177.png",
+    "martin_van_druid_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/v8f7800x_file_00000000291c71f59e164406aeeca20e.png",
+    "martin_van_druid_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8dcdmidq_file_00000000bd1471fb84dccc92a0805344.png",
     # Band 7: Carcuss
     "beers_n_steers": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cqbx6peg_enhanced-1771264328618.jpg",
     "hillbilly_steer": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t24db8ii_enhanced-1771264533304.jpg",
@@ -5205,6 +5209,71 @@ INITIAL_CARDS = [
         "series": 4,
         "band": "Assfux",
         "card_type": "B"
+    },
+    # Martin Van Druid Variants
+    {
+        "id": "card_martin_van_druid_skeletal",
+        "name": "Martin Van Druid (Skeletal)",
+        "description": "The Skeletal variant of Martin Van Druid. Bone broth from beyond.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["martin_van_druid_skeletal"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_skeletal"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Assfux",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_martin_van_druid",
+        "variant_name": "Skeletal"
+    },
+    {
+        "id": "card_martin_van_druid_oceanic",
+        "name": "Martin Van Druid (Oceanic)",
+        "description": "The Oceanic variant of Martin Van Druid. Deep sea sorcery and kelp potions.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["martin_van_druid_oceanic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_oceanic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Assfux",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_martin_van_druid",
+        "variant_name": "Oceanic"
+    },
+    {
+        "id": "card_martin_van_druid_diamond",
+        "name": "Martin Van Druid (Diamond)",
+        "description": "The Diamond variant of Martin Van Druid. Crystal cauldron conjurations.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["martin_van_druid_diamond"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_diamond"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Assfux",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_martin_van_druid",
+        "variant_name": "Diamond"
+    },
+    {
+        "id": "card_martin_van_druid_stoned",
+        "name": "Martin Van Druid (Stoned)",
+        "description": "The Stoned variant of Martin Van Druid. Petrified in eternal sorcery.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["martin_van_druid_stoned"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stoned"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Assfux",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_martin_van_druid",
+        "variant_name": "Stoned"
     },
     # Band 7: Carcuss
     {
