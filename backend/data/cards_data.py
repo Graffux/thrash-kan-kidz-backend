@@ -425,6 +425,13 @@ CARD_IMAGE_URLS = {
     "frank_mullet_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/s0mqnm6j_file_0000000032c071fd83a8243070660983.png",
     "frank_mullet_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vr3tmtll_file_0000000094a471fd9501226990f8c428.png",
     "frank_mullet_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u68ldy5r_file_000000005f4871fd925f530e08c75b1e.png",
+    
+    # =====================
+    # SERIES 5 - THRASH METAL EDITION
+    # =====================
+    # Band 1: Jugglenut
+    "harlan_quinn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tptiqs13_enhanced-1774838738027.jpg",
+    "harley_glenn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tr4yw2ta_enhanced-1774839561271.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -645,6 +652,13 @@ CARD_BACK_IMAGE_URLS = {
     "variant_back_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/adth1lnp_enhanced-1775338554772.jpg",
     "variant_back_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k4ihtk3g_enhanced-1775338624419.jpg",
     "variant_back_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dvn5wkni_enhanced-1775338750692.jpg",
+    
+    # =====================
+    # SERIES 5 - THRASH METAL EDITION
+    # =====================
+    # Band 1: Jugglenut
+    "harlan_quinn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dnhjgiua_enhanced-1774838859083.jpg",
+    "harley_glenn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xc5t0x3e_enhanced-1774840277365.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -5771,5 +5785,35 @@ INITIAL_CARDS = [
         "achievement_required": 64,
         "series_reward": 4,
         "band": "Carcuss"
+    },
+    # =====================
+    # SERIES 5 - THRASH METAL EDITION
+    # =====================
+    # Band 1: Jugglenut
+    {
+        "id": "card_harlan_quinn",
+        "name": "Harlan Quinn",
+        "description": "Harlan Quinn doesn't do encores... he forces them. If the crowd doesn't cheer loud enough, he lights the stage himself.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["harlan_quinn"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["harlan_quinn"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "A"
+    },
+    {
+        "id": "card_harley_glenn",
+        "name": "Harley Glenn",
+        "description": "Harley Glenn doesn't wait for the stage... he brings the show to the streets. Loud pipes, louder screams -- if you hear him coming, it's already too late.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["harley_glenn"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["harley_glenn"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "B"
     },
 ]
