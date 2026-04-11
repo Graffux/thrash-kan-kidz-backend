@@ -435,6 +435,9 @@ CARD_IMAGE_URLS = {
     # Band 2: Ese Slaya
     "steve_pooper": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1wxkimei_enhanced-1774840368042.jpg",
     "steve_copper": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p1xl6c8l_enhanced-1774843784508.jpg",
+    # Band 3: Tasty Savage
+    "tasty_ronnie": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tsuzqexq_enhanced-1774844698695.jpg",
+    "nasty_rawnchy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ufn83zf6_enhanced-1774846187740.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -665,6 +668,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 2: Ese Slaya
     "steve_pooper": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/li82nbow_enhanced-1774840513198.jpg",
     "steve_copper": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/24rzollu_enhanced-1774843883501.jpg",
+    # Band 3: Tasty Savage
+    "tasty_ronnie": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pvo0wzkd_enhanced-1774845539463.jpg",
+    "nasty_rawnchy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y7gyqtvb_enhanced-1774847085832.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -5847,6 +5853,33 @@ INITIAL_CARDS = [
         "available": True,
         "series": 5,
         "band": "Ese Slaya",
+        "card_type": "B"
+    },
+    # Band 3: Tasty Savage
+    {
+        "id": "card_tasty_ronnie",
+        "name": "Tasty Ronnie",
+        "description": "Ronnie doesn't just bring the noise... he brings the buffet. By the end of every set, the stage is covered in bones, grease, and regret.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["tasty_ronnie"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tasty_ronnie"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Tasty Savage",
+        "card_type": "A"
+    },
+    {
+        "id": "card_nasty_rawnchy",
+        "name": "Nasty Rawnchy",
+        "description": "If it plugs in... Rawnchy's gonna smash it. TVs, amps, monitors -- nothing survives the set. Rumor is, one time he smashed a TV so hard it started playing static from the future.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["nasty_rawnchy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["nasty_rawnchy"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Tasty Savage",
         "card_type": "B"
     },
 ]
