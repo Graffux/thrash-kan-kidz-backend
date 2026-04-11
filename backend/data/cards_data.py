@@ -438,6 +438,9 @@ CARD_IMAGE_URLS = {
     # Band 3: Tasty Savage
     "tasty_ronnie": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tsuzqexq_enhanced-1774844698695.jpg",
     "nasty_rawnchy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ufn83zf6_enhanced-1774846187740.jpg",
+    # Band 4: Nuclear Ass Salt
+    "dan_licker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gcfj3te1_enhanced-1774883565495.jpg",
+    "dan_milker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jb9qm0ed_file_00000000f74471f88b3222465a3b2200.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -671,6 +674,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 3: Tasty Savage
     "tasty_ronnie": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pvo0wzkd_enhanced-1774845539463.jpg",
     "nasty_rawnchy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y7gyqtvb_enhanced-1774847085832.jpg",
+    # Band 4: Nuclear Ass Salt
+    "dan_licker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vr4l2rsy_file_00000000ba3871fda8de1fcde2904a76.png",
+    "dan_milker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ar9dcdg9_file_00000000dbec71f8a5029fad46fafb2e.png",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -5880,6 +5886,33 @@ INITIAL_CARDS = [
         "available": True,
         "series": 5,
         "band": "Tasty Savage",
+        "card_type": "B"
+    },
+    # Band 4: Nuclear Ass Salt
+    {
+        "id": "card_dan_licker",
+        "name": "Dan Licker",
+        "description": "If it moves... Dan's gonna lick it. Bass strings, amps, mic stands -- nothing escapes that tongue. Rumor is, one show got shut down when he licked the entire front row... and they liked it.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["dan_licker"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["dan_licker"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Nuclear Ass Salt",
+        "card_type": "A"
+    },
+    {
+        "id": "card_dan_milker",
+        "name": "Dan Milker",
+        "description": "If it squeezes... Dan's gonna milk it. Bass strings, amps, even the stage itself -- nothing is safe from the dairy disaster. Rumor is, one show got shut down after he turned the entire front row into a lactose nightmare... and nobody brought napkins.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["dan_milker"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["dan_milker"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 5,
+        "band": "Nuclear Ass Salt",
         "card_type": "B"
     },
 ]
