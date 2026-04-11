@@ -393,6 +393,10 @@ CARD_IMAGE_URLS = {
     # Band 8: Suphocation
     "tank_mullen": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ulcnc7dt_enhanced-1771264485780.jpg",
     "frank_mullet": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/847230c9_enhanced-1771264657267.jpg",
+    "frank_mullet_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wmtk2bv6_file_000000005c1471fdad0c784d01c33f88.png",
+    "frank_mullet_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/s0mqnm6j_file_0000000032c071fd83a8243070660983.png",
+    "frank_mullet_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vr3tmtll_file_0000000094a471fd9501226990f8c428.png",
+    "frank_mullet_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u68ldy5r_file_000000005f4871fd925f530e08c75b1e.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -5247,5 +5251,70 @@ INITIAL_CARDS = [
         "series": 4,
         "band": "Suphocation",
         "card_type": "B"
+    },
+    # Frank Mullet Variants
+    {
+        "id": "card_frank_mullet_skeletal",
+        "name": "Frank Mullet (Skeletal)",
+        "description": "The Skeletal variant of Frank Mullet. Bones and worms, the mullet lives on.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_mullet_skeletal"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_skeletal"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Suphocation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_frank_mullet",
+        "variant_name": "Skeletal"
+    },
+    {
+        "id": "card_frank_mullet_oceanic",
+        "name": "Frank Mullet (Oceanic)",
+        "description": "The Oceanic variant of Frank Mullet. Deep sea worm feast.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_mullet_oceanic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_oceanic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Suphocation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_frank_mullet",
+        "variant_name": "Oceanic"
+    },
+    {
+        "id": "card_frank_mullet_diamond",
+        "name": "Frank Mullet (Diamond)",
+        "description": "The Diamond variant of Frank Mullet. Glittering worms and a precious mullet.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_mullet_diamond"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_diamond"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Suphocation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_frank_mullet",
+        "variant_name": "Diamond"
+    },
+    {
+        "id": "card_frank_mullet_stoned",
+        "name": "Frank Mullet (Stoned)",
+        "description": "The Stoned variant of Frank Mullet. Petrified mullet for eternity.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_mullet_stoned"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stoned"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Suphocation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_frank_mullet",
+        "variant_name": "Stoned"
     },
 ]
