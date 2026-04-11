@@ -245,6 +245,8 @@ CARD_IMAGE_URLS = {
     "rob_urinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/sir3iy8h_enhanced-1773074599887.jpg",
     "slob_urbinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/at4glnr4_enhanced-1774075087938.jpg",
     # Epic reward card (Series 3)
+    "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ex5auxl7_file_00000000fb7471fd8c4b8702e4819de7.png",
+    # Epic reward card (Series 5 - moved from S3)
     "sean_kill_again": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lxq89ltr_file_000000007a0471f5a1da1f0e20a9b30a.png",
     # =====================
     # SERIES 3 VARIANTS - Front Images
@@ -605,6 +607,8 @@ CARD_BACK_IMAGE_URLS = {
     "rob_urinati": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/suj7tbvl_enhanced-1774075046305.jpg",
     "slob_urbinati": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2rx6qrpd_enhanced-1774075141856.jpg",
     # Epic reward card (Series 3)
+    "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jq5ykbib_file_0000000067e071fdb886702923daf12d.png",
+    # Epic reward card (Series 5 - moved from S3)
     "sean_kill_again": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lxq89ltr_file_000000007a0471f5a1da1f0e20a9b30a.png",
     # Rare reward card (Series 4)
     "jeff_wanker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lrod0iks_enhanced-1775928154564.jpg",
@@ -647,7 +651,8 @@ CARD_BACK_IMAGE_URLS = {
 RARE_CARD_ACHIEVEMENTS = {
     "card_kerry_the_king": {"required_cards": 16, "name": "Kerry The King"},  # Complete Series 1
     "card_strap_on_taylor": {"required_cards": 32, "name": "Strap-On Taylor"},  # Complete Series 2
-    "card_sean_kill_again": {"required_cards": 48, "name": "Sean Kill-Again"}  # Complete Series 3
+    "card_martin_generic_aint": {"required_cards": 48, "name": "Martin Generic Ain't"},  # Complete Series 3
+    "card_sean_kill_again": {"required_cards": 80, "name": "Sean Kill-Again"}  # Complete Series 5
 }
 
 INITIAL_CARDS = [
@@ -3421,6 +3426,22 @@ INITIAL_CARDS = [
     # EPIC CARD - Series 3 completion reward
     # =====================
     {
+        "id": "card_martin_generic_aint",
+        "name": "Martin Generic Ain't",
+        "description": "MARTIN GENERIC AIN'T never sang a freaking note with CELTIC FROSTY. While he stalks the stage pretending to vokill, his backing track cassette is doing all the heavy lifting. Misses lip-sync practice because he's too busy swigging blood, casting evil spells, and sniffing around the local graveyard.",
+        "rarity": "epic",
+        "front_image_url": CARD_IMAGE_URLS["martin_generic_aint"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["martin_generic_aint"],
+        "coin_cost": 150,
+        "available": False,
+        "achievement_required": 48,
+        "series_reward": 3,
+        "band": "Celtic Frosty"
+    },
+    # =====================
+    # EPIC CARD - Series 5 completion reward (moved from S3)
+    # =====================
+    {
         "id": "card_sean_kill_again",
         "name": "Sean Kill-Again",
         "description": "Sean Kill-Again from Violents brings mayhem wherever he goes. His stage presence is so intense that security guards have resigned mid-show.",
@@ -3429,8 +3450,8 @@ INITIAL_CARDS = [
         "back_image_url": CARD_BACK_IMAGE_URLS["sean_kill_again"],
         "coin_cost": 150,
         "available": False,
-        "achievement_required": 48,  # Unlocks after completing Series 3
-        "series_reward": 3,
+        "achievement_required": 80,
+        "series_reward": 5,
         "band": "Violents"
     },
     # =====================
