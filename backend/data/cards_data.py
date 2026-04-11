@@ -390,6 +390,10 @@ CARD_IMAGE_URLS = {
     # Band 7: Carcuss
     "beers_n_steers": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cqbx6peg_enhanced-1771264328618.jpg",
     "hillbilly_steer": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t24db8ii_enhanced-1771264533304.jpg",
+    "hillbilly_steer_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q0ody9k3_file_000000005ee071fb8c7492fdffb46ea4.png",
+    "hillbilly_steer_oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/s66sx8v2_file_00000000032071fb89912712bf5fc5f1.png",
+    "hillbilly_steer_diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lpk46p4z_file_00000000f8a871fb99256a75d9982a01.png",
+    "hillbilly_steer_stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m50dgx1v_file_00000000a15c71f786f5d04f5baae7b8.png",
     # Band 8: Suphocation
     "tank_mullen": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ulcnc7dt_enhanced-1771264485780.jpg",
     "tank_mullen_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/v1ei08x4_file_00000000d90c71f796ff49c220ddbdc8.png",
@@ -5228,6 +5232,71 @@ INITIAL_CARDS = [
         "series": 4,
         "band": "Carcuss",
         "card_type": "B"
+    },
+    # Hillbilly Steer Variants
+    {
+        "id": "card_hillbilly_steer_skeletal",
+        "name": "Hillbilly Steer (Skeletal)",
+        "description": "The Skeletal variant of Hillbilly Steer. Boney moonshine madness.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["hillbilly_steer_skeletal"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_skeletal"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Carcuss",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hillbilly_steer",
+        "variant_name": "Skeletal"
+    },
+    {
+        "id": "card_hillbilly_steer_oceanic",
+        "name": "Hillbilly Steer (Oceanic)",
+        "description": "The Oceanic variant of Hillbilly Steer. Deep sea redneck riffs.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["hillbilly_steer_oceanic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_oceanic"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Carcuss",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hillbilly_steer",
+        "variant_name": "Oceanic"
+    },
+    {
+        "id": "card_hillbilly_steer_diamond",
+        "name": "Hillbilly Steer (Diamond)",
+        "description": "The Diamond variant of Hillbilly Steer. Moonshine that sparkles.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["hillbilly_steer_diamond"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_diamond"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Carcuss",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hillbilly_steer",
+        "variant_name": "Diamond"
+    },
+    {
+        "id": "card_hillbilly_steer_stoned",
+        "name": "Hillbilly Steer (Stoned)",
+        "description": "The Stoned variant of Hillbilly Steer. Petrified in moonshine glory.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["hillbilly_steer_stoned"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stoned"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 4,
+        "band": "Carcuss",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hillbilly_steer",
+        "variant_name": "Stoned"
     },
     # Band 8: Suphocation
     {
