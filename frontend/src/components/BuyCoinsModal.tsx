@@ -24,16 +24,9 @@ const GOOGLE_PLAY_PRODUCTS: Record<string, string> = {
   'large': 'thrash_kan_kidz_coins_1000',
 };
 
-// Check if native IAP is available (only on actual device builds)
+// react-native-iap is native-only, loaded dynamically at runtime on device builds
+// Not installed in dev workspace to avoid Metro bundling issues
 let RNIap: any = null;
-try {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    RNIap = require('react-native-iap');
-  }
-} catch (e) {
-  // react-native-iap not available (Expo Go or web)
-  RNIap = null;
-}
 
 interface CoinPackage {
   id: string;
@@ -66,10 +59,16 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
   const [iapConnected, setIapConnected] = useState(false);
   const purchaseListeners = useRef<any[]>([]);
 
-  // Initialize Google Play Billing
+  // Initialize Google Play Billing - only on native builds where react-native-iap is installed
   useEffect(() => {
-    if (visible && RNIap && Platform.OS === 'android') {
-      initializeIAP();
+    if (visible && Platform.OS === 'android' && !__DEV__) {
+      try {
+        RNIap = require('react-native-iap');
+        initializeIAP();
+      } catch (e) {
+        // Not available in Expo Go / web / dev
+        RNIap = null;
+      }
     }
     return () => {
       cleanupIAP();
