@@ -120,7 +120,7 @@ CARD_IMAGE_URLS = {
     "smeared_schmier_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7ky8bjoa_file_000000009c3071fd844145018bca9441.png",
     "smeared_schmier_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ok3xdw4b_file_00000000ab4071fda2bcb5f8eb22a220.png",
     "smeared_schmier_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/a9oasf2f_file_00000000432071fdb28eabcd111ceaa1.png",
-    "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lutlvn34_enhanced-1771279297015.jpg",
+    "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/4lnsur9c_enhanced-1771278098766.jpg",
     # Beer Schmier Variants
     "beer_schmier_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9t6m1r4d_file_00000000333471fd9e68b65a1c5fefe0.png",
     "beer_schmier_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k8v188j5_file_00000000faf071fda77eb92f27226ff0.png",
@@ -649,7 +649,7 @@ CARD_BACK_IMAGE_URLS = {
     # =====================
     # Band 1: Construction
     "smeared_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/yg8itc9l_enhanced-1771279344907.jpg",
-    "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/4lnsur9c_enhanced-1771278098766.jpg",
+    "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lutlvn34_enhanced-1771279297015.jpg",
     # Band 2: Voivodka
     "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/fsqnoadq_enhanced-1771279398630.jpg",
     "rotting_away": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/1degzzdp_enhanced-1771280167989.jpg",
