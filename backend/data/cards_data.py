@@ -84,7 +84,7 @@ CARD_IMAGE_URLS = {
     # Band 7: Kreaturd
     "silly_mille": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8u8d1laz_file_00000000b8cc71fd995dc5490bb39137.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g91wp9yv_file_000000002b6871f8adc873413d3619f3.png",
-    # Silly Mille Variants
+    # Mille Vanille Variants
     "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
     "silly_mille_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c4ieu7h8_file_00000000d45c722f8144b642c24a0ed1.png",
     "silly_mille_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rnv4fjhr_file_00000000a3e471fbbd30932d141bb0fc.png",
@@ -618,7 +618,7 @@ CARD_BACK_IMAGE_URLS = {
     # Band 7: Kreaturd
     "silly_mille": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2aoozxap_file_00000000c09471fd9e6ee92622783d07.png",
     "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/1asg9g5i_file_00000000674c71f5a6ddd9c12c7ffcdb.png",
-    # Silly Mille Variants
+    # Mille Vanille Variants
     "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yxz0k3vt_file_0000000064a071f5aa5f311ef7df96ec.png",
     "silly_mille_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c4ieu7h8_file_00000000d45c722f8144b642c24a0ed1.png",
     "silly_mille_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rnv4fjhr_file_00000000a3e471fbbd30932d141bb0fc.png",
@@ -1753,10 +1753,10 @@ INITIAL_CARDS = [
         "band": "Kreaturd",
         "card_type": "B"
     },
-    # Silly Mille Variants
+    # Mille Vanille Variants
     {
         "id": "card_silly_mille_toxic",
-        "name": "Silly Mille (Toxic)",
+        "name": "Mille Vanille (Toxic)",
         "description": "The Toxic variant of Silly Mille, his boogers now glow radioactive green. Biohazard crews follow him on tour.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_toxic"],
@@ -1772,7 +1772,7 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_silly_mille_electric",
-        "name": "Silly Mille (Electric)",
+        "name": "Mille Vanille (Electric)",
         "description": "The Electric variant of Silly Mille, his snot now conducts lightning. Every sneeze causes a power surge.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_electric"],
@@ -1788,7 +1788,7 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_silly_mille_hellfire",
-        "name": "Silly Mille (Hellfire)",
+        "name": "Mille Vanille (Hellfire)",
         "description": "The Hellfire variant of Silly Mille, his mucus now burns with demonic fire. Hell's demons refuse to shake his hand.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_hellfire"],
@@ -1804,7 +1804,7 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_silly_mille_cosmic",
-        "name": "Silly Mille (Cosmic)",
+        "name": "Mille Vanille (Cosmic)",
         "description": "The Cosmic variant of Silly Mille, his snot transcends space and time. Alien civilizations have declared him a biohazard.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_cosmic"],

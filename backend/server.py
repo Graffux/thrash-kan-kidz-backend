@@ -742,6 +742,9 @@ async def seed_database():
         else:
             # Update existing cards with new fields
             update_fields = {}
+            # Update name if changed
+            if card_data.get("name") != existing.get("name"):
+                update_fields["name"] = card_data["name"]
             if card_data.get("achievement_required") is not None:
                 update_fields["achievement_required"] = card_data["achievement_required"]
             if card_data.get("rarity") != existing.get("rarity"):
