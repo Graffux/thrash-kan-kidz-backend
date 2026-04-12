@@ -431,6 +431,10 @@ CARD_IMAGE_URLS = {
     # =====================
     # Band 1: Jugglenut
     "harlan_quinn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tptiqs13_enhanced-1774838738027.jpg",
+    "harlan_quinn_shadow": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0vn1bfqy_file_00000000098471fb8d37f66bb6440770.png",
+    "harlan_quinn_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/oklr6n3z_enhanced-1774839012431.jpg",
+    "harlan_quinn_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/32vjr2is_enhanced-1774839075794.jpg",
+    "harlan_quinn_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9axoyp66_enhanced-1774839193544.jpg",
     "harley_glenn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tr4yw2ta_enhanced-1774839561271.jpg",
     # Band 2: Ese Slaya
     "steve_pooper": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1wxkimei_enhanced-1774840368042.jpg",
@@ -677,6 +681,11 @@ CARD_BACK_IMAGE_URLS = {
     # =====================
     # SERIES 5 - THRASH METAL EDITION
     # =====================
+    # Series 5 Variant Universal Backs
+    "variant_back_shadow": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7i34ypbo_enhanced-1775947904179.jpg",
+    "variant_back_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6q3k1mct_enhanced-1775947981518.jpg",
+    "variant_back_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/37kwbx22_enhanced-1775948091650.jpg",
+    "variant_back_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3oxk0ah3_enhanced-1775948047312.jpg",
     # Band 1: Jugglenut
     "harlan_quinn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dnhjgiua_enhanced-1774838859083.jpg",
     "harley_glenn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xc5t0x3e_enhanced-1774840277365.jpg",
@@ -5844,6 +5853,71 @@ INITIAL_CARDS = [
         "series": 5,
         "band": "Jugglenut",
         "card_type": "A"
+    },
+    # Harlan Quinn Variants
+    {
+        "id": "card_harlan_quinn_shadow",
+        "name": "Harlan Quinn (Shadow)",
+        "description": "The Shadow variant of Harlan Quinn. Lurking in the darkness, still forcing encores from the void.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["harlan_quinn_shadow"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_shadow"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_harlan_quinn",
+        "variant_name": "Shadow"
+    },
+    {
+        "id": "card_harlan_quinn_magma",
+        "name": "Harlan Quinn (Magma)",
+        "description": "The Magma variant of Harlan Quinn. Erupting with volcanic fury on stage.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["harlan_quinn_magma"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_magma"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_harlan_quinn",
+        "variant_name": "Magma"
+    },
+    {
+        "id": "card_harlan_quinn_cheesy",
+        "name": "Harlan Quinn (Cheesy)",
+        "description": "The Cheesy variant of Harlan Quinn. Melting faces with extra fromage.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["harlan_quinn_cheesy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_cheesy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_harlan_quinn",
+        "variant_name": "Cheesy"
+    },
+    {
+        "id": "card_harlan_quinn_mutant",
+        "name": "Harlan Quinn (Mutant)",
+        "description": "The Mutant variant of Harlan Quinn. Mutated beyond recognition but still forcing encores.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["harlan_quinn_mutant"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_mutant"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Jugglenut",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_harlan_quinn",
+        "variant_name": "Mutant"
     },
     {
         "id": "card_harley_glenn",
