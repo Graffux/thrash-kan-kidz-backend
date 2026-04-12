@@ -306,10 +306,10 @@ export default function CollectionScreen() {
             {tradeInResult && (
               <>
                 <Text style={styles.tradeResultText}>
-                  You received a {tradeInResult.variant_received?.variant_name} variant!
+                  You received a {tradeInResult.won_variant?.variant_name} variant!
                 </Text>
                 <Image
-                  source={{ uri: tradeInResult.variant_received?.front_image_url }}
+                  source={{ uri: tradeInResult.won_variant?.front_image_url }}
                   style={styles.tradeResultImage}
                   resizeMode="contain"
                 />
