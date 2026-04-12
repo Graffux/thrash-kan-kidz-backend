@@ -1,22 +1,31 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { AppProvider } from '../src/context/AppContext';
+import { AppProvider, useApp } from '../src/context/AppContext';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Tab icon component using emojis for reliable rendering
-const TabIcon = ({ emoji, focused }: { emoji: string; focused: boolean }) => (
-  <Text style={[styles.tabIcon, focused && styles.tabIconFocused]}>{emoji}</Text>
+const TabIcon = ({ emoji, focused, badge }: { emoji: string; focused: boolean; badge?: number }) => (
+  <View>
+    <Text style={[styles.tabIcon, focused && styles.tabIconFocused]}>{emoji}</Text>
+    {badge !== undefined && badge > 0 && (
+      <View style={styles.badge}>
+        <Text style={styles.badgeText}>{badge > 9 ? '9+' : badge}</Text>
+      </View>
+    )}
+  </View>
 );
 
-export default function TabLayout() {
+function TabsNavigator() {
   const insets = useSafeAreaInsets();
-  // Use a much larger minimum padding to avoid OS nav buttons
-  // Android gesture nav bar is typically 48px, add extra buffer
+  const { user, trades } = useApp();
   const bottomPadding = Math.max(insets.bottom, 48);
+
+  const incomingTradeCount = user
+    ? trades.filter(t => t.trade.status === 'pending' && t.trade.to_user_id === user.id).length
+    : 0;
   
   return (
-    <AppProvider>
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -75,7 +84,7 @@ export default function TabLayout() {
           options={{
             title: 'Trade',
             tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🔄" focused={focused} />
+              <TabIcon emoji="🔄" focused={focused} badge={incomingTradeCount} />
             ),
           }}
         />
@@ -104,6 +113,13 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
+  );
+}
+
+export default function TabLayout() {
+  return (
+    <AppProvider>
+      <TabsNavigator />
     </AppProvider>
   );
 }
@@ -114,7 +130,6 @@ const styles = StyleSheet.create({
     borderTopColor: '#333',
     borderTopWidth: 1,
     paddingTop: 8,
-    // Remove position absolute - let it flow naturally with safe area
   },
   tabBarLabel: {
     fontSize: 10,
@@ -133,5 +148,22 @@ const styles = StyleSheet.create({
   },
   tabIconFocused: {
     transform: [{ scale: 1.2 }],
+  },
+  badge: {
+    position: 'absolute',
+    top: -4,
+    right: -10,
+    backgroundColor: '#FF3B30',
+    borderRadius: 9,
+    minWidth: 18,
+    height: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '800',
   },
 });
