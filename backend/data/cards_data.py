@@ -504,6 +504,10 @@ CARD_IMAGE_URLS = {
     "mc_master_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/374428bv_file_00000000a870722fa6aea2521b81bb03.png",
     # Band 8: Riding Corpse
     "walter_trashler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jx1mloxl_file_0000000050e071f5bd984a98179d61cc.png",
+    "walter_trashler_shadow": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vdqy26kk_file_000000007d4471fbb7b188312a1a5a16.png",
+    "walter_trashler_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pajdgjo9_file_00000000be8471fbb8f12afa58b632e5.png",
+    "walter_trashler_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qbmuc8fi_file_00000000337471fb99dfe5aec1830f52.png",
+    "walter_trashler_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3mu64nue_file_000000002b7471fbab6f7f74c413a170.png",
     "wart_er_trachsler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bhn1i0dt_file_00000000b57471fb9bb0f9388b3cbf20.png",
 }
 
@@ -6935,6 +6939,71 @@ INITIAL_CARDS = [
         "series": 5,
         "band": "Riding Corpse",
         "card_type": "A"
+    },
+    # Walter Trashler Variants
+    {
+        "id": "card_walter_trashler_shadow",
+        "name": "Walter Trashler (Shadow)",
+        "description": "The Shadow variant of Walter Trashler. Shredding in the darkness of the landfill.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["walter_trashler_shadow"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_shadow"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Riding Corpse",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_walter_trashler",
+        "variant_name": "Shadow"
+    },
+    {
+        "id": "card_walter_trashler_magma",
+        "name": "Walter Trashler (Magma)",
+        "description": "The Magma variant of Walter Trashler. Volcanic sludge solos from the inferno.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["walter_trashler_magma"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_magma"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Riding Corpse",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_walter_trashler",
+        "variant_name": "Magma"
+    },
+    {
+        "id": "card_walter_trashler_cheesy",
+        "name": "Walter Trashler (Cheesy)",
+        "description": "The Cheesy variant of Walter Trashler. Melted cheese dripping off every fret.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["walter_trashler_cheesy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_cheesy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Riding Corpse",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_walter_trashler",
+        "variant_name": "Cheesy"
+    },
+    {
+        "id": "card_walter_trashler_mutant",
+        "name": "Walter Trashler (Mutant)",
+        "description": "The Mutant variant of Walter Trashler. Boils, pustules, and toxic waste -- still shredding.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["walter_trashler_mutant"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_mutant"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 5,
+        "band": "Riding Corpse",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_walter_trashler",
+        "variant_name": "Mutant"
     },
     {
         "id": "card_wart_er_trachsler",
