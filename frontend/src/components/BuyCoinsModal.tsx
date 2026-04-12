@@ -61,15 +61,8 @@ export default function BuyCoinsModal({ visible, onClose }: BuyCoinsModalProps) 
 
   // Initialize Google Play Billing - only on native builds where react-native-iap is installed
   useEffect(() => {
-    if (visible && Platform.OS === 'android' && !__DEV__) {
-      try {
-        RNIap = require('react-native-iap');
-        initializeIAP();
-      } catch (e) {
-        // Not available in Expo Go / web / dev
-        RNIap = null;
-      }
-    }
+    // IAP will be enabled in a future build once react-native-iap is added back
+    // For now, all purchases go through Stripe fallback
     return () => {
       cleanupIAP();
     };
