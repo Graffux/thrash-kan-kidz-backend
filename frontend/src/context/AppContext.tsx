@@ -5,7 +5,7 @@ import axios from 'axios';
 // Set global axios timeout for Render cold starts
 axios.defaults.timeout = 30000;
 
-const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || 'https://thrash-kan-kidz-api.onrender.com';
 
 interface User {
   id: string;
