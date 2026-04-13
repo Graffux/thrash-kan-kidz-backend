@@ -179,7 +179,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const login = async (username: string, password: string, isRegister: boolean = false) => {
     let lastError;
-    for (let attempt = 0; attempt < 3; attempt++) {
+    for (let attempt = 0; attempt < 5; attempt++) {
       try {
         if (isRegister) {
           const response = await axios.post(`${API_URL}/api/auth/register`, { username, password });
@@ -193,13 +193,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         return;
       } catch (error: any) {
         lastError = error;
-        // Only retry on network/server errors, not auth errors (401/403)
         const status = error.response?.status;
         if (status === 401 || status === 403 || status === 400) {
           throw new Error(error.response?.data?.detail || 'Authentication failed');
         }
-        if (attempt < 2) {
-          await new Promise(resolve => setTimeout(resolve, (attempt + 1) * 2000));
+        if (attempt < 4) {
+          await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
     }
