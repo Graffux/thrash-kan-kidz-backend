@@ -1989,14 +1989,32 @@ async def trade_in_for_variant(user_id: str, card_id: str):
     
     logger.info(f"User {user_id} traded in 5x {base_card['name']} for variant: {won_variant['name']}")
     
+    # Check if all 4 variants are now collected — award 200 coin bonus
+    variants_now_owned = len(owned_variant_ids) + 1
+    all_variants_complete = variants_now_owned >= len(variants)
+    coin_bonus = 0
+    
+    if all_variants_complete:
+        coin_bonus = 200
+        await db.users.update_one(
+            {"id": user_id},
+            {"$inc": {"coins": coin_bonus}}
+        )
+        logger.info(f"User {user_id} completed all variants of {base_card['name']}! +200 coins bonus")
+    
+    updated_user = await db.users.find_one({"id": user_id}, {"_id": 0, "coins": 1})
+    
     won_variant_copy = {k: v for k, v in won_variant.items() if k != "_id"}
     
     return {
         "success": True,
         "won_variant": Card(**won_variant_copy),
         "remaining_quantity": max(0, new_quantity),
-        "variants_owned": len(owned_variant_ids) + 1,
-        "variants_total": len(variants)
+        "variants_owned": variants_now_owned,
+        "variants_total": len(variants),
+        "all_variants_complete": all_variants_complete,
+        "coin_bonus": coin_bonus,
+        "new_coin_balance": updated_user.get("coins", 0) if updated_user else 0
     }
 
 # =====================

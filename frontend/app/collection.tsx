@@ -313,6 +313,14 @@ export default function CollectionScreen() {
                   style={styles.tradeResultImage}
                   resizeMode="contain"
                 />
+                <Text style={styles.tradeResultText}>
+                  {tradeInResult.variants_owned}/{tradeInResult.variants_total} variants collected
+                </Text>
+                {tradeInResult.all_variants_complete && (
+                  <View style={styles.bonusContainer}>
+                    <Text style={styles.bonusText}>ALL VARIANTS COMPLETE! +200 COINS!</Text>
+                  </View>
+                )}
               </>
             )}
             <TouchableOpacity
@@ -660,6 +668,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  bonusContainer: {
+    backgroundColor: 'rgba(255, 215, 0, 0.2)',
+    borderWidth: 1,
+    borderColor: '#FFD700',
+    borderRadius: 10,
+    padding: 12,
+    marginTop: 10,
+  },
+  bonusText: {
+    color: '#FFD700',
+    fontWeight: '800',
+    fontSize: 16,
+    textAlign: 'center',
   },
   modalOverlay: {
     flex: 1,
