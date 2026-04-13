@@ -752,7 +752,17 @@ INITIAL_GOALS = [
 # =====================
 
 async def seed_database():
-    """Seed the database with initial cards and goals"""
+    """Seed the database with initial cards and goals - skip if already seeded"""
+    # Quick check - if we already have the right number of cards, skip the full seed
+    card_count = await db.cards.count_documents({})
+    expected_count = len(INITIAL_CARDS)
+    
+    if card_count >= expected_count:
+        logger.info(f"Database already has {card_count} cards (expected {expected_count}), skipping seed")
+        return
+    
+    logger.info(f"Database has {card_count}/{expected_count} cards, seeding...")
+    
     # Seed cards
     for card_data in INITIAL_CARDS:
         existing = await db.cards.find_one({"id": card_data["id"]})
