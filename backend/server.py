@@ -1978,9 +1978,14 @@ async def trade_in_for_variant(user_id: str, card_id: str):
             {"$set": {"quantity": new_quantity}}
         )
     
-    # Add variant to user's collection
-    variant_user_card = UserCard(user_id=user_id, card_id=won_variant["id"])
-    await db.user_cards.insert_one(variant_user_card.dict())
+    # Add variant to user's collection (only if not already owned)
+    existing_variant = await db.user_cards.find_one({
+        "user_id": user_id,
+        "card_id": won_variant["id"]
+    })
+    if not existing_variant:
+        variant_user_card = UserCard(user_id=user_id, card_id=won_variant["id"])
+        await db.user_cards.insert_one(variant_user_card.dict())
     
     logger.info(f"User {user_id} traded in 5x {base_card['name']} for variant: {won_variant['name']}")
     
