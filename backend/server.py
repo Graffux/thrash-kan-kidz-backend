@@ -1526,7 +1526,7 @@ async def check_series_completion(user_id: str, series_num: int):
         # Unlock next series
         unlocked_series = user.get("unlocked_series", [1])
         next_series = series_num + 1
-        if next_series not in unlocked_series and next_series <= 4:
+        if next_series not in unlocked_series and next_series <= 5:
             unlocked_series.append(next_series)
         
         # Get rare reward card for this series
