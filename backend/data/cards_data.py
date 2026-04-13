@@ -233,7 +233,7 @@ CARD_IMAGE_URLS = {
     "tom_g_worrier": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6zk0k3ex_enhanced-1772612321902.jpg",
     "tom_g_wore_out": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u2alm5cl_enhanced-1772613273016.jpg",
     # Band 5: Venum
-    "coronos": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/f227o83l_enhanced-1772914984744.jpg",
+    "coronos": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sckgx1ve_enhanced-1772913854119.jpg",
     "groanos": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/b6qbwv4h_enhanced-1772913854119.jpg",
     # Band 6: Sadust
     "darren_travesty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/zs0t04mj_enhanced-1772919920441.jpg",
