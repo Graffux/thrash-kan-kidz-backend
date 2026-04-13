@@ -462,13 +462,8 @@ export default function ShopScreen() {
             </View>
             {spinPool.rare_reward && (
               <View style={styles.rewardPreview}>
-                <Text style={styles.rewardLabel}>Complete to unlock:</Text>
-                <Image 
-                  source={{ uri: spinPool.rare_reward.front_image_url }}
-                  style={styles.rewardThumb}
-                  resizeMode="cover"
-                />
-                <Text style={styles.rewardName}>{spinPool.rare_reward.name}</Text>
+                <Text style={styles.rewardLabel}>Complete series to unlock a mystery card!</Text>
+                <Text style={styles.rewardName}>???</Text>
               </View>
             )}
           </View>
