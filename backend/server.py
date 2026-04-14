@@ -948,6 +948,27 @@ async def set_password(user_id: str, request: LoginRequest):
     
     return {"message": "Password set successfully"}
 
+@api_router.post("/auth/delete-account")
+async def delete_account(request: LoginRequest):
+    """Delete user account and all associated data"""
+    user = await db.users.find_one({"username": request.username})
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    if not user.get('password_hash') or not verify_password(request.password, user['password_hash']):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    user_id = user["id"]
+    
+    await db.user_cards.delete_many({"user_id": user_id})
+    await db.trades.delete_many({"$or": [{"from_user_id": user_id}, {"to_user_id": user_id}]})
+    await db.payment_transactions.delete_many({"user_id": user_id})
+    await db.users.delete_one({"id": user_id})
+    
+    logger.info(f"Account deleted: {request.username} ({user_id})")
+    
+    return {"success": True, "message": "Account and all associated data have been permanently deleted"}
+
 @api_router.get("/users/username/{username}")
 async def get_user_by_username(username: str):
     """Get user by username"""
@@ -2848,13 +2869,76 @@ async def privacy_policy():
     <p>Thrash Kan Kidz is not intended for children under 18. We do not knowingly collect information from children under 18.</p>
     
     <h2>7. Data Deletion</h2>
-    <p>You may request deletion of your account and all associated data by contacting us. Upon request, we will delete your account, card collection, and all related data.</p>
+    <p>You may request deletion of your account and all associated data by visiting our <a href="/api/delete-account">Account Deletion page</a>.</p>
     
     <h2>8. Changes to This Policy</h2>
     <p>We may update this Privacy Policy from time to time. Changes will be reflected by the "Last Updated" date above.</p>
     
     <h2>9. Contact Us</h2>
     <p>If you have questions about this Privacy Policy, please contact us through the Google Play Store listing.</p>
+</body>
+</html>
+"""
+
+@api_router.get("/delete-account", response_class=HTMLResponse)
+async def delete_account_page():
+    return """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrash Kan Kidz - Delete Account</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #1a1a2e; color: #e0e0e0; }
+        h1 { color: #FFD700; }
+        p { line-height: 1.6; }
+        input { width: 100%; padding: 12px; margin: 8px 0 16px 0; border-radius: 8px; border: 1px solid #444; background: #2a2a4e; color: #fff; font-size: 16px; box-sizing: border-box; }
+        button { background: #cc0000; color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; }
+        button:hover { background: #ff0000; }
+        .result { margin-top: 20px; padding: 16px; border-radius: 8px; font-weight: bold; text-align: center; }
+        .success { background: rgba(76, 175, 80, 0.2); color: #4CAF50; border: 1px solid #4CAF50; }
+        .error { background: rgba(255, 59, 48, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .warning { background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid #FFD700; padding: 16px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Delete Your Account</h1>
+    <div class="warning">
+        <strong>Warning:</strong> This action is permanent and cannot be undone. All your data including your card collection, coins, trade history, and account will be permanently deleted.
+    </div>
+    <p>Enter your username and password to confirm account deletion:</p>
+    <label for="username" style="color: #FFD700;">Username</label>
+    <input type="text" id="username" placeholder="Enter your username">
+    <label for="password" style="color: #FFD700;">Password</label>
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="deleteAccount()">Permanently Delete My Account</button>
+    <div id="result"></div>
+    <script>
+        async function deleteAccount() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!username || !password) {
+                document.getElementById('result').innerHTML = '<div class="result error">Please enter both username and password.</div>';
+                return;
+            }
+            try {
+                const res = await fetch('/api/auth/delete-account', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password})
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('result').innerHTML = '<div class="result success">Your account and all associated data have been permanently deleted.</div>';
+                } else {
+                    document.getElementById('result').innerHTML = '<div class="result error">' + (data.detail || 'Failed to delete account.') + '</div>';
+                }
+            } catch (e) {
+                document.getElementById('result').innerHTML = '<div class="result error">Something went wrong. Please try again.</div>';
+            }
+        }
+    </script>
 </body>
 </html>
 """
