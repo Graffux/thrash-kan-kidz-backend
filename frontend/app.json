@@ -15,11 +15,12 @@
     },
     "android": {
       "package": "com.thrashkankidz.app",
-      "versionCode": 21,
+      "versionCode": 22,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
-      }
+      },
+      "permissions": []
     },
     "web": {
       "bundler": "metro",
