@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -2803,6 +2803,61 @@ async def download_backend():
         filename="thrash-kan-kidz-backend.zip",
         media_type="application/zip"
     )
+
+@api_router.get("/privacy-policy", response_class=HTMLResponse)
+async def privacy_policy():
+    return """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrash Kan Kidz - Privacy Policy</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #1a1a2e; color: #e0e0e0; }
+        h1 { color: #FFD700; }
+        h2 { color: #FFD700; margin-top: 24px; }
+        p { line-height: 1.6; }
+        a { color: #FFD700; }
+    </style>
+</head>
+<body>
+    <h1>Thrash Kan Kidz - Privacy Policy</h1>
+    <p><strong>Last Updated: April 14, 2026</strong></p>
+    
+    <h2>1. Information We Collect</h2>
+    <p>When you create an account, we collect your chosen username and password. We do not collect your real name, email address, phone number, or location data.</p>
+    
+    <h2>2. How We Use Your Information</h2>
+    <p>Your username and password are used solely for authentication and to save your game progress, including your card collection, coin balance, and trade history.</p>
+    
+    <h2>3. Data Storage</h2>
+    <p>Your data is stored securely on cloud servers (MongoDB Atlas). Passwords are hashed and never stored in plain text.</p>
+    
+    <h2>4. In-App Purchases</h2>
+    <p>Coin purchases are processed through Google Play Billing. We do not collect or store any payment information. All payment processing is handled by Google.</p>
+    
+    <h2>5. Third-Party Services</h2>
+    <p>We use the following third-party services:</p>
+    <ul>
+        <li>Google Play Billing for in-app purchases</li>
+        <li>MongoDB Atlas for data storage</li>
+    </ul>
+    
+    <h2>6. Children's Privacy</h2>
+    <p>Thrash Kan Kidz is not intended for children under 18. We do not knowingly collect information from children under 18.</p>
+    
+    <h2>7. Data Deletion</h2>
+    <p>You may request deletion of your account and all associated data by contacting us. Upon request, we will delete your account, card collection, and all related data.</p>
+    
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be reflected by the "Last Updated" date above.</p>
+    
+    <h2>9. Contact Us</h2>
+    <p>If you have questions about this Privacy Policy, please contact us through the Google Play Store listing.</p>
+</body>
+</html>
+"""
 
 # Include the router in the main app
 app.include_router(api_router)
