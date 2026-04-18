@@ -1333,7 +1333,7 @@ async def check_user_engagement_milestones(user_id: str):
 @api_router.get("/users/{user_id}/cards")
 async def get_user_cards(user_id: str):
     """Get all cards owned by user"""
-    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(100)
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
     
     result = []
     for uc in user_cards:
@@ -1342,8 +1342,8 @@ async def get_user_cards(user_id: str):
             result.append({
                 "user_card_id": uc["id"],
                 "card": Card(**card),
-                "quantity": uc["quantity"],
-                "acquired_at": uc["acquired_at"]
+                "quantity": uc.get("quantity", 1),
+                "acquired_at": uc.get("acquired_at", datetime.utcnow().isoformat())
             })
     
     return result
