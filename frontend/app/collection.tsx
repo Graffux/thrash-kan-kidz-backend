@@ -626,6 +626,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 60,
     borderRadius: 4,
+    backgroundColor: '#333',
   },
   tradeInInfo: {
     flex: 1,
@@ -708,6 +709,7 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 8,
     marginBottom: 16,
+    backgroundColor: '#333',
   },
   tradeResultButton: {
     backgroundColor: '#9C27B0',
