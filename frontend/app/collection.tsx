@@ -183,9 +183,13 @@ export default function CollectionScreen() {
     });
   
   // Get ALL variants from allCards (show as mystery if not owned)
+  // Sort owned variants first, then unowned
   const allVariants = allCards
     .filter(c => c.base_card_id) // Only variant cards
     .sort((a, b) => {
+      const aOwned = ownedCardIds.has(a.id) ? 0 : 1;
+      const bOwned = ownedCardIds.has(b.id) ? 0 : 1;
+      if (aOwned !== bOwned) return aOwned - bOwned;
       if (a.series !== b.series) return (a.series || 0) - (b.series || 0);
       if (a.name !== b.name) return (a.name || '').localeCompare(b.name || '');
       return (a.variant_name || '').localeCompare(b.variant_name || '');
@@ -291,6 +295,25 @@ export default function CollectionScreen() {
             numColumns={3}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flashListContent}
+            ListHeaderComponent={
+              ownedVariants.length > 0 ? (
+                <View style={styles.ownedVariantsSection}>
+                  <Text style={styles.ownedVariantsTitle}>Your Variants ({ownedVariants.length})</Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ownedVariantsScroll}>
+                    {ownedVariants.map(uc => (
+                      <TouchableOpacity 
+                        key={uc.card.id} 
+                        style={styles.ownedVariantThumb}
+                        onPress={() => { setSelectedCard(uc); setShowFront(true); }}
+                      >
+                        <Image source={{ uri: uc.card.front_image_url }} style={styles.ownedVariantImage} resizeMode="cover" />
+                        <Text style={styles.ownedVariantName} numberOfLines={1}>{uc.card.name}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                </View>
+              ) : null
+            }
           />
         </View>
       )}
@@ -464,6 +487,41 @@ const styles = StyleSheet.create({
   flashListContent: {
     paddingHorizontal: 12,
     paddingBottom: 100,
+  },
+  ownedVariantsSection: {
+    backgroundColor: 'rgba(156, 39, 176, 0.15)',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#9C27B0',
+  },
+  ownedVariantsTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#CE93D8',
+    marginBottom: 8,
+  },
+  ownedVariantsScroll: {
+    flexDirection: 'row',
+  },
+  ownedVariantThumb: {
+    width: 70,
+    marginRight: 8,
+    alignItems: 'center',
+  },
+  ownedVariantImage: {
+    width: 65,
+    height: 95,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#9C27B0',
+  },
+  ownedVariantName: {
+    fontSize: 8,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 4,
   },
   cardContainer: {
     width: CARD_WIDTH,
