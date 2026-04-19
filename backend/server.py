@@ -80,6 +80,10 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+class FriendRequest(BaseModel):
+    from_user_id: str
+    to_user_id: str
+
 class UserCard(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
@@ -914,6 +918,33 @@ async def create_user(request: CreateUserRequest):
     
     return user
 
+@api_router.get("/users/search")
+async def search_users_route(query: str = "", code: str = ""):
+    """Search users by username or friend code"""
+    if code:
+        user = await db.users.find_one({"friend_code": code.upper()}, {"_id": 0, "password_hash": 0})
+        if user:
+            friend_count = await db.friends.count_documents({
+                "$or": [{"user_id": user["id"]}, {"friend_id": user["id"]}]
+            })
+            user["friend_count"] = friend_count
+            return {"users": [user]}
+        return {"users": []}
+    
+    if query and len(query) >= 2:
+        users = await db.users.find(
+            {"username": {"$regex": query, "$options": "i"}},
+            {"_id": 0, "password_hash": 0}
+        ).to_list(20)
+        for u in users:
+            friend_count = await db.friends.count_documents({
+                "$or": [{"user_id": u["id"]}, {"friend_id": u["id"]}]
+            })
+            u["friend_count"] = friend_count
+        return {"users": users}
+    
+    return {"users": []}
+
 @api_router.get("/users/{user_id}")
 async def get_user(user_id: str):
     """Get user details"""
@@ -945,18 +976,26 @@ async def register(request: RegisterRequest):
     # Hash the password
     password_hash = hash_password(request.password)
     
-    # Create new user
+    # Create new user with friend code
+    import random, string
+    friend_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    # Ensure unique friend code
+    while await db.users.find_one({"friend_code": friend_code}):
+        friend_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    
     new_user = User(
         username=request.username,
         password_hash=password_hash,
         coins=500  # Starting coins
     )
+    user_data = new_user.model_dump()
+    user_data['friend_code'] = friend_code
     
-    await db.users.insert_one(new_user.model_dump())
+    await db.users.insert_one(user_data)
     
     # Return user without password hash
-    user_data = new_user.model_dump()
     del user_data['password_hash']
+    user_data.pop('_id', None)
     return user_data
 
 @api_router.post("/auth/login")
@@ -977,6 +1016,12 @@ async def login(request: LoginRequest):
     # Return user without password hash
     user_data = User(**user).model_dump()
     del user_data['password_hash']
+    user_data['friend_code'] = user.get('friend_code', '')
+    # Get friend count
+    friend_count = await db.friends.count_documents({
+        "$or": [{"user_id": user_data['id']}, {"friend_id": user_data['id']}]
+    })
+    user_data['friend_count'] = friend_count
     return user_data
 
 @api_router.post("/auth/set-password/{user_id}")
@@ -2328,6 +2373,16 @@ async def create_trade(request: CreateTradeRequest):
     if request.from_user_id == request.to_user_id:
         raise HTTPException(status_code=400, detail="Cannot trade with yourself")
     
+    # Verify users are friends
+    friendship = await db.friends.find_one({
+        "$or": [
+            {"user_id": request.from_user_id, "friend_id": request.to_user_id},
+            {"user_id": request.to_user_id, "friend_id": request.from_user_id}
+        ]
+    })
+    if not friendship:
+        raise HTTPException(status_code=400, detail="You must be friends to trade")
+    
     # Verify from_user owns offered cards
     for card_id in request.offered_card_ids:
         user_card = await db.user_cards.find_one({
@@ -2582,6 +2637,153 @@ async def get_all_feedback():
     """Get all feedback (admin)"""
     feedback_list = await db.feedback.find({}, {"_id": 0}).sort("created_at", -1).to_list(100)
     return feedback_list
+
+# =====================
+# Friends System
+# =====================
+
+@api_router.post("/friends/request")
+async def send_friend_request(request: Request):
+    """Send a friend request"""
+    body = await request.json()
+    from_user_id = body.get("from_user_id")
+    to_user_id = body.get("to_user_id")
+    
+    if from_user_id == to_user_id:
+        raise HTTPException(status_code=400, detail="Cannot add yourself as a friend")
+    
+    from_user = await db.users.find_one({"id": from_user_id})
+    to_user = await db.users.find_one({"id": to_user_id})
+    if not from_user or not to_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if already friends
+    existing_friend = await db.friends.find_one({
+        "$or": [
+            {"user_id": from_user_id, "friend_id": to_user_id},
+            {"user_id": to_user_id, "friend_id": from_user_id}
+        ]
+    })
+    if existing_friend:
+        raise HTTPException(status_code=400, detail="Already friends")
+    
+    # Check if request already exists
+    existing_request = await db.friend_requests.find_one({
+        "from_user_id": from_user_id,
+        "to_user_id": to_user_id,
+        "status": "pending"
+    })
+    if existing_request:
+        raise HTTPException(status_code=400, detail="Friend request already sent")
+    
+    # Check if reverse request exists (they already sent us one)
+    reverse_request = await db.friend_requests.find_one({
+        "from_user_id": to_user_id,
+        "to_user_id": from_user_id,
+        "status": "pending"
+    })
+    if reverse_request:
+        # Auto-accept
+        await db.friend_requests.update_one(
+            {"id": reverse_request["id"]},
+            {"$set": {"status": "accepted"}}
+        )
+        await db.friends.insert_one({
+            "id": str(uuid.uuid4()),
+            "user_id": from_user_id,
+            "friend_id": to_user_id,
+            "created_at": datetime.utcnow().isoformat()
+        })
+        return {"success": True, "message": "You are now friends!", "auto_accepted": True}
+    
+    friend_req = {
+        "id": str(uuid.uuid4()),
+        "from_user_id": from_user_id,
+        "to_user_id": to_user_id,
+        "from_username": from_user.get("username", ""),
+        "to_username": to_user.get("username", ""),
+        "status": "pending",
+        "created_at": datetime.utcnow().isoformat()
+    }
+    await db.friend_requests.insert_one(friend_req)
+    return {"success": True, "message": "Friend request sent!"}
+
+@api_router.post("/friends/accept/{request_id}")
+async def accept_friend_request(request_id: str):
+    """Accept a friend request"""
+    freq = await db.friend_requests.find_one({"id": request_id, "status": "pending"})
+    if not freq:
+        raise HTTPException(status_code=404, detail="Friend request not found")
+    
+    await db.friend_requests.update_one(
+        {"id": request_id},
+        {"$set": {"status": "accepted"}}
+    )
+    
+    # Create friendship (bidirectional)
+    await db.friends.insert_one({
+        "id": str(uuid.uuid4()),
+        "user_id": freq["from_user_id"],
+        "friend_id": freq["to_user_id"],
+        "created_at": datetime.utcnow().isoformat()
+    })
+    
+    return {"success": True, "message": "Friend request accepted!"}
+
+@api_router.post("/friends/reject/{request_id}")
+async def reject_friend_request(request_id: str):
+    """Reject a friend request"""
+    freq = await db.friend_requests.find_one({"id": request_id, "status": "pending"})
+    if not freq:
+        raise HTTPException(status_code=404, detail="Friend request not found")
+    
+    await db.friend_requests.update_one(
+        {"id": request_id},
+        {"$set": {"status": "rejected"}}
+    )
+    return {"success": True, "message": "Friend request rejected"}
+
+@api_router.get("/friends/{user_id}")
+async def get_friends(user_id: str):
+    """Get user's friends list with friend counts"""
+    friends = await db.friends.find({
+        "$or": [{"user_id": user_id}, {"friend_id": user_id}]
+    }, {"_id": 0}).to_list(500)
+    
+    friend_ids = []
+    for f in friends:
+        if f["user_id"] == user_id:
+            friend_ids.append(f["friend_id"])
+        else:
+            friend_ids.append(f["user_id"])
+    
+    friends_data = []
+    for fid in friend_ids:
+        friend_user = await db.users.find_one({"id": fid}, {"_id": 0, "password_hash": 0})
+        if friend_user:
+            # Get friend's friend count
+            friend_count = await db.friends.count_documents({
+                "$or": [{"user_id": fid}, {"friend_id": fid}]
+            })
+            friend_user["friend_count"] = friend_count
+            friends_data.append(friend_user)
+    
+    return {"friends": friends_data, "count": len(friends_data)}
+
+@api_router.get("/friends/{user_id}/requests")
+async def get_friend_requests(user_id: str):
+    """Get pending friend requests for a user"""
+    incoming = await db.friend_requests.find({
+        "to_user_id": user_id,
+        "status": "pending"
+    }, {"_id": 0}).to_list(100)
+    
+    outgoing = await db.friend_requests.find({
+        "from_user_id": user_id,
+        "status": "pending"
+    }, {"_id": 0}).to_list(100)
+    
+    return {"incoming": incoming, "outgoing": outgoing}
 
 @api_router.post("/users/{user_id}/purchase-coins")
 async def create_coin_checkout(user_id: str, request: CoinPurchaseRequest, http_request: Request):
