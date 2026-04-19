@@ -107,6 +107,7 @@ export default function CollectionScreen() {
   const [showTradeInResult, setShowTradeInResult] = useState(false);
   const [tradeInResult, setTradeInResult] = useState<any>(null);
   const [isTrading, setIsTrading] = useState(false);
+  const [collapsedSeries, setCollapsedSeries] = useState<{ [key: number]: boolean }>({});
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
@@ -172,41 +173,59 @@ export default function CollectionScreen() {
   userCards.forEach(uc => {
     ownedCardQuantities[uc.card.id] = uc.quantity;
   });
-  
-  // Get only base cards (non-variants, non-reward) for display, sorted by series
-  const baseCards = allCards
-    .filter(c => !c.base_card_id && c.rarity !== 'rare' && c.rarity !== 'epic') // Common cards only
-    .sort((a, b) => {
-      if (a.series !== b.series) return (a.series || 0) - (b.series || 0);
-      if (a.band !== b.band) return (a.band || '').localeCompare(b.band || '');
-      return (a.card_type || '').localeCompare(b.card_type || '');
-    });
-  
-  // Get ALL variants from allCards (show as mystery if not owned)
-  // Sort owned variants first, then unowned
-  const allVariants = allCards
-    .filter(c => c.base_card_id) // Only variant cards
-    .sort((a, b) => {
-      const aOwned = ownedCardIds.has(a.id) ? 0 : 1;
-      const bOwned = ownedCardIds.has(b.id) ? 0 : 1;
-      if (aOwned !== bOwned) return aOwned - bOwned;
-      if (a.series !== b.series) return (a.series || 0) - (b.series || 0);
-      if (a.name !== b.name) return (a.name || '').localeCompare(b.name || '');
-      return (a.variant_name || '').localeCompare(b.variant_name || '');
-    });
-  
-  // Get variants the user owns (for stats)
-  const ownedVariants = userCards.filter(uc => uc.card.base_card_id);
-  
-  // NO reward cards shown - they stay mystery forever
-  
-  const ownedSeries1Commons = userCards.filter(uc => uc.card.series === 1 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
-  const ownedSeries2Commons = userCards.filter(uc => uc.card.series === 2 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
-  const ownedSeries3Commons = userCards.filter(uc => uc.card.series === 3 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
-  const ownedSeries4Commons = userCards.filter(uc => uc.card.series === 4 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
-  const ownedSeries5Commons = userCards.filter(uc => uc.card.series === 5 && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
-  
+
+  const toggleSeries = (series: number) => {
+    setCollapsedSeries(prev => ({ ...prev, [series]: !prev[series] }));
+  };
+
+  // Group cards by series
+  const seriesNumbers = [1, 2, 3, 4, 5];
+  const getSeriesCards = (series: number) => {
+    const base = allCards
+      .filter(c => c.series === series && !c.base_card_id && c.rarity !== 'rare' && c.rarity !== 'epic')
+      .sort((a, b) => {
+        if (a.band !== b.band) return (a.band || '').localeCompare(b.band || '');
+        return (a.card_type || '').localeCompare(b.card_type || '');
+      });
+    const variants = allCards
+      .filter(c => c.series === series && c.base_card_id)
+      .sort((a, b) => {
+        const aOwned = ownedCardIds.has(a.id) ? 0 : 1;
+        const bOwned = ownedCardIds.has(b.id) ? 0 : 1;
+        if (aOwned !== bOwned) return aOwned - bOwned;
+        if (a.name !== b.name) return (a.name || '').localeCompare(b.name || '');
+        return (a.variant_name || '').localeCompare(b.variant_name || '');
+      });
+    return [...base, ...variants];
+  };
+
+  const getSeriesStats = (series: number) => {
+    const ownedBase = userCards.filter(uc => uc.card.series === series && uc.card.rarity === 'common' && !uc.card.base_card_id).length;
+    const ownedVars = userCards.filter(uc => uc.card.series === series && uc.card.base_card_id).length;
+    return { ownedBase, ownedVars };
+  };
+
   const totalOwned = userCards.length;
+
+  const renderCard = (card: Card) => {
+    const isOwned = ownedCardIds.has(card.id);
+    const quantity = ownedCardQuantities[card.id] || 0;
+    const userCard = userCards.find(uc => uc.card.id === card.id);
+    return (
+      <SimpleCard
+        key={card.id}
+        card={card}
+        isOwned={isOwned}
+        quantity={quantity}
+        onPress={() => {
+          if (isOwned && userCard) {
+            setSelectedCard(userCard);
+            setShowFront(true);
+          }
+        }}
+      />
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -217,21 +236,11 @@ export default function CollectionScreen() {
         <Text style={styles.subtitle}>
           {totalOwned} Cards Collected
         </Text>
-        <View style={styles.seriesProgress}>
-          <Text style={styles.seriesProgressText}>S1: {ownedSeries1Commons}/16</Text>
-          <Text style={styles.seriesProgressText}>S2: {ownedSeries2Commons}/16</Text>
-          <Text style={styles.seriesProgressText}>S3: {ownedSeries3Commons}/16</Text>
-          <Text style={styles.seriesProgressText}>S4: {ownedSeries4Commons}/16</Text>
-          <Text style={styles.seriesProgressText}>S5: {ownedSeries5Commons}/16</Text>
-          {ownedVariants.length > 0 && (
-            <Text style={styles.variantProgressText}>+{ownedVariants.length} Variants</Text>
-          )}
-        </View>
       </View>
 
       {tradeInEligible.length > 0 && (
         <View style={styles.tradeInSection}>
-          <Text style={styles.tradeInTitle}>🔄 Trade-In for Variants</Text>
+          <Text style={styles.tradeInTitle}>Trade-In for Variants</Text>
           <Text style={styles.tradeInSubtitle}>Trade 5 duplicates for a rare variant!</Text>
           {tradeInEligible.map((item) => (
             <View key={item.card.id} style={styles.tradeInCard}>
@@ -243,7 +252,7 @@ export default function CollectionScreen() {
               <View style={styles.tradeInInfo}>
                 <Text style={styles.tradeInName}>{item.card.name}</Text>
                 <Text style={styles.tradeInQuantity}>
-                  {item.quantity} duplicates • {item.variants_owned}/{item.variants_total} variants
+                  {item.quantity} duplicates {item.variants_owned}/{item.variants_total} variants
                 </Text>
               </View>
               <TouchableOpacity
@@ -260,63 +269,40 @@ export default function CollectionScreen() {
         </View>
       )}
 
-      {baseCards.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyStateIcon}>🃏</Text>
-          <Text style={styles.emptyStateTitle}>Loading Cards...</Text>
-          <Text style={styles.emptyStateSubtitle}>
-            Please wait while cards are loaded.
-          </Text>
-        </View>
-      ) : (
-        <View style={styles.flashListContainer}>
-          <FlatList
-            data={[...baseCards, ...allVariants]}
-            renderItem={({ item: card }) => {
-              const isOwned = ownedCardIds.has(card.id);
-              const quantity = ownedCardQuantities[card.id] || 0;
-              const userCard = userCards.find(uc => uc.card.id === card.id);
-              return (
-                <SimpleCard
-                  key={card.id}
-                  card={card}
-                  isOwned={isOwned}
-                  quantity={quantity}
-                  onPress={() => {
-                    if (isOwned && userCard) {
-                      setSelectedCard(userCard);
-                      setShowFront(true);
-                    }
-                  }}
-                />
-              );
-            }}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.flashListContent}
-            ListHeaderComponent={
-              ownedVariants.length > 0 ? (
-                <View style={styles.ownedVariantsSection}>
-                  <Text style={styles.ownedVariantsTitle}>Your Variants ({ownedVariants.length})</Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ownedVariantsScroll}>
-                    {ownedVariants.map(uc => (
-                      <TouchableOpacity 
-                        key={uc.card.id} 
-                        style={styles.ownedVariantThumb}
-                        onPress={() => { setSelectedCard(uc); setShowFront(true); }}
-                      >
-                        <Image source={{ uri: uc.card.front_image_url }} style={styles.ownedVariantImage} resizeMode="cover" />
-                        <Text style={styles.ownedVariantName} numberOfLines={1}>{uc.card.name}</Text>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
+      <ScrollView style={styles.flashListContainer} showsVerticalScrollIndicator={false} contentContainerStyle={styles.flashListContent}>
+        {seriesNumbers.map(series => {
+          const cards = getSeriesCards(series);
+          const stats = getSeriesStats(series);
+          const isCollapsed = collapsedSeries[series] || false;
+          if (cards.length === 0) return null;
+          return (
+            <View key={series} style={styles.seriesSection} data-testid={`series-${series}-section`}>
+              <TouchableOpacity 
+                style={styles.seriesSectionHeader} 
+                onPress={() => toggleSeries(series)}
+                data-testid={`series-${series}-toggle`}
+              >
+                <View style={styles.seriesHeaderLeft}>
+                  <Text style={styles.seriesHeaderTitle}>Series {series}</Text>
+                  <Text style={styles.seriesHeaderStats}>
+                    {stats.ownedBase}/16 base{stats.ownedVars > 0 ? ` + ${stats.ownedVars} variants` : ''}
+                  </Text>
                 </View>
-              ) : null
-            }
-          />
-        </View>
-      )}
+                <Ionicons 
+                  name={isCollapsed ? 'chevron-down' : 'chevron-up'} 
+                  size={22} 
+                  color="#FFD700" 
+                />
+              </TouchableOpacity>
+              {!isCollapsed && (
+                <View style={styles.seriesCardGrid}>
+                  {cards.map(card => renderCard(card))}
+                </View>
+              )}
+            </View>
+          );
+        })}
+      </ScrollView>
 
       {/* Trade-In Result Modal */}
       <Modal
@@ -481,47 +467,47 @@ const styles = StyleSheet.create({
     color: '#9C27B0',
     fontWeight: 'bold',
   },
+  seriesSection: {
+    marginBottom: 12,
+    borderRadius: 12,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#333',
+  },
+  seriesSectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'rgba(26, 26, 46, 0.95)',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  seriesHeaderLeft: {
+    flex: 1,
+  },
+  seriesHeaderTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFD700',
+  },
+  seriesHeaderStats: {
+    fontSize: 11,
+    color: '#4CAF50',
+    marginTop: 2,
+  },
+  seriesCardGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    paddingHorizontal: 4,
+    paddingVertical: 4,
+  },
   flashListContainer: {
     flex: 1,
   },
   flashListContent: {
     paddingHorizontal: 12,
     paddingBottom: 100,
-  },
-  ownedVariantsSection: {
-    backgroundColor: 'rgba(156, 39, 176, 0.15)',
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: '#9C27B0',
-  },
-  ownedVariantsTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#CE93D8',
-    marginBottom: 8,
-  },
-  ownedVariantsScroll: {
-    flexDirection: 'row',
-  },
-  ownedVariantThumb: {
-    width: 70,
-    marginRight: 8,
-    alignItems: 'center',
-  },
-  ownedVariantImage: {
-    width: 65,
-    height: 95,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#9C27B0',
-  },
-  ownedVariantName: {
-    fontSize: 8,
-    color: '#fff',
-    textAlign: 'center',
-    marginTop: 4,
   },
   cardContainer: {
     width: CARD_WIDTH,
