@@ -789,10 +789,10 @@ async def seed_database():
                 "back_image_url": CARD_BACK_IMAGE_URLS["chum_araya_cosmic"],
             },
             "card_party_tardy_oceanic": {
-                "front_image_url": CARD_IMAGE_URLS["party_tardy_oceanic"],
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dvwxs6lo_file_000000002a5471f5ba219c1b112402c3.png",
             },
             "card_party_tardy_diamond": {
-                "front_image_url": CARD_IMAGE_URLS["party_tardy_diamond"],
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/raih3ab9_file_00000000676871f58458a04e4bbe5f62.png",
             },
         }
         for card_id, updates in name_fixes.items():
