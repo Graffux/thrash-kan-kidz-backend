@@ -1757,7 +1757,7 @@ INITIAL_CARDS = [
     {
         "id": "card_silly_mille_toxic",
         "name": "Mille Vanille (Toxic)",
-        "description": "The Toxic variant of Silly Mille, his boogers now glow radioactive green. Biohazard crews follow him on tour.",
+        "description": "The Toxic variant of Mille Vanille, his boogers now glow radioactive green. Biohazard crews follow him on tour.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_toxic"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_toxic"],
@@ -1773,7 +1773,7 @@ INITIAL_CARDS = [
     {
         "id": "card_silly_mille_electric",
         "name": "Mille Vanille (Electric)",
-        "description": "The Electric variant of Silly Mille, his snot now conducts lightning. Every sneeze causes a power surge.",
+        "description": "The Electric variant of Mille Vanille, his snot now conducts lightning. Every sneeze causes a power surge.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_electric"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_electric"],
@@ -1789,7 +1789,7 @@ INITIAL_CARDS = [
     {
         "id": "card_silly_mille_hellfire",
         "name": "Mille Vanille (Hellfire)",
-        "description": "The Hellfire variant of Silly Mille, his mucus now burns with demonic fire. Hell's demons refuse to shake his hand.",
+        "description": "The Hellfire variant of Mille Vanille, his mucus now burns with demonic fire. Hell's demons refuse to shake his hand.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_hellfire"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_hellfire"],
@@ -1805,7 +1805,7 @@ INITIAL_CARDS = [
     {
         "id": "card_silly_mille_cosmic",
         "name": "Mille Vanille (Cosmic)",
-        "description": "The Cosmic variant of Silly Mille, his snot transcends space and time. Alien civilizations have declared him a biohazard.",
+        "description": "The Cosmic variant of Mille Vanille, his snot transcends space and time. Alien civilizations have declared him a biohazard.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["silly_mille_cosmic"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_cosmic"],
