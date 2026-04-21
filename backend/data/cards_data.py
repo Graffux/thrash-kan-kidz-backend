@@ -475,8 +475,8 @@ CARD_IMAGE_URLS = {
     "dan_milker_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gary6ac2_file_00000000727471f5b49cc8e45751a5ba.png",
     # Band 5: Slotter
     "dave_spewson": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y162p4w2_enhanced-1775018229237.jpg",
-    "dave_spewson_shadow": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/edcssbff_file_00000000c13871fd82e066be54e72c0e.png",
-    "dave_spewson_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e17aha1c_enhanced-1775018289537.jpg",
+    "dave_spewson_shadow": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e17aha1c_enhanced-1775018289537.jpg",
+    "dave_spewson_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/edcssbff_file_00000000c13871fd82e066be54e72c0e.png",
     "dave_spewson_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kysqivjn_enhanced-1775018431434.jpg",
     "dave_spewson_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/n3uhbfkt_enhanced-1775018479221.jpg",
     "dave_hussein": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0a0mn74h_enhanced-1775018530036.jpg",
