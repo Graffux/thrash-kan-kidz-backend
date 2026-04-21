@@ -49,6 +49,8 @@ function BuyCoinsContent({ visible, onClose }: BuyCoinsModalProps) {
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isFirstPurchase, setIsFirstPurchase] = useState(false);
+  const [bonusPercentage, setBonusPercentage] = useState(0);
 
   // Use expo-iap hook if available
   const iap = useIAP ? useIAP({
@@ -107,6 +109,8 @@ function BuyCoinsContent({ visible, onClose }: BuyCoinsModalProps) {
       const response = await fetch(`${apiUrl}/api/users/${user.id}/coin-packages`);
       const data = await response.json();
       setPackages(data.packages || []);
+      setIsFirstPurchase(data.is_first_purchase || false);
+      setBonusPercentage(data.first_purchase_bonus_percentage || 0);
     } catch (err) {
       setError('Failed to load coin packages');
     } finally {
@@ -168,11 +172,19 @@ function BuyCoinsContent({ visible, onClose }: BuyCoinsModalProps) {
             </View>
           )}
 
+          {isFirstPurchase && (
+            <View style={styles.firstPurchaseBanner}>
+              <Ionicons name="star" size={20} color="#FFD700" />
+              <Text style={styles.firstPurchaseText}>FIRST PURCHASE - {bonusPercentage}% BONUS COINS!</Text>
+              <Ionicons name="star" size={20} color="#FFD700" />
+            </View>
+          )}
+
           {loading ? (
             <ActivityIndicator size="large" color="#FFD700" style={{ marginVertical: 40 }} />
           ) : (
             <View style={styles.packagesContainer}>
-              {packages.map((pkg) => (
+              {packages.map((pkg: any) => (
                 <TouchableOpacity
                   key={pkg.id}
                   style={[styles.packageCard, purchasing === pkg.id && styles.packageCardDisabled]}
@@ -181,16 +193,18 @@ function BuyCoinsContent({ visible, onClose }: BuyCoinsModalProps) {
                 >
                   <View style={styles.packageInfo}>
                     <Text style={styles.packageName}>{pkg.name}</Text>
-                    <Text style={styles.packageCoins}>{pkg.coins} coins</Text>
-                    {pkg.bonus > 0 && (
-                      <Text style={styles.packageBonus}>+{pkg.bonus} bonus!</Text>
+                    <Text style={styles.packageCoins}>
+                      {pkg.first_purchase_bonus ? `${pkg.total_coins} coins` : `${pkg.coins} coins`}
+                    </Text>
+                    {pkg.first_purchase_bonus && pkg.bonus_coins > 0 && (
+                      <Text style={styles.packageBonus}>+{pkg.bonus_coins} bonus coins!</Text>
                     )}
                   </View>
                   <View style={styles.packagePriceContainer}>
                     {purchasing === pkg.id ? (
                       <ActivityIndicator size="small" color="#000" />
                     ) : (
-                      <Text style={styles.packagePrice}>{pkg.price}</Text>
+                      <Text style={styles.packagePrice}>${pkg.price}</Text>
                     )}
                   </View>
                 </TouchableOpacity>
@@ -251,6 +265,24 @@ const styles = StyleSheet.create({
     color: '#F44336',
     fontSize: 13,
     textAlign: 'center',
+  },
+  firstPurchaseBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 215, 0, 0.15)',
+    borderWidth: 1,
+    borderColor: '#FFD700',
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    gap: 8,
+  },
+  firstPurchaseText: {
+    color: '#FFD700',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   packagesContainer: {
     gap: 12,
