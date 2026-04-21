@@ -959,6 +959,52 @@ async def search_users_route(query: str = "", code: str = ""):
     
     return {"users": []}
 
+@api_router.get("/users/recently-active")
+async def get_recently_active_users(user_id: str = ""):
+    """Get users active in the last 30 minutes"""
+    cutoff = (datetime.utcnow() - timedelta(minutes=30)).isoformat()
+    active_users = await db.users.find(
+        {"last_active": {"$gte": cutoff}},
+        {"_id": 0, "password_hash": 0}
+    ).sort("last_active", -1).to_list(50)
+    
+    # Filter out requesting user, add friend count and friendship status
+    result = []
+    for u in active_users:
+        if u["id"] == user_id:
+            continue
+        friend_count = await db.friends.count_documents({
+            "$or": [{"user_id": u["id"]}, {"friend_id": u["id"]}]
+        })
+        u["friend_count"] = friend_count
+        if user_id:
+            is_friend = await db.friends.find_one({
+                "$or": [
+                    {"user_id": user_id, "friend_id": u["id"]},
+                    {"user_id": u["id"], "friend_id": user_id}
+                ]
+            })
+            pending = await db.friend_requests.find_one({
+                "$or": [
+                    {"from_user_id": user_id, "to_user_id": u["id"], "status": "pending"},
+                    {"from_user_id": u["id"], "to_user_id": user_id, "status": "pending"}
+                ]
+            })
+            u["is_friend"] = bool(is_friend)
+            u["has_pending_request"] = bool(pending)
+        result.append(u)
+    
+    return {"users": result, "count": len(result)}
+
+@api_router.post("/users/{user_id}/heartbeat")
+async def user_heartbeat(user_id: str):
+    """Update user's last_active timestamp"""
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"last_active": datetime.utcnow().isoformat()}}
+    )
+    return {"success": True}
+
 @api_router.get("/users/{user_id}")
 async def get_user(user_id: str):
     """Get user details"""
@@ -1036,6 +1082,8 @@ async def login(request: LoginRequest):
         "$or": [{"user_id": user_data['id']}, {"friend_id": user_data['id']}]
     })
     user_data['friend_count'] = friend_count
+    # Update last_active timestamp
+    await db.users.update_one({"id": user_data['id']}, {"$set": {"last_active": datetime.utcnow().isoformat()}})
     return user_data
 
 @api_router.post("/auth/set-password/{user_id}")

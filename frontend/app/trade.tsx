@@ -50,6 +50,8 @@ export default function TradeScreen() {
   const [searching, setSearching] = useState(false);
   const [loadingFriends, setLoadingFriends] = useState(false);
   const [friendCode, setFriendCode] = useState('');
+  const [activeUsers, setActiveUsers] = useState<any[]>([]);
+  const [loadingActive, setLoadingActive] = useState(false);
 
   const loadFriends = useCallback(async () => {
     if (!user) return;
@@ -73,9 +75,35 @@ export default function TradeScreen() {
     }
   }, [user, apiUrl]);
 
+  const loadActiveUsers = useCallback(async () => {
+    if (!user) return;
+    setLoadingActive(true);
+    try {
+      const res = await fetch(`${apiUrl}/api/users/recently-active?user_id=${user.id}`);
+      const data = await res.json();
+      setActiveUsers(data.users || []);
+    } catch (err) {
+      console.error('Error loading active users:', err);
+    } finally {
+      setLoadingActive(false);
+    }
+  }, [user, apiUrl]);
+
   useEffect(() => {
     loadFriends();
-  }, [loadFriends]);
+    loadActiveUsers();
+  }, [loadFriends, loadActiveUsers]);
+
+  // Heartbeat every 2 minutes
+  useEffect(() => {
+    if (!user) return;
+    const sendHeartbeat = () => {
+      fetch(`${apiUrl}/api/users/${user.id}/heartbeat`, { method: 'POST' }).catch(() => {});
+    };
+    sendHeartbeat();
+    const interval = setInterval(sendHeartbeat, 120000);
+    return () => clearInterval(interval);
+  }, [user, apiUrl]);
 
   useEffect(() => {
     if (user) {
@@ -393,6 +421,37 @@ export default function TradeScreen() {
             ))}
           </View>
 
+          {/* Recently Active Users */}
+          {activeUsers.length > 0 && (
+            <View style={styles.activeSection} data-testid="recently-active-section">
+              <View style={styles.activeSectionHeader}>
+                <View style={styles.activeIndicator} />
+                <Text style={styles.sectionLabel}>Players Online ({activeUsers.length})</Text>
+              </View>
+              {activeUsers.map(u => (
+                <View key={u.id} style={styles.activeUserItem}>
+                  <View style={styles.activeUserLeft}>
+                    <View style={styles.onlineDot} />
+                    <Ionicons name="person-circle" size={36} color="#4CAF50" />
+                  </View>
+                  <View style={styles.searchResultInfo}>
+                    <Text style={styles.searchResultName}>{u.username}</Text>
+                    <Text style={styles.searchResultMeta}>{u.friend_count || 0} friends</Text>
+                  </View>
+                  {u.is_friend ? (
+                    <View style={styles.friendBadge}><Text style={styles.friendBadgeText}>Friends</Text></View>
+                  ) : u.has_pending_request ? (
+                    <View style={styles.pendingBadge}><Text style={styles.pendingBadgeText}>Pending</Text></View>
+                  ) : (
+                    <TouchableOpacity style={styles.addButton} onPress={() => handleSendRequest(u.id)} data-testid={`add-active-${u.username}`}>
+                      <Ionicons name="person-add" size={18} color="#000" />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              ))}
+            </View>
+          )}
+
           {/* Incoming Requests */}
           {friendRequests.incoming.length > 0 && (
             <View style={styles.requestsSection}>
@@ -634,6 +693,13 @@ const styles = StyleSheet.create({
 
   // Friend Requests
   requestsSection: { marginHorizontal: 16, marginBottom: 12 },
+  // Recently Active
+  activeSection: { marginHorizontal: 16, marginBottom: 12 },
+  activeSectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
+  activeIndicator: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#4CAF50' },
+  activeUserItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(76, 175, 80, 0.08)', borderRadius: 12, padding: 12, marginBottom: 8, borderWidth: 1, borderColor: 'rgba(76, 175, 80, 0.3)' },
+  activeUserLeft: { position: 'relative' },
+  onlineDot: { position: 'absolute', top: 0, right: 0, width: 10, height: 10, borderRadius: 5, backgroundColor: '#4CAF50', borderWidth: 2, borderColor: '#1a1a2e', zIndex: 1 },
   requestItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255, 215, 0, 0.08)', borderRadius: 12, padding: 12, marginBottom: 8, borderWidth: 1, borderColor: '#FFD700' },
   requestName: { flex: 1, color: '#fff', fontSize: 15, fontWeight: '600', marginLeft: 10 },
   requestActions: { flexDirection: 'row', gap: 8 },
