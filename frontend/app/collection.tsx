@@ -232,6 +232,8 @@ export default function CollectionScreen() {
     );
   };
 
+  const [tradeInExpanded, setTradeInExpanded] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
@@ -244,33 +246,47 @@ export default function CollectionScreen() {
       </View>
 
       {tradeInEligible.length > 0 && (
+        <TouchableOpacity 
+          style={styles.tradeInToggle}
+          onPress={() => setTradeInExpanded(!tradeInExpanded)}
+          data-testid="trade-in-toggle"
+        >
+          <View style={styles.tradeInToggleLeft}>
+            <Ionicons name="swap-vertical" size={18} color="#FFD700" />
+            <Text style={styles.tradeInToggleText}>Trade-In ({tradeInEligible.length} eligible)</Text>
+          </View>
+          <Ionicons name={tradeInExpanded ? 'chevron-up' : 'chevron-down'} size={20} color="#FFD700" />
+        </TouchableOpacity>
+      )}
+
+      {tradeInExpanded && tradeInEligible.length > 0 && (
         <View style={styles.tradeInSection}>
-          <Text style={styles.tradeInTitle}>Trade-In for Variants</Text>
-          <Text style={styles.tradeInSubtitle}>Trade 5 duplicates for a rare variant!</Text>
-          {tradeInEligible.map((item) => (
-            <View key={item.card.id} style={styles.tradeInCard}>
-              <ExpoImage
-                source={{ uri: item.card.front_image_url }}
-                style={styles.tradeInImage}
-                contentFit="cover"
-              />
-              <View style={styles.tradeInInfo}>
-                <Text style={styles.tradeInName}>{item.card.name}</Text>
-                <Text style={styles.tradeInQuantity}>
-                  {item.quantity} duplicates {item.variants_owned}/{item.variants_total} variants
-                </Text>
+          <ScrollView style={styles.tradeInScroll} nestedScrollEnabled showsVerticalScrollIndicator={true}>
+            {tradeInEligible.map((item) => (
+              <View key={item.card.id} style={styles.tradeInCard}>
+                <ExpoImage
+                  source={{ uri: item.card.front_image_url }}
+                  style={styles.tradeInImage}
+                  contentFit="cover"
+                />
+                <View style={styles.tradeInInfo}>
+                  <Text style={styles.tradeInName}>{item.card.name}</Text>
+                  <Text style={styles.tradeInQuantity}>
+                    {item.quantity} dupes | {item.variants_owned}/{item.variants_total} variants
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={[styles.tradeInButton, isTrading && styles.tradeInButtonDisabled]}
+                  onPress={() => handleTradeIn(item.card.id)}
+                  disabled={isTrading}
+                >
+                  <Text style={styles.tradeInButtonText}>
+                    {isTrading ? '...' : 'TRADE'}
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={[styles.tradeInButton, isTrading && styles.tradeInButtonDisabled]}
-                onPress={() => handleTradeIn(item.card.id)}
-                disabled={isTrading}
-              >
-                <Text style={styles.tradeInButtonText}>
-                  {isTrading ? '...' : 'TRADE IN'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+            ))}
+          </ScrollView>
         </View>
       )}
 
@@ -594,26 +610,40 @@ const styles = StyleSheet.create({
     color: '#888',
     textAlign: 'center',
   },
-  tradeInSection: {
-    backgroundColor: 'rgba(156, 39, 176, 0.2)',
+  tradeInToggle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 215, 0, 0.1)',
     marginHorizontal: 12,
-    marginBottom: 12,
-    padding: 12,
+    marginBottom: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FFD700',
+  },
+  tradeInToggleLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  tradeInToggleText: {
+    color: '#FFD700',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  tradeInSection: {
+    marginHorizontal: 12,
+    marginBottom: 8,
+    maxHeight: 180,
+    backgroundColor: 'rgba(26, 26, 46, 0.95)',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#9C27B0',
   },
-  tradeInTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#E1BEE7',
-    textAlign: 'center',
-  },
-  tradeInSubtitle: {
-    fontSize: 12,
-    color: '#CE93D8',
-    textAlign: 'center',
-    marginBottom: 8,
+  tradeInScroll: {
+    padding: 10,
   },
   tradeInCard: {
     flexDirection: 'row',
