@@ -5,7 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const WHEEL_IMAGE = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/setdivo6_file_00000000ec5c722fb941eafbda99a3d2.png';
+const WHEEL_IMAGE_FULL = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/setdivo6_file_00000000ec5c722fb941eafbda99a3d2.png';
+const WHEEL_IMAGE_INNER = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6z0zlu55_file_00000000ec5c722fb941eafbda99a3d2.png';
 
 // Prizes in clockwise order starting from top (matching the wheel image)
 // Image layout (clockwise from top): 200 coins, Free Pack, 25 coins, 1 medal, 50 coins, 3 medals, 100 coins, 5 medals
@@ -107,19 +108,30 @@ export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClo
             </Text>
           )}
 
-          {/* Wheel with image */}
+          {/* Wheel with layered images - static frame + spinning inner wheel */}
           <View style={[styles.wheelContainer, { width: WHEEL_SIZE, height: WHEEL_SIZE }]}>
-            <View style={[styles.wheelClip, { width: WHEEL_SIZE, height: WHEEL_SIZE, borderRadius: WHEEL_SIZE / 2 }]}>
+            {/* Static frame (full wheel image) */}
+            <ExpoImage
+              source={{ uri: WHEEL_IMAGE_FULL }}
+              style={[styles.wheelFrame, { width: WHEEL_SIZE, height: WHEEL_SIZE }]}
+              contentFit="contain"
+            />
+            {/* Spinning inner wheel - clipped to circle, slightly smaller */}
+            <View style={[styles.wheelInnerClip, { 
+              width: WHEEL_SIZE * 0.78, 
+              height: WHEEL_SIZE * 0.78, 
+              borderRadius: (WHEEL_SIZE * 0.78) / 2 
+            }]}>
               <Animated.View
                 style={[
                   styles.wheelImageWrap,
-                  { width: WHEEL_SIZE, height: WHEEL_SIZE },
+                  { width: WHEEL_SIZE * 0.78, height: WHEEL_SIZE * 0.78 },
                   { transform: [{ rotate: wheelRotation }] },
                 ]}
               >
                 <ExpoImage
-                  source={{ uri: WHEEL_IMAGE }}
-                  style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
+                  source={{ uri: WHEEL_IMAGE_INNER }}
+                  style={{ width: WHEEL_SIZE * 0.78, height: WHEEL_SIZE * 0.78 }}
                   contentFit="contain"
                 />
               </Animated.View>
@@ -204,7 +216,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 8,
   },
-  wheelClip: {
+  wheelFrame: {
+    position: 'absolute',
+  },
+  wheelInnerClip: {
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
