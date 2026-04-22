@@ -5,10 +5,10 @@ import { Image as ExpoImage } from 'expo-image';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 // 4 separate layer images
-const IMG_WHEEL = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k7l787s3_Screenshot_20260422_013257_Gallery.png';
-const IMG_FRAME = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xsjgmxpi_Screenshot_20260422_013309_Gallery.png';
-const IMG_SPIN_BTN = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rmnca3rf_Screenshot_20260422_013319_Gallery.png';
-const IMG_POINTER = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/efdye7nm_Screenshot_20260422_013328_Gallery.png';
+const IMG_WHEEL = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0a92tzej_enhanced-1776839146951.png';
+const IMG_FRAME = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lhhe4odr_file_00000000d9d071f7b937862f015b167c.png';
+const IMG_SPIN_BTN = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dyjye6ko_file_000000000c4471f7a591a52c59897d60.png';
+const IMG_POINTER = 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/o6zn0oij_file_00000000bb7c71f7acd437634d27784c.png';
 
 // Segments clockwise from top: 200coins, freepack, 25coins, 1medal, 50coins, 3medals, 100coins, 5medals
 const SEGMENTS = [
