@@ -1011,7 +1011,16 @@ async def get_user(user_id: str):
     user = await db.users.find_one({"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return User(**user)
+    user_data = User(**user).model_dump()
+    del user_data['password_hash']
+    user_data['friend_code'] = user.get('friend_code', '')
+    user_data['medals'] = user.get('medals', 0)
+    user_data['free_packs'] = user.get('free_packs', 0)
+    friend_count = await db.friends.count_documents({
+        "$or": [{"user_id": user_id}, {"friend_id": user_id}]
+    })
+    user_data['friend_count'] = friend_count
+    return user_data
 
 # =====================
 # Authentication

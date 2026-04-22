@@ -19,6 +19,10 @@ interface User {
   bio: string;
   avatar_url: string;
   created_at: string;
+  friend_code?: string;
+  friend_count?: number;
+  medals?: number;
+  free_packs?: number;
 }
 
 interface Card {
