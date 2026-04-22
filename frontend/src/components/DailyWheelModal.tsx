@@ -109,19 +109,21 @@ export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClo
 
           {/* Wheel with image */}
           <View style={[styles.wheelContainer, { width: WHEEL_SIZE, height: WHEEL_SIZE }]}>
-            <Animated.View
-              style={[
-                styles.wheelImageWrap,
-                { width: WHEEL_SIZE, height: WHEEL_SIZE },
-                { transform: [{ rotate: wheelRotation }] },
-              ]}
-            >
-              <ExpoImage
-                source={{ uri: WHEEL_IMAGE }}
-                style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
-                contentFit="contain"
-              />
-            </Animated.View>
+            <View style={[styles.wheelClip, { width: WHEEL_SIZE, height: WHEEL_SIZE, borderRadius: WHEEL_SIZE / 2 }]}>
+              <Animated.View
+                style={[
+                  styles.wheelImageWrap,
+                  { width: WHEEL_SIZE, height: WHEEL_SIZE },
+                  { transform: [{ rotate: wheelRotation }] },
+                ]}
+              >
+                <ExpoImage
+                  source={{ uri: WHEEL_IMAGE }}
+                  style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
+                  contentFit="contain"
+                />
+              </Animated.View>
+            </View>
           </View>
 
           {/* Result */}
@@ -201,6 +203,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
+  },
+  wheelClip: {
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   wheelImageWrap: {
     justifyContent: 'center',
