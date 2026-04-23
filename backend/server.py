@@ -812,6 +812,21 @@ async def seed_database():
             "card_party_tardy_diamond": {
                 "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/raih3ab9_file_00000000676871f58458a04e4bbe5f62.png",
             },
+            "card_chef_becerra": {
+                "name": "Chef Becerra",
+            },
+            "card_chef_becerra_bloodbath": {
+                "name": "Chef Becerra (Bloodbath)",
+            },
+            "card_chef_becerra_ice": {
+                "name": "Chef Becerra (Ice)",
+            },
+            "card_chef_becerra_psychedelic": {
+                "name": "Chef Becerra (Psychedelic)",
+            },
+            "card_chef_becerra_biomechanical": {
+                "name": "Chef Becerra (Biomechanical)",
+            },
         }
         for card_id, updates in name_fixes.items():
             query = {"id": card_id}
