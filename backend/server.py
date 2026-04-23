@@ -827,6 +827,9 @@ async def seed_database():
             "card_chef_becerra_biomechanical": {
                 "name": "Chef Becerra (Biomechanical)",
             },
+            "card_sean_kill_again": {
+                "back_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/soday9u4_file_00000000f24471f58503370fd35d90d9.png",
+            },
         }
         for card_id, updates in name_fixes.items():
             query = {"id": card_id}

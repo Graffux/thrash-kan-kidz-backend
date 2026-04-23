@@ -701,7 +701,7 @@ CARD_BACK_IMAGE_URLS = {
     # Epic reward card (Series 3)
     "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jq5ykbib_file_0000000067e071fdb886702923daf12d.png",
     # Epic reward card (Series 5 - moved from S3)
-    "sean_kill_again": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lxq89ltr_file_000000007a0471f5a1da1f0e20a9b30a.png",
+    "sean_kill_again": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/soday9u4_file_00000000f24471f58503370fd35d90d9.png",
     # Rare reward card (Series 4)
     "jeff_wanker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lrod0iks_enhanced-1775928154564.jpg",
     
