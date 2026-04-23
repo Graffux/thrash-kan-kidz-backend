@@ -245,7 +245,7 @@ export default function CollectionScreen() {
       <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
       <View style={styles.backgroundOverlay} />
       <View style={styles.header}>
-        <Text style={styles.title}>My Collection</Text>
+        <ExpoImage source={{ uri: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jgg6an70_enhanced-1776903865079.png' }} style={styles.headerImage} contentFit="contain" />
         <Text style={styles.subtitle}>
           {totalOwned} Cards Collected
         </Text>
@@ -464,6 +464,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 8,
     paddingBottom: 12,
+  },
+  headerImage: {
+    width: 200,
+    height: 80,
+    alignSelf: 'center',
   },
   title: {
     fontSize: 24,
