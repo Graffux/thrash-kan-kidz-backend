@@ -46,15 +46,6 @@
       ],
       "./plugins/remove-permissions",
       "./plugins/billing-plugin",
-      "expo-iap",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "2.1.20"
-          }
-        }
-      ],
       "expo-audio"
     ],
     "experiments": {
