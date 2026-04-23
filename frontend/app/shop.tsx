@@ -18,6 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
 import BuyCoinsModal from '../src/components/BuyCoinsModal';
 import { DailyWheelModal } from '../src/components/DailyWheelModal';
+import { useSoundPlayer } from '../src/utils/sounds';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -62,6 +63,13 @@ export default function ShopScreen() {
   const [medals, setMedals] = useState(0);
   const [freePacks, setFreePacks] = useState(0);
   const [dailyWheelChecked, setDailyWheelChecked] = useState(false);
+
+  // Sound effects
+  const packOpenSound = useSoundPlayer('pack_open');
+  const cardRevealSound = useSoundPlayer('card_reveal');
+  const dupeSound = useSoundPlayer('duplicate');
+  const prizeWonSound = useSoundPlayer('prize_won');
+  const buttonTapSound = useSoundPlayer('button_tap');
   
   // Animation values
   const shakeAnim = useRef(new Animated.Value(0)).current;
@@ -198,6 +206,7 @@ export default function ShopScreen() {
     setSpinResult(null);
     resetAnimations();
     setPackState('shaking');
+    packOpenSound.play();
 
     try {
       // Phase 1: Pack shaking animation (1.5 seconds)
@@ -324,6 +333,11 @@ export default function ShopScreen() {
         // After flip completes, show the result modal
         setTimeout(() => {
           setShowResult(true);
+          // Play card reveal sound, then dupe sound if all are dupes
+          cardRevealSound.play();
+          if (spinResult?.won_cards?.every((c: any) => c.is_duplicate)) {
+            setTimeout(() => dupeSound.play(), 500);
+          }
           refreshData();
           fetchSpinData();
         }, 800);
@@ -703,6 +717,8 @@ export default function ShopScreen() {
         onClose={() => setShowDailyWheel(false)}
         onSpin={handleWheelSpin}
         streak={wheelStreak}
+        onSpinStart={() => buttonTapSound.play()}
+        onPrizeWon={() => prizeWonSound.play()}
       />
     </SafeAreaView>
   );

@@ -41,9 +41,11 @@ interface DailyWheelModalProps {
   onClose: () => void;
   onSpin: () => Promise<any>;
   streak: number;
+  onSpinStart?: () => void;
+  onPrizeWon?: () => void;
 }
 
-export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClose, onSpin, streak }) => {
+export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClose, onSpin, streak, onSpinStart, onPrizeWon }) => {
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState<any>(null);
   const spinAnim = useRef(new Animated.Value(0)).current;
@@ -53,6 +55,7 @@ export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClo
     if (spinning) return;
     setSpinning(true);
     setResult(null);
+    onSpinStart?.();
 
     try {
       const data = await onSpin();
@@ -78,6 +81,7 @@ export const DailyWheelModal: React.FC<DailyWheelModalProps> = ({ visible, onClo
       }).start(() => {
         setResult(data);
         setSpinning(false);
+        onPrizeWon?.();
       });
     } catch (err: any) {
       setSpinning(false);
