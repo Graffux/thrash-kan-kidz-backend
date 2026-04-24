@@ -767,10 +767,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    flexWrap: 'wrap',
+    rowGap: 8,
   },
   headerImage: {
-    width: 180,
-    height: 80,
+    width: 140,
+    height: 60,
     alignSelf: 'center',
   },
   title: {
@@ -786,13 +788,16 @@ const styles = StyleSheet.create({
   coinSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
   },
   coinDisplay: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(26, 26, 46, 0.9)',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 16,
   },
