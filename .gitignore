@@ -240,3 +240,12 @@ credentials.json
 *.key
 .credentials
 frontend/.metro-cache
+-e 
+# Environment and credential files
+.env
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
