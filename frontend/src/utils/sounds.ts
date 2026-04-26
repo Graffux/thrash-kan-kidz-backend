@@ -1,4 +1,5 @@
 import { useAudioPlayer } from 'expo-audio';
+import { useEffect, useRef } from 'react';
 
 // Sound assets
 const SOUNDS = {
@@ -22,6 +23,9 @@ const SOUNDS = {
 
 export type SoundName = keyof typeof SOUNDS;
 
+/**
+ * One-shot sound player. Wraps native errors so audio failures never crash the app.
+ */
 export function useSoundPlayer(name: SoundName) {
   const player = useAudioPlayer(SOUNDS[name]);
   return {
@@ -29,27 +33,43 @@ export function useSoundPlayer(name: SoundName) {
       try {
         player.seekTo(0);
         player.play();
-      } catch (e) {
-        // Ignore sound errors - don't break app
+      } catch (_e) {
+        // ignore
       }
     },
   };
 }
 
 /**
- * Hook for looping background music. Returns start() and stop() controls.
- * Auto-stops on unmount via React's effect cleanup pattern.
+ * Looping background music. start() begins playback, stop() pauses + rewinds.
+ * Volume defaulted to 0.5 so it sits behind sound effects.
  */
 export function useLoopingPlayer(name: SoundName) {
   const player = useAudioPlayer(SOUNDS[name]);
+  const startedRef = useRef(false);
+
+  // Auto-stop on unmount
+  useEffect(() => {
+    return () => {
+      try {
+        player.pause();
+      } catch (_e) {
+        // ignore
+      }
+    };
+  }, [player]);
+
   return {
     start: () => {
       try {
-        player.loop = true;
-        player.volume = 0.5;
+        if (!startedRef.current) {
+          player.loop = true;
+          player.volume = 0.5;
+          startedRef.current = true;
+        }
         player.seekTo(0);
         player.play();
-      } catch (e) {
+      } catch (_e) {
         // ignore
       }
     },
@@ -57,7 +77,7 @@ export function useLoopingPlayer(name: SoundName) {
       try {
         player.pause();
         player.seekTo(0);
-      } catch (e) {
+      } catch (_e) {
         // ignore
       }
     },
