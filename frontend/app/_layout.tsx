@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import { AppProvider, useApp } from '../src/context/AppContext';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSoundPlayer } from '../src/utils/sounds';
 
 // Tab icon component using emojis for reliable rendering
 const TabIcon = ({ emoji, focused, badge }: { emoji: string; focused: boolean; badge?: number }) => (
@@ -20,6 +21,7 @@ function TabsNavigator() {
   const insets = useSafeAreaInsets();
   const { user, trades } = useApp();
   const bottomPadding = Math.max(insets.bottom, 48);
+  const cashRegister = useSoundPlayer('cash_register');
 
   const incomingTradeCount = user
     ? trades.filter(t => t.trade.status === 'pending' && t.trade.to_user_id === user.id).length
@@ -68,6 +70,11 @@ function TabsNavigator() {
             tabBarIcon: ({ focused }) => (
               <TabIcon emoji="🛒" focused={focused} />
             ),
+          }}
+          listeners={{
+            tabPress: () => {
+              try { cashRegister.play(); } catch (_e) { /* ignore */ }
+            },
           }}
         />
         <Tabs.Screen

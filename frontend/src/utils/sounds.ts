@@ -11,6 +11,8 @@ const SOUNDS = {
   login_riff: require('../../assets/sounds/login_riff.mp3'),
   card_flip: require('../../assets/sounds/card_flip.mp3'),
   axe_impact: require('../../assets/sounds/axe_impact.mp3'),
+  cash_register: require('../../assets/sounds/cash_register.mp3'),
+  clinking_coins: require('../../assets/sounds/clinking_coins.mp3'),
 };
 
 export type SoundName = keyof typeof SOUNDS;
