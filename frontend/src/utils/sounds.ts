@@ -17,6 +17,7 @@ const SOUNDS = {
   tab_collection: require('../../assets/sounds/tab_collection.mp3'),
   tab_trade: require('../../assets/sounds/tab_trade.mp3'),
   tab_goals: require('../../assets/sounds/tab_goals.mp3'),
+  collection_bg: require('../../assets/sounds/collection_bg.mp3'),
 };
 
 export type SoundName = keyof typeof SOUNDS;
@@ -30,6 +31,34 @@ export function useSoundPlayer(name: SoundName) {
         player.play();
       } catch (e) {
         // Ignore sound errors - don't break app
+      }
+    },
+  };
+}
+
+/**
+ * Hook for looping background music. Returns start() and stop() controls.
+ * Auto-stops on unmount via React's effect cleanup pattern.
+ */
+export function useLoopingPlayer(name: SoundName) {
+  const player = useAudioPlayer(SOUNDS[name]);
+  return {
+    start: () => {
+      try {
+        player.loop = true;
+        player.volume = 0.5;
+        player.seekTo(0);
+        player.play();
+      } catch (e) {
+        // ignore
+      }
+    },
+    stop: () => {
+      try {
+        player.pause();
+        player.seekTo(0);
+      } catch (e) {
+        // ignore
       }
     },
   };

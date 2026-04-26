@@ -15,7 +15,8 @@ import { Image as ExpoImage } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
-import { useSoundPlayer } from '../src/utils/sounds';
+import { useSoundPlayer, useLoopingPlayer } from '../src/utils/sounds';
+import { useFocusEffect } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 56) / 3;
@@ -117,6 +118,15 @@ export default function CollectionScreen() {
   const [tradeInResult, setTradeInResult] = useState<any>(null);
   const [isTrading, setIsTrading] = useState(false);
   const cardFlipSound = useSoundPlayer('card_flip');
+  const collectionMusic = useLoopingPlayer('collection_bg');
+
+  // Play looping background music while Collection tab is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      collectionMusic.start();
+      return () => collectionMusic.stop();
+    }, [])
+  );
   const [collapsedSeries, setCollapsedSeries] = useState<{ [key: number]: boolean }>({});
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
