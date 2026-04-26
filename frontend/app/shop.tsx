@@ -18,6 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
 import BuyCoinsModal from '../src/components/BuyCoinsModal';
 import { DailyWheelModal } from '../src/components/DailyWheelModal';
+import { CardPickerModal } from '../src/components/CardPickerModal';
 import { useSoundPlayer } from '../src/utils/sounds';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -54,11 +55,13 @@ export default function ShopScreen() {
   const [spinConfig, setSpinConfig] = useState({ spin_cost: 75 });
   const [selectedSeries, setSelectedSeries] = useState<number | null>(null);
   const [packState, setPackState] = useState<'idle' | 'shaking' | 'opening' | 'revealed'>('idle');
+  const [revealIndex, setRevealIndex] = useState(0);
   const [cardFlipped, setCardFlipped] = useState(false);
   const [showFrontImage, setShowFrontImage] = useState(false);
   
   // Daily wheel & medals
   const [showDailyWheel, setShowDailyWheel] = useState(false);
+  const [showCardPicker, setShowCardPicker] = useState(false);
   const [wheelStreak, setWheelStreak] = useState(0);
   const [medals, setMedals] = useState(0);
   const [freePacks, setFreePacks] = useState(0);
@@ -332,6 +335,7 @@ export default function ShopScreen() {
       }).start(() => {
         // After flip completes, show the result modal
         setTimeout(() => {
+          setRevealIndex(0);
           setShowResult(true);
           // Play card reveal sound, then dupe sound if all are dupes
           cardRevealSound.play();
@@ -346,6 +350,7 @@ export default function ShopScreen() {
   };
 
   const closeResult = () => {
+    setRevealIndex(0);
     if (spinResult?.series_completion?.series_completed) {
       setShowResult(false);
       setShowSeriesComplete(true);
@@ -409,41 +414,66 @@ export default function ShopScreen() {
       <Modal visible={showResult} transparent animationType="fade" onRequestClose={closeResult}>
         <View style={styles.resultOverlay}>
           <View style={styles.resultContainer}>
-            <Text style={styles.resultTitle}>Pack Opened!</Text>
-            
-            {spinResult?.won_cards && (
+            <Text style={styles.resultTitle}>
+              {spinResult?.won_cards && revealIndex < spinResult.won_cards.length - 1
+                ? `Card ${revealIndex + 1} of ${spinResult.won_cards.length}`
+                : 'Pack Opened!'}
+            </Text>
+
+            {spinResult?.won_cards && spinResult.won_cards[revealIndex] && (
               <View style={styles.packCardsRow}>
-                {spinResult.won_cards.map((item: any, index: number) => (
-                  <View key={index} style={styles.packCardItem}>
-                    <View style={[styles.packCardImageWrap, item.is_duplicate && styles.packCardDupe]}>
-                      <ExpoImage
-                        source={{ uri: item.card.front_image_url }}
-                        style={styles.packCardImage}
-                        contentFit="contain"
-                      />
-                    </View>
-                    <Text style={styles.packCardName} numberOfLines={2}>{item.card.name}</Text>
-                    {item.is_duplicate && (
-                      <Text style={styles.packCardDupeLabel}>DUPE</Text>
-                    )}
+                <View style={styles.packCardItem}>
+                  <View
+                    style={[
+                      styles.packCardImageWrap,
+                      styles.packCardSolo,
+                      spinResult.won_cards[revealIndex].is_duplicate && styles.packCardDupe,
+                    ]}
+                  >
+                    <ExpoImage
+                      source={{ uri: spinResult.won_cards[revealIndex].card.front_image_url }}
+                      style={styles.packCardImage}
+                      contentFit="contain"
+                    />
                   </View>
-                ))}
+                  <Text style={styles.packCardName} numberOfLines={2}>
+                    {spinResult.won_cards[revealIndex].card.name}
+                  </Text>
+                  {spinResult.won_cards[revealIndex].is_duplicate && (
+                    <Text style={styles.packCardDupeLabel}>DUPE</Text>
+                  )}
+                </View>
               </View>
             )}
-            
-            <TouchableOpacity style={styles.closeResultButton} onPress={closeResult} data-testid="close-result-btn">
-              <Text style={styles.closeResultText}>
-                {spinResult?.series_completion?.series_completed ? 'Continue...' : 'Awesome!'}
-              </Text>
-            </TouchableOpacity>
-            
-            {/* Reroll Button */}
-            {medals >= 3 && spinResult?.won_cards && (
-              <TouchableOpacity style={styles.rerollButton} onPress={handleReroll} data-testid="reroll-btn">
-                <Ionicons name="refresh" size={16} color="#000" />
-                <Text style={styles.rerollText}>REROLL (3 Medals)</Text>
+
+            {spinResult?.won_cards && revealIndex < spinResult.won_cards.length - 1 ? (
+              <TouchableOpacity
+                style={styles.closeResultButton}
+                onPress={() => {
+                  cardRevealSound.play();
+                  setRevealIndex(revealIndex + 1);
+                }}
+                data-testid="next-card-btn"
+              >
+                <Text style={styles.closeResultText}>Next</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.closeResultButton} onPress={closeResult} data-testid="close-result-btn">
+                <Text style={styles.closeResultText}>
+                  {spinResult?.series_completion?.series_completed ? 'Continue...' : 'Awesome!'}
+                </Text>
               </TouchableOpacity>
             )}
+
+            {/* Reroll Button - only show on final card */}
+            {medals >= 3 &&
+              spinResult?.won_cards &&
+              revealIndex === spinResult.won_cards.length - 1 && (
+                <TouchableOpacity style={styles.rerollButton} onPress={handleReroll} data-testid="reroll-btn">
+                  <Ionicons name="refresh" size={16} color="#000" />
+                  <Text style={styles.rerollText}>REROLL (3 Medals)</Text>
+                </TouchableOpacity>
+              )}
           </View>
         </View>
       </Modal>
@@ -671,6 +701,20 @@ export default function ShopScreen() {
               Not enough coins! Tap "Buy" to get more.
             </Text>
           )}
+
+          {/* Card Picker Mini-Game Button */}
+          <TouchableOpacity
+            style={styles.cardPickerEntry}
+            onPress={() => {
+              buttonTapSound.play();
+              setShowCardPicker(true);
+            }}
+            data-testid="card-picker-btn"
+          >
+            <Ionicons name="grid" size={20} color="#FFD700" />
+            <Text style={styles.cardPickerEntryText}>Card Picker</Text>
+            <Text style={styles.cardPickerEntrySub}>Match a pair, win a prize!</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Cards Grid - Show all series cards */}
@@ -718,6 +762,18 @@ export default function ShopScreen() {
         onSpin={handleWheelSpin}
         streak={wheelStreak}
         onSpinStart={() => buttonTapSound.play()}
+        onPrizeWon={() => prizeWonSound.play()}
+      />
+
+      {/* Card Picker Modal */}
+      <CardPickerModal
+        visible={showCardPicker}
+        onClose={() => {
+          setShowCardPicker(false);
+          refreshData();
+        }}
+        apiUrl={apiUrl}
+        userId={user.id}
         onPrizeWon={() => prizeWonSound.play()}
       />
     </SafeAreaView>
@@ -1088,6 +1144,28 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
+  cardPickerEntry: {
+    marginTop: 16,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,215,0,0.1)',
+    borderWidth: 1.5,
+    borderColor: '#FFD700',
+    borderRadius: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    gap: 2,
+  },
+  cardPickerEntryText: {
+    color: '#FFD700',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 4,
+  },
+  cardPickerEntrySub: {
+    color: '#aaa',
+    fontSize: 11,
+  },
   // Cards Section
   cardsSection: {
     marginTop: 8,
@@ -1196,6 +1274,12 @@ const styles = StyleSheet.create({
     borderColor: '#FFD700',
     overflow: 'hidden',
     backgroundColor: '#333',
+  },
+  packCardSolo: {
+    borderWidth: 3,
+    borderRadius: 12,
+    transform: [{ scale: 1.6 }],
+    marginVertical: 40,
   },
   packCardDupe: {
     borderColor: '#888',

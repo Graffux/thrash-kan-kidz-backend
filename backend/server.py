@@ -2938,6 +2938,80 @@ async def reroll_pack(user_id: str, request: Request):
         "remaining_medals": new_medals,
     }
 
+# =====================
+# Card Picker Mini-Game
+# =====================
+
+CARD_PICKER_PRIZES = [
+    {"type": "free_pack", "amount": 1, "label": "1 Free Pack"},
+    {"type": "medals", "amount": 1, "label": "1 Medal"},
+    {"type": "medals", "amount": 2, "label": "2 Medals"},
+    {"type": "medals", "amount": 3, "label": "3 Medals"},
+]
+CARD_PICKER_COOLDOWN_HOURS = 24
+
+
+def _card_picker_cooldown_remaining(user: dict) -> int:
+    """Seconds until the user can play again (0 if eligible)."""
+    last = user.get("card_picker_last_played")
+    if not last:
+        return 0
+    if isinstance(last, str):
+        try:
+            last = datetime.fromisoformat(last)
+        except Exception:
+            return 0
+    elapsed = (datetime.utcnow() - last).total_seconds()
+    cooldown = CARD_PICKER_COOLDOWN_HOURS * 3600
+    return max(0, int(cooldown - elapsed))
+
+
+@api_router.get("/users/{user_id}/card-picker")
+async def get_card_picker(user_id: str):
+    """Get card picker state: layout (4 prizes shown twice = 8 cards), cooldown."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    cooldown = _card_picker_cooldown_remaining(user)
+    return {
+        "can_play": cooldown == 0,
+        "cooldown_seconds": cooldown,
+        "prizes": CARD_PICKER_PRIZES,
+    }
+
+
+@api_router.post("/users/{user_id}/card-picker/claim")
+async def claim_card_picker_prize(user_id: str):
+    """Player matched a pair. Server picks a random prize and grants it."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    cooldown = _card_picker_cooldown_remaining(user)
+    if cooldown > 0:
+        raise HTTPException(
+            status_code=400,
+            detail=f"You already played today. Try again in {cooldown // 3600}h {(cooldown % 3600) // 60}m.",
+        )
+
+    prize = random.choice(CARD_PICKER_PRIZES)
+    update = {"card_picker_last_played": datetime.utcnow()}
+    if prize["type"] == "free_pack":
+        update["free_packs"] = user.get("free_packs", 0) + prize["amount"]
+    elif prize["type"] == "medals":
+        update["medals"] = user.get("medals", 0) + prize["amount"]
+
+    await db.users.update_one({"id": user_id}, {"$set": update})
+
+    return {
+        "success": True,
+        "prize": prize,
+        "free_packs": update.get("free_packs", user.get("free_packs", 0)),
+        "medals": update.get("medals", user.get("medals", 0)),
+    }
+
+
 @api_router.post("/users/{user_id}/redeem-free-pack")
 async def redeem_free_pack(user_id: str, request: Request):
     """Use a free pack or spend medals for a free pack"""
