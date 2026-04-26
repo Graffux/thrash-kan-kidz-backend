@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSoundPlayer } from '../src/utils/sounds';
 
 export default function HomeScreen() {
   const { user, loading, login, logout, claimDailyLogin, userCards, refreshData } = useApp();
@@ -26,9 +27,20 @@ export default function HomeScreen() {
   const [dailyMessage, setDailyMessage] = useState<string | null>(null);
   const [claiming, setClaiming] = useState(false);
 
+  const loginRiff = useSoundPlayer('login_riff');
+  const riffPlayedRef = useRef(false);
+
   useEffect(() => {
     if (user) {
       refreshData();
+      // Play login riff once per session when user logs in
+      if (!riffPlayedRef.current) {
+        riffPlayedRef.current = true;
+        loginRiff.play();
+      }
+    } else {
+      // Reset so riff plays again on next login
+      riffPlayedRef.current = false;
     }
   }, [user?.id]);
 
