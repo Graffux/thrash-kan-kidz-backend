@@ -337,8 +337,8 @@ export default function ShopScreen() {
         setTimeout(() => {
           setRevealIndex(0);
           setShowResult(true);
-          // Play card reveal sound, then dupe sound if all are dupes
-          cardRevealSound.play();
+          // Play axe impact for the first card reveal
+          axeImpactSound.play();
           if (spinResult?.won_cards?.every((c: any) => c.is_duplicate)) {
             setTimeout(() => dupeSound.play(), 500);
           }
@@ -450,7 +450,7 @@ export default function ShopScreen() {
               <TouchableOpacity
                 style={styles.closeResultButton}
                 onPress={() => {
-                  cardRevealSound.play();
+                  axeImpactSound.play();
                   setRevealIndex(revealIndex + 1);
                 }}
                 data-testid="next-card-btn"

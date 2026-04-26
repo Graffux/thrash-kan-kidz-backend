@@ -10,6 +10,7 @@ const SOUNDS = {
   button_tap: require('../../assets/sounds/button_tap.wav'),
   login_riff: require('../../assets/sounds/login_riff.mp3'),
   card_flip: require('../../assets/sounds/card_flip.mp3'),
+  axe_impact: require('../../assets/sounds/axe_impact.mp3'),
 };
 
 export type SoundName = keyof typeof SOUNDS;
