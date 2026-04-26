@@ -22,6 +22,10 @@ function TabsNavigator() {
   const { user, trades } = useApp();
   const bottomPadding = Math.max(insets.bottom, 48);
   const cashRegister = useSoundPlayer('cash_register');
+  const tabHomeSound = useSoundPlayer('tab_home');
+  const tabCollectionSound = useSoundPlayer('tab_collection');
+  const tabTradeSound = useSoundPlayer('tab_trade');
+  const tabGoalsSound = useSoundPlayer('tab_goals');
 
   const incomingTradeCount = user
     ? trades.filter(t => t.trade.status === 'pending' && t.trade.to_user_id === user.id).length
@@ -53,6 +57,11 @@ function TabsNavigator() {
               <TabIcon emoji="🏠" focused={focused} />
             ),
           }}
+          listeners={{
+            tabPress: () => {
+              try { tabHomeSound.play(); } catch (_e) { /* ignore */ }
+            },
+          }}
         />
         <Tabs.Screen
           name="collection"
@@ -61,6 +70,11 @@ function TabsNavigator() {
             tabBarIcon: ({ focused }) => (
               <TabIcon emoji="🃏" focused={focused} />
             ),
+          }}
+          listeners={{
+            tabPress: () => {
+              try { tabCollectionSound.play(); } catch (_e) { /* ignore */ }
+            },
           }}
         />
         <Tabs.Screen
@@ -85,6 +99,11 @@ function TabsNavigator() {
               <TabIcon emoji="🏆" focused={focused} />
             ),
           }}
+          listeners={{
+            tabPress: () => {
+              try { tabGoalsSound.play(); } catch (_e) { /* ignore */ }
+            },
+          }}
         />
         <Tabs.Screen
           name="trade"
@@ -93,6 +112,11 @@ function TabsNavigator() {
             tabBarIcon: ({ focused }) => (
               <TabIcon emoji="🔄" focused={focused} badge={incomingTradeCount} />
             ),
+          }}
+          listeners={{
+            tabPress: () => {
+              try { tabTradeSound.play(); } catch (_e) { /* ignore */ }
+            },
           }}
         />
         <Tabs.Screen

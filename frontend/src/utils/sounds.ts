@@ -13,6 +13,10 @@ const SOUNDS = {
   axe_impact: require('../../assets/sounds/axe_impact.mp3'),
   cash_register: require('../../assets/sounds/cash_register.mp3'),
   clinking_coins: require('../../assets/sounds/clinking_coins.mp3'),
+  tab_home: require('../../assets/sounds/tab_home.mp3'),
+  tab_collection: require('../../assets/sounds/tab_collection.mp3'),
+  tab_trade: require('../../assets/sounds/tab_trade.mp3'),
+  tab_goals: require('../../assets/sounds/tab_goals.mp3'),
 };
 
 export type SoundName = keyof typeof SOUNDS;
