@@ -830,6 +830,18 @@ async def seed_database():
             "card_sean_kill_again": {
                 "back_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/soday9u4_file_00000000f24471f58503370fd35d90d9.png",
             },
+            "card_david_whine": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/w5ur6z1n_enhanced-1771761544757.jpg",
+            },
+            "card_david_slayne": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lbqueqph_enhanced-1771761582312.jpg",
+            },
+            "card_martini_walkyier": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gcw3jipf_enhanced-1771761620137.jpg",
+            },
+            "card_darren_travesty": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q3rfccmm_enhanced-1772919382679.jpg",
+            },
         }
         for card_id, updates in name_fixes.items():
             query = {"id": card_id}
