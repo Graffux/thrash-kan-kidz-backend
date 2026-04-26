@@ -710,57 +710,93 @@ RARE_CARD_ACHIEVEMENTS = {
 
 INITIAL_GOALS = [
     {
-        "id": "goal_daily_login_3",
-        "title": "3 Day Streak",
-        "description": "Log in for 3 consecutive days",
+        "id": "goal_daily_login_30",
+        "title": "30 Day Streak",
+        "description": "Log in for 30 consecutive days",
         "goal_type": "daily_login",
-        "target_value": 3,
-        "reward_coins": 50,
+        "target_value": 30,
+        "reward_coins": 300,
         "reward_card_id": None
     },
     {
-        "id": "goal_daily_login_7",
-        "title": "Week Warrior",
-        "description": "Log in for 7 consecutive days",
+        "id": "goal_daily_login_60",
+        "title": "60 Day Streak",
+        "description": "Log in for 60 consecutive days",
         "goal_type": "daily_login",
-        "target_value": 7,
-        "reward_coins": 150,
-        "reward_card_id": "card_silly_mille"
-    },
-    {
-        "id": "goal_profile_complete",
-        "title": "Complete Profile",
-        "description": "Fill out your profile bio",
-        "goal_type": "profile_complete",
-        "target_value": 1,
-        "reward_coins": 100,
+        "target_value": 60,
+        "reward_coins": 600,
         "reward_card_id": None
     },
     {
-        "id": "goal_collect_coins_500",
-        "title": "Coin Collector",
-        "description": "Collect 500 coins",
-        "goal_type": "collect_coins",
-        "target_value": 500,
-        "reward_coins": 100,
-        "reward_card_id": None
-    },
-    {
-        "id": "goal_collect_cards_3",
-        "title": "Card Enthusiast",
-        "description": "Collect a card from all 3 rarities (Common, Rare, Epic)",
-        "goal_type": "collect_all_rarities",
-        "target_value": 3,
-        "reward_coins": 150,
-        "reward_card_id": None
-    },
-    {
-        "id": "goal_collect_all",
-        "title": "Thrash Master",
-        "description": "Collect 50 cards total",
+        "id": "goal_collect_cards_100",
+        "title": "Card Hoarder",
+        "description": "Collect 100 cards total",
         "goal_type": "collect_cards",
-        "target_value": 50,
-        "reward_coins": 250,
+        "target_value": 100,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_collect_cards_150",
+        "title": "Card Connoisseur",
+        "description": "Collect 150 cards total",
+        "goal_type": "collect_cards",
+        "target_value": 150,
+        "reward_coins": 750,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_collect_cards_200",
+        "title": "Card Maniac",
+        "description": "Collect 200 cards total",
+        "goal_type": "collect_cards",
+        "target_value": 200,
+        "reward_coins": 1000,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s1",
+        "title": "Series 1 Variant Master",
+        "description": "Collect every variant in Series 1",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 1,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s2",
+        "title": "Series 2 Variant Master",
+        "description": "Collect every variant in Series 2",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 2,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s3",
+        "title": "Series 3 Variant Master",
+        "description": "Collect every variant in Series 3",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 3,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s4",
+        "title": "Series 4 Variant Master",
+        "description": "Collect every variant in Series 4",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 4,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s5",
+        "title": "Series 5 Variant Master",
+        "description": "Collect every variant in Series 5",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 5,
+        "reward_coins": 500,
         "reward_card_id": None
     }
 ]
@@ -851,6 +887,20 @@ async def seed_database():
             if result.modified_count > 0:
                 label = updates.get("name", "images")
                 logger.info(f"Fixed card: {card_id} -> {label}")
+        
+        # Sync goals: remove stale goals not in INITIAL_GOALS, seed new ones
+        valid_goal_ids = {g["id"] for g in INITIAL_GOALS}
+        deleted = await db.goals.delete_many({"id": {"$nin": list(valid_goal_ids)}})
+        if deleted.deleted_count > 0:
+            logger.info(f"Removed {deleted.deleted_count} stale goal(s)")
+            # Also clean up user_goals pointing at deleted goals
+            await db.user_goals.delete_many({"goal_id": {"$nin": list(valid_goal_ids)}})
+        for goal_data in INITIAL_GOALS:
+            existing_goal = await db.goals.find_one({"id": goal_data["id"]})
+            if not existing_goal:
+                goal = Goal(**goal_data)
+                await db.goals.insert_one(goal.dict())
+                logger.info(f"Seeded goal: {goal.title}")
         return
     
     logger.info(f"Database has {card_count}/{expected_count} cards, seeding...")
@@ -1252,9 +1302,6 @@ async def claim_daily_login(user_id: str):
     
     # Check daily login goals
     await check_and_update_goals(user_id, "daily_login", new_streak)
-    
-    # Check coin collection goals
-    await check_and_update_goals(user_id, "collect_coins", new_coins)
     
     # Check for newly unlocked epic cards (notify user they can now purchase)
     newly_unlocked_epic = await check_epic_streak_unlocks(user_id, new_streak)
@@ -1707,6 +1754,7 @@ async def spin_wheel(user_id: str, series: int = None):
     unique_cards = await db.user_cards.count_documents({"user_id": user_id})
     await check_and_update_goals(user_id, "collect_cards", unique_cards)
     await check_all_rarities_goal(user_id)
+    await check_all_variants_series_goals(user_id)
     engagement_unlock = await check_engagement_milestones(user_id)
     
     return {
@@ -2321,6 +2369,56 @@ async def check_all_rarities_goal(user_id: str):
             {"$set": {"coins": new_coins}}
         )
         logging.info(f"User {user_id} completed Card Enthusiast goal! +{goal['reward_coins']} coins")
+
+async def check_all_variants_series_goals(user_id: str):
+    """Check if user has collected every variant card in each series.
+    target_value on the goal stores the series number (1..5)."""
+    goals = await db.goals.find({"goal_type": "collect_all_variants_series"}).to_list(50)
+    if not goals:
+        return
+    
+    # Get all of the user's collected card IDs once
+    user_cards = await db.user_cards.find({"user_id": user_id}).to_list(2000)
+    user_card_ids = {uc["card_id"] for uc in user_cards}
+    
+    for goal in goals:
+        series_num = goal.get("target_value", 0)
+        # Get total variant cards for this series
+        all_variants = await db.cards.find(
+            {"is_variant": True, "series": series_num}, {"id": 1, "_id": 0}
+        ).to_list(1000)
+        if not all_variants:
+            continue
+        total = len(all_variants)
+        owned = sum(1 for v in all_variants if v["id"] in user_card_ids)
+        
+        # Get/create user_goal
+        user_goal = await db.user_goals.find_one({
+            "user_id": user_id, "goal_id": goal["id"]
+        })
+        if not user_goal:
+            user_goal_obj = UserGoal(user_id=user_id, goal_id=goal["id"])
+            await db.user_goals.insert_one(user_goal_obj.dict())
+            user_goal = user_goal_obj.dict()
+        
+        if user_goal.get("completed"):
+            continue
+        
+        # Update progress (count of owned variants)
+        await db.user_goals.update_one(
+            {"id": user_goal["id"]},
+            {"$set": {"progress": owned}}
+        )
+        
+        if owned >= total:
+            await db.user_goals.update_one(
+                {"id": user_goal["id"]},
+                {"$set": {"completed": True, "completed_at": datetime.utcnow()}}
+            )
+            user = await db.users.find_one({"id": user_id})
+            new_coins = user.get("coins", 0) + goal["reward_coins"]
+            await db.users.update_one({"id": user_id}, {"$set": {"coins": new_coins}})
+            logging.info(f"User {user_id} completed Series {series_num} variant goal! +{goal['reward_coins']} coins")
 
 async def check_and_update_goals(user_id: str, goal_type: str, current_value: int):
     """Check and update goals based on progress"""

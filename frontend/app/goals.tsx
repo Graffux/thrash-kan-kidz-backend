@@ -40,9 +40,23 @@ export default function GoalsScreen() {
         return '💰';
       case 'collect_cards':
         return '🃏';
+      case 'collect_all_variants_series':
+        return '✨';
+      case 'collect_all_rarities':
+        return '🏆';
       default:
         return '⭐';
     }
+  };
+
+  // Variant series goals store series number in target_value; the real
+  // denominator is the total number of variant cards in that series (64).
+  const VARIANTS_PER_SERIES = 64;
+  const getDenominator = (goal: any) => {
+    if (goal.goal_type === 'collect_all_variants_series') {
+      return VARIANTS_PER_SERIES;
+    }
+    return goal.target_value;
   };
 
   const getRewardCardName = (cardId: string | null) => {
@@ -99,7 +113,7 @@ export default function GoalsScreen() {
                           styles.progressBarFill,
                           {
                             width: `${Math.min(
-                              (user_goal.progress / goal.target_value) * 100,
+                              (user_goal.progress / getDenominator(goal)) * 100,
                               100
                             )}%`,
                           },
@@ -107,7 +121,7 @@ export default function GoalsScreen() {
                       />
                     </View>
                     <Text style={styles.progressText}>
-                      {user_goal.progress} / {goal.target_value}
+                      {user_goal.progress} / {getDenominator(goal)}
                     </Text>
                   </View>
 
