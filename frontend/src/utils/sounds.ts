@@ -9,6 +9,7 @@ const SOUNDS = {
   duplicate: require('../../assets/sounds/duplicate.wav'),
   button_tap: require('../../assets/sounds/button_tap.wav'),
   login_riff: require('../../assets/sounds/login_riff.mp3'),
+  card_flip: require('../../assets/sounds/card_flip.mp3'),
 };
 
 export type SoundName = keyof typeof SOUNDS;

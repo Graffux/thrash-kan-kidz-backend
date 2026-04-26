@@ -15,6 +15,7 @@ import { Image as ExpoImage } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
+import { useSoundPlayer } from '../src/utils/sounds';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 56) / 3;
@@ -115,6 +116,7 @@ export default function CollectionScreen() {
   const [showTradeInResult, setShowTradeInResult] = useState(false);
   const [tradeInResult, setTradeInResult] = useState<any>(null);
   const [isTrading, setIsTrading] = useState(false);
+  const cardFlipSound = useSoundPlayer('card_flip');
   const [collapsedSeries, setCollapsedSeries] = useState<{ [key: number]: boolean }>({});
 
   const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
@@ -389,7 +391,10 @@ export default function CollectionScreen() {
 
             {selectedCard && (
               <ScrollView contentContainerStyle={styles.modalScrollContent}>
-                <TouchableOpacity onPress={() => setShowFront(!showFront)}>
+                <TouchableOpacity onPress={() => {
+                  cardFlipSound.play();
+                  setShowFront(!showFront);
+                }}>
                   <ExpoImage
                     source={{ uri: showFront ? selectedCard.card.front_image_url : (selectedCard.card.back_image_url || selectedCard.card.front_image_url) }}
                     style={styles.modalCardImage}
