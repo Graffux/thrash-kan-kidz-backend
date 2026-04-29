@@ -536,6 +536,10 @@ CARD_IMAGE_URLS = {
     "king_diamondback_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4mdyswh7_enhanced-1776648969030.jpg",
     "king_diamondback_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ec54gjmm_file_0000000090c0722fb62e854b70a89b5b.png",
     "king_demond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/819p2mfe_enhanced-1776649198664.jpg",
+    "king_demond_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1inzvxgl_enhanced-1776649844362.jpg",
+    "king_demond_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8wh8l4f2_file_0000000030c871f5a559cab95c755ece.png",
+    "king_demond_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pkgtlf4z_enhanced-1776649888872.jpg",
+    "king_demond_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9h72712a_file_0000000076ac71f581d79ee7ec4df69b.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -7438,6 +7442,71 @@ INITIAL_CARDS = [
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_king_diamondback",
+        "variant_name": "Vintage"
+    },
+    # King Demond Variants
+    {
+        "id": "card_king_demond_stormy",
+        "name": "King Demond (Stormy)",
+        "description": "The Stormy variant of King Demond. Lightning explodes behind his crowned silhouette as his demonic howl rides the thunder into hell.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_demond_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_king_demond",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_king_demond_decayed",
+        "name": "King Demond (Decayed)",
+        "description": "The Decayed variant of King Demond. Skin cracked, flesh rotting, and skulls swirling around him as he screams from beyond the grave.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_demond_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_king_demond",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_king_demond_camouflage",
+        "name": "King Demond (Camouflage)",
+        "description": "The Camouflage variant of King Demond. Dressed for battle, the horned demon king commands a thrashing battalion of the damned.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_demond_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_king_demond",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_king_demond_vintage",
+        "name": "King Demond (Vintage)",
+        "description": "The Vintage variant of King Demond. Black-and-white grain captures the demonic frontman in classic horror -- timeless evil, eternal mosh.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_demond_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_king_demond",
         "variant_name": "Vintage"
     },
 ]
