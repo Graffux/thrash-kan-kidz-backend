@@ -68,8 +68,9 @@ export default function ShopScreen() {
   const [dailyWheelChecked, setDailyWheelChecked] = useState(false);
 
   // Sound effects
-  const packOpenSound = useSoundPlayer('pack_open');
-  const cardRevealSound = useSoundPlayer('card_reveal');
+  const drumRollSound = useSoundPlayer('drum_roll');
+  const bagTearSound = useSoundPlayer('bag_tear');
+  const cardFlipSound = useSoundPlayer('card_flip');
   const dupeSound = useSoundPlayer('duplicate');
   const prizeWonSound = useSoundPlayer('prize_won');
   const buttonTapSound = useSoundPlayer('button_tap');
@@ -158,7 +159,7 @@ export default function ShopScreen() {
       setRevealIndex(0);
       setMedals(data.remaining_medals);
       // Play axe sound for fresh reveal
-      try { axeImpactSound.play(); } catch (_e) { /* ignore */ }
+      try { cardFlipSound.play(); } catch (_e) { /* ignore */ }
       refreshData();
     } catch (err) {
       Alert.alert('Error', 'Failed to reroll');
@@ -213,7 +214,7 @@ export default function ShopScreen() {
     setSpinResult(null);
     resetAnimations();
     setPackState('shaking');
-    packOpenSound.play();
+    drumRollSound.play();
 
     try {
       // Phase 1: Pack shaking animation (1.5 seconds)
@@ -322,6 +323,9 @@ export default function ShopScreen() {
   const handleRevealCard = () => {
     if (packState !== 'revealed' || cardFlipped) return;
     
+    // Bag-tear plays the moment user taps "TAP TO REVEAL!"
+    try { bagTearSound.play(); } catch (_e) { /* ignore */ }
+
     setCardFlipped(true);
     
     // Flip to 90deg (edge-on), swap image, then flip back to 0
@@ -342,7 +346,7 @@ export default function ShopScreen() {
           setRevealIndex(0);
           setShowResult(true);
           // Play axe impact for the first card reveal (wrapped in try to prevent crash)
-          try { axeImpactSound.play(); } catch (_e) { /* ignore */ }
+          try { cardFlipSound.play(); } catch (_e) { /* ignore */ }
           if (spinResult?.won_cards?.every((c: any) => c.is_duplicate)) {
             setTimeout(() => dupeSound.play(), 500);
           }
@@ -454,7 +458,7 @@ export default function ShopScreen() {
               <TouchableOpacity
                 style={styles.closeResultButton}
                 onPress={() => {
-                  try { axeImpactSound.play(); } catch (_e) { /* ignore */ }
+                  try { cardFlipSound.play(); } catch (_e) { /* ignore */ }
                   setRevealIndex(revealIndex + 1);
                 }}
                 data-testid="next-card-btn"
