@@ -117,12 +117,17 @@ export default function ProfileScreen() {
   // Calculate stats
   const totalCards = userCards.reduce((sum, uc) => sum + uc.quantity, 0);
   const uniqueCards = userCards.length;
-  const commonCards = allCards.filter(c => c.rarity !== 'rare' && c.available !== false).length;
+  // "Cards Collected" progress is based on BASE cards only (variants and epic rewards
+  // are tracked separately via Variant Master goals and the reward unlock system).
+  const isBaseCard = (c: any) =>
+    !c.is_variant && c.rarity !== 'rare' && c.rarity !== 'epic' && c.rarity !== 'variant';
+  const baseCardTotal = allCards.filter(isBaseCard).length;
+  const baseCardsOwned = userCards.filter(uc => uc.card && isBaseCard(uc.card)).length;
   const completedGoals = userGoals.filter(ug => ug.user_goal.completed).length;
   const totalGoals = userGoals.length;
 
-  // Calculate collection completion percentage
-  const collectionProgress = commonCards > 0 ? Math.round((uniqueCards / commonCards) * 100) : 0;
+  // Calculate collection completion percentage (base cards only)
+  const collectionProgress = baseCardTotal > 0 ? Math.round((baseCardsOwned / baseCardTotal) * 100) : 0;
 
   // Format date
   const memberSince = user.created_at 
@@ -183,7 +188,7 @@ export default function ProfileScreen() {
               <View style={[styles.progressBar, { width: `${collectionProgress}%` }]} />
             </View>
             <Text style={styles.progressSubtext}>
-              {uniqueCards} of {commonCards} unique cards
+              {baseCardsOwned} of {baseCardTotal} base cards
             </Text>
           </View>
           
