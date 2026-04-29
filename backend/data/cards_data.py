@@ -555,6 +555,10 @@ CARD_IMAGE_URLS = {
     "frank_bile_o_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pfbilteq_file_00000000f6b471fda7b4caa7789cc495.png",
     # Band 4: The Amused
     "blaine_the_cook": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/s9831rwc_enhanced-1777165090615.jpg",
+    "blaine_the_cook_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ylkitkp9_file_000000000ac471f89def40094135d090.png",
+    "blaine_the_cook_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dxz329qh_enhanced-1777212903619.jpg",
+    "blaine_the_cook_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t3lov79s_enhanced-1777165498783.jpg",
+    "blaine_the_cook_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wjr3ej4m_file_00000000037c71f8924c09200a90480c.png",
     "blainiac_cooke": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/faq38rco_file_00000000b89c71fd839097f84e596803.png",
 }
 
@@ -7733,5 +7737,70 @@ INITIAL_CARDS = [
         "series": 6,
         "band": "The Amused",
         "card_type": "B"
+    },
+    # Blaine the Cook Variants
+    {
+        "id": "card_blaine_the_cook_stormy",
+        "name": "Blaine the Cook (Stormy)",
+        "description": "The Stormy variant of Blaine the Cook. Lightning crashes around his cauldron as he serves up storm-charged sludge -- one ladle and you're toast.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blaine_the_cook_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_blaine_the_cook",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_blaine_the_cook_decayed",
+        "name": "Blaine the Cook (Decayed)",
+        "description": "The Decayed variant of Blaine the Cook. The sludge has turned. Rotten broth, putrid stew, served fresh from the grave -- bon appetit.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blaine_the_cook_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_blaine_the_cook",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_blaine_the_cook_camouflage",
+        "name": "Blaine the Cook (Camouflage)",
+        "description": "The Camouflage variant of Blaine the Cook. Combat fatigues and a cauldron full of mess-hall mayhem -- chow time is a war crime.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blaine_the_cook_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_blaine_the_cook",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_blaine_the_cook_vintage",
+        "name": "Blaine the Cook (Vintage)",
+        "description": "The Vintage variant of Blaine the Cook. Black-and-white film grain captures the cauldron-stirring chef in timeless thrash -- the original recipe.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blaine_the_cook_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_blaine_the_cook",
+        "variant_name": "Vintage"
     },
 ]
