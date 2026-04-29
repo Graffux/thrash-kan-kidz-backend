@@ -544,6 +544,10 @@ CARD_IMAGE_URLS = {
     "king_demond_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9h72712a_file_0000000076ac71f581d79ee7ec4df69b.png",
     # Band 3: Anfrax
     "frank_gello": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ij7on4nh_enhanced-1777235404293.jpg",
+    "frank_gello_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7fkdqylm_file_00000000c37871fd8c982e0dda8d1c7d.png",
+    "frank_gello_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tvbl5unp_file_000000004e8c71fdb649e0e657afb519.png",
+    "frank_gello_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dut6q5d0_file_00000000ea2471fdb37755e2148bf81c.png",
+    "frank_gello_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1rtlt8ui_file_00000000ce9071fd9549a3fff018f74a.png",
     "frank_bile_o": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/byl7qdjf_file_00000000f00071f8becc60e0cbbe4352.png",
 }
 
@@ -7562,5 +7566,70 @@ INITIAL_CARDS = [
         "series": 6,
         "band": "Anfrax",
         "card_type": "B"
+    },
+    # Frank Gello Variants
+    {
+        "id": "card_frank_gello_stormy",
+        "name": "Frank Gello (Stormy)",
+        "description": "The Stormy variant of Frank Gello. A tempest incarnate -- his bass thunders through the rain as lightning cracks along every riff.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_gello_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_frank_gello",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_frank_gello_decayed",
+        "name": "Frank Gello (Decayed)",
+        "description": "The Decayed variant of Frank Gello. Rotting from the inside out, his bass still rumbles -- low-end from beyond the grave.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_gello_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_frank_gello",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_frank_gello_camouflage",
+        "name": "Frank Gello (Camouflage)",
+        "description": "The Camouflage variant of Frank Gello. Toxic as hell and dressed for war -- radioactive grooves melt the jungle around him.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_gello_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_frank_gello",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_frank_gello_vintage",
+        "name": "Frank Gello (Vintage)",
+        "description": "The Vintage variant of Frank Gello. Black-and-white film grain captures the low-end assault in timeless thrash -- pure, classic, relentless.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["frank_gello_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_frank_gello",
+        "variant_name": "Vintage"
     },
 ]
