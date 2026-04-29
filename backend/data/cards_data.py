@@ -247,7 +247,7 @@ CARD_IMAGE_URLS = {
     # Epic reward card (Series 3)
     "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ex5auxl7_file_00000000fb7471fd8c4b8702e4819de7.png",
     # Epic reward card (Series 5 - moved from S3)
-    "sean_kill_again": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/lxq89ltr_file_000000007a0471f5a1da1f0e20a9b30a.png",
+    "sean_kill_again": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bczdtpd6_file_00000000586471f7a0c781bec98345ab.png",
     # =====================
     # SERIES 3 VARIANTS - Front Images
     # =====================

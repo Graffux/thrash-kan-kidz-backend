@@ -864,6 +864,7 @@ async def seed_database():
                 "name": "Chef Becerra (Biomechanical)",
             },
             "card_sean_kill_again": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bczdtpd6_file_00000000586471f7a0c781bec98345ab.png",
                 "back_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/soday9u4_file_00000000f24471f58503370fd35d90d9.png",
             },
             "card_david_whine": {
