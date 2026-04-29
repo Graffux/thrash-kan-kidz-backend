@@ -566,6 +566,10 @@ CARD_IMAGE_URLS = {
     "blainiac_cooke_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2obypa8x_file_0000000063c8722f959e2dbe495e54ae.png",
     # Band 5: Decel
     "dan_cements": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lghm25dd_file_0000000080b471f5883ed170206bdc57.png",
+    "dan_cements_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pckf2wlr_file_000000001ad871fd936c3e0f3777628f.png",
+    "dan_cements_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/71jt2rbs_file_00000000a40c71f8a3ee510cd9863adf.png",
+    "dan_cements_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/46v8drpm_file_00000000ca2071fda8d9e4a7b1ac8dc9.png",
+    "dan_cements_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/el8cszsh_file_0000000042e0722f8d178b9249433070.png",
     "handsome_dan": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x87rgwl8_file_00000000f73871fd9500b90399106bd4.png",
 }
 
@@ -7904,5 +7908,70 @@ INITIAL_CARDS = [
         "series": 6,
         "band": "Decel",
         "card_type": "B"
+    },
+    # Dan Cements Variants
+    {
+        "id": "card_dan_cements_stormy",
+        "name": "Dan Cements (Stormy)",
+        "description": "The Stormy variant of Dan Cements. Lightning fractures the alley sky as the Sidewalk Slammer drips wet cement -- THRASH OR DIE in the rain.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["dan_cements_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_dan_cements",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_dan_cements_decayed",
+        "name": "Dan Cements (Decayed)",
+        "description": "The Decayed variant of Dan Cements. Cement crumbles, beard rots, hollow eyes -- the Sidewalk Slammer claws his way out of the grave for one last set.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["dan_cements_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_dan_cements",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_dan_cements_camouflage",
+        "name": "Dan Cements (Camouflage)",
+        "description": "The Camouflage variant of Dan Cements. Cement and camo blend into one -- the Sidewalk Slammer goes underground, set in stone for war.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["dan_cements_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_dan_cements",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_dan_cements_vintage",
+        "name": "Dan Cements (Vintage)",
+        "description": "The Vintage variant of Dan Cements. Black-and-white film grain captures the Sidewalk Slammer in timeless concrete glory -- old-school, set in stone.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["dan_cements_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_dan_cements",
+        "variant_name": "Vintage"
     },
 ]
