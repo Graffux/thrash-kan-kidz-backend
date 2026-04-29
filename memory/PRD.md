@@ -65,11 +65,17 @@ Mobile card-collecting app featuring thrash/death metal parody cards. Users open
 
 ## Upcoming
 - P1: Confirm Google Play Store review
-- P0: Series 6 content — Bands 1 & 2 COMPLETE. 6 bands remaining + 1 reward card. Variants use new theme: Stormy / Decayed / Camouflage / Vintage.
+- P0: Series 6 content — Bands 1–5 + Reward card COMPLETE. 3 bands remaining (6, 7, 8). Variants use new theme: Stormy / Decayed / Camouflage / Vintage.
 
 ## Completed (April 29, 2026 — Series 6 progress)
-- Series 6 Band 1 "The Grate Catt" fully wired: KATaclysm + KATatonic base cards plus all 8 variants (Stormy, Decayed, Camouflage, Vintage). DB: 415 cards.
-- Series 6 Band 2 "Mercyful Fart" fully wired: King Diamondback + King Demond base cards plus all 8 variants. DB: 425 cards total.
+- Series 6 Band 1 "The Grate Catt": KATaclysm + KATatonic + 8 variants
+- Series 6 Band 2 "Mercyful Fart": King Diamondback + King Demond + 8 variants
+- Series 6 Band 3 "Anfrax": Frank Gello + Frank Bile-O + 8 variants
+- Series 6 Band 4 "The Amused": Blaine the Cook + Blainiac Cooke + 8 variants
+- Series 6 Band 5 "Decel": Dan Cements + Handsome Dan + 8 variants
+- Series 6 Reward Card: Nicklebag Darrell (Panterror, epic, unlocks at 96 cards)
+- Series 6 pack cover wired into shop.tsx
+- DB total: 456 cards.
 
 ## Completed (April 28-29, 2026 — current session)
 - Sean Kill-Again reward card: new front image, back unchanged
