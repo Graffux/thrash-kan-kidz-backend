@@ -811,13 +811,22 @@ async def seed_database():
     card_count = await db.cards.count_documents({})
     expected_count = len(INITIAL_CARDS)
     
+    # Insert any cards from INITIAL_CARDS that aren't already in the DB.
+    # This lets us add new bands/series without wiping the existing collection.
+    if card_count < expected_count:
+        existing_ids = {c["id"] for c in await db.cards.find({}, {"id": 1, "_id": 0}).to_list(2000)}
+        to_insert = [c for c in INITIAL_CARDS if c["id"] not in existing_ids]
+        if to_insert:
+            for c in to_insert:
+                card_obj = Card(**c)
+                await db.cards.insert_one(card_obj.dict())
+                logger.info(f"Inserted new card: {c['name']}")
+            card_count = await db.cards.count_documents({})
+    
     if card_count >= expected_count:
         logger.info(f"Database already has {card_count} cards (expected {expected_count}), skipping seed")
         # Force-fix any known name corrections even when skipping full seed
         name_fixes = {
-            "card_jeff_possess_ya_s2": {
-                "name": "Jeff Possess Ya",
-            },
             "card_jeff_possess_ya_s2_bloodbath": {
                 "name": "Jeff Possess Ya (Bloodbath)",
                 "description": "The Bloodbath variant of Jeff Possess Ya. His kitchen is now a slaughterhouse. Every dish comes with a side of fresh carnage."

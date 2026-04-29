@@ -517,6 +517,10 @@ CARD_IMAGE_URLS = {
     "wart_er_trachsler_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kpj2uobd_file_0000000005fc71fb8ba2a68cf5da3703.png",
     "wart_er_trachsler_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mro3caqz_file_000000004ff871fb854448876e0bbc85.png",
     "wart_er_trachsler_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tf81yqu3_file_00000000788c71fbb5371c8f3011c148.png",
+    # ===== SERIES 6 =====
+    # Band 1: The Grate Catt
+    "kataclysm": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ecm8x4yl_enhanced-1777424890297.jpg",
+    "katatonic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/59gy34y7_enhanced-1776485138850.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -746,6 +750,11 @@ CARD_BACK_IMAGE_URLS = {
     "variant_back_magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6q3k1mct_enhanced-1775947981518.jpg",
     "variant_back_cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/37kwbx22_enhanced-1775948091650.jpg",
     "variant_back_mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3oxk0ah3_enhanced-1775948047312.jpg",
+    # Series 6 Variant Universal Backs
+    "variant_back_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pgagy2pu_enhanced-1776489441496.jpg",
+    "variant_back_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/prg389ru_enhanced-1776489239185.jpg",
+    "variant_back_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8s66lrv3_file_000000008f1071fd85fd880357ae33a5.png",
+    "variant_back_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jqhfw4ru_file_000000008f5071fd8d30d9a1c69beaee.png",
     # Band 1: Jugglenut
     "harlan_quinn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dnhjgiua_enhanced-1774838859083.jpg",
     "harley_glenn": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xc5t0x3e_enhanced-1774840277365.jpg",
@@ -770,6 +779,10 @@ CARD_BACK_IMAGE_URLS = {
     # Band 8: Riding Corpse
     "walter_trashler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8jzw993t_file_000000006ddc71fb9a67537347556605.png",
     "wart_er_trachsler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3y7tyqq3_file_00000000e22471fbaa957eda0456dd47.png",
+    # ===== SERIES 6 =====
+    # Band 1: The Grate Catt
+    "kataclysm": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c1x3j9oa_file_000000007e5071f581cb62f527131098.png",
+    "katatonic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mqrqjsju_file_00000000754071f58df8247a9b200d30.png",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -7155,5 +7168,36 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_wart_er_trachsler",
         "variant_name": "Mutant"
+    },
+    # =====================
+    # SERIES 6 - 8 bands, 16 cards (A & B for each band)
+    # Variants: Stormy / Decayed / Camouflage / Vintage
+    # =====================
+    # Band 1: The Grate Catt
+    {
+        "id": "card_kataclysm",
+        "name": "KATaclysm",
+        "description": "Ready or not, you'd better run fast / KATaclysm's bloodthirsty blast / Makes your ears bleed, your head explode -- / Her violent shredding is FIRE IN THE HOLE!",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["kataclysm"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["kataclysm"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "A"
+    },
+    {
+        "id": "card_katatonic",
+        "name": "KATatonic",
+        "description": "Even metal can die. Fallen victim to her own savage solos, KATatonic lurks like a ghastly specter on strings. Her violin-guitar hybrid produces undead riffs that lull the living into a state of heavy metal delirium.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["katatonic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["katatonic"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "B"
     },
 ]
