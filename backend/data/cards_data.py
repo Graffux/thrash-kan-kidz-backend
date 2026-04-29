@@ -542,6 +542,9 @@ CARD_IMAGE_URLS = {
     "king_demond_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8wh8l4f2_file_0000000030c871f5a559cab95c755ece.png",
     "king_demond_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pkgtlf4z_enhanced-1776649888872.jpg",
     "king_demond_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9h72712a_file_0000000076ac71f581d79ee7ec4df69b.png",
+    # Band 3: Anfrax
+    "frank_gello": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ij7on4nh_enhanced-1777235404293.jpg",
+    "frank_bile_o": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/byl7qdjf_file_00000000f00071f8becc60e0cbbe4352.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -809,6 +812,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 2: Mercyful Fart
     "king_diamondback": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4eb2gfz_enhanced-1776648626444.jpg",
     "king_demond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pyhyvu64_enhanced-1776649967148.jpg",
+    # Band 3: Anfrax
+    "frank_gello": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1vcu2a93_file_00000000a5ac71fd93ce9fe14cc0918a.png",
+    "frank_bile_o": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qqs33fah_file_00000000fd4c71fdb1820a52d97b12f0.png",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -7529,5 +7535,32 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_king_demond",
         "variant_name": "Vintage"
+    },
+    # Band 3: Anfrax
+    {
+        "id": "card_frank_gello",
+        "name": "Frank Gello",
+        "description": "Frank Gello lays down the low-end assault with unrelenting force. His bass rumbles like thunder, his grooves hit like a wrecking ball, and his riffs crush everything in their path! Battle cry: WOBBLE OR DIE!",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["frank_gello"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["frank_gello"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "A"
+    },
+    {
+        "id": "card_frank_bile_o",
+        "name": "Frank Bile-O",
+        "description": "This little mutant don't play clean -- FRANK BILE-O drips filth, spits venom, and leaves nothing but slime and skulls in his wake. Signature move: SLUDGE RAGER. Blasts radioactive bass lines that melt faces and turn pits into puddles of green goo.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["frank_bile_o"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["frank_bile_o"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Anfrax",
+        "card_type": "B"
     },
 ]
