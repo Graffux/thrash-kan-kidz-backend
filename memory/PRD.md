@@ -65,21 +65,30 @@ Mobile card-collecting app featuring thrash/death metal parody cards. Users open
 
 ## Upcoming
 - P1: Confirm Google Play Store review
-- P2: Series 6+ content (awaiting user request)
+- P2: Series 6+ content (8 bands × 2 characters per band = 16 cards, awaiting user uploads)
 
-## Completed (April 23, 2026 — current session)
-- Restored IAP purchase flow with `expo-iap@4.2.1` (P1 unblocked)
-  - Added `expo-iap` + `expo-build-properties` (Kotlin 2.1.20) Expo plugins in app.json
-  - Replaced stubbed `BuyCoinsModal.tsx` with real `useIAP` hook-based flow: `fetchProducts` → `requestPurchase` → `onPurchaseSuccess` → backend verify → `finishTransaction({isConsumable: true})`
-  - Removed obsolete custom `billing-plugin.js` (expo-iap plugin now injects BILLING perm + Billing Library 8.x itself)
-  - Bumped Android `versionCode` 24 → 25, version 1.7.0 → 1.8.0 — user must trigger new EAS build & upload to Play Console
-- Backend modular refactor (phase 1) — P2 Backlog item started
-  - New `/app/backend/routers/` package with `feedback.py` (3 endpoints) and `friends.py` (5 endpoints) sub-routers mounted onto `api_router`
-  - Removed the inline endpoint implementations from `server.py` (3601 → 3407 lines, -194 lines)
-  - Deleted stale `/app/backend/routes/` folder (never imported, left over from a previous abandoned refactor)
-  - All curl tests pass: /api/feedback, /api/feedback/view, /api/friends/{id}, /api/friends/{id}/requests, plus unchanged endpoints /api/cards, /api/users, /api/daily-wheel, /api/goals, /api/coin-packages
+## Completed (April 28-29, 2026 — current session)
+- Sean Kill-Again reward card: new front image, back unchanged
+- Card Picker mini-game live (8-card pair-match grid, 24h cooldown, prizes: 1 free pack / 1-3 medals)
+- Reroll cost reduced 3 → 1 medal; UI label & visibility threshold updated; revealIndex resets to 0 after reroll + axe impact sound
+- Mute toggles in Profile: separate Sound Effects + Music switches, persisted in AsyncStorage, music toggle reactive (pauses Collection bg immediately when turned off)
+- 10 sound effects added: login_riff, card_flip, axe_impact, cash_register (Shop tab), tab_home/collection/trade/goals (tab presses), collection_bg (looping at 50%), clinking_coins (registered, unassigned)
+- Sequential 3-card reveal: tap Next per card; removed `transform: scale(1.6)` that was crashing Android, replaced with 140×200 sizing + key-based remount
+- Permission strip plugin extended: removes RECORD_AUDIO (added by expo-audio default)
+- Login screen logo swapped to TM-marked variant
+- Profile screen displays real version via Constants.expoConfig instead of hardcoded "v1.0"
+- Card image fixes (backend-only via name_fixes): David Whine, David Slayne, Martini Walkyier, Darren Travesty fronts corrected
+- Goals overhaul: removed coin/profile/3-day/7-day/50-card/all-rarities goals; added 30-day streak (300c), 60-day streak (600c), 100/150/200 cards (500/750/1000c), 5 series-variant master goals (500c each)
+- Mille Vanille auto-grant on day 7 streak removed
+- Restored real IAP via expo-iap@4.2.1 + expo-build-properties (Kotlin 2.1.20). BuyCoinsModal uses useIAP hook → fetchProducts → requestPurchase → backend verify → finishTransaction(consumable). Removed obsolete custom billing-plugin.js
+- Backend modular refactor phase 1: extracted feedback (3 endpoints) + friends (5 endpoints) into /app/backend/routers/. server.py: 3601 → 3407 lines
+- Card Picker UI: graceful "server updating" error state if endpoints return 404 (instead of bogus 0h0m cooldown)
+- Git workflow: Emergent pushes to Graffux/thrash-kan-kidz-backend, user mirrors to Graffux-spec via `git push spec main` after each pull (Render watches Graffux-spec)
 
 ## Backlog
-- Refactor remaining server.py endpoints into `routers/` modules: `auth.py` (4 endpoints), `daily_wheel.py` (5 endpoints), `payments.py` (~6 endpoints), `cards.py`, `spin.py`, `trades.py`, `goals.py`
+- Refactor remaining server.py endpoints into routers/: auth, daily_wheel, payments, cards, spin, trades, goals
 - Split cards_data.py by series
-- Server-side Google Play purchase token validation against Google Play Developer API (currently backend trusts client token — low priority given closed testing only)
+- Server-side Google Play purchase token validation against Play Developer API
+- Decide use case for clinking_coins.mp3 (registered but not yet wired)
+- Next EAS build needs versionCode 52+ (50 and 51 already used in Play Console; 1.8.3 source is staged)
+
