@@ -248,6 +248,8 @@ CARD_IMAGE_URLS = {
     "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ex5auxl7_file_00000000fb7471fd8c4b8702e4819de7.png",
     # Epic reward card (Series 5 - moved from S3)
     "sean_kill_again": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bczdtpd6_file_00000000586471f7a0c781bec98345ab.png",
+    # Epic reward card (Series 6)
+    "nicklebag_darrell": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xgjownj5_enhanced-1776820526028.jpg",
     # =====================
     # SERIES 3 VARIANTS - Front Images
     # =====================
@@ -725,6 +727,8 @@ CARD_BACK_IMAGE_URLS = {
     "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jq5ykbib_file_0000000067e071fdb886702923daf12d.png",
     # Epic reward card (Series 5 - moved from S3)
     "sean_kill_again": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/soday9u4_file_00000000f24471f58503370fd35d90d9.png",
+    # Epic reward card (Series 6)
+    "nicklebag_darrell": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/r0i6azj7_enhanced-1776820703582.jpg",
     # Rare reward card (Series 4)
     "jeff_wanker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lrod0iks_enhanced-1775928154564.jpg",
     
@@ -812,7 +816,8 @@ RARE_CARD_ACHIEVEMENTS = {
     "card_kerry_the_king": {"required_cards": 16, "name": "Kerry The King"},  # Complete Series 1
     "card_strap_on_taylor": {"required_cards": 32, "name": "Strap-On Taylor"},  # Complete Series 2
     "card_martin_generic_aint": {"required_cards": 48, "name": "Martin Generic Ain't"},  # Complete Series 3
-    "card_sean_kill_again": {"required_cards": 80, "name": "Sean Kill-Again"}  # Complete Series 5
+    "card_sean_kill_again": {"required_cards": 80, "name": "Sean Kill-Again"},  # Complete Series 5
+    "card_nicklebag_darrell": {"required_cards": 96, "name": "Nicklebag Darrell"}  # Complete Series 6
 }
 
 INITIAL_CARDS = [
@@ -3613,6 +3618,22 @@ INITIAL_CARDS = [
         "achievement_required": 80,
         "series_reward": 5,
         "band": "Violents"
+    },
+    # =====================
+    # EPIC CARD - Series 6 completion reward
+    # =====================
+    {
+        "id": "card_nicklebag_darrell",
+        "name": "Nicklebag Darrell",
+        "description": "Nicklebag Darrell from Panterror -- a.k.a. 'The Nicklebag King'. Master of riffs, reefers and really questionable decisions. Always has just enough to share... or not. Once traded a solo for a snack. \"It ain't much... but it's all I got!\"",
+        "rarity": "epic",
+        "front_image_url": CARD_IMAGE_URLS["nicklebag_darrell"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["nicklebag_darrell"],
+        "coin_cost": 150,
+        "available": False,
+        "achievement_required": 96,
+        "series_reward": 6,
+        "band": "Panterror"
     },
     # =====================
     # SERIES 3 VARIANTS (16 base cards × 4 variants = 64 cards)
