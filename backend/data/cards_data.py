@@ -520,6 +520,10 @@ CARD_IMAGE_URLS = {
     # ===== SERIES 6 =====
     # Band 1: The Grate Catt
     "kataclysm": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ecm8x4yl_enhanced-1777424890297.jpg",
+    "kataclysm_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/5q22jdre_enhanced-1777425012933.jpg",
+    "kataclysm_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sfbpihtm_file_00000000947471f59d6f7d15fc678dc8.png",
+    "kataclysm_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u1xvd7o4_enhanced-1777425062298.jpg",
+    "kataclysm_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cqmkidev_file_000000009ebc71f5a41b80a295e37a07.png",
     "katatonic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/59gy34y7_enhanced-1776485138850.jpg",
 }
 
@@ -7199,5 +7203,70 @@ INITIAL_CARDS = [
         "series": 6,
         "band": "The Grate Catt",
         "card_type": "B"
+    },
+    # KATaclysm Variants
+    {
+        "id": "card_kataclysm_stormy",
+        "name": "KATaclysm (Stormy)",
+        "description": "The Stormy variant of KATaclysm. Lightning crashes with every solo, soaking the dead and the damned in electric fury.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["kataclysm_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_kataclysm",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_kataclysm_decayed",
+        "name": "KATaclysm (Decayed)",
+        "description": "The Decayed variant of KATaclysm. Rotting flesh hangs off her bones as she shreds undead riffs from the grave.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["kataclysm_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_kataclysm",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_kataclysm_camouflage",
+        "name": "KATaclysm (Camouflage)",
+        "description": "The Camouflage variant of KATaclysm. Painted for war, she blends into the battlefield until her riffs detonate like a sonic grenade.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["kataclysm_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_kataclysm",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_kataclysm_vintage",
+        "name": "KATaclysm (Vintage)",
+        "description": "The Vintage variant of KATaclysm. Black-and-white film grain frames her timeless thrash -- old-school terror, never out of style.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["kataclysm_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Grate Catt",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_kataclysm",
+        "variant_name": "Vintage"
     },
 ]
