@@ -531,6 +531,10 @@ CARD_IMAGE_URLS = {
     "katatonic_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ffwbm5pa_file_00000000588071f7be86468d92c34a7f.png",
     # Band 2: Mercyful Fart
     "king_diamondback": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pztu4v77_enhanced-1776648505044.jpg",
+    "king_diamondback_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/nxepdrx0_enhanced-1776648804492.jpg",
+    "king_diamondback_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tr1cfer3_enhanced-1776648928961.jpg",
+    "king_diamondback_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4mdyswh7_enhanced-1776648969030.jpg",
+    "king_diamondback_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ec54gjmm_file_0000000090c0722fb62e854b70a89b5b.png",
     "king_demond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/819p2mfe_enhanced-1776649198664.jpg",
 }
 
@@ -7370,5 +7374,70 @@ INITIAL_CARDS = [
         "series": 6,
         "band": "Mercyful Fart",
         "card_type": "B"
+    },
+    # King Diamondback Variants
+    {
+        "id": "card_king_diamondback_stormy",
+        "name": "King Diamondback (Stormy)",
+        "description": "The Stormy variant of King Diamondback. Lightning forks across a churning sea as his venom-soaked screams shake the heavens.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_diamondback_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_king_diamondback",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_king_diamondback_decayed",
+        "name": "King Diamondback (Decayed)",
+        "description": "The Decayed variant of King Diamondback. Rotting scales hang off his serpent coils as toxic ooze drips from every fang.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_diamondback_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_king_diamondback",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_king_diamondback_camouflage",
+        "name": "King Diamondback (Camouflage)",
+        "description": "The Camouflage variant of King Diamondback. Helmeted and battle-ready, the venomous king strikes from the jungle with the stealth of a hidden cobra.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_diamondback_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_king_diamondback",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_king_diamondback_vintage",
+        "name": "King Diamondback (Vintage)",
+        "description": "The Vintage variant of King Diamondback. Black-and-white grain captures the cobra king at his most timeless -- old-school venom, eternal thrash.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["king_diamondback_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "Mercyful Fart",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_king_diamondback",
+        "variant_name": "Vintage"
     },
 ]
