@@ -560,6 +560,10 @@ CARD_IMAGE_URLS = {
     "blaine_the_cook_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t3lov79s_enhanced-1777165498783.jpg",
     "blaine_the_cook_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wjr3ej4m_file_00000000037c71f8924c09200a90480c.png",
     "blainiac_cooke": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/faq38rco_file_00000000b89c71fd839097f84e596803.png",
+    "blainiac_cooke_stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yq5uuhvb_file_00000000449471f5a6e08b28b9d0433c.png",
+    "blainiac_cooke_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ul0d0gic_enhanced-1777208988770.jpg",
+    "blainiac_cooke_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yd68abws_file_0000000006ac722fbf4f867b771c5796.png",
+    "blainiac_cooke_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2obypa8x_file_0000000063c8722f959e2dbe495e54ae.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -7801,6 +7805,71 @@ INITIAL_CARDS = [
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_blaine_the_cook",
+        "variant_name": "Vintage"
+    },
+    # Blainiac Cooke Variants
+    {
+        "id": "card_blainiac_cooke_stormy",
+        "name": "Blainiac Cooke (Stormy)",
+        "description": "The Stormy variant of Blainiac Cooke. Drenched in rain, screaming into the storm -- the THRASH FOREVER banner snapping behind him as lightning crashes down.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blainiac_cooke_stormy"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_stormy"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_blainiac_cooke",
+        "variant_name": "Stormy"
+    },
+    {
+        "id": "card_blainiac_cooke_decayed",
+        "name": "Blainiac Cooke (Decayed)",
+        "description": "The Decayed variant of Blainiac Cooke. Flesh rotting off his bones, milky-white eye rolled back, but the screams keep coming -- death can't shut him up.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blainiac_cooke_decayed"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_decayed"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_blainiac_cooke",
+        "variant_name": "Decayed"
+    },
+    {
+        "id": "card_blainiac_cooke_camouflage",
+        "name": "Blainiac Cooke (Camouflage)",
+        "description": "The Camouflage variant of Blainiac Cooke. Dressed for battle, screaming into the trenches -- the maniacal frontman drops sonic grenades on every encore.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blainiac_cooke_camouflage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_camouflage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_blainiac_cooke",
+        "variant_name": "Camouflage"
+    },
+    {
+        "id": "card_blainiac_cooke_vintage",
+        "name": "Blainiac Cooke (Vintage)",
+        "description": "The Vintage variant of Blainiac Cooke. Black-and-white film grain captures the maniac mid-scream -- timeless thrash, frozen in monochrome chaos.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["blainiac_cooke_vintage"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_vintage"],
+        "coin_cost": 0,
+        "available": False,
+        "series": 6,
+        "band": "The Amused",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_blainiac_cooke",
         "variant_name": "Vintage"
     },
 ]
