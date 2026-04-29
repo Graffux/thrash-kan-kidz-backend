@@ -564,6 +564,9 @@ CARD_IMAGE_URLS = {
     "blainiac_cooke_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ul0d0gic_enhanced-1777208988770.jpg",
     "blainiac_cooke_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yd68abws_file_0000000006ac722fbf4f867b771c5796.png",
     "blainiac_cooke_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2obypa8x_file_0000000063c8722f959e2dbe495e54ae.png",
+    # Band 5: Decel
+    "dan_cements": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lghm25dd_file_0000000080b471f5883ed170206bdc57.png",
+    "handsome_dan": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x87rgwl8_file_00000000f73871fd9500b90399106bd4.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -837,6 +840,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 4: The Amused
     "blaine_the_cook": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k5eud52y_enhanced-1777165249234.jpg",
     "blainiac_cooke": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/j6aukux4_enhanced-1777208154520.jpg",
+    # Band 5: Decel
+    "dan_cements": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zy4a5v13_file_000000003cb871f8aa79381b876a3e9e.png",
+    "handsome_dan": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ie1u5duc_file_00000000beb871fdbc0785124b08a383.png",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -7871,5 +7877,32 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_blainiac_cooke",
         "variant_name": "Vintage"
+    },
+    # Band 5: Decel
+    {
+        "id": "card_dan_cements",
+        "name": "Dan Cements",
+        "description": "DAN CEMENTS, the Sidewalk Slammer Since '89, lays down the foundation of DECEL. His signature SET IN STONE move slams a fresh slab of attitude that hardens the pit and buries posers six feet under. Cold, hard, and built to last. Battle cry: THRASH OR DIE!",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["dan_cements"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["dan_cements"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "A"
+    },
+    {
+        "id": "card_handsome_dan",
+        "name": "Handsome Dan",
+        "description": "Pretty face. Deadly voice. Frontman of DECEL, known for melting faces and stealing hearts in the same set. Don't let the looks fool you -- this dude thrashes harder than anyone in the pit. \"Beauty fades. Riffs don't.\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["handsome_dan"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["handsome_dan"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Decel",
+        "card_type": "B"
     },
 ]
