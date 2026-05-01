@@ -879,6 +879,22 @@ async def seed_database():
             "card_walter_trashler": {
                 "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/aqyov99f_file_00000000634871f5b7cb3181ea0ea9b0.png",
             },
+            # Mickey Muir front-art refresh (April 30, 2026)
+            "card_mickey_muir": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yf1sqmcw_enhanced-1777473144761.jpg",
+            },
+            "card_mickey_muir_shadow": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p7gurlyx_file_000000001f78722f80bc1375fce2d2c2.png",
+            },
+            "card_mickey_muir_magma": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9blzm966_file_0000000034f4722f938d43149b721822.png",
+            },
+            "card_mickey_muir_cheesy": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/z3znfqh5_file_000000005c6c71f599937bed9371f1d1.png",
+            },
+            "card_mickey_muir_mutant": {
+                "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kq29utan_file_00000000d9fc720c927aaf1aca0a9794.png",
+            },
             "card_walter_trashler_shadow": {
                 "front_image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9he2g2mb_file_00000000c02871f5972df5f0acf6b476.png",
             },
