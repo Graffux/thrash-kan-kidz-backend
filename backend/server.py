@@ -2982,8 +2982,10 @@ async def get_card_picker(user_id: str):
 
 
 @api_router.post("/users/{user_id}/card-picker/claim")
-async def claim_card_picker_prize(user_id: str):
-    """Player matched a pair. Server picks a random prize and grants it."""
+async def claim_card_picker_prize(user_id: str, request: Request):
+    """Player matched a pair. Server grants the prize they actually matched
+    (identified by `prize_label` in the request body). Falls back to a random
+    prize if the client didn't send a label, to remain backward compatible."""
     user = await db.users.find_one({"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -2995,7 +2997,24 @@ async def claim_card_picker_prize(user_id: str):
             detail=f"You already played today. Try again in {cooldown // 3600}h {(cooldown % 3600) // 60}m.",
         )
 
-    prize = random.choice(CARD_PICKER_PRIZES)
+    # Determine which prize the user actually matched.
+    body: dict = {}
+    try:
+        body = await request.json()
+    except Exception:
+        pass
+    requested_label = body.get("prize_label") if isinstance(body, dict) else None
+
+    if requested_label:
+        prize = next(
+            (p for p in CARD_PICKER_PRIZES if p.get("label") == requested_label),
+            None,
+        )
+        if prize is None:
+            raise HTTPException(status_code=400, detail="Unknown prize label")
+    else:
+        prize = random.choice(CARD_PICKER_PRIZES)
+
     update = {"card_picker_last_played": datetime.utcnow()}
     if prize["type"] == "free_pack":
         update["free_packs"] = user.get("free_packs", 0) + prize["amount"]

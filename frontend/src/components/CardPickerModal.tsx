@@ -142,11 +142,17 @@ export const CardPickerModal: React.FC<CardPickerModalProps> = ({
         newMatched[idx] = true;
         setMatched(newMatched);
         matchSound.play();
-        // Claim prize from server (server picks random)
+        // Claim prize from server — send the label of the pair the user
+        // actually matched so the server grants the matching reward instead
+        // of picking a random prize.
         try {
           const res = await fetch(
             `${apiUrl}/api/users/${userId}/card-picker/claim`,
-            { method: 'POST' }
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ prize_label: a.label }),
+            }
           );
           const data = await res.json();
           if (res.ok && data.success) {
