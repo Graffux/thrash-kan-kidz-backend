@@ -575,6 +575,9 @@ CARD_IMAGE_URLS = {
     "handsome_dan_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fbrmt6lj_file_00000000ee2071f58ceb5c2e3c88b6d0.png",
     "handsome_dan_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/90lr9u7q_file_0000000034bc71f584c3431ff30abaaa.png",
     "handsome_dan_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kp9auyns_file_000000001600720cb650f24d837abeff.png",
+    # Band 6: Butt Feast
+    "tranquilized_adam": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/o875w9uc_enhanced-1777631095906.jpg",
+    "sadam_tranquilli": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/toksawb1_enhanced-1777631301982.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -851,6 +854,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 5: Decel
     "dan_cements": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zy4a5v13_file_000000003cb871f8aa79381b876a3e9e.png",
     "handsome_dan": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ie1u5duc_file_00000000beb871fdbc0785124b08a383.png",
+    # Band 6: Butt Feast
+    "tranquilized_adam": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rgmnwoqe_enhanced-1777638282399.jpg",
+    "sadam_tranquilli": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c13ggcuw_enhanced-1777633879806.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -8042,5 +8048,32 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_handsome_dan",
         "variant_name": "Vintage"
+    },
+    # Band 6: Butt Feast
+    {
+        "id": "card_tranquilized_adam",
+        "name": "Tranquilized Adam",
+        "description": "BUTT FEAST's frontman taken to the floor. One sludge brew too many, one tranq too far -- still clutches the V-shape and screams through the haze. Signature: TRANQUILIZED RIFF -- opponent loses next turn.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["tranquilized_adam"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["tranquilized_adam"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Butt Feast",
+        "card_type": "A"
+    },
+    {
+        "id": "card_sadam_tranquilli",
+        "name": "Sadam Tranquilli",
+        "description": "The dictator-uniformed lead of BUTT FEAST. Wild curls, gold medals, six-string -- this thrash tyrant rules the pit with sludge brew and questionable foreign policy. Battle cry: THRASH TIL DESTRUCTION!",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["sadam_tranquilli"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["sadam_tranquilli"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 6,
+        "band": "Butt Feast",
+        "card_type": "B"
     },
 ]
