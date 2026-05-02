@@ -87,12 +87,88 @@ const SimpleCard = ({
   }
 
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.cardContainer, isVariant && styles.variantCardBorder, isReward && styles.rewardCardBorder]}>
-      <ExpoImage
-        source={{ uri: card.front_image_url }}
-        style={styles.cardImage}
-        contentFit="cover"
-      />
+    <SimpleCardOwned
+      card={card}
+      quantity={quantity}
+      onPress={onPress}
+      isVariant={isVariant}
+      isReward={isReward}
+    />
+  );
+};
+
+// Owned-card subcomponent so we can keep per-card flip animation state local.
+// Long-press flips the thumbnail in place; single tap still opens the detail modal.
+const SimpleCardOwned = ({
+  card,
+  quantity,
+  onPress,
+  isVariant,
+  isReward,
+}: {
+  card: Card;
+  quantity: number;
+  onPress: () => void;
+  isVariant: boolean;
+  isReward: boolean;
+}) => {
+  const flipAnim = useRef(new Animated.Value(0)).current;
+  const flippingRef = useRef(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const cardFlipSound = useSoundPlayer('card_flip');
+
+  const flip = () => {
+    if (flippingRef.current) return;
+    flippingRef.current = true;
+    cardFlipSound.play();
+    const target = isFlipped ? 0 : 1;
+    Animated.timing(flipAnim, {
+      toValue: target,
+      duration: 420,
+      useNativeDriver: true,
+    }).start(() => {
+      flippingRef.current = false;
+    });
+    setTimeout(() => setIsFlipped(!isFlipped), 210);
+  };
+
+  const frontRotate = flipAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '180deg'] });
+  const backRotate = flipAnim.interpolate({ inputRange: [0, 1], outputRange: ['180deg', '360deg'] });
+  const frontOpacity = flipAnim.interpolate({ inputRange: [0, 0.49, 0.5, 1], outputRange: [1, 1, 0, 0] });
+  const backOpacity = flipAnim.interpolate({ inputRange: [0, 0.49, 0.5, 1], outputRange: [0, 0, 1, 1] });
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      onLongPress={flip}
+      delayLongPress={250}
+      style={[styles.cardContainer, isVariant && styles.variantCardBorder, isReward && styles.rewardCardBorder]}
+      data-testid={`grid-card-${card.id}`}
+    >
+      <Animated.View
+        style={[
+          styles.gridFlipFace,
+          { opacity: frontOpacity, transform: [{ rotateY: frontRotate }] },
+        ]}
+      >
+        <ExpoImage
+          source={{ uri: card.front_image_url }}
+          style={styles.cardImage}
+          contentFit="cover"
+        />
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.gridFlipFace,
+          { opacity: backOpacity, transform: [{ rotateY: backRotate }] },
+        ]}
+      >
+        <ExpoImage
+          source={{ uri: card.back_image_url || card.front_image_url }}
+          style={styles.cardImage}
+          contentFit="cover"
+        />
+      </Animated.View>
       {quantity > 1 && (
         <View style={styles.quantityBadge}>
           <Text style={styles.quantityText}>x{quantity}</Text>
@@ -132,6 +208,41 @@ export default function CollectionScreen() {
   // Series numbers we've already attempted to claim this session, regardless of
   // outcome — prevents repeated POSTs while user lingers on Collection tab.
   const milestoneAttemptedRef = useRef<Set<number>>(new Set());
+
+  // Card-detail modal 3D flip animation: 0 = front, 1 = back.
+  const detailFlipAnim = useRef(new Animated.Value(0)).current;
+  const detailFlipping = useRef(false);
+  const flipDetailCard = () => {
+    if (detailFlipping.current) return;
+    detailFlipping.current = true;
+    cardFlipSound.play();
+    const target = showFront ? 1 : 0;
+    Animated.timing(detailFlipAnim, {
+      toValue: target,
+      duration: 450,
+      useNativeDriver: true,
+    }).start(() => {
+      detailFlipping.current = false;
+    });
+    // Flip state mid-rotation so the back-face label updates with the visual flip.
+    setTimeout(() => setShowFront(!showFront), 225);
+  };
+  const detailFrontRotate = detailFlipAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+  const detailBackRotate = detailFlipAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['180deg', '360deg'],
+  });
+  const detailFrontOpacity = detailFlipAnim.interpolate({
+    inputRange: [0, 0.49, 0.5, 1],
+    outputRange: [1, 1, 0, 0],
+  });
+  const detailBackOpacity = detailFlipAnim.interpolate({
+    inputRange: [0, 0.49, 0.5, 1],
+    outputRange: [0, 0, 1, 1],
+  });
 
   // Play looping background music while Collection tab is focused
   useFocusEffect(
@@ -420,6 +531,7 @@ export default function CollectionScreen() {
           if (isOwned && userCard) {
             setSelectedCard(userCard);
             setShowFront(true);
+            detailFlipAnim.setValue(0);
           }
         }}
       />
@@ -614,15 +726,40 @@ export default function CollectionScreen() {
 
             {selectedCard && (
               <ScrollView contentContainerStyle={styles.modalScrollContent}>
-                <TouchableOpacity onPress={() => {
-                  cardFlipSound.play();
-                  setShowFront(!showFront);
-                }}>
-                  <ExpoImage
-                    source={{ uri: showFront ? selectedCard.card.front_image_url : (selectedCard.card.back_image_url || selectedCard.card.front_image_url) }}
-                    style={styles.modalCardImage}
-                    contentFit="contain"
-                  />
+                <TouchableOpacity activeOpacity={0.9} onPress={flipDetailCard} data-testid="detail-flip-card">
+                  <View style={styles.modalFlipWrap}>
+                    <Animated.View
+                      style={[
+                        styles.modalFlipFace,
+                        {
+                          opacity: detailFrontOpacity,
+                          transform: [{ rotateY: detailFrontRotate }],
+                        },
+                      ]}
+                    >
+                      <ExpoImage
+                        source={{ uri: selectedCard.card.front_image_url }}
+                        style={styles.modalCardImage}
+                        contentFit="contain"
+                      />
+                    </Animated.View>
+                    <Animated.View
+                      style={[
+                        styles.modalFlipFace,
+                        styles.modalFlipFaceBack,
+                        {
+                          opacity: detailBackOpacity,
+                          transform: [{ rotateY: detailBackRotate }],
+                        },
+                      ]}
+                    >
+                      <ExpoImage
+                        source={{ uri: selectedCard.card.back_image_url || selectedCard.card.front_image_url }}
+                        style={styles.modalCardImage}
+                        contentFit="contain"
+                      />
+                    </Animated.View>
+                  </View>
                 </TouchableOpacity>
                 
                 <Text style={styles.tapHint}>Tap card to flip {showFront ? '(Front)' : '(Back)'}</Text>
@@ -1330,6 +1467,29 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   // Share-this-card button inside Card Detail modal
+  modalFlipWrap: {
+    width: '100%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalFlipFace: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backfaceVisibility: 'hidden',
+  },
+  modalFlipFaceBack: {},
+  gridFlipFace: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backfaceVisibility: 'hidden',
+  },
   cardShareButton: {
     flexDirection: 'row',
     alignItems: 'center',
