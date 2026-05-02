@@ -65,7 +65,12 @@ Mobile card-collecting app featuring thrash/death metal parody cards. Users open
 
 ## Upcoming
 - P1: Apply for Google Play Production Access on Day 14. Use draft answers in `/app/memory/play_production_questionnaire.md`.
-- P0: Series 6 variants — Bands 6, 7, 8 still need 24 variant fronts (Stormy/Decayed/Camouflage/Vintage × 2 chars × 3 bands).
+- P0: Series 6 variants — only **Frantic Howler** (Band 8: Succubus) still needs 4 variant fronts (Stormy/Decayed/Camouflage/Vintage). All other 14 characters' variants are wired in.
+
+## Completed (May 2, 2026)
+- Series 6 Band 7 "Diseased": King Fouley variants (Stormy/Decayed/Camouflage/Vintage) wired into INITIAL_CARDS (URLs were present from prior session but card definitions were missing).
+- Series 6 Band 8 "Succubus": Moses Howler variants (Stormy/Decayed/Camouflage/Vintage) URLs added + INITIAL_CARDS entries wired.
+- DB total: 482 cards (was 474). All 8 inserts confirmed via `/api/cards/{id}` GET probes.
 
 ## Completed (May 1, 2026 — Series 6 base cards complete + bug fixes + cloud build)
 
