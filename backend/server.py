@@ -872,6 +872,28 @@ async def seed_database():
     
     if card_count >= expected_count:
         logger.info(f"Database already has {card_count} cards (expected {expected_count}), skipping seed")
+        # Sync front/back image URLs for any card whose URL has drifted from
+        # the source-of-truth in cards_data.py. Critical: name_fixes block
+        # only fixes names; we also need URLs to flow through on the fast
+        # path so swapped/wrong artwork in cards_data.py reaches the DB.
+        url_fixes = 0
+        for card_data in INITIAL_CARDS:
+            existing = await db.cards.find_one(
+                {"id": card_data["id"]},
+                {"_id": 0, "front_image_url": 1, "back_image_url": 1},
+            )
+            if not existing:
+                continue
+            patch = {}
+            if card_data.get("front_image_url") != existing.get("front_image_url"):
+                patch["front_image_url"] = card_data["front_image_url"]
+            if card_data.get("back_image_url") != existing.get("back_image_url"):
+                patch["back_image_url"] = card_data["back_image_url"]
+            if patch:
+                await db.cards.update_one({"id": card_data["id"]}, {"$set": patch})
+                url_fixes += 1
+        if url_fixes:
+            logger.info(f"Synced image URLs for {url_fixes} card(s)")
         # Force-fix any known name corrections even when skipping full seed
         name_fixes = {
             "card_jeff_possess_ya_s2_bloodbath": {
