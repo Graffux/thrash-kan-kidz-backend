@@ -65,7 +65,13 @@ Mobile card-collecting app featuring thrash/death metal parody cards. Users open
 
 ## Upcoming
 - P1: Apply for Google Play Production Access on Day 14. Use draft answers in `/app/memory/play_production_questionnaire.md`.
-- P1: Push final `/app/backend/data/cards_data.py` + `server.py` to Render so production sees Series 6 complete + the new milestone endpoint.
+- P1: Push final `/app/backend/server.py` + `cards_data.py` to Render so production gets Series 6 unlocked + the new milestone endpoint.
+
+## Completed (May 2, 2026 — Series 6 unlock bug fix 🔓)
+- **Root cause**: `server.py` series-progression had hardcoded caps from the Series 1-5 era — `next_series <= 5`, `next_series <= 4`, and `range(1, 5)`. Series 6 could never enter any user's `unlocked_series`, so the spin/shop endpoint filtered it out entirely.
+- Fixed all three caps to support Series 6.
+- Added one-time startup migration: any user with `5 in completed_series` and not yet `6 in unlocked_series` is auto-backfilled. Verified live: **5 users updated** on first boot.
+- Verified `/api/users/{id}/spin-pool?series=6` returns all 16 base cards correctly.
 
 ## Completed (May 2, 2026 — SERIES 6 100% COMPLETE 🎉 + Milestone Celebration)
 - Series 6 Band 7 "Diseased": King Fouley variants (Stormy/Decayed/Camouflage/Vintage) wired into INITIAL_CARDS (URLs were present from prior session but card definitions were missing).

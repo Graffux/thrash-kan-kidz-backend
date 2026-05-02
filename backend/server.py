@@ -1821,7 +1821,7 @@ async def check_series_completion(user_id: str, series_num: int):
         # Unlock next series
         unlocked_series = user.get("unlocked_series", [1])
         next_series = series_num + 1
-        if next_series not in unlocked_series and next_series <= 5:
+        if next_series not in unlocked_series and next_series <= 6:
             unlocked_series.append(next_series)
         
         # Get rare reward card for this series
@@ -1864,7 +1864,7 @@ async def check_series_completion(user_id: str, series_num: int):
             "series_completed": series_num,
             "series_name": series_config.get("name", f"Series {series_num}"),
             "rare_reward": rare_reward_card,
-            "next_series_unlocked": next_series if next_series <= 4 else None
+            "next_series_unlocked": next_series if next_series <= 6 else None
         }
     
     return {
@@ -1950,7 +1950,7 @@ async def get_series_progress(user_id: str):
     owned_card_ids = set(uc["card_id"] for uc in user_cards)
     
     all_series = []
-    for series_num in range(1, 5):
+    for series_num in range(1, 7):
         series_config = SERIES_CONFIG.get(series_num, {})
         
         # Get cards in this series
@@ -3564,6 +3564,20 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def startup_event():
     await seed_database()
+    # One-time migration: Series 6 launched in May 2026. Any user who had
+    # already completed Series 5 must get Series 6 added to unlocked_series
+    # (the old completion handler hard-capped the unlock at 5).
+    s6_migration = await db.users.update_many(
+        {
+            "completed_series": 5,
+            "unlocked_series": {"$ne": 6},
+        },
+        {"$addToSet": {"unlocked_series": 6}},
+    )
+    if s6_migration.modified_count:
+        logger.info(
+            f"Series 6 unlock backfill: {s6_migration.modified_count} user(s) updated"
+        )
     logger.info("Database seeded successfully")
 
 @app.on_event("shutdown")
