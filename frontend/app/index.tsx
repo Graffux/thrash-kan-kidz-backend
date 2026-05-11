@@ -17,15 +17,26 @@ import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSoundPlayer } from '../src/utils/sounds';
+import { DailyWheelModal } from '../src/components/DailyWheelModal';
+import { CardPickerModal } from '../src/components/CardPickerModal';
 
 export default function HomeScreen() {
-  const { user, loading, login, logout, claimDailyLogin, userCards, refreshData } = useApp();
+  const { user, loading, login, logout, claimDailyLogin, userCards, refreshData, apiUrl } = useApp();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [dailyMessage, setDailyMessage] = useState<string | null>(null);
   const [claiming, setClaiming] = useState(false);
+
+  // Daily wheel + Card picker (moved from Shop to Home so they show up the
+  // moment a player lands after login — primary daily retention driver).
+  const [showDailyWheel, setShowDailyWheel] = useState(false);
+  const [showCardPicker, setShowCardPicker] = useState(false);
+  const [wheelStreak, setWheelStreak] = useState(0);
+  const [dailyWheelChecked, setDailyWheelChecked] = useState(false);
+  const buttonTapSound = useSoundPlayer('button_tap');
+  const prizeWonSound = useSoundPlayer('prize_won');
 
   const loginRiff = useSoundPlayer('login_riff');
   const riffPlayedRef = useRef(false);
@@ -38,11 +49,45 @@ export default function HomeScreen() {
         riffPlayedRef.current = true;
         loginRiff.play();
       }
+      // Auto-pop the Daily Wheel if the user hasn't spun today. Runs once
+      // per session — `dailyWheelChecked` short-circuits later renders.
+      checkDailyWheel();
     } else {
       // Reset so riff plays again on next login
       riffPlayedRef.current = false;
+      setDailyWheelChecked(false);
     }
   }, [user?.id]);
+
+  const checkDailyWheel = async () => {
+    if (!user || dailyWheelChecked) return;
+    try {
+      const res = await fetch(`${apiUrl}/api/users/${user.id}/daily-wheel`);
+      const data = await res.json();
+      setWheelStreak(data.wheel_streak || 0);
+      if (data.can_spin) {
+        setShowDailyWheel(true);
+      }
+      setDailyWheelChecked(true);
+    } catch (err) {
+      console.error('Error checking daily wheel:', err);
+    }
+  };
+
+  const handleWheelSpin = async () => {
+    if (!user) throw new Error('Not logged in');
+    const res = await fetch(`${apiUrl}/api/users/${user.id}/daily-wheel/spin`, { method: 'POST' });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || 'Failed to spin');
+    }
+    const data = await res.json();
+    setWheelStreak(data.streak || 0);
+    // refreshData() updates AppContext so the Shop screen + stats reflect
+    // the new medal / free-pack balance the next time they render.
+    refreshData();
+    return data;
+  };
 
   const handleLogin = async () => {
     if (!username.trim()) {
@@ -258,6 +303,46 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Mini-games: Daily Wheel re-open + Card Picker. The Daily Wheel
+            auto-pops on first login each day (see useEffect above); these
+            buttons let the user replay/re-launch either game whenever they
+            want during the session. Both modals manage their own state via
+            the AppContext refresh, so awards reflect immediately on the
+            Shop screen the next time it renders. */}
+        <View style={styles.miniGamesContainer}>
+          <Text style={styles.sectionTitle}>Mini-Games</Text>
+          <TouchableOpacity
+            style={styles.miniGameButton}
+            onPress={() => {
+              buttonTapSound.play();
+              setShowDailyWheel(true);
+            }}
+            data-testid="home-daily-wheel-btn"
+          >
+            <Text style={styles.miniGameEmoji}>🎡</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.miniGameTitle}>Daily Wheel</Text>
+              <Text style={styles.miniGameSub}>One free spin every day</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color="#FFD700" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.miniGameButton}
+            onPress={() => {
+              buttonTapSound.play();
+              setShowCardPicker(true);
+            }}
+            data-testid="home-card-picker-btn"
+          >
+            <Text style={styles.miniGameEmoji}>🎴</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.miniGameTitle}>Card Picker</Text>
+              <Text style={styles.miniGameSub}>Match a pair, win a prize!</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color="#FFD700" />
+          </TouchableOpacity>
+        </View>
+
         {/* Featured Card Preview */}
         <View style={styles.featuredContainer}>
           <Text style={styles.sectionTitle}>Featured Cards</Text>
@@ -284,6 +369,31 @@ export default function HomeScreen() {
           </ScrollView>
         </View>
       </ScrollView>
+
+      {/* Daily Wheel Modal — auto-pops on first session login each day. */}
+      <DailyWheelModal
+        visible={showDailyWheel}
+        onClose={() => {
+          setShowDailyWheel(false);
+          refreshData();
+        }}
+        onSpin={handleWheelSpin}
+        streak={wheelStreak}
+        onSpinStart={() => buttonTapSound.play()}
+        onPrizeWon={() => prizeWonSound.play()}
+      />
+
+      {/* Card Picker Modal */}
+      <CardPickerModal
+        visible={showCardPicker}
+        onClose={() => {
+          setShowCardPicker(false);
+          refreshData();
+        }}
+        apiUrl={apiUrl}
+        userId={user.id}
+        onPrizeWon={() => prizeWonSound.play()}
+      />
     </SafeAreaView>
   );
 }
@@ -460,6 +570,35 @@ const styles = StyleSheet.create({
   },
   dailyContainer: {
     marginBottom: 24,
+  },
+  miniGamesContainer: {
+    marginBottom: 24,
+  },
+  miniGameButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(20, 20, 32, 0.85)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 215, 0, 0.35)',
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    marginBottom: 10,
+    gap: 14,
+  },
+  miniGameEmoji: {
+    fontSize: 28,
+  },
+  miniGameTitle: {
+    color: '#FFD700',
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+  },
+  miniGameSub: {
+    color: '#aaa',
+    fontSize: 12,
+    marginTop: 2,
   },
   dailyButton: {
     backgroundColor: '#FFD700',

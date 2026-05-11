@@ -16,9 +16,8 @@ import { Image as ExpoImage } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../src/context/AppContext';
+import { useFocusEffect } from 'expo-router';
 import BuyCoinsModal from '../src/components/BuyCoinsModal';
-import { DailyWheelModal } from '../src/components/DailyWheelModal';
-import { CardPickerModal } from '../src/components/CardPickerModal';
 import { useSoundPlayer } from '../src/utils/sounds';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -59,13 +58,12 @@ export default function ShopScreen() {
   const [cardFlipped, setCardFlipped] = useState(false);
   const [showFrontImage, setShowFrontImage] = useState(false);
   
-  // Daily wheel & medals
-  const [showDailyWheel, setShowDailyWheel] = useState(false);
-  const [showCardPicker, setShowCardPicker] = useState(false);
+  // Daily wheel & medals (medals/free_packs displayed here are read from
+  // AppContext via the daily-wheel endpoint on focus; the wheel modal + Card
+  // Picker themselves live on the Home screen now).
   const [wheelStreak, setWheelStreak] = useState(0);
   const [medals, setMedals] = useState(0);
   const [freePacks, setFreePacks] = useState(0);
-  const [dailyWheelChecked, setDailyWheelChecked] = useState(false);
 
   // First-Variant celebration
   // Captured at the moment "OPEN PACK!" is tapped: the set of variant_names the
@@ -140,38 +138,34 @@ export default function ShopScreen() {
 
   useEffect(() => {
     fetchSpinData();
-    checkDailyWheel();
+    refreshShopBalances();
   }, [user]);
 
-  const checkDailyWheel = async () => {
-    if (!user || dailyWheelChecked) return;
+  // Re-fetch balances every time the Shop tab gains focus so prizes won in
+  // the Home-screen mini-games (Daily Wheel / Card Picker) reflect here
+  // immediately on tab switch.
+  useFocusEffect(
+    React.useCallback(() => {
+      refreshShopBalances();
+    }, [user?.id])
+  );
+
+  // Pulls the user's current medals / free-pack count so the Shop header can
+  // show them. Replaces the old `checkDailyWheel` (which also auto-popped
+  // the modal — that responsibility moved to the Home screen). Called once
+  // when the screen mounts; AppContext also re-syncs via refreshData()
+  // whenever the user returns from a mini-game on Home.
+  const refreshShopBalances = async () => {
+    if (!user) return;
     try {
       const res = await fetch(`${apiUrl}/api/users/${user.id}/daily-wheel`);
       const data = await res.json();
       setMedals(data.medals || 0);
       setFreePacks(data.free_packs || 0);
       setWheelStreak(data.wheel_streak || 0);
-      if (data.can_spin) {
-        setShowDailyWheel(true);
-      }
-      setDailyWheelChecked(true);
     } catch (err) {
-      console.error('Error checking daily wheel:', err);
+      console.error('Error fetching shop balances:', err);
     }
-  };
-
-  const handleWheelSpin = async () => {
-    const res = await fetch(`${apiUrl}/api/users/${user.id}/daily-wheel/spin`, { method: 'POST' });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || 'Failed to spin');
-    }
-    const data = await res.json();
-    setMedals(data.medals || 0);
-    setFreePacks(data.free_packs || 0);
-    setWheelStreak(data.streak || 0);
-    refreshData();
-    return data;
   };
 
   const handleReroll = async () => {
@@ -786,20 +780,6 @@ export default function ShopScreen() {
               Not enough coins! Tap "Buy" to get more.
             </Text>
           )}
-
-          {/* Card Picker Mini-Game Button */}
-          <TouchableOpacity
-            style={styles.cardPickerEntry}
-            onPress={() => {
-              buttonTapSound.play();
-              setShowCardPicker(true);
-            }}
-            data-testid="card-picker-btn"
-          >
-            <Ionicons name="grid" size={20} color="#FFD700" />
-            <Text style={styles.cardPickerEntryText}>Card Picker</Text>
-            <Text style={styles.cardPickerEntrySub}>Match a pair, win a prize!</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Cards Grid - Show all series cards */}
@@ -839,46 +819,6 @@ export default function ShopScreen() {
           </View>
         )}
       </ScrollView>
-
-      {/* Daily Wheel Modal */}
-      <DailyWheelModal
-        visible={showDailyWheel}
-        onClose={() => setShowDailyWheel(false)}
-        onSpin={handleWheelSpin}
-        streak={wheelStreak}
-        onSpinStart={() => buttonTapSound.play()}
-        onPrizeWon={() => prizeWonSound.play()}
-      />
-
-      {/* Card Picker Modal */}
-      <CardPickerModal
-        visible={showCardPicker}
-        onClose={async () => {
-          setShowCardPicker(false);
-          refreshData();
-          // Pull the latest medal/free_pack counts so the shop header
-          // reflects the prize the user just won in the Card Picker.
-          // Without this re-fetch the Shop's local `freePacks` state stays
-          // stale and the user thinks the pack wasn't credited — even
-          // though the backend granted it. Going through the daily-wheel
-          // endpoint (which returns the same medals/free_packs fields)
-          // would risk re-popping the wheel modal, so we hit /users/{id}
-          // directly here.
-          try {
-            const res = await fetch(`${apiUrl}/api/users/${user.id}`);
-            if (res.ok) {
-              const data = await res.json();
-              setMedals(data.medals || 0);
-              setFreePacks(data.free_packs || 0);
-            }
-          } catch (_e) {
-            // best-effort; AppContext refreshData covers the rest
-          }
-        }}
-        apiUrl={apiUrl}
-        userId={user.id}
-        onPrizeWon={() => prizeWonSound.play()}
-      />
 
       {/* First-Variant Celebration Overlay — fires once per variant_name the user
           had never owned before opening this pack. Auto-dismisses after ~2.4s. */}
