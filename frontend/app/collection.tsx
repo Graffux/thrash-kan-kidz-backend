@@ -76,39 +76,87 @@ const SimpleCard = React.memo(({
   // If not owned, show mystery card
   if (!isOwned) {
     return (
-      <View style={[styles.cardContainer, styles.mysteryCard, isReward && styles.rewardCardBorder]}>
-        <ExpoImage
-          source={{ uri: MYSTERY_CARD_IMAGE }}
-          style={styles.cardImage}
-          contentFit="cover"
-          cachePolicy="memory-disk"
-          recyclingKey="mystery"
-          priority="low"
-        />
-        <View style={styles.mysteryOverlay}>
-          <Text style={styles.mysteryText}>?</Text>
-        </View>
-        {isReward && (
-          <View style={styles.rewardBadge}>
-            <Text style={styles.rewardBadgeText}>REWARD</Text>
+      <RewardGlow active={isReward}>
+        <View style={[styles.cardContainer, styles.mysteryCard, isReward && styles.rewardCardBorder]}>
+          <ExpoImage
+            source={{ uri: MYSTERY_CARD_IMAGE }}
+            style={styles.cardImage}
+            contentFit="cover"
+            cachePolicy="memory-disk"
+            recyclingKey="mystery"
+            priority="low"
+          />
+          <View style={styles.mysteryOverlay}>
+            <Text style={styles.mysteryText}>?</Text>
           </View>
-        )}
-      </View>
+          {isReward && (
+            <View style={styles.rewardBadge}>
+              <Text style={styles.rewardBadgeText}>REWARD</Text>
+            </View>
+          )}
+        </View>
+      </RewardGlow>
     );
   }
 
   return (
-    <SimpleCardOwned
-      card={card}
-      quantity={quantity}
-      onPress={onPress}
-      isVariant={isVariant}
-      isReward={isReward}
-      cardFlipPlay={cardFlipPlay}
-    />
+    <RewardGlow active={isReward}>
+      <SimpleCardOwned
+        card={card}
+        quantity={quantity}
+        onPress={onPress}
+        isVariant={isVariant}
+        isReward={isReward}
+        cardFlipPlay={cardFlipPlay}
+      />
+    </RewardGlow>
   );
 });
 SimpleCard.displayName = 'SimpleCard';
+
+// Pulsing gold halo that wraps any "reward" card (series-completion rares).
+// Why a separate component?
+//   * Allows native-driver opacity animation on Android (true glow shadows
+//     don't animate on Android — only `elevation`, which can't be smoothly
+//     interpolated). The halo View pulses cheaply via opacity instead.
+//   * Single Animated.Value per wrapper instance keeps the animation
+//     independent across cards but avoids re-rendering the whole component.
+// Only ~6 reward cards exist in the catalog, so the animation cost is
+// negligible.
+const RewardGlow: React.FC<{ active: boolean; children: React.ReactNode }> = ({ active, children }) => {
+  const pulse = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!active) return;
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, { toValue: 1, duration: 1100, useNativeDriver: true }),
+        Animated.timing(pulse, { toValue: 0, duration: 1100, useNativeDriver: true }),
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [active, pulse]);
+
+  if (!active) return <>{children}</>;
+
+  const haloOpacity = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0.95] });
+  const haloScale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.04] });
+
+  return (
+    <View style={styles.rewardGlowWrap}>
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.rewardGlowHalo,
+          { opacity: haloOpacity, transform: [{ scale: haloScale }] },
+        ]}
+      />
+      {children}
+    </View>
+  );
+};
+RewardGlow.displayName = 'RewardGlow';
 
 // Owned-card subcomponent. Long-press flips the thumbnail in place via a
 // single animation value; single tap opens the detail modal.
@@ -1262,6 +1310,30 @@ const styles = StyleSheet.create({
   variantCardBorder: {
     borderWidth: 2,
     borderColor: '#9C27B0',
+  },
+  // Wrapper around reward cards so the pulsing halo (rewardGlowHalo) can
+  // sit absolutely behind the card without disturbing the grid layout.
+  rewardGlowWrap: {
+    position: 'relative',
+  },
+  // The pulsing gold "aura" rendered behind reward cards. Slightly larger
+  // than the card via negative inset so the gold ring peeks out on every
+  // edge as it pulses. Animated through opacity/scale only (native driver).
+  rewardGlowHalo: {
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    right: -6,
+    bottom: -6,
+    borderRadius: 14,
+    backgroundColor: '#FFD700',
+    // Falls back gracefully on Android — the colored fill is the glow.
+    shadowColor: '#FFD700',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 12,
+    elevation: 0,
+    zIndex: -1,
   },
   rewardCardBorder: {
     borderWidth: 3,
