@@ -619,6 +619,11 @@ CARD_IMAGE_URLS = {
     "messy_pintado_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tp9nivly_enhanced-1777942768452.jpg",
     "messy_pintado_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0r7pqv1i_enhanced-1777942718894.jpg",
     "messy_pintado_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/r4c4m6o7_enhanced-1777942623471.jpg",
+    # Jesse Piñata Variants
+    "jesse_pinata_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gtg9oim6_file_00000000faa871f79faa3ae86ddf6b41.png",
+    "jesse_pinata_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p1aedg85_Screenshot_20260505_094740_ChatGPT.png",
+    "jesse_pinata_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ayhqi1du_enhanced-1778017744707.jpg",
+    "jesse_pinata_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zymkkw94_enhanced-1778017943713.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -8674,6 +8679,71 @@ INITIAL_CARDS = [
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_messy_pintado",
+        "variant_name": "Melted"
+    },
+    # ---- Jesse Piñata variants (Series 7 / Grind Edition) ----
+    {
+        "id": "card_jesse_pinata_blacklight",
+        "name": "Jesse Piñata (Blacklight)",
+        "description": "Glowing under blacklight, dripping in neon chaos. Jesse Piñata erupts in technicolor noise that paints the pit in poison-bright hues.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["jesse_pinata_blacklight"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_blacklight"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_jesse_pinata",
+        "variant_name": "Blacklight"
+    },
+    {
+        "id": "card_jesse_pinata_chrome",
+        "name": "Jesse Piñata (Chrome)",
+        "description": "Polished to a brutal shine. Jesse Piñata reflects every riff and rejects every break -- a chrome-plated explosion of grindcore mayhem.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["jesse_pinata_chrome"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_chrome"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_jesse_pinata",
+        "variant_name": "Chrome"
+    },
+    {
+        "id": "card_jesse_pinata_digital",
+        "name": "Jesse Piñata (Digital)",
+        "description": "Pixelated and processed. Jesse Piñata glitches through the speakers in 8-bit fury -- corrupted data, candy-coated carnage.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["jesse_pinata_digital"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_digital"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_jesse_pinata",
+        "variant_name": "Digital"
+    },
+    {
+        "id": "card_jesse_pinata_melted",
+        "name": "Jesse Piñata (Melted)",
+        "description": "Dripping in heat and hatred. Jesse Piñata oozes through the pit, leaving sticky destruction in the wake of every breakdown.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["jesse_pinata_melted"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_melted"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_jesse_pinata",
         "variant_name": "Melted"
     },
 ]
