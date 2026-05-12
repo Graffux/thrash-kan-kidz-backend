@@ -653,6 +653,11 @@ CARD_IMAGE_URLS = {
     "shane_emery_board_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uceyh7xv_Screenshot_20260507_060400_ChatGPT.png",
     "shane_emery_board_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/oyretk86_Screenshot_20260507_095534_ChatGPT.png",
     "shane_emery_board_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wpz48rcy_Screenshot_20260507_100246_ChatGPT.png",
+    "shane_embryo": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7nsxkdau_enhanced-1778150126827.jpg",
+    "shane_embryo_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6taaukox_Screenshot_20260507_095243_ChatGPT.png",
+    "shane_embryo_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hgsl2r5h_Screenshot_20260507_060617_ChatGPT.png",
+    "shane_embryo_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k11ob3cc_Screenshot_20260507_095634_ChatGPT.png",
+    "shane_embryo_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t11wyd6h_Screenshot_20260507_100228_ChatGPT.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -952,6 +957,7 @@ CARD_BACK_IMAGE_URLS = {
     "meth_putnam": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e0omjq5w_enhanced-1778125585319.jpg",
     # Band 4: Foreseen Terror
     "shane_emery_board": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kx0c8zlm_enhanced-1778150418272.jpg",
+    "shane_embryo": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u07kuxxm_enhanced-1778150387091.jpg",
     # Universal Series 7 (Grind Edition) variant backs — shared across ALL
     # Series 7 variant cards, same way Series 6 has stormy/decayed/etc backs.
     "variant_back_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fl4sjpqj_enhanced-1777972963939.jpg",
@@ -9181,6 +9187,85 @@ INITIAL_CARDS = [
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_shane_emery_board",
+        "variant_name": "Melted"
+    },
+    # ---- Shane Embryo (Foreseen Terror) ----
+    {
+        "id": "card_shane_embryo",
+        "name": "Shane Embryo",
+        "description": "Born in Mosh Pit Maternity. Due date: NEVER. Shane was conceived in a cloud of distortion and caffeine. While other embryos listened to lullabies, Shane headbanged to blast beats and practiced scales on his bass cord. \"Still in utero. Still under heavy.\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["shane_embryo"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["shane_embryo"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Foreseen Terror",
+        "card_type": "B"
+    },
+    # ---- Shane Embryo variants (Series 7 / Grind Edition) ----
+    {
+        "id": "card_shane_embryo_blacklight",
+        "name": "Shane Embryo (Blacklight)",
+        "description": "Glowing under UV in his Mosh Pit Maternity tank. Shane Embryo blasts neon death-metal blast beats through the umbilical cable -- a radioactive womb-shredding nightmare.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["shane_embryo_blacklight"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_blacklight"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Foreseen Terror",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_shane_embryo",
+        "variant_name": "Blacklight"
+    },
+    {
+        "id": "card_shane_embryo_chrome",
+        "name": "Shane Embryo (Chrome)",
+        "description": "Mirror-polished, gestating in chrome. Shane Embryo reflects every blast beat back at the doctor's face -- a shining biomechanical bass machine refusing to be born.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["shane_embryo_chrome"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_chrome"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Foreseen Terror",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_shane_embryo",
+        "variant_name": "Chrome"
+    },
+    {
+        "id": "card_shane_embryo_digital",
+        "name": "Shane Embryo (Digital)",
+        "description": "INSERT BLOOD COIN. 8-bit fetus shredding through the womb-arcade. BPM 222. Hi-score: 666,666. Still in utero. Still under heavy. Still 1-UP.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["shane_embryo_digital"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_digital"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Foreseen Terror",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_shane_embryo",
+        "variant_name": "Digital"
+    },
+    {
+        "id": "card_shane_embryo_melted",
+        "name": "Shane Embryo (Melted)",
+        "description": "The tank ruptures. The amniotic sludge floods the stage. Shane Embryo dissolves into a puddle of bass-cord and biological mayhem -- the most disturbing breakdown ever recorded.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["shane_embryo_melted"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_melted"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Foreseen Terror",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_shane_embryo",
         "variant_name": "Melted"
     },
 ]
