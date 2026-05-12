@@ -1006,6 +1006,11 @@ VARIANT_SCRATCH_COVERS = {
     "metal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p8puo6v0_enhanced-1778621509302.jpg",
     "steampunk": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/w6o0u6hu_enhanced-1778621675769.jpg",
     "glitched": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i85dlvpo_enhanced-1778621711710.jpg",
+    # Series 4 variants
+    "skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jylysfxz_Screenshot_20260512_163659_ChatGPT.png",
+    "oceanic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qefnpxa5_enhanced-1778621986152.jpg",
+    "diamond": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ljstnfid_Screenshot_20260512_164233_ChatGPT.png",
+    "stoned": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ugyx2xxn_enhanced-1778622531791.jpg",
 }
 
 INITIAL_CARDS = [
