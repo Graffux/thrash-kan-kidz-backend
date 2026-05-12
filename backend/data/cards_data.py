@@ -608,6 +608,12 @@ CARD_IMAGE_URLS = {
     "frantic_howler_decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t0c7wbuf_file_00000000747871fd9d6fd6e5345555ab.png",
     "frantic_howler_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/g5lvw0r1_file_00000000b7c871f89b0969e869668549.png",
     "frantic_howler_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/exv5qso2_file_00000000b80c71fd923353c8e7053779.png",
+    # =====================
+    # SERIES 7 — Grind Edition
+    # =====================
+    # Band 1: Napalm Breath  (parody of Napalm Death)
+    "messy_pintado": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/l5mbvoy8_enhanced-1777938677399.jpg",
+    "jesse_pinata": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/d42b0i0e_enhanced-1777974009105.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -893,6 +899,12 @@ CARD_BACK_IMAGE_URLS = {
     # Band 8: Succubus
     "moses_howler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6dbgtw1e_enhanced-1777692377435.jpg",
     "frantic_howler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/64mavwcx_enhanced-1777693007678.jpg",
+    # =====================
+    # SERIES 7 — Grind Edition
+    # =====================
+    # Band 1: Napalm Breath
+    "messy_pintado": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jwv591rv_enhanced-1777939259003.jpg",
+    "jesse_pinata": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wllrrzjo_enhanced-1777985209049.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -8555,5 +8567,36 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_frantic_howler",
         "variant_name": "Vintage"
+    },
+    # =====================
+    # SERIES 7 — Grind Edition  (cards stay hidden until Sun May 17 @ 12:00 AM CDT,
+    # gated server-side by series_config.is_series_released)
+    # =====================
+    # Band 1: Napalm Breath  (parody of Napalm Death)
+    {
+        "id": "card_messy_pintado",
+        "name": "Messy Pintado",
+        "description": "Special Ability: GRIND SPLATTER -- unleashes a blast of sludge and sonic chaos that strips opponents of visibility AND dignity. NOISE IS MY RELIGION.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["messy_pintado"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["messy_pintado"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "A"
+    },
+    {
+        "id": "card_jesse_pinata",
+        "name": "Jesse Piñata",
+        "description": "Stuffed with noise. Packed with chaos. Jesse Piñata explodes with rife shreds, crushing bass and sweet sweet destruction. You can't break him -- you can only hope to survive the candy-coated carnage.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["jesse_pinata"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["jesse_pinata"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Napalm Breath",
+        "card_type": "B"
     },
 ]
