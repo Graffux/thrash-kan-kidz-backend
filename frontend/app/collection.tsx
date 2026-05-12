@@ -72,12 +72,13 @@ const SimpleCard = React.memo(({
 }) => {
   const isVariant = !!card.base_card_id;
   const isReward = card.rarity === 'rare' || card.rarity === 'epic';
+  const rewardColor = card.rarity === 'epic' ? '#FF2A2A' : '#FFD700';
 
   // If not owned, show mystery card
   if (!isOwned) {
     return (
-      <RewardGlow active={isReward}>
-        <View style={[styles.cardContainer, styles.mysteryCard, isReward && styles.rewardCardBorder]}>
+      <RewardGlow active={isReward} color={rewardColor}>
+        <View style={[styles.cardContainer, styles.mysteryCard, isReward && { borderWidth: 3, borderColor: rewardColor }]}>
           <ExpoImage
             source={{ uri: MYSTERY_CARD_IMAGE }}
             style={styles.cardImage}
@@ -90,8 +91,8 @@ const SimpleCard = React.memo(({
             <Text style={styles.mysteryText}>?</Text>
           </View>
           {isReward && (
-            <View style={styles.rewardBadge}>
-              <Text style={styles.rewardBadgeText}>REWARD</Text>
+            <View style={[styles.rewardBadge, { backgroundColor: rewardColor }]}>
+              <Text style={[styles.rewardBadgeText, card.rarity === 'epic' && { color: '#fff' }]}>REWARD</Text>
             </View>
           )}
         </View>
@@ -100,7 +101,7 @@ const SimpleCard = React.memo(({
   }
 
   return (
-    <RewardGlow active={isReward}>
+    <RewardGlow active={isReward} color={rewardColor}>
       <SimpleCardOwned
         card={card}
         quantity={quantity}
@@ -114,16 +115,17 @@ const SimpleCard = React.memo(({
 });
 SimpleCard.displayName = 'SimpleCard';
 
-// Pulsing gold halo that wraps any "reward" card (series-completion rares).
+// Pulsing halo that wraps any "reward" card (series-completion rares/epics).
+// Color is rarity-aware: gold (#FFD700) for `rare`, red (#FF2A2A) for `epic`.
 // Why a separate component?
 //   * Allows native-driver opacity animation on Android (true glow shadows
 //     don't animate on Android — only `elevation`, which can't be smoothly
 //     interpolated). The halo View pulses cheaply via opacity instead.
 //   * Single Animated.Value per wrapper instance keeps the animation
 //     independent across cards but avoids re-rendering the whole component.
-// Only ~6 reward cards exist in the catalog, so the animation cost is
+// Only ~7 reward cards exist in the catalog, so the animation cost is
 // negligible.
-const RewardGlow: React.FC<{ active: boolean; children: React.ReactNode }> = ({ active, children }) => {
+const RewardGlow: React.FC<{ active: boolean; color?: string; children: React.ReactNode }> = ({ active, color = '#FFD700', children }) => {
   const pulse = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -149,7 +151,7 @@ const RewardGlow: React.FC<{ active: boolean; children: React.ReactNode }> = ({ 
         pointerEvents="none"
         style={[
           styles.rewardGlowHalo,
-          { opacity: haloOpacity, transform: [{ scale: haloScale }] },
+          { backgroundColor: color, shadowColor: color, opacity: haloOpacity, transform: [{ scale: haloScale }] },
         ]}
       />
       {children}
@@ -214,7 +216,11 @@ const SimpleCardOwned = React.memo(({
       onPress={onPress}
       onLongPress={flip}
       delayLongPress={250}
-      style={[styles.cardContainer, isVariant && styles.variantCardBorder, isReward && styles.rewardCardBorder]}
+      style={[
+        styles.cardContainer,
+        isVariant && styles.variantCardBorder,
+        isReward && { borderWidth: 3, borderColor: card.rarity === 'epic' ? '#FF2A2A' : '#FFD700' },
+      ]}
       data-testid={`grid-card-${card.id}`}
     >
       <Animated.View
