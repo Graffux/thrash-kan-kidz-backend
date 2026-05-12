@@ -658,6 +658,8 @@ CARD_IMAGE_URLS = {
     "shane_embryo_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hgsl2r5h_Screenshot_20260507_060617_ChatGPT.png",
     "shane_embryo_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k11ob3cc_Screenshot_20260507_095634_ChatGPT.png",
     "shane_embryo_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t11wyd6h_Screenshot_20260507_100228_ChatGPT.png",
+    # Series 7 Rare Reward (epic)
+    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -964,6 +966,8 @@ CARD_BACK_IMAGE_URLS = {
     "variant_back_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4xtenwkt_enhanced-1777973266535.jpg",
     "variant_back_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rwqpqj2r_enhanced-1777973091465.jpg",
     "variant_back_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9rtg9pzl_enhanced-1777973441663.jpg",
+    # Series 7 Rare Reward (epic)
+    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
@@ -972,7 +976,8 @@ RARE_CARD_ACHIEVEMENTS = {
     "card_strap_on_taylor": {"required_cards": 32, "name": "Strap-On Taylor"},  # Complete Series 2
     "card_martin_generic_aint": {"required_cards": 48, "name": "Martin Generic Ain't"},  # Complete Series 3
     "card_sean_kill_again": {"required_cards": 80, "name": "Sean Kill-Again"},  # Complete Series 5
-    "card_nicklebag_darrell": {"required_cards": 96, "name": "Nicklebag Darrell"}  # Complete Series 6
+    "card_nicklebag_darrell": {"required_cards": 96, "name": "Nicklebag Darrell"},  # Complete Series 6
+    "card_alien_dubin": {"required_cards": 112, "name": "Alien Dubin"}  # Complete Series 7
 }
 
 INITIAL_CARDS = [
@@ -3789,6 +3794,22 @@ INITIAL_CARDS = [
         "achievement_required": 96,
         "series_reward": 6,
         "band": "Panterror"
+    },
+    # =====================
+    # EPIC CARD - Series 7 completion reward (Grind Edition)
+    # =====================
+    {
+        "id": "card_alien_dubin",
+        "name": "Alien Dubin",
+        "description": "Origin: Somewhere Past Wrong Way. Special Move: ABDUCT & SWERVE -- randomly hits all lanes. Weak against seatbelts and left turns. Fueled by Java and bad decisions, Alien Dubin tears through the galactic grind in a slime-soaked Cadillac. \"I don't need a map... I have INSTINCTS!\"",
+        "rarity": "epic",
+        "front_image_url": CARD_IMAGE_URLS["alien_dubin"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["alien_dubin"],
+        "coin_cost": 150,
+        "available": False,
+        "achievement_required": 112,
+        "series_reward": 7,
+        "band": "Old Lazy Drivers"
     },
     # =====================
     # SERIES 3 VARIANTS (16 base cards × 4 variants = 64 cards)
