@@ -630,6 +630,12 @@ CARD_IMAGE_URLS = {
     "hellhound_jeff_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fgtdh378_enhanced-1778023255658.jpg",
     "hellhound_jeff_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sgc54p2w_enhanced-1778023520939.jpg",
     "hellhound_jeff_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7wywv19v_Screenshot_20260505_184828_ChatGPT.png",
+    # Hellbound Chef (Band 2: Cheese Grater Mutilation)
+    "hellbound_chef": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/nrcrj7g9_enhanced-1778028474398.jpg",
+    "hellbound_chef_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kd9ybp8v_Screenshot_20260506_043506_ChatGPT.png",
+    "hellbound_chef_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/938ood8q_Screenshot_20260506_084025_ChatGPT.png",
+    "hellbound_chef_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/13sbqsn9_Screenshot_20260506_142422_ChatGPT.png",
+    "hellbound_chef_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dx0r1f1k_enhanced-1778098171399.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -921,6 +927,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 1: Napalm Breath
     "messy_pintado": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jwv591rv_enhanced-1777939259003.jpg",
     "jesse_pinata": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wllrrzjo_enhanced-1777985209049.jpg",
+    # Band 2: Cheese Grater Mutilation
+    "hellhound_jeff": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bn1g82g3_enhanced-1778021681572.jpg",
+    "hellbound_chef": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0yjdk2ex_enhanced-1778059749015.jpg",
     # Universal Series 7 (Grind Edition) variant backs — shared across ALL
     # Series 7 variant cards, same way Series 6 has stormy/decayed/etc backs.
     "variant_back_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fl4sjpqj_enhanced-1777972963939.jpg",
@@ -8750,6 +8759,165 @@ INITIAL_CARDS = [
         "card_type": "B",
         "is_variant": True,
         "base_card_id": "card_jesse_pinata",
+        "variant_name": "Melted"
+    },
+    # =============================================================
+    # Band 2: Cheese Grater Mutilation  (parody of Cattle Decapitation)
+    # =============================================================
+    {
+        "id": "card_hellhound_jeff",
+        "name": "Hellhound Jeff",
+        "description": "Once a man. Now a hellhound. His bark tears flesh. His roar summons chaos. Leashed to the grind, Hellhound Jeff leads the pack into total aural annihilation.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellhound_jeff"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["hellhound_jeff"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "A"
+    },
+    {
+        "id": "card_hellbound_chef",
+        "name": "Hellbound Chef",
+        "description": "Once a kitchen legend... now he cooks where the ovens never cool. Hellbound Chef unleashes a molten cheese storm, shredding enemies into greasy oblivion.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellbound_chef"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["hellbound_chef"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "B"
+    },
+    # ---- Hellhound Jeff variants (Series 7 / Grind Edition) ----
+    {
+        "id": "card_hellhound_jeff_blacklight",
+        "name": "Hellhound Jeff (Blacklight)",
+        "description": "Bathed in neon poison. Hellhound Jeff howls under blacklight, his fangs glowing toxic green as the pit dissolves into kaleidoscopic carnage.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellhound_jeff_blacklight"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_blacklight"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_hellhound_jeff",
+        "variant_name": "Blacklight"
+    },
+    {
+        "id": "card_hellhound_jeff_chrome",
+        "name": "Hellhound Jeff (Chrome)",
+        "description": "Forged in molten steel. Hellhound Jeff snarls in mirror-polished menace, every fang a chrome dagger reflecting the inferno that birthed him.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellhound_jeff_chrome"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_chrome"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_hellhound_jeff",
+        "variant_name": "Chrome"
+    },
+    {
+        "id": "card_hellhound_jeff_digital",
+        "name": "Hellhound Jeff (Digital)",
+        "description": "Glitched, corrupted, broadcasting from a dead frequency. Hellhound Jeff bleeds through the screen in 8-bit fury -- a digital demon dog of the grind.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellhound_jeff_digital"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_digital"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_hellhound_jeff",
+        "variant_name": "Digital"
+    },
+    {
+        "id": "card_hellhound_jeff_melted",
+        "name": "Hellhound Jeff (Melted)",
+        "description": "Skin sloughing, fur fused with molten cheese. Hellhound Jeff drips through the pit in a slow-motion massacre of bubbling, blistering brutality.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellhound_jeff_melted"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_melted"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_hellhound_jeff",
+        "variant_name": "Melted"
+    },
+    # ---- Hellbound Chef variants (Series 7 / Grind Edition) ----
+    {
+        "id": "card_hellbound_chef_blacklight",
+        "name": "Hellbound Chef (Blacklight)",
+        "description": "Cooking under blacklight, his molten cheese glowing radioactive green. Hellbound Chef serves up a neon nightmare of toxic shred and greasy ruin.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellbound_chef_blacklight"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_blacklight"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hellbound_chef",
+        "variant_name": "Blacklight"
+    },
+    {
+        "id": "card_hellbound_chef_chrome",
+        "name": "Hellbound Chef (Chrome)",
+        "description": "Cleaver polished, grater gleaming. Hellbound Chef returns in chrome-plated fury, every shred reflecting the hellfire of a kitchen that never closes.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellbound_chef_chrome"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_chrome"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hellbound_chef",
+        "variant_name": "Chrome"
+    },
+    {
+        "id": "card_hellbound_chef_digital",
+        "name": "Hellbound Chef (Digital)",
+        "description": "Pixelated, broadcast from a haunted feed. Hellbound Chef shreds through the static -- a glitched-out gourmet of grind and gore.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellbound_chef_digital"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_digital"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hellbound_chef",
+        "variant_name": "Digital"
+    },
+    {
+        "id": "card_hellbound_chef_melted",
+        "name": "Hellbound Chef (Melted)",
+        "description": "Apron sticky with sin. Hellbound Chef drips through the pit in a cascade of molten cheese and blood -- the special of the day is suffering.",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["hellbound_chef_melted"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_melted"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Cheese Grater Mutilation",
+        "card_type": "B",
+        "is_variant": True,
+        "base_card_id": "card_hellbound_chef",
         "variant_name": "Melted"
     },
 ]
