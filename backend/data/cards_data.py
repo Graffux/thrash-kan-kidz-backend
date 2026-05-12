@@ -1001,6 +1001,11 @@ VARIANT_SCRATCH_COVERS = {
     "ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k9n4b8l7_enhanced-1778620706815.jpg",
     "psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1sv2owr3_enhanced-1778620911657.jpg",
     "biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3bu3dwjk_enhanced-1778621043740.jpg",
+    # Series 3 variants
+    "organic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rrqnyogs_enhanced-1778621342224.jpg",
+    "metal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p8puo6v0_enhanced-1778621509302.jpg",
+    "steampunk": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/w6o0u6hu_enhanced-1778621675769.jpg",
+    "glitched": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i85dlvpo_enhanced-1778621711710.jpg",
 }
 
 INITIAL_CARDS = [
