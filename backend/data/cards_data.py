@@ -1016,6 +1016,11 @@ VARIANT_SCRATCH_COVERS = {
     "magma": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uxicwvfb_enhanced-1778622952450.jpg",
     "cheesy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uvwsl2nj_enhanced-1778623120783.jpg",
     "mutant": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pukru9g4_enhanced-1778623242757.jpg",
+    # Series 6 variants
+    "stormy": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qx0ck5xv_enhanced-1778623282706.jpg",
+    "decayed": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lvk3dvr8_enhanced-1778623452663.jpg",
+    "camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jmsp4s73_enhanced-1778623528100.jpg",
+    "vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hr43pbb1_enhanced-1778623671425.jpg",
 }
 
 INITIAL_CARDS = [
