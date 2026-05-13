@@ -13,6 +13,11 @@ on:
   push:
     branches:
       - main
+    # Only fire when backend code (or this workflow itself) changes.
+    # Frontend-only commits don't need to redeploy Render.
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-render.yml'
 
 # Only one deploy at a time. If another push arrives mid-run, cancel
 # the in-flight one so the freshest commit wins.
