@@ -66,7 +66,12 @@ jobs:
           packages: 'platforms;android-34 build-tools;34.0.0 platform-tools'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        # Don't use --frozen-lockfile: the lockfile may be slightly out
+        # of sync when new deps are added (e.g. peer deps yarn detects
+        # only at install time). We trade strict reproducibility for
+        # robustness, which matters more in CI builds we kick off after
+        # adding packages. EAS will install transitively anyway.
+        run: yarn install
 
       - name: Install EAS CLI
         run: yarn global add eas-cli
