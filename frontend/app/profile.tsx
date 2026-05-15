@@ -19,6 +19,7 @@ import { useApp } from '../src/context/AppContext';
 import Constants from 'expo-constants';
 import { Switch } from 'react-native';
 import { useSoundSettings, setSfxEnabled, setMusicEnabled } from '../src/utils/sounds';
+import { RankCrest } from '../src/components/RankCrest';
 
 const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
@@ -146,6 +147,7 @@ export default function ProfileScreen() {
             <Text style={styles.avatarEmoji}>🤘</Text>
           </View>
           <Text style={styles.username}>{user.username}</Text>
+          <RankCrest rank={user.rank} size="lg" showLabel />
           <Text style={styles.memberSince}>Member since {memberSince}</Text>
         </View>
 

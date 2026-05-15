@@ -20,6 +20,7 @@ import { useSoundPlayer } from '../src/utils/sounds';
 import { DailyWheelModal } from '../src/components/DailyWheelModal';
 import { CardPickerModal } from '../src/components/CardPickerModal';
 import MascotSplash from '../src/components/MascotSplash';
+import { RankCrest } from '../src/components/RankCrest';
 
 export default function HomeScreen() {
   const { user, loading, login, logout, claimDailyLogin, userCards, refreshData, apiUrl } = useApp();
@@ -264,7 +265,10 @@ export default function HomeScreen() {
         <View style={styles.header}>
           <View>
             <Text style={styles.welcomeText}>Welcome back,</Text>
-            <Text style={styles.usernameText}>{user.username}!</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Text style={styles.usernameText}>{user.username}!</Text>
+              <RankCrest rank={user.rank} size="sm" />
+            </View>
           </View>
           <TouchableOpacity onPress={logout} style={styles.logoutButton}>
             <Ionicons name="log-out-outline" size={24} color="#FF4500" />

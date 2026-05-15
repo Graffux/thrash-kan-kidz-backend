@@ -24,6 +24,12 @@ interface User {
   medals?: number;
   free_packs?: number;
   series_milestone_claimed?: number[];
+  rank?: {
+    id: string;
+    name: string;
+    crest_url: string;
+    min_series_cleared: number;
+  } | null;
 }
 
 interface Card {

@@ -204,6 +204,7 @@ from series_config import (  # noqa: E402
     init_overrides as init_series_overrides,
     persist_release_date as persist_series_release_date,
 )
+from data.ranks import RANKS, compute_user_rank  # noqa: E402
 
 class CoinPurchaseRequest(BaseModel):
     user_id: str
@@ -1083,6 +1084,7 @@ async def search_users_route(query: str = "", code: str = ""):
                 "$or": [{"user_id": user["id"]}, {"friend_id": user["id"]}]
             })
             user["friend_count"] = friend_count
+            user["rank"] = compute_user_rank(user.get("completed_series", []))
             return {"users": [user]}
         return {"users": []}
     
@@ -1096,6 +1098,7 @@ async def search_users_route(query: str = "", code: str = ""):
                 "$or": [{"user_id": u["id"]}, {"friend_id": u["id"]}]
             })
             u["friend_count"] = friend_count
+            u["rank"] = compute_user_rank(u.get("completed_series", []))
         return {"users": users}
     
     return {"users": []}
@@ -1118,6 +1121,7 @@ async def get_recently_active_users(user_id: str = ""):
             "$or": [{"user_id": u["id"]}, {"friend_id": u["id"]}]
         })
         u["friend_count"] = friend_count
+        u["rank"] = compute_user_rank(u.get("completed_series", []))
         if user_id:
             is_friend = await db.friends.find_one({
                 "$or": [
@@ -1157,11 +1161,17 @@ async def get_user(user_id: str):
     user_data['friend_code'] = user.get('friend_code', '')
     user_data['medals'] = user.get('medals', 0)
     user_data['free_packs'] = user.get('free_packs', 0)
+    user_data['rank'] = compute_user_rank(user_data.get('completed_series', []))
     friend_count = await db.friends.count_documents({
         "$or": [{"user_id": user_id}, {"friend_id": user_id}]
     })
     user_data['friend_count'] = friend_count
     return user_data
+
+@api_router.get("/ranks")
+async def list_ranks():
+    """Return the full ladder of ranks (for the rank-progress UI)."""
+    return {"ranks": RANKS}
 
 # =====================
 # Authentication

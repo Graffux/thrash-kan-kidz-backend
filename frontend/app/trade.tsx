@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import { useApp } from '../src/context/AppContext';
+import { RankCrest } from '../src/components/RankCrest';
 
 const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
@@ -406,7 +407,10 @@ export default function TradeScreen() {
               <View key={u.id} style={styles.searchResultItem}>
                 <Ionicons name="person-circle" size={36} color="#888" />
                 <View style={styles.searchResultInfo}>
-                  <Text style={styles.searchResultName}>{u.username}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <Text style={styles.searchResultName}>{u.username}</Text>
+                    <RankCrest rank={u.rank} size="sm" />
+                  </View>
                   <Text style={styles.searchResultMeta}>{u.friend_count || 0} friends</Text>
                 </View>
                 {isFriend(u.id) ? (
@@ -436,7 +440,10 @@ export default function TradeScreen() {
                     <Ionicons name="person-circle" size={36} color="#4CAF50" />
                   </View>
                   <View style={styles.searchResultInfo}>
-                    <Text style={styles.searchResultName}>{u.username}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                      <Text style={styles.searchResultName}>{u.username}</Text>
+                      <RankCrest rank={u.rank} size="sm" />
+                    </View>
                     <Text style={styles.searchResultMeta}>{u.friend_count || 0} friends</Text>
                   </View>
                   {u.is_friend ? (
