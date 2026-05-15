@@ -58,9 +58,15 @@ RANKS = [
         "crest_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6v5n4izm_enhanced-1778804123764.jpg",
     },
     {
+        "id": "stage_diver",
+        "name": "Stage Diver",
+        "min_series_cleared": 7,
+        "crest_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ptf2uixl_enhanced-1778838674063.jpg",
+    },
+    {
         "id": "thrash_maniac",
         "name": "Thrash Maniac",
-        "min_series_cleared": 7,
+        "min_series_cleared": 8,
         "crest_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4mpm4tbo_enhanced-1778792207655.jpg",
     },
 ]
