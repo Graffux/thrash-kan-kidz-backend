@@ -205,6 +205,7 @@ from series_config import (  # noqa: E402
     persist_release_date as persist_series_release_date,
 )
 from data.ranks import RANKS, compute_user_rank  # noqa: E402
+from data.badges import BADGES, COND_SERIES_BASE_COMPLETE, COND_LOGIN_STREAK, COND_TRADES_ACCEPTED, COND_VARIANTS_OWNED, COND_CREATED_BEFORE_SERIES, COND_OWN_ANY_CARD, COND_TOTAL_SPENT, COND_FRIEND_COUNT, COND_OWN_SPECIFIC_CARD  # noqa: E402
 
 class CoinPurchaseRequest(BaseModel):
     user_id: str
@@ -1172,6 +1173,109 @@ async def get_user(user_id: str):
 async def list_ranks():
     """Return the full ladder of ranks (for the rank-progress UI)."""
     return {"ranks": RANKS}
+
+
+async def _evaluate_badge(badge: dict, user: dict) -> bool:
+    """Return True if the given user currently satisfies the badge condition."""
+    ct = badge["condition_type"]
+    p = badge.get("condition_params", {}) or {}
+    user_id = user["id"]
+
+    if ct == COND_LOGIN_STREAK:
+        return user.get("daily_login_streak", 0) >= p.get("min", 0)
+
+    if ct == COND_TOTAL_SPENT:
+        return user.get("total_spent_coins", 0) >= p.get("min", 0)
+
+    if ct == COND_TRADES_ACCEPTED:
+        count = await db.trades.count_documents({
+            "status": "accepted",
+            "$or": [{"from_user_id": user_id}, {"to_user_id": user_id}],
+        })
+        return count >= p.get("min", 0)
+
+    if ct == COND_FRIEND_COUNT:
+        count = await db.friends.count_documents({
+            "$or": [{"user_id": user_id}, {"friend_id": user_id}]
+        })
+        return count >= p.get("min", 0)
+
+    if ct == COND_OWN_ANY_CARD:
+        return await db.user_cards.find_one({"user_id": user_id}) is not None
+
+    if ct == COND_OWN_SPECIFIC_CARD:
+        return await db.user_cards.find_one({
+            "user_id": user_id,
+            "card_id": p.get("card_id"),
+        }) is not None
+
+    if ct == COND_VARIANTS_OWNED:
+        # Count distinct variant cards the user owns.
+        variant_card_ids = await db.cards.distinct("id", {"is_variant": True})
+        if not variant_card_ids:
+            return False
+        owned = await db.user_cards.count_documents({
+            "user_id": user_id,
+            "card_id": {"$in": variant_card_ids},
+        })
+        return owned >= p.get("min", 0)
+
+    if ct == COND_SERIES_BASE_COMPLETE:
+        series_num = p.get("series_num")
+        # Series 7 stores band cards with rarity "rare"/"epic" plus the reward
+        # — we only count base band cards (not variants, not the rare reward).
+        base_card_ids = await db.cards.distinct("id", {
+            "series": series_num,
+            "is_variant": {"$ne": True},
+            "series_reward": None,
+        })
+        if not base_card_ids:
+            return False
+        owned = await db.user_cards.count_documents({
+            "user_id": user_id,
+            "card_id": {"$in": base_card_ids},
+        })
+        return owned >= len(base_card_ids)
+
+    if ct == COND_CREATED_BEFORE_SERIES:
+        cutoff = get_release_date(p.get("series_num"))
+        if cutoff is None:
+            return False
+        created = user.get("created_at")
+        if isinstance(created, str):
+            try:
+                created = datetime.fromisoformat(created.replace("Z", "+00:00"))
+            except ValueError:
+                return False
+        if created is None:
+            return False
+        # Normalize tz so naive datetimes don't crash the comparison.
+        if created.tzinfo is None and cutoff.tzinfo is not None:
+            created = created.replace(tzinfo=cutoff.tzinfo)
+        elif cutoff.tzinfo is None and created.tzinfo is not None:
+            cutoff = cutoff.replace(tzinfo=created.tzinfo)
+        return created < cutoff
+
+    return False
+
+
+@api_router.get("/badges")
+async def list_badges():
+    """Return all badge definitions (icons, descriptions) — no per-user state."""
+    return {"badges": BADGES}
+
+
+@api_router.get("/users/{user_id}/badges")
+async def get_user_badges(user_id: str):
+    """Return every badge with an `earned` flag for this user."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    result = []
+    for badge in BADGES:
+        earned = await _evaluate_badge(badge, user)
+        result.append({**badge, "earned": earned})
+    return {"badges": result, "earned_count": sum(1 for b in result if b["earned"])}
 
 # =====================
 # Authentication

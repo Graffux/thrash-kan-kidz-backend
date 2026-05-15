@@ -20,6 +20,7 @@ import Constants from 'expo-constants';
 import { Switch } from 'react-native';
 import { useSoundSettings, setSfxEnabled, setMusicEnabled } from '../src/utils/sounds';
 import { RankCrest } from '../src/components/RankCrest';
+import { BadgeCabinet } from '../src/components/BadgeCabinet';
 
 const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
@@ -246,6 +247,9 @@ export default function ProfileScreen() {
             </Text>
           </View>
         </View>
+
+        {/* Badge Cabinet */}
+        <BadgeCabinet userId={user.id} apiUrl={apiUrl} />
 
         {/* Bio Section */}
         <View style={styles.bioSection}>
