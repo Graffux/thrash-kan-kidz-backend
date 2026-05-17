@@ -153,6 +153,7 @@ export default function ShopScreen() {
     4: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rgut5wkf_file_00000000c08471f7b19a3eca347c7b62.png',
     5: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jo0a1vaf_file_00000000eb2c71f58adeb4fa7008890f.png',
     6: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y80vb5a4_enhanced-1777473438266.jpg',
+    7: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3rs03ne2_Screenshot_20260517_032245_ChatGPT.png',
   };
   
   // Get current pack cover based on user's current series - recalculates when spinPool changes
