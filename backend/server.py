@@ -3889,6 +3889,36 @@ async def startup_event():
             reward_grants += 1
     if reward_grants:
         logger.info(f"Series-reward backfill: granted {reward_grants} missing reward(s)")
+
+    # Epic-achievement backfill: historically the shop-unlock query only matched
+    # `rarity: "rare"`, so epic cards with `achievement_required` (Sean
+    # Kill-Again, Martin Generic Ain't, Nicklebag Darrell, Alien Dubin) never
+    # unlocked despite players hitting the card-count threshold. Backfill any
+    # qualifying users here so they don't have to wait for their next pack open.
+    epic_unlock_grants = 0
+    epic_achievement_cards = await db.cards.find(
+        {"rarity": "epic", "achievement_required": {"$ne": None}},
+        {"_id": 0, "id": 1, "name": 1, "achievement_required": 1},
+    ).to_list(50)
+    if epic_achievement_cards:
+        # Per-user total card count, including duplicates.
+        user_totals = await db.user_cards.aggregate([
+            {"$group": {"_id": "$user_id", "total": {"$sum": "$quantity"}}},
+        ]).to_list(10000)
+        for ut in user_totals:
+            for epic in epic_achievement_cards:
+                if ut["total"] >= epic["achievement_required"]:
+                    res = await db.users.update_one(
+                        {"id": ut["_id"], "unlocked_rare_cards": {"$ne": epic["id"]}},
+                        {"$addToSet": {"unlocked_rare_cards": epic["id"]}},
+                    )
+                    if res.modified_count:
+                        epic_unlock_grants += 1
+    if epic_unlock_grants:
+        logger.info(
+            f"Epic-achievement backfill: granted {epic_unlock_grants} shop-unlock(s)"
+        )
+
     logger.info("Database seeded successfully")
 
 @app.on_event("shutdown")
