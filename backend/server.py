@@ -839,12 +839,15 @@ async def seed_database():
         # values have drifted from the source-of-truth in cards_data.py.
         # Critical: name_fixes block only fixes names; we also need URLs and
         # descriptions to flow through on the fast path so swapped/wrong
-        # artwork or stale descriptions in cards_data.py reach the DB.
+        # artwork or stale descriptions in cards_data.py reach the DB. We
+        # also sync `rarity` and `series` because variant-flag/series-gating
+        # logic depends on those being correct.
         url_fixes = 0
         for card_data in INITIAL_CARDS:
             existing = await db.cards.find_one(
                 {"id": card_data["id"]},
-                {"_id": 0, "front_image_url": 1, "back_image_url": 1, "description": 1},
+                {"_id": 0, "front_image_url": 1, "back_image_url": 1,
+                 "description": 1, "rarity": 1, "series": 1},
             )
             if not existing:
                 continue
@@ -855,6 +858,10 @@ async def seed_database():
                 patch["back_image_url"] = card_data["back_image_url"]
             if card_data.get("description") != existing.get("description"):
                 patch["description"] = card_data["description"]
+            if card_data.get("rarity") != existing.get("rarity"):
+                patch["rarity"] = card_data["rarity"]
+            if card_data.get("series") != existing.get("series"):
+                patch["series"] = card_data.get("series")
             if patch:
                 await db.cards.update_one({"id": card_data["id"]}, {"$set": patch})
                 url_fixes += 1
@@ -2391,8 +2398,9 @@ async def check_rare_card_achievements(user_id: str):
     user = await db.users.find_one({"id": user_id})
     unlocked_rares = user.get("unlocked_rare_cards", [])
     
-    # Get all rare cards that require achievements
-    rare_cards = await db.cards.find({"rarity": "rare", "achievement_required": {"$ne": None}}).to_list(100)
+    # Get all rare and epic cards that require achievements (epic reward cards
+    # like Alien Dubin use the same achievement-gate flow as rare ones).
+    rare_cards = await db.cards.find({"rarity": {"$in": ["rare", "epic"]}, "achievement_required": {"$ne": None}}).to_list(100)
     
     newly_unlocked = None
     
@@ -2423,8 +2431,8 @@ async def check_user_rare_cards(user_id: str):
     
     unlocked_rares = user.get("unlocked_rare_cards", [])
     
-    # Get all rare cards and their status for this user
-    rare_cards = await db.cards.find({"rarity": "rare"}).to_list(100)
+    # Get all rare/epic achievement cards and their status for this user
+    rare_cards = await db.cards.find({"rarity": {"$in": ["rare", "epic"]}, "achievement_required": {"$ne": None}}).to_list(100)
     
     rare_cards_status = []
     newly_unlocked = None
