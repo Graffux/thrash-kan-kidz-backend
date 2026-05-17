@@ -691,6 +691,9 @@ CARD_IMAGE_URLS = {
     "kevin_shart_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7wczs3gn_Screenshot_20260516_185637_ChatGPT.png",
     "kevin_shart_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9vnl565j_Screenshot_20260516_190014_ChatGPT.png",
     "kevin_shart_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0ut53hq5_Screenshot_20260516_190257_ChatGPT.png",
+    # Band 8: Horrorizer
+    "pete_slamdoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2gnlh74i_enhanced-1778978486472.jpg",
+    "skeet_sandoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xafrk8a7_enhanced-1778980802339.jpg",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
 }
@@ -1002,6 +1005,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 7: Brutal Lies
     "kevin_shark": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y16ykiuv_enhanced-1778959288598.jpg",
     "kevin_shart": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vr9oncj2_Screenshot_20260516_180635_ChatGPT.png",
+    # Band 8: Horrorizer
+    "pete_slamdoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/674yclmp_enhanced-1778978749272.jpg",
+    "skeet_sandoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u0fdzfq0_enhanced-1778980953533.jpg",
     # Universal Series 7 (Grind Edition) variant backs — shared across ALL
     # Series 7 variant cards, same way Series 6 has stormy/decayed/etc backs.
     "variant_back_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fl4sjpqj_enhanced-1777972963939.jpg",
@@ -9856,5 +9862,34 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_kevin_shart",
         "variant_name": "Melted"
+    },
+    # =====================
+    # SERIES 7 - Band 8: Horrorizer (parody of Pete Sandoval / Terrorizer)
+    # =====================
+    {
+        "id": "card_pete_slamdoval",
+        "name": "Pete Slamdoval",
+        "description": "The Human Pile-Driver. East L.A.'s most punishing drummer. Doesn't count beats -- counts casualties. Slam Cemetery. Drenched in Bloodbeets. Rhythm of the Damned. Signature Move: SLAM 'TIL YOU CRAM. \"If it's not broken, you're not playing hard enough!\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["pete_slamdoval"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["pete_slamdoval"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Horrorizer",
+        "card_type": "A"
+    },
+    {
+        "id": "card_skeet_sandoval",
+        "name": "Skeet Sandoval",
+        "description": "Fly-faced filth-drummer of Horrorizer. Blast Beats: 98. Filth: 100. Custom kit, DW 5000 double pedals, Zildjian A Customs -- and a face that even flies fear. \"Thrash till death. Noise forever.\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["skeet_sandoval"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["skeet_sandoval"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Horrorizer",
+        "card_type": "B"
     },
 ]
