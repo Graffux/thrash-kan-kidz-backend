@@ -669,6 +669,9 @@ CARD_IMAGE_URLS = {
     "anders_jerkobson_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8rvspbdu_Screenshot_20260515_234142_ChatGPT.png",
     "anders_jerkobson_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/d8lhrhpy_Screenshot_20260515_234523_ChatGPT.png",
     "anders_jerkobson_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x1ysl042_enhanced-1778907046418.jpg",
+    # Band 6: Minimal Noise Horror
+    "deanimator": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k974881r_enhanced-1778942506656.jpg",
+    "deamon_jonez": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/oe1z36v9_enhanced-1778943309367.jpg",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
 }
@@ -974,6 +977,9 @@ CARD_BACK_IMAGE_URLS = {
     # Band 5: Snasum
     "anger_jakobson": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fhmzm086_enhanced-1778870810172.jpg",
     "anders_jerkobson": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rq1shm64_enhanced-1778905944244.jpg",
+    # Band 6: Minimal Noise Horror
+    "deanimator": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lggyzib9_enhanced-1778942545033.jpg",
+    "deamon_jonez": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gzu6y6hg_Screenshot_20260516_100124_ChatGPT.png",
     # Universal Series 7 (Grind Edition) variant backs — shared across ALL
     # Series 7 variant cards, same way Series 6 has stormy/decayed/etc backs.
     "variant_back_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fl4sjpqj_enhanced-1777972963939.jpg",
@@ -9510,5 +9516,34 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_anders_jerkobson",
         "variant_name": "Melted"
+    },
+    # =====================
+    # SERIES 7 - Band 6: Minimal Noise Horror (parody of Misfits / Cannibal Corpse)
+    # =====================
+    {
+        "id": "card_deanimator",
+        "name": "Deanimator",
+        "description": "Ripped from the grave by rage, noise, and a complete disrespect for authority. Runs on hate, caffeine, and corpses. His only mission: bring the filth. Kill the trend. Leave nothing but decay and feedback. Signature Move: CORPSE CRUSHER. \"Death isn't the end... it's the tour.\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["deanimator"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["deanimator"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Minimal Noise Horror",
+        "card_type": "A"
+    },
+    {
+        "id": "card_deamon_jonez",
+        "name": "Deamon Jonez",
+        "description": "Once dead. Now louder. Risen from the grave fueled by hate, decay, and pure noise. Part demon, part decay, all chaos. He doesn't sing songs -- he summons terror. Signature Move: REANIMATE & DEVASTATE. \"We don't play music... we raise the dead and piss them off.\"",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["deamon_jonez"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["deamon_jonez"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 7,
+        "band": "Minimal Noise Horror",
+        "card_type": "B"
     },
 ]
