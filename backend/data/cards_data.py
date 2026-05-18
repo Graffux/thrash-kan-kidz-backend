@@ -703,7 +703,7 @@ CARD_IMAGE_URLS = {
     "skeet_sandoval_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sxu28ats_Screenshot_20260516_203808_ChatGPT.png",
     "skeet_sandoval_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rsjb0tpt_Screenshot_20260516_204040_ChatGPT.png",
     # Series 7 Rare Reward (epic)
-    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
+    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -1023,7 +1023,7 @@ CARD_BACK_IMAGE_URLS = {
     "variant_back_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rwqpqj2r_enhanced-1777973091465.jpg",
     "variant_back_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9rtg9pzl_enhanced-1777973441663.jpg",
     # Series 7 Rare Reward (epic)
-    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
+    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
 }
 
 # Rare card achievement requirements (Series completion rewards)
