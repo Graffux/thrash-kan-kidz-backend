@@ -48,7 +48,7 @@ BADGES = [
         "tint": "#FF4500",
         "condition_type": COND_LOGIN_STREAK,
         "condition_params": {"min": 100},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/928oqvaj_enhanced-1779097988195.png",
     },
     {
         "id": "trade_addict",
@@ -58,7 +58,7 @@ BADGES = [
         "tint": "#00BFFF",
         "condition_type": COND_TRADES_ACCEPTED,
         "condition_params": {"min": 25},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/teb3l3je_enhanced-1779098063309.png",
     },
     {
         "id": "variant_hunter",
@@ -68,7 +68,7 @@ BADGES = [
         "tint": "#C770FF",
         "condition_type": COND_VARIANTS_OWNED,
         "condition_params": {"min": 10},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m74kq8ac_enhanced-1779098162990.png",
     },
     {
         "id": "og_collector",
@@ -78,7 +78,7 @@ BADGES = [
         "tint": "#B87333",
         "condition_type": COND_CREATED_BEFORE_SERIES,
         "condition_params": {"series_num": 4},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pt7eqpwu_enhanced-1779098273380.png",
     },
 
     # --- Series 2-7 Master mirrors ---
@@ -162,7 +162,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_TOTAL_SPENT,
         "condition_params": {"min": 50000},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xphfw3tl_enhanced-1779098352745.png",
     },
     {
         "id": "friend_magnet",
@@ -172,7 +172,7 @@ BADGES = [
         "tint": "#00CED1",
         "condition_type": COND_FRIEND_COUNT,
         "condition_params": {"min": 10},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/h9zielj3_enhanced-1779098964603.png",
     },
     {
         "id": "alien_believer",
@@ -182,7 +182,28 @@ BADGES = [
         "tint": "#9C27B0",
         "condition_type": COND_OWN_SPECIFIC_CARD,
         "condition_params": {"card_id": "card_alien_dubin"},
-        "image_url": None,
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e2quc12v_enhanced-1779099024275.png",
+    },
+    # --- New badges (placeholder conditions until proper tracking is added) ---
+    {
+        "id": "midnight_maniac",
+        "name": "Midnight Maniac",
+        "description": "Keep a 30-day login streak (no sleep, just cards)",
+        "icon": "moon",
+        "tint": "#9C27B0",
+        "condition_type": COND_LOGIN_STREAK,
+        "condition_params": {"min": 30},
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t2cq4tsp_enhanced-1779153899003.png",
+    },
+    {
+        "id": "weekend_warrior",
+        "name": "Weekend Warrior",
+        "description": "Spend 25,000 coins on packs (weekend mayhem)",
+        "icon": "flash",
+        "tint": "#4CAF50",
+        "condition_type": COND_TOTAL_SPENT,
+        "condition_params": {"min": 25000},
+        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yaz6fygi_enhanced-1779154497137.png",
     },
 ]
 
