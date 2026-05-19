@@ -86,6 +86,7 @@ class User(BaseModel):
     unlocked_series: List[int] = Field(default_factory=lambda: [1])  # Series user has access to (starts with series 1)
     completed_series: List[int] = Field(default_factory=list)  # Series user has fully completed
     series_milestone_claimed: List[int] = Field(default_factory=list)  # Series the user has claimed the 100% completion milestone bonus for
+    featured_card_ids: List[str] = Field(default_factory=list)  # Up to 5 card IDs the player has pinned to their Profile showcase
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 # Auth request models
@@ -144,6 +145,10 @@ class CreateUserRequest(BaseModel):
 class UpdateProfileRequest(BaseModel):
     bio: Optional[str] = None
     avatar_url: Optional[str] = None
+
+class UpdateFeaturedCardsRequest(BaseModel):
+    # Up to 5 user-owned card IDs to pin on the Profile showcase. Empty list clears the slots.
+    card_ids: List[str]
 
 class ClaimDailyLoginRequest(BaseModel):
     user_id: str
@@ -1430,9 +1435,49 @@ async def update_profile(user_id: str, request: UpdateProfileRequest):
     updated_user = await db.users.find_one({"id": user_id})
     return User(**updated_user)
 
-# =====================
-# Daily Login & Coins
-# =====================
+@api_router.put("/users/{user_id}/featured-cards")
+async def update_featured_cards(user_id: str, request: UpdateFeaturedCardsRequest):
+    """Update the user's pinned showcase cards (up to 5, must be cards they own).
+
+    Strips duplicates, enforces the 5-card cap, and silently drops any IDs
+    the user does not actually own. We don't 400 on bad IDs because the
+    selection modal already filters owned-only; this defends against stale
+    UI state from quick swaps mid-trade.
+    """
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Cap at 5 and dedupe while preserving order
+    seen: set = set()
+    requested_ids: List[str] = []
+    for cid in request.card_ids:
+        if cid in seen:
+            continue
+        seen.add(cid)
+        requested_ids.append(cid)
+        if len(requested_ids) >= 5:
+            break
+
+    # Filter to only cards the user actually owns
+    if requested_ids:
+        owned = await db.user_cards.find(
+            {"user_id": user_id, "card_id": {"$in": requested_ids}},
+            {"_id": 0, "card_id": 1},
+        ).to_list(50)
+        owned_ids = {uc["card_id"] for uc in owned}
+        validated = [cid for cid in requested_ids if cid in owned_ids]
+    else:
+        validated = []
+
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"featured_card_ids": validated}},
+    )
+
+    updated_user = await db.users.find_one({"id": user_id}, {"_id": 0})
+    updated_user["rank"] = compute_user_rank(updated_user.get("completed_series", []))
+    return User(**updated_user)
 
 @api_router.post("/users/{user_id}/daily-login")
 async def claim_daily_login(user_id: str):

@@ -30,7 +30,21 @@ Pail Kids style). Built with React Native (Expo SDK 54) + FastAPI + MongoDB.
         └── MetalButton, OozeProgressBar, Mascot* etc.
 ```
 
-## What's been implemented (latest session: 2026-05-17)
+## What's been implemented
+
+### Visual Overhaul — Batch 1 (2026-05-19)
+- `featured_card_ids: List[str]` added to User model (max 5, owned-only)
+- `PUT /api/users/{id}/featured-cards` endpoint validates ownership + dedupes
+- `<GrungeBackground>` shared wrapper (dark base + slime vignette + rust corners
+  + noise overlay) — applied to Home & Profile screens
+- `<FeaturedCards>` 5-slot showcase on Profile with picker modal (own-only)
+- `<RippableDailyPack>` drag-to-tear daily bonus on Home (reuses SVG mask tech
+  from `<ScratchCard>` — no new image assets needed)
+- Bottom nav redesigned: rusted-metal plates per tab, Ionicons (skull/flame/
+  flash/swap/person-circle), animated slime drip on the active tab only
+- pytest `tests/test_featured_cards.py` (5 integration tests, all passing)
+
+## What's been implemented (previous session: 2026-05-17)
 
 ### Series 7 Grind Edition — fully shipped
 - All 8 bands seeded with 2 base + 8 variants each = 80 cards

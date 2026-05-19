@@ -1,125 +1,195 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Tabs } from 'expo-router';
 import { AppProvider, useApp } from '../src/context/AppContext';
-import { View, StyleSheet, Text, Platform } from 'react-native';
+import { View, StyleSheet, Text, Platform, Animated, Easing } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
 
-// Tab icon component using emojis for reliable rendering
-const TabIcon = ({ emoji, focused, badge }: { emoji: string; focused: boolean; badge?: number }) => (
-  <View>
-    <Text style={[styles.tabIcon, focused && styles.tabIconFocused]}>{emoji}</Text>
-    {badge !== undefined && badge > 0 && (
-      <View style={styles.badge}>
-        <Text style={styles.badgeText}>{badge > 9 ? '9+' : badge}</Text>
+/**
+ * Bottom nav — rusted-metal aesthetic with slime drip on the active tab.
+ *
+ * Each tab renders a `<MetalTab>` that shows:
+ *   - An Ionicons glyph chosen to fit the death-metal theme (skull/anarchy/etc.)
+ *   - A glowing "slime drip" anchor (animated vertical drip + halo) on the active
+ *     tab only. The drip uses an Animated loop for a slow oozing rise/fall.
+ *
+ * The tab bar background is a rusted dark gradient (solid colors + 1px top
+ * border in oxidized green) so it reads as corroded metal vs the prior flat
+ * navy blue.
+ */
+const TAB_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
+  index: 'skull',           // Home → Skull (Thrash mascot energy)
+  collection: 'albums',     // Collection → Album spine
+  shop: 'flame',            // Shop → Flame (hot deals, har har)
+  goals: 'flash',           // Goals → Lightning (anarchy adjacent)
+  trade: 'swap-horizontal', // Trade → Swap arrows
+  profile: 'person-circle', // Profile → Person
+};
+
+interface MetalTabProps {
+  iconName: keyof typeof Ionicons.glyphMap;
+  focused: boolean;
+  badge?: number;
+}
+
+const MetalTab = ({ iconName, focused, badge }: MetalTabProps) => {
+  // Drip animation: slow vertical "ooze" cycle, only active for focused tab.
+  const drip = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (!focused) {
+      drip.stopAnimation();
+      drip.setValue(0);
+      return;
+    }
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(drip, {
+          toValue: 1,
+          duration: 1400,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(drip, {
+          toValue: 0,
+          duration: 1400,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [focused, drip]);
+
+  const dripTranslate = drip.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 6],
+  });
+  const dripOpacity = drip.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.55, 1],
+  });
+
+  return (
+    <View style={tabStyles.tabWrap}>
+      <View style={[tabStyles.iconPlate, focused && tabStyles.iconPlateActive]}>
+        <Ionicons
+          name={iconName}
+          size={focused ? 26 : 22}
+          color={focused ? '#39ff14' : '#9aa39a'}
+        />
+        {badge !== undefined && badge > 0 && (
+          <View style={tabStyles.badge}>
+            <Text style={tabStyles.badgeText}>{badge > 9 ? '9+' : badge}</Text>
+          </View>
+        )}
       </View>
-    )}
-  </View>
-);
+      {focused && (
+        <>
+          {/* Slime drip — a tiny bar that oozes downward beneath the icon */}
+          <Animated.View
+            style={[
+              tabStyles.drip,
+              {
+                opacity: dripOpacity,
+                transform: [{ translateY: dripTranslate }],
+              },
+            ]}
+            pointerEvents="none"
+          />
+          <View style={tabStyles.dripGlow} pointerEvents="none" />
+        </>
+      )}
+    </View>
+  );
+};
 
 function TabsNavigator() {
   const insets = useSafeAreaInsets();
   const { user, trades } = useApp();
   const bottomPadding = Math.max(insets.bottom, 48);
-  // Tab sound effects removed: each useSoundPlayer holds a persistent
-  // native ExoPlayer instance, and 5 permanent players in the tab bar
-  // was contributing to OutOfMemoryError crashes on low-RAM Android
-  // devices. Cash register still plays on Shop (inside shop.tsx) where
-  // it's more noticeable; tab-tap sounds are minor UX polish not worth
-  // the memory cost on low-end devices.
 
   const incomingTradeCount = user
     ? trades.filter(t => t.trade.status === 'pending' && t.trade.to_user_id === user.id).length
     : 0;
-  
+
   return (
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: [
-            styles.tabBar,
-            { 
-              paddingBottom: bottomPadding,
-              height: 70 + bottomPadding,
-              marginBottom: Platform.OS === 'android' ? 0 : 0,
-            }
-          ],
-          tabBarActiveTintColor: '#FFD700',
-          tabBarInactiveTintColor: '#888',
-          tabBarLabelStyle: styles.tabBarLabel,
-          tabBarItemStyle: styles.tabBarItem,
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: [
+          styles.tabBar,
+          {
+            paddingBottom: bottomPadding,
+            height: 72 + bottomPadding,
+            marginBottom: Platform.OS === 'android' ? 0 : 0,
+          },
+        ],
+        tabBarActiveTintColor: '#39ff14',
+        tabBarInactiveTintColor: '#7a7',
+        tabBarLabelStyle: styles.tabBarLabel,
+        tabBarItemStyle: styles.tabBarItem,
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.index} focused={focused} />
+          ),
         }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🏠" focused={focused} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="collection"
-          options={{
-            title: 'Collection',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🃏" focused={focused} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="shop"
-          options={{
-            title: 'Shop',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🛒" focused={focused} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="goals"
-          options={{
-            title: 'Goals',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🏆" focused={focused} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="trade"
-          options={{
-            title: 'Trade',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="🔄" focused={focused} badge={incomingTradeCount} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({ focused }) => (
-              <TabIcon emoji="👤" focused={focused} />
-            ),
-          }}
-        />
-        {/* Hidden screens - not shown in tab bar */}
-        <Tabs.Screen
-          name="privacy"
-          options={{
-            title: 'Privacy Policy',
-            tabBarButton: () => null, // Hide from tab bar
-          }}
-        />
-        <Tabs.Screen
-          name="payment-success"
-          options={{
-            title: 'Payment Success',
-            tabBarButton: () => null, // Hide from tab bar
-          }}
-        />
-      </Tabs>
+      />
+      <Tabs.Screen
+        name="collection"
+        options={{
+          title: 'Collection',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.collection} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="shop"
+        options={{
+          title: 'Shop',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.shop} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="goals"
+        options={{
+          title: 'Goals',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.goals} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="trade"
+        options={{
+          title: 'Trade',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.trade} focused={focused} badge={incomingTradeCount} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => (
+            <MetalTab iconName={TAB_ICONS.profile} focused={focused} />
+          ),
+        }}
+      />
+      {/* Hidden screens */}
+      <Tabs.Screen name="privacy" options={{ title: 'Privacy Policy', tabBarButton: () => null }} />
+      <Tabs.Screen name="payment-success" options={{ title: 'Payment Success', tabBarButton: () => null }} />
+    </Tabs>
   );
 }
 
@@ -134,34 +204,84 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
+  // Rusted-metal bottom bar. Solid color reads cleaner than a gradient
+  // for a small bar; the green top border simulates oxidized copper trim.
   tabBar: {
-    backgroundColor: '#1a1a2e',
-    borderTopColor: '#333',
+    backgroundColor: '#1a1410',
+    borderTopColor: '#39ff14',
     borderTopWidth: 1,
-    paddingTop: 8,
+    paddingTop: 6,
+    // Subtle dark shadow above for separation from screen content
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: -2 },
+    elevation: 8,
   },
   tabBarLabel: {
     fontSize: 10,
-    fontWeight: '600',
-    marginTop: 4,
+    fontWeight: '800',
+    marginTop: 2,
+    letterSpacing: 0.5,
   },
   tabBarItem: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 4,
-    minWidth: 60,
+    paddingVertical: 2,
+    minWidth: 50,
   },
-  tabIcon: {
-    fontSize: 28,
+});
+
+const tabStyles = StyleSheet.create({
+  tabWrap: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 4,
   },
-  tabIconFocused: {
-    transform: [{ scale: 1.2 }],
+  iconPlate: {
+    width: 42,
+    height: 32,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#241a14',
+    borderWidth: 1,
+    borderColor: '#3a2a20',
+    // Rusted-rivet inset look via inner shadow trick: use border-top lighter
+    // and border-bottom darker (RN can't do real insets but this fakes it).
+    borderTopColor: '#4a3527',
+    borderBottomColor: '#1a0e08',
+  },
+  iconPlateActive: {
+    backgroundColor: '#1a2a14',
+    borderColor: '#39ff14',
+    shadowColor: '#39ff14',
+    shadowOpacity: 0.6,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 6,
+  },
+  drip: {
+    position: 'absolute',
+    bottom: -8,
+    width: 3,
+    height: 10,
+    borderRadius: 1.5,
+    backgroundColor: '#39ff14',
+  },
+  dripGlow: {
+    position: 'absolute',
+    bottom: -10,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    backgroundColor: 'rgba(57, 255, 20, 0.25)',
   },
   badge: {
     position: 'absolute',
     top: -4,
-    right: -10,
+    right: -6,
     backgroundColor: '#FF3B30',
     borderRadius: 9,
     minWidth: 18,
@@ -169,6 +289,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 4,
+    borderWidth: 1,
+    borderColor: '#1a1410',
   },
   badgeText: {
     color: '#fff',

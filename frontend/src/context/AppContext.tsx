@@ -24,6 +24,7 @@ interface User {
   medals?: number;
   free_packs?: number;
   series_milestone_claimed?: number[];
+  featured_card_ids?: string[];
   rank?: {
     id: string;
     name: string;
@@ -122,6 +123,7 @@ interface AppContextType {
   claimDailyLogin: () => Promise<{ streak: number; bonus_coins: number; message: string }>;
   purchaseCard: (cardId: string) => Promise<any>;
   updateProfile: (bio: string) => Promise<void>;
+  updateFeaturedCards: (cardIds: string[]) => Promise<void>;
   createTrade: (toUserId: string, offeredCardIds: string[], requestedCardIds: string[]) => Promise<void>;
   acceptTrade: (tradeId: string) => Promise<void>;
   rejectTrade: (tradeId: string) => Promise<void>;
@@ -293,6 +295,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setUserGoals(goalsRes.data);
   };
 
+  const updateFeaturedCards = async (cardIds: string[]) => {
+    if (!user) throw new Error('Not logged in');
+    const response = await axios.put(
+      `${API_URL}/api/users/${user.id}/featured-cards`,
+      { card_ids: cardIds },
+    );
+    setUser(response.data);
+  };
+
   const createTrade = async (toUserId: string, offeredCardIds: string[], requestedCardIds: string[]) => {
     if (!user) throw new Error('Not logged in');
     
@@ -387,6 +398,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         claimDailyLogin,
         purchaseCard,
         updateProfile,
+        updateFeaturedCards,
         createTrade,
         acceptTrade,
         rejectTrade,

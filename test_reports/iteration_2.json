@@ -1,0 +1,38 @@
+{
+  "summary": "Backend-only review of the Featured Cards endpoint + User model regression. All 20 tests pass against the public preview URL (https://thrash-kan-kidz-1.preview.emergentagent.com). New endpoint behaves correctly for both the seeded Graffux user and brand-new freshly-registered users, and the existing user/auth/rank/badges endpoints continue to work unchanged after the new featured_card_ids field was added.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_featured_cards.py",
+    "/app/backend/tests/test_featured_cards_extended.py",
+    "/app/test_reports/pytest/featured_cards_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Endpoint correctly defends against MongoDB injection — special-character / NoSQL-operator strings ({\"$ne\": null}, ../etc/passwd, SQL/HTML payloads) are filtered out cleanly because the $in lookup treats them as plain strings.",
+    "Cap-at-5 + dedupe + order-preservation logic is solid even with a 200-item payload mixing duplicates and bogus IDs.",
+    "User model field featured_card_ids defaults via Field(default_factory=list) so all pre-existing user docs that lack the field still deserialize correctly through the User(**user) call paths in GET /users/{id} and /auth/login (verified empirically).",
+    "Minor: update_featured_cards re-fetches the user after $set and rebuilds rank via compute_user_rank, but does not strip password_hash from the returned User(**...) payload — User().model_dump() will include password_hash (empty string by default, but non-empty for Graffux). Worth checking if you want to leak the hash on this response; other user-returning endpoints (GET /users/{id}, /auth/login) explicitly del user_data['password_hash']. Not exploited in tests but flagged as a security consistency issue.",
+    "server.py is now ~3972 lines — well past the 700-line guideline; consider splitting into routers (users, auth, cards, trades, badges) when convenient."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_featured_cards_extended.py (NEW — 15 additional tests)"
+  ],
+  "success_rate": {
+    "backend": "100% (20/20 tests pass)",
+    "frontend": "skipped per request (pre-existing tslib/framer-motion bundling error in Expo web blocks Playwright)"
+  },
+  "test_credentials": "Graffux / Thrashpw06! (user_id 0b820bda-18e5-4ca9-9ba1-e493617a23e3) plus auto-generated TEST_feat_* users created via /api/auth/register",
+  "seed_data_creation": "Each fresh-user test registers a unique TEST_feat_<hex> user. They are left in MongoDB (no DELETE endpoint exercised); main agent may want a cleanup job for TEST_-prefixed users.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Tests run against the public preview URL via TEST_API_URL env var; default falls back to REACT_APP_BACKEND_URL then localhost:8001. The full suite takes ~2m45s because each /users/{id}/cards call returns the Graffux library (large). If you only need to smoke-test the new endpoint, run test_featured_cards.py (the original 5). The extended file adds fresh-user, edge-case, and regression coverage. Production API at thrash-kan-kidz-api.onrender.com does NOT have this endpoint yet — only the preview/local backend.",
+  "rca_of_the_issue": "N/A — no failures."
+}

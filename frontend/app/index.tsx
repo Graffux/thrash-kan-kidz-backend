@@ -21,6 +21,8 @@ import { DailyWheelModal } from '../src/components/DailyWheelModal';
 import { CardPickerModal } from '../src/components/CardPickerModal';
 import MascotSplash from '../src/components/MascotSplash';
 import { RankCrest } from '../src/components/RankCrest';
+import { GrungeBackground } from '../src/components/GrungeBackground';
+import { RippableDailyPack } from '../src/components/RippableDailyPack';
 
 export default function HomeScreen() {
   const { user, loading, login, logout, claimDailyLogin, userCards, refreshData, apiUrl } = useApp();
@@ -155,23 +157,20 @@ export default function HomeScreen() {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#FFD700" />
-        {renderSplash && <MascotSplash holdMs={1500} />}
-      </View>
+      <GrungeBackground>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#FFD700" />
+          {renderSplash && <MascotSplash holdMs={1500} />}
+        </View>
+      </GrungeBackground>
     );
   }
 
   if (!user) {
     return (
-      <SafeAreaView style={styles.container}>
+      <GrungeBackground>
+        <SafeAreaView style={styles.container}>
         {renderSplash && <MascotSplash holdMs={1500} />}
-        <Image
-          source={{ uri: 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg' }}
-          style={styles.backgroundImage}
-          resizeMode="cover"
-        />
-        <View style={styles.backgroundOverlay} />
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.loginContainer}
@@ -251,14 +250,16 @@ export default function HomeScreen() {
             <Text style={styles.creditText}>Art by Graffux Graphics</Text>
           </View>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+        </SafeAreaView>
+      </GrungeBackground>
     );
   }
 
   const canClaimDaily = user.last_login_date !== new Date().toISOString().split('T')[0];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <GrungeBackground>
+      <SafeAreaView style={styles.container}>
       {renderSplash && <MascotSplash holdMs={1500} />}
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header */}
@@ -294,7 +295,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* Daily Login */}
+        {/* Daily Login — rip-able pack replaces the legacy button. */}
         <View style={styles.dailyContainer}>
           <Text style={styles.sectionTitle}>Daily Bonus</Text>
           {dailyMessage && (
@@ -303,22 +304,15 @@ export default function HomeScreen() {
               <Text style={styles.successText}>{dailyMessage}</Text>
             </View>
           )}
-          <TouchableOpacity
-            style={[styles.dailyButton, !canClaimDaily && styles.dailyButtonDisabled]}
-            onPress={handleClaimDaily}
-            disabled={!canClaimDaily || claiming}
-          >
-            {claiming ? (
-              <ActivityIndicator color="#000" />
-            ) : (
-              <>
-                <Text style={styles.giftEmoji}>🎁</Text>
-                <Text style={[styles.dailyButtonText, !canClaimDaily && styles.dailyButtonTextDisabled]}>
-                  {canClaimDaily ? 'CLAIM DAILY BONUS' : 'ALREADY CLAIMED TODAY'}
-                </Text>
-              </>
-            )}
-          </TouchableOpacity>
+          <View style={styles.dailyPackWrap}>
+            <RippableDailyPack
+              width={320}
+              height={130}
+              claimed={!canClaimDaily}
+              loading={claiming}
+              onClaim={handleClaimDaily}
+            />
+          </View>
         </View>
 
         {/* Mini-games: Daily Wheel re-open + Card Picker. The Daily Wheel
@@ -361,22 +355,30 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Featured Card Preview */}
+        {/* Featured Card Preview — shows pinned slots if user has them set,
+            otherwise falls back to the user's first 3 owned cards. */}
         <View style={styles.featuredContainer}>
           <Text style={styles.sectionTitle}>Featured Cards</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {userCards.slice(0, 3).map((uc, index) => (
-              <View key={uc.user_card_id} style={styles.featuredCard}>
-                <Image
-                  source={{ uri: uc.card.front_image_url }}
-                  style={styles.featuredImage}
-                  resizeMode="cover"
-                />
-                <View style={[styles.rarityBadge, getRarityStyle(uc.card.rarity)]}>
-                  <Text style={styles.rarityText}>{uc.card.rarity.toUpperCase()}</Text>
+            {(() => {
+              const pinnedIds = user.featured_card_ids ?? [];
+              const pinned = pinnedIds
+                .map((id) => userCards.find((uc) => uc.card.id === id))
+                .filter(Boolean) as typeof userCards;
+              const displayCards = pinned.length > 0 ? pinned : userCards.slice(0, 3);
+              return displayCards.map((uc) => (
+                <View key={uc.user_card_id} style={styles.featuredCard}>
+                  <Image
+                    source={{ uri: uc.card.front_image_url }}
+                    style={styles.featuredImage}
+                    resizeMode="cover"
+                  />
+                  <View style={[styles.rarityBadge, getRarityStyle(uc.card.rarity)]}>
+                    <Text style={styles.rarityText}>{uc.card.rarity.toUpperCase()}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              ));
+            })()}
             {userCards.length === 0 && (
               <View style={styles.emptyFeatured}>
                 <Ionicons name="albums-outline" size={48} color="#666" />
@@ -412,7 +414,8 @@ export default function HomeScreen() {
         userId={user.id}
         onPrizeWon={() => prizeWonSound.play()}
       />
-    </SafeAreaView>
+      </SafeAreaView>
+    </GrungeBackground>
   );
 }
 
@@ -432,7 +435,7 @@ const getRarityStyle = (rarity: string) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f0f1a',
+    backgroundColor: 'transparent',
   },
   backgroundImage: {
     position: 'absolute',
@@ -588,6 +591,10 @@ const styles = StyleSheet.create({
   },
   dailyContainer: {
     marginBottom: 24,
+  },
+  dailyPackWrap: {
+    alignItems: 'center',
+    marginBottom: 4,
   },
   miniGamesContainer: {
     marginBottom: 24,

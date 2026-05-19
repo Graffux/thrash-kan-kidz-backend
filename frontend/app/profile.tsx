@@ -21,6 +21,8 @@ import { Switch } from 'react-native';
 import { useSoundSettings, setSfxEnabled, setMusicEnabled } from '../src/utils/sounds';
 import { RankCrest } from '../src/components/RankCrest';
 import { BadgeCabinet } from '../src/components/BadgeCabinet';
+import { GrungeBackground } from '../src/components/GrungeBackground';
+import { FeaturedCards } from '../src/components/FeaturedCards';
 
 const BACKGROUND_IMAGE = 'https://customer-assets.emergentagent.com/job_earn-cards/artifacts/zgy2com2_enhanced-1771247671181.jpg';
 
@@ -38,14 +40,14 @@ export default function ProfileScreen() {
 
   if (!user) {
     return (
-      <SafeAreaView style={styles.container}>
-        <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
-        <View style={styles.backgroundOverlay} />
-        <View style={styles.centerContainer}>
-          <Text style={styles.lockIcon}>🔒</Text>
-          <Text style={styles.lockedText}>Please login to view your profile</Text>
-        </View>
-      </SafeAreaView>
+      <GrungeBackground>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.centerContainer}>
+            <Text style={styles.lockIcon}>🔒</Text>
+            <Text style={styles.lockedText}>Please login to view your profile</Text>
+          </View>
+        </SafeAreaView>
+      </GrungeBackground>
     );
   }
 
@@ -137,10 +139,8 @@ export default function ProfileScreen() {
     : 'Unknown';
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={{ uri: BACKGROUND_IMAGE }} style={styles.backgroundImage} resizeMode="cover" />
-      <View style={styles.backgroundOverlay} />
-      
+    <GrungeBackground>
+      <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Profile Header */}
         <View style={styles.profileHeader}>
@@ -178,6 +178,9 @@ export default function ProfileScreen() {
             </View>
           </View>
         </View>
+
+        {/* Featured Cards Showcase (5 player-pinned slots) */}
+        <FeaturedCards apiUrl={apiUrl} />
 
         {/* Sound Settings — moved to top per tester request */}
         <View style={styles.settingsSection}>
@@ -492,14 +495,15 @@ export default function ProfileScreen() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+      </SafeAreaView>
+    </GrungeBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f0f1a',
+    backgroundColor: 'transparent',
   },
   backgroundImage: {
     position: 'absolute',
