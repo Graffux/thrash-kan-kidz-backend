@@ -13,17 +13,25 @@
  *   </GrungeBackground>
  */
 import React from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SlimeBubbles } from './SlimeBubbles';
+
+const RUST_TEXTURE = require('../../assets/decor/rust_texture.png');
+const RONCH_PEEK = require('../../assets/decor/ronch_peek.png');
 
 interface Props {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   /** Slightly lighter base for screens that need more contrast (e.g. forms). */
   lighten?: boolean;
+  /** Hide animated bubbles on screens with heavy scroll/CPU work (e.g. modals). */
+  noBubbles?: boolean;
+  /** Hide the Ronch peek silhouette (e.g. for the login splash). */
+  noRonchPeek?: boolean;
 }
 
-export const GrungeBackground: React.FC<Props> = ({ children, style, lighten }) => {
+export const GrungeBackground: React.FC<Props> = ({ children, style, lighten, noBubbles, noRonchPeek }) => {
   return (
     <View style={[styles.root, lighten && styles.rootLight, style]} testID="grunge-bg">
       {/* Dark base layer — solid color reads cleaner than a gradient on dark UI. */}
@@ -67,6 +75,14 @@ export const GrungeBackground: React.FC<Props> = ({ children, style, lighten }) 
         pointerEvents="none"
       />
 
+      {/* Rust texture overlay — extremely faint, tiles behind everything */}
+      <Image
+        source={RUST_TEXTURE}
+        style={styles.rustTexture}
+        resizeMode="cover"
+        pointerEvents="none"
+      />
+
       {/* Noise overlay — tiled dots simulate grain without a raster asset.
           The grid is intentionally sparse so it never overwhelms the UI;
           on smaller phones the dots get clipped at edges which is fine. */}
@@ -85,6 +101,19 @@ export const GrungeBackground: React.FC<Props> = ({ children, style, lighten }) 
           />
         ))}
       </View>
+
+      {/* Animated slime bubbles floating upward (cosmetic ambient) */}
+      {!noBubbles && <SlimeBubbles />}
+
+      {/* Ronch peeking up from the bottom-right corner */}
+      {!noRonchPeek && (
+        <Image
+          source={RONCH_PEEK}
+          style={styles.ronchPeek}
+          resizeMode="contain"
+          pointerEvents="none"
+        />
+      )}
 
       <View style={styles.content}>{children}</View>
     </View>
@@ -105,6 +134,18 @@ const styles = StyleSheet.create({
   },
   noise: {
     ...StyleSheet.absoluteFillObject,
+  },
+  rustTexture: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.06,
+  },
+  ronchPeek: {
+    position: 'absolute',
+    bottom: 80, // sits above the bottom nav
+    right: -30,
+    width: 120,
+    height: 60,
+    opacity: 0.22,
   },
   noiseDot: {
     position: 'absolute',
