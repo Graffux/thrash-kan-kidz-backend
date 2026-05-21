@@ -25,6 +25,10 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+// SDK 54 split the FileSystem API. The new File/Directory class API doesn't
+// expose downloadAsync, so we use the still-supported legacy module which
+// keeps cacheDirectory + downloadAsync intact.
+import * as FileSystem from 'expo-file-system/legacy';
 import axios from 'axios';
 import { useApp } from '../src/context/AppContext';
 import { GrungeBackground } from '../src/components/GrungeBackground';
@@ -84,16 +88,10 @@ export default function MoshPitScreen() {
       setComposing(`Just pulled ${params.sharePullName}! 🤘`);
     }
     if (params.sharePullImage) {
-      // Re-encode the remote card URL to base64 via the same pipeline as the picker
-      ImageManipulator.manipulateAsync(
-        params.sharePullImage,
-        [{ resize: { width: 600 } }],
-        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG, base64: true },
-      )
-        .then((m) => {
-          if (m.base64) setAttachedImage(`data:image/jpeg;base64,${m.base64}`);
-        })
-        .catch(() => { /* user can attach manually if this fails */ });
+      // Async fire-and-forget — user can still attach manually if it fails.
+      attachFromUrl(params.sharePullImage).catch(() => {
+        Alert.alert('Heads up', 'Card image attach failed — you can still post the text.');
+      });
     }
   }, [params.sharePullName, params.sharePullImage]);
 
@@ -136,11 +134,22 @@ export default function MoshPitScreen() {
     }
   };
 
-  // Convert remote image URL → base64 data URI (for collection card pulls)
+  // Convert remote image URL → base64 data URI (for collection card pulls).
+  //
+  // Android quirk: ImageManipulator.manipulateAsync rejects remote https:// URIs
+  // — it only handles `file://` and `content://`. So we must download the
+  // image to a temp file first via FileSystem, THEN manipulate.
   const attachFromUrl = async (url: string) => {
     try {
+      let localUri = url;
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        const tempPath = `${FileSystem.cacheDirectory}mosh-share-${Date.now()}.jpg`;
+        const dl = await FileSystem.downloadAsync(url, tempPath);
+        if (dl.status !== 200) throw new Error(`Download failed (${dl.status})`);
+        localUri = dl.uri;
+      }
       const manipulated = await ImageManipulator.manipulateAsync(
-        url,
+        localUri,
         [{ resize: { width: 600 } }],
         { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG, base64: true },
       );
@@ -148,7 +157,8 @@ export default function MoshPitScreen() {
       setAttachedImage(`data:image/jpeg;base64,${manipulated.base64}`);
       setShowCardPicker(false);
       setShowAttachMenu(false);
-    } catch {
+    } catch (err) {
+      console.warn('attachFromUrl failed:', err);
       Alert.alert('Error', 'Could not attach card image.');
     }
   };
