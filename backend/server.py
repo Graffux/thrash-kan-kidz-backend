@@ -2709,7 +2709,19 @@ async def get_all_goals():
 
 @api_router.get("/users/{user_id}/goals")
 async def get_user_goals(user_id: str):
-    """Get user's goal progress"""
+    """Get user's goal progress.
+
+    Self-heals the variant-master goals: re-evaluates them on every read so
+    users who already owned variants before the goal was introduced see the
+    correct progress on next load (no manual backfill script required).
+    """
+    # Lazy backfill — cheap (one query per series + one set intersection).
+    try:
+        await check_all_variants_series_goals(user_id)
+    except Exception as e:
+        # Never let a backfill failure block the goal list from rendering.
+        logging.warning(f"Variant-goal backfill failed for {user_id}: {e}")
+
     user_goals = await db.user_goals.find({"user_id": user_id}).to_list(100)
     
     result = []

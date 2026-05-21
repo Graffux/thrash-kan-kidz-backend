@@ -40,8 +40,15 @@ export const ThrashMissionsPreview: React.FC = () => {
       </View>
 
       {active.map((g) => {
-        const pct = g.goal.target_value > 0
-          ? Math.min(100, Math.round(((g.user_goal.progress || 0) / g.goal.target_value) * 100))
+        // Variant series goals store the series number (1-7) in target_value.
+        // The real denominator is the total number of variants in that series
+        // (currently always 64 per series). Mirrors goals.tsx getDenominator.
+        const denominator =
+          g.goal.goal_type === 'collect_all_variants_series'
+            ? 64
+            : g.goal.target_value;
+        const pct = denominator > 0
+          ? Math.min(100, Math.round(((g.user_goal.progress || 0) / denominator) * 100))
           : 0;
         return (
           <TouchableOpacity
@@ -59,7 +66,7 @@ export const ThrashMissionsPreview: React.FC = () => {
               <View style={[styles.bar, { width: `${pct}%` }]} />
             </View>
             <Text style={styles.progressText}>
-              {g.user_goal.progress || 0} / {g.goal.target_value} • {pct}%
+              {g.user_goal.progress || 0} / {denominator} • {pct}%
             </Text>
           </TouchableOpacity>
         );
