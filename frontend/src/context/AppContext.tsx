@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { Image as ExpoImage } from 'expo-image';
 
 // Set global axios timeout for Render cold starts
 axios.defaults.timeout = 30000;
@@ -213,6 +214,23 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setUserGoals(goalsRes.data);
       setTrades(tradesRes.data);
       setAllUsers(usersRes.data.filter((u: User) => u.id !== user.id));
+
+      // Prefetch all owned card images into expo-image's disk cache in the
+      // background. First-time load fills the cache; subsequent renders
+      // are instant. Failures are silently swallowed — fallback is the
+      // normal lazy load when the component mounts.
+      try {
+        const urls: string[] = [];
+        for (const uc of cardsRes.data as { card?: { front_image_url?: string } }[]) {
+          const url = uc?.card?.front_image_url;
+          if (url) urls.push(url);
+        }
+        if (urls.length > 0) {
+          ExpoImage.prefetch(urls, 'memory-disk').catch(() => {});
+        }
+      } catch {
+        // Defensive — never block app boot on prefetch.
+      }
     } catch (error) {
       console.error('Failed to load user data:', error);
     }

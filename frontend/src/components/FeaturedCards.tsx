@@ -17,9 +17,9 @@ import {
   Modal,
   ScrollView,
   ActivityIndicator,
-  Image,
   Alert,
 } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
 
@@ -119,10 +119,15 @@ export const FeaturedCards: React.FC<Props> = ({ readOnly = false, featuredIds, 
           >
             {card ? (
               <>
-                <Image
+                <ExpoImage
                   source={{ uri: card.front_image_url }}
                   style={styles.slotImage}
-                  resizeMode="cover"
+                  contentFit="cover"
+                  cachePolicy="memory-disk"
+                  transition={150}
+                  placeholderContentFit="cover"
+                  placeholder={{ blurhash: 'L25hcUof00of00of00of00of00of' }}
+                  recyclingKey={card.id}
                 />
                 {/* Slime drip glow ring */}
                 <View pointerEvents="none" style={styles.slotGlow} />
@@ -187,10 +192,14 @@ export const FeaturedCards: React.FC<Props> = ({ readOnly = false, featuredIds, 
                       disabled={saving}
                       testID={`featured-pick-${uc.card.id}`}
                     >
-                      <Image
+                      <ExpoImage
                         source={{ uri: uc.card.front_image_url }}
                         style={styles.gridImage}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        cachePolicy="memory-disk"
+                        transition={150}
+                        placeholder={{ blurhash: 'L25hcUof00of00of00of00of00of' }}
+                        recyclingKey={uc.card.id}
                       />
                       {isPicked && (
                         <View style={styles.pickedBadge}>
