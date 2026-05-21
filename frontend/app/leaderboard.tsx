@@ -117,10 +117,16 @@ export default function LeaderboardScreen() {
               >
                 <Ionicons
                   name={t.icon}
-                  size={14}
+                  size={16}
                   color={active ? '#000' : '#9aff5a'}
+                  style={styles.tabIcon}
                 />
-                <Text style={[styles.tabText, active && styles.tabTextActive]}>{t.label}</Text>
+                <Text
+                  style={[styles.tabText, active && styles.tabTextActive]}
+                  numberOfLines={1}
+                >
+                  {t.label}
+                </Text>
               </TouchableOpacity>
             );
           })}
@@ -217,21 +223,29 @@ const styles = StyleSheet.create({
   tabsRow: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    gap: 8,
+    gap: 10,
   },
   tab: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(57, 255, 20, 0.35)',
-    backgroundColor: 'rgba(20,25,20,0.8)',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: 'rgba(57, 255, 20, 0.5)',
+    backgroundColor: 'rgba(20,25,20,0.9)',
+  },
+  tabIcon: {
+    marginRight: 8,
   },
   tabActive: { backgroundColor: '#39ff14', borderColor: '#39ff14' },
-  tabText: { color: '#9aff5a', fontSize: 11, fontWeight: '900', letterSpacing: 1 },
+  tabText: {
+    color: '#9aff5a',
+    fontSize: 13,
+    fontWeight: '900',
+    letterSpacing: 1.2,
+    includeFontPadding: false,
+  },
   tabTextActive: { color: '#000' },
   scroll: { padding: 16, paddingBottom: 24 },
   emptyCard: {
