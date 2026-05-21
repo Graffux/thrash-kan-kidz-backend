@@ -3,15 +3,9 @@ import { Tabs } from 'expo-router';
 import { AppProvider, useApp } from '../src/context/AppContext';
 import { View, StyleSheet, Text, Platform, Animated, Easing, Image, ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { UpdateBanner } from '../src/components/UpdateBanner';
 import { ICONS } from '../src/assets/icons';
-
-// Keep the splash visible while we fetch the distressed metal font so we
-// never flash a system-font fallback on first launch.
-SplashScreen.preventAutoHideAsync().catch(() => {});
 
 /**
  * Bottom nav — rusted-metal aesthetic with slime drip on the active tab.
@@ -215,26 +209,9 @@ function TabsNavigator() {
 }
 
 export default function TabLayout() {
-  const [fontsLoaded, fontError] = useFonts({
-    // Bundle TTF directly as an asset — more reliable in production than
-    // the @expo-google-fonts package, which silently fails to bundle the
-    // asset under newArchEnabled in some configurations.
-    MetalMania: require('../assets/fonts/MetalMania-Regular.ttf'),
-  });
-
-  // Hide splash once font load resolves (either way — don't block forever on errors).
-  useEffect(() => {
-    if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync().catch(() => {});
-    }
-  }, [fontsLoaded, fontError]);
-
-  // Render nothing until the font resolves so SplatTitle never flashes a
-  // system font. If the font failed to load we still render (graceful fallback).
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
-
+  // Font "MetalMania" is embedded natively at build time via the
+  // expo-font plugin in app.json — no useFonts hook needed, no splash gate.
+  // The font family is available immediately on app launch.
   return (
     <ErrorBoundary>
       <AppProvider>
