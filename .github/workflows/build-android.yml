@@ -43,10 +43,12 @@ jobs:
     # in the backend repo too and fails immediately (no EXPO_TOKEN secret).
     if: endsWith(github.repository, '-frontend')
     runs-on: ubuntu-latest
-    # 60 min was tight on first builds — bumped to 120 to absorb cold-cache
-    # Gradle + Maven downloads. Cached subsequent runs typically finish in
-    # ~12-18 min so this just gives headroom, doesn't extend normal runs.
-    timeout-minutes: 120
+    # 60 min was tight on first builds — bumped to 240 to absorb cold-cache
+    # Gradle + Maven downloads (free GitHub runners are 2-core and slow).
+    # Once the Cache Gradle step has a warm cache from a successful run,
+    # subsequent builds typically drop to 20-30 min and we could tune this
+    # back down. Leave at 240 for safety.
+    timeout-minutes: 240
     defaults:
       run:
         working-directory: ./frontend
