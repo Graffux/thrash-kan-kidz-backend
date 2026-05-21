@@ -148,7 +148,7 @@ function TabsNavigator() {
       <Tabs.Screen
         name="collection"
         options={{
-          title: 'Collection',
+          title: 'Cards',
           tabBarIcon: ({ focused }) => (
             <MetalTab iconSource={TAB_ICONS.collection} focused={focused} />
           ),
@@ -193,7 +193,7 @@ function TabsNavigator() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: 'Me',
           tabBarIcon: ({ focused }) => (
             <MetalTab iconSource={TAB_ICONS.profile} focused={focused} />
           ),
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 2,
-    minWidth: 42,
+    paddingHorizontal: 0,
   },
 });
 
