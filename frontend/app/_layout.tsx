@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import { AppProvider, useApp } from '../src/context/AppContext';
 import { View, StyleSheet, Text, Platform, Animated, Easing, Image, ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useFonts, MetalMania_400Regular } from '@expo-google-fonts/metal-mania';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { UpdateBanner } from '../src/components/UpdateBanner';
@@ -216,7 +216,10 @@ function TabsNavigator() {
 
 export default function TabLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    MetalMania: MetalMania_400Regular,
+    // Bundle TTF directly as an asset — more reliable in production than
+    // the @expo-google-fonts package, which silently fails to bundle the
+    // asset under newArchEnabled in some configurations.
+    MetalMania: require('../assets/fonts/MetalMania-Regular.ttf'),
   });
 
   // Hide splash once font load resolves (either way — don't block forever on errors).
