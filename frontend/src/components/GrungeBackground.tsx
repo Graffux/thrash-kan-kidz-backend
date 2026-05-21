@@ -135,15 +135,15 @@ const styles = StyleSheet.create({
   },
   rustTexture: {
     ...StyleSheet.absoluteFillObject,
-    opacity: 0.06,
+    opacity: 0.12,
   },
   ronchPeek: {
     position: 'absolute',
     bottom: 80, // sits above the bottom nav
-    right: -30,
-    width: 120,
-    height: 60,
-    opacity: 0.22,
+    right: -10,
+    width: 180,
+    height: 110,
+    opacity: 0.55,
   },
   noiseDot: {
     position: 'absolute',

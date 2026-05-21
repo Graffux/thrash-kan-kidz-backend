@@ -8,7 +8,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, StyleSheet, Easing, Dimensions } from 'react-native';
 
-const NUM = 8;
+const NUM = 14;
 const { height: H } = Dimensions.get('window');
 
 interface Bubble {
@@ -20,11 +20,11 @@ interface Bubble {
 }
 
 const BUBBLES: Bubble[] = Array.from({ length: NUM }).map((_, i) => ({
-  x: ((i * 73) % 95) + 2,        // %
-  size: 4 + (i % 4) * 2,         // 4–10 px
+  x: ((i * 73) % 95) + 2,         // %
+  size: 8 + (i % 5) * 4,          // 8–24 px (was 4–10)
   duration: 9000 + (i * 1700) % 9000, // 9–18 s
-  delay: i * 800,
-  opacityRange: [0.05, 0.25 + (i % 3) * 0.05],
+  delay: i * 500,
+  opacityRange: [0.15, 0.55 + (i % 3) * 0.1],
 }));
 
 export const SlimeBubbles: React.FC = () => {
