@@ -25,10 +25,6 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
-// SDK 54 split the FileSystem API. The new File/Directory class API doesn't
-// expose downloadAsync, so we use the still-supported legacy module which
-// keeps cacheDirectory + downloadAsync intact.
-import * as FileSystem from 'expo-file-system/legacy';
 import axios from 'axios';
 import { useApp } from '../src/context/AppContext';
 import { GrungeBackground } from '../src/components/GrungeBackground';
@@ -136,30 +132,38 @@ export default function MoshPitScreen() {
 
   // Convert remote image URL → base64 data URI (for collection card pulls).
   //
-  // Android quirk: ImageManipulator.manipulateAsync rejects remote https:// URIs
-  // — it only handles `file://` and `content://`. So we must download the
-  // image to a temp file first via FileSystem, THEN manipulate.
+  // Use fetch + FileReader, which works universally in RN. The previous
+  // ImageManipulator + FileSystem approach failed silently in production
+  // builds because:
+  //   - ImageManipulator.manipulateAsync rejects remote https:// URIs on Android
+  //   - expo-file-system/legacy import path is unreliable in production
+  //
+  // Trade-off: we skip the resize step, so the base64 is bigger. That's fine
+  // for the 5-second user flow and well under the 16MB Mongo doc cap.
   const attachFromUrl = async (url: string) => {
     try {
-      let localUri = url;
-      if (url.startsWith('http://') || url.startsWith('https://')) {
-        const tempPath = `${FileSystem.cacheDirectory}mosh-share-${Date.now()}.jpg`;
-        const dl = await FileSystem.downloadAsync(url, tempPath);
-        if (dl.status !== 200) throw new Error(`Download failed (${dl.status})`);
-        localUri = dl.uri;
-      }
-      const manipulated = await ImageManipulator.manipulateAsync(
-        localUri,
-        [{ resize: { width: 600 } }],
-        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG, base64: true },
-      );
-      if (!manipulated.base64) throw new Error('No base64');
-      setAttachedImage(`data:image/jpeg;base64,${manipulated.base64}`);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const blob = await response.blob();
+      const dataUri = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const r = reader.result;
+          if (typeof r === 'string') resolve(r);
+          else reject(new Error('Reader did not return string'));
+        };
+        reader.onerror = () => reject(reader.error ?? new Error('Read failed'));
+        reader.readAsDataURL(blob);
+      });
+      setAttachedImage(dataUri);
       setShowCardPicker(false);
       setShowAttachMenu(false);
     } catch (err) {
       console.warn('attachFromUrl failed:', err);
-      Alert.alert('Error', 'Could not attach card image.');
+      Alert.alert(
+        'Could not attach card image',
+        `Tap "Attach Image" to pick from your gallery instead.\n\n(${String(err)})`,
+      );
     }
   };
 

@@ -214,7 +214,11 @@ export default function TabLayout() {
   // Graceful fallback: if it fails to load we still render the app with
   // system font — no splash gate, no crash.
   const [fontsLoaded, fontError] = useFonts({
-    MetalMania: require('../assets/fonts/MetalMania-Regular.ttf'),
+    // Key MUST match the TTF's internal PostScript name (nameID 6).
+    // Inspected with the name table parser — it's `MetalMania-Regular`,
+    // NOT `MetalMania`. Using the wrong key causes Android to fall back
+    // to system font silently in production builds.
+    'MetalMania-Regular': require('../assets/fonts/MetalMania-Regular.ttf'),
   });
 
   // Don't block app render — render either way. SplatTitle will fall back to
@@ -252,10 +256,10 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   tabBarLabel: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '800',
     marginTop: 2,
-    letterSpacing: 0.5,
+    letterSpacing: 0,
   },
   tabBarItem: {
     flex: 1,
@@ -273,8 +277,8 @@ const tabStyles = StyleSheet.create({
     paddingTop: 4,
   },
   iconPlate: {
-    width: 42,
-    height: 32,
+    width: 36,
+    height: 28,
     borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',

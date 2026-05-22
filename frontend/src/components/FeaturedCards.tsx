@@ -125,8 +125,6 @@ export const FeaturedCards: React.FC<Props> = ({ readOnly = false, featuredIds, 
                   contentFit="cover"
                   cachePolicy="memory-disk"
                   transition={150}
-                  placeholderContentFit="cover"
-                  placeholder={{ blurhash: 'L25hcUof00of00of00of00of00of' }}
                   recyclingKey={card.id}
                 />
                 {/* Slime drip glow ring */}
@@ -198,7 +196,6 @@ export const FeaturedCards: React.FC<Props> = ({ readOnly = false, featuredIds, 
                         contentFit="cover"
                         cachePolicy="memory-disk"
                         transition={150}
-                        placeholder={{ blurhash: 'L25hcUof00of00of00of00of00of' }}
                         recyclingKey={uc.card.id}
                       />
                       {isPicked && (

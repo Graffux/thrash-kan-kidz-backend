@@ -36,7 +36,9 @@ export const THEME = {
 
 export const FONTS = {
   /** Distressed metal font for headings — loaded via expo-font in _layout.tsx */
-  metal: 'MetalMania',
+  // Display font for headers / display copy. Must match the TTF's
+  // PostScript name (nameID 6) for Android lookup to succeed in production.
+  metal: 'MetalMania-Regular',
   /** System fallback for body copy / inputs (better legibility) */
   body: undefined as string | undefined,
 };
