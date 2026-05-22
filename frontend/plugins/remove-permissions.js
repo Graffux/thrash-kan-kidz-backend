@@ -11,9 +11,11 @@ module.exports = function removePermissionsPlugin(config) {
     manifest.$["xmlns:tools"] = "http://schemas.android.com/tools";
     
     const removePermissions = [
-      // NOTE: READ_MEDIA_IMAGES is intentionally NOT in this list — the
-      // Mosh Pit composer needs photo gallery access for users to attach
-      // pull screenshots / card photos.
+      // Google Play rejects READ_MEDIA_IMAGES for apps that only need
+      // occasional gallery access. expo-image-picker on SDK 54 + Android 13+
+      // automatically falls back to the system Photo Picker which works
+      // WITHOUT any permission — same UX, no policy violation.
+      "android.permission.READ_MEDIA_IMAGES",
       "android.permission.READ_MEDIA_VIDEO",
       "android.permission.READ_EXTERNAL_STORAGE",
       "android.permission.WRITE_EXTERNAL_STORAGE",

@@ -167,13 +167,13 @@ export default function MoshPitScreen() {
     }
   };
 
-  // Device picker → resize → base64
+  // Device picker → resize → base64.
+  // SDK 54 on Android 13+ uses the system Photo Picker which does NOT
+  // require READ_MEDIA_IMAGES — Google Play rejects that permission for
+  // apps that only need occasional access. So we skip the permission
+  // request entirely; the picker handles the rest.
   const pickFromDevice = async () => {
     setShowAttachMenu(false);
-    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) {
-      return Alert.alert('Permission needed', 'Photo library access is required.');
-    }
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,

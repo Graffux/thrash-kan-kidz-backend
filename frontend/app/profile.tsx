@@ -73,13 +73,10 @@ export default function ProfileScreen() {
 
   // Lets the user pick an image from device → resize → base64 → save.
   // Available only on own profile (tap blocked on others below).
+  // No permission request — system Photo Picker handles it (Android 13+).
   const handleChangeAvatar = async () => {
     if (!isOwn || uploadingAvatar) return;
     try {
-      const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (!perm.granted) {
-        return Alert.alert('Permission needed', 'Photo access required.');
-      }
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
