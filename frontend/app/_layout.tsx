@@ -217,11 +217,16 @@ export default function TabLayout() {
   // Graceful fallback: if it fails to load we still render the app with
   // system font — no splash gate, no crash.
   const [fontsLoaded, fontError] = useFonts({
-    // Key MUST match the TTF's internal PostScript name (nameID 6).
-    // Inspected with the name table parser — it's `MetalMania-Regular`,
-    // NOT `MetalMania`. Using the wrong key causes Android to fall back
-    // to system font silently in production builds.
+    // Key MUST match the font's internal PostScript name (nameID 6).
+    // Verified with the fontTools name parser:
+    //   MetalMania-Regular.ttf  -> PS name "MetalMania-Regular"
+    //   BraverGrave.otf         -> PS name "BraverGrave"
+    //   Critica.otf             -> PS name "Critica"
+    // Using the wrong key causes Android to silently fall back to the
+    // system font in production builds.
     'MetalMania-Regular': require('../assets/fonts/MetalMania-Regular.ttf'),
+    'BraverGrave': require('../assets/fonts/BraverGrave.otf'),
+    'Critica': require('../assets/fonts/Critica.otf'),
   });
 
   // Don't block app render — render either way. SplatTitle will fall back to

@@ -649,7 +649,7 @@ const styles = StyleSheet.create({
   },
   usernameText: {
     fontSize: 28,
-    fontFamily: FONTS.metal,
+    fontFamily: FONTS.death,
     fontWeight: '900',
     color: '#9aff5a',
     letterSpacing: 1.5,
