@@ -25,6 +25,7 @@ import { RankCrest } from '../src/components/RankCrest';
 import { GrungeBackground } from '../src/components/GrungeBackground';
 import { FONTS } from '../src/theme';
 import { cardThumb } from '../src/utils/cardImage';
+import { boostDaysLeft, isBoostActive } from '../src/utils/vipBoost';
 import { RippableDailyPack } from '../src/components/RippableDailyPack';
 import { DrippingLogo } from '../src/components/DrippingLogo';
 import { MetalStatPanel } from '../src/components/MetalStatPanel';
@@ -298,10 +299,12 @@ export default function HomeScreen() {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Text style={styles.usernameText}>{user.username}!</Text>
             <RankCrest rank={user.rank} size="sm" />
-            {user.is_vip_supporter && (
+            {isBoostActive(user.coin_boost_expires_at) && (
               <View style={styles.homeVipChip} testID="home-vip-chip">
                 <Ionicons name="star" size={10} color="#0a1a02" />
-                <Text style={styles.homeVipChipText}>VIP</Text>
+                <Text style={styles.homeVipChipText}>
+                  VIP · {boostDaysLeft(user.coin_boost_expires_at)}d
+                </Text>
               </View>
             )}
           </View>
