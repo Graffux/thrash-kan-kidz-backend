@@ -204,11 +204,17 @@ function TabsNavigator() {
           ),
         }}
       />
-      {/* Hidden screens */}
-      <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarButton: () => null }} />
-      <Tabs.Screen name="mosh" options={{ title: 'Mosh Pit', tabBarButton: () => null }} />
-      <Tabs.Screen name="privacy" options={{ title: 'Privacy Policy', tabBarButton: () => null }} />
-      <Tabs.Screen name="payment-success" options={{ title: 'Payment Success', tabBarButton: () => null }} />
+      {/*
+        Hidden screens — removed from the tab bar via `href: null`. The
+        previous approach (`tabBarButton: () => null`) rendered an empty
+        cell that still consumed flex space, pushing the 7 visible tabs
+        leftward. `href: null` actually drops them from the bar so the
+        visible tabs distribute evenly across the full width.
+      */}
+      <Tabs.Screen name="settings" options={{ title: 'Settings', href: null }} />
+      <Tabs.Screen name="mosh" options={{ title: 'Mosh Pit', href: null }} />
+      <Tabs.Screen name="privacy" options={{ title: 'Privacy Policy', href: null }} />
+      <Tabs.Screen name="payment-success" options={{ title: 'Payment Success', href: null }} />
     </Tabs>
   );
 }
@@ -245,10 +251,13 @@ export default function TabLayout() {
   // We leave the remote-URI as a fallback ONLY for emergency OTA fixes
   // (the URLs are still valid on the backend) but the primary path is
   // local bundled .ttf.
+  // Custom death-metal display fonts (BraverGrave/Critica) were removed
+  // in v124 — they kept silently failing on Android in production
+  // builds, so we fell back to system bold via `FONTS.death = undefined`.
+  // Only MetalMania-Regular remains as a custom face (used for small
+  // rank labels / welcome strip — proved reliable on every device).
   const [fontsLoaded, fontError] = useFonts({
     'MetalMania-Regular': require('../assets/fonts/MetalMania-Regular.ttf'),
-    'BraverGrave': require('../assets/fonts/BraverGrave.ttf'),
-    'Critica': require('../assets/fonts/Critica.ttf'),
   });
 
   // Don't block app render — render either way. SplatTitle will fall back to
@@ -262,6 +271,11 @@ export default function TabLayout() {
       console.log('[font] Metal fonts loaded from CDN');
     }
   }, [fontError, fontsLoaded]);
+
+  // Headers are now bundled locally (see src/assets/headerCatalog.ts), so
+  // there is no remote-image prefetch to perform. Previous versions called
+  // `ExpoImage.prefetch(HEADER_URLS)` here — that approach is gone along
+  // with the remote string-URL header catalog.
 
   // NOTE: an earlier version of this layout (v118 attempt) called
   //   ExpoImage.clearMemoryCache() + clearDiskCache() here on every cold

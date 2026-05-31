@@ -27,6 +27,7 @@ import { GrungeBackground } from '../src/components/GrungeBackground';
 import { FONTS } from '../src/theme';
 import { cardThumb } from '../src/utils/cardImage';
 import { boostDaysLeft, isBoostActive } from '../src/utils/vipBoost';
+import { headerSource } from '../src/assets/headerCatalog';
 import { RippableDailyPack } from '../src/components/RippableDailyPack';
 import { DrippingLogo } from '../src/components/DrippingLogo';
 import { MetalStatPanel } from '../src/components/MetalStatPanel';
@@ -328,7 +329,7 @@ export default function HomeScreen() {
 
         {/* "YOUR STATS" raster banner above the 4-up stat grid. */}
         <ExpoImage
-          source={{ uri: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xy3yb7n4_enhanced-1776904351419.png' }}
+          source={headerSource('yourStats')}
           style={styles.yourStatsHeader}
           contentFit="contain"
           testID="your-stats-header"
@@ -482,7 +483,14 @@ export default function HomeScreen() {
         onSpin={handleWheelSpin}
         streak={wheelStreak}
         onSpinStart={() => buttonTapSound.play()}
-        onPrizeWon={() => prizeWonSound.play()}
+        onPrizeWon={() => {
+          // Refresh immediately on prize land so the home stats grid
+          // shows the new coin/medal/free-pack totals BEFORE the user
+          // even closes the modal. Previously refresh only fired on
+          // close, which made the rewards feel like they weren't paid.
+          prizeWonSound.play();
+          refreshData();
+        }}
       />
 
       {/* Card Picker Modal */}
@@ -494,7 +502,11 @@ export default function HomeScreen() {
         }}
         apiUrl={apiUrl}
         userId={user.id}
-        onPrizeWon={() => prizeWonSound.play()}
+        onPrizeWon={() => {
+          // Same reasoning as the wheel — refresh immediately on win.
+          prizeWonSound.play();
+          refreshData();
+        }}
       />
       </SafeAreaView>
     </GrungeBackground>

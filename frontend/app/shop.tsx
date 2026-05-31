@@ -13,6 +13,7 @@ import {
   Alert,
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { headerSource } from '../src/assets/headerCatalog';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GrungeBackground } from '../src/components/GrungeBackground';
 import { FONTS } from '../src/theme';
@@ -745,7 +746,7 @@ export default function ShopScreen() {
         {/* Header */}
         <View style={styles.header}>
           <View>
-            <ExpoImage source={{ uri: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zljumrlp_enhanced-1776903996438.png' }} style={styles.headerImage} contentFit="contain" />
+            <ExpoImage source={headerSource('cardPack')} style={styles.headerImage} contentFit="contain" />
             <Text style={styles.subtitle}>{spinPool?.series_name || 'Loading...'}</Text>
           </View>
           <View style={styles.coinSection}>
@@ -876,6 +877,8 @@ export default function ShopScreen() {
                     source={{ uri: PACK_COVERS[s] || PACK_COVERS[1] }}
                     style={styles.seriesCoverImage}
                     contentFit="cover"
+                    cachePolicy="memory-disk"
+                    transition={150}
                   />
                   <View style={[
                     styles.seriesCoverLabel,

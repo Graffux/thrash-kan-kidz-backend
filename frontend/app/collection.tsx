@@ -15,6 +15,7 @@ import {
   Share,
 } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
+import { headerSource } from '../src/assets/headerCatalog';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GrungeBackground } from '../src/components/GrungeBackground';
 import { Ionicons } from '@expo/vector-icons';
@@ -848,7 +849,7 @@ export default function CollectionScreen() {
     <GrungeBackground>
       <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <ExpoImage source={{ uri: 'https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/btr32loy_enhanced-1776904123985.png' }} style={styles.headerImage} contentFit="contain" />
+        <ExpoImage source={headerSource('myCollection')} style={styles.headerImage} contentFit="contain" />
         <Text style={styles.subtitle}>
           {totalOwned} Cards Collected
         </Text>
@@ -1091,6 +1092,8 @@ export default function CollectionScreen() {
                         source={{ uri: selectedCard.card.front_image_url }}
                         style={styles.modalCardImage}
                         contentFit="contain"
+                        cachePolicy="memory-disk"
+                        transition={150}
                       />
                     </Animated.View>
                     <Animated.View
@@ -1107,6 +1110,8 @@ export default function CollectionScreen() {
                         source={{ uri: selectedCard.card.back_image_url || selectedCard.card.front_image_url }}
                         style={styles.modalCardImage}
                         contentFit="contain"
+                        cachePolicy="memory-disk"
+                        transition={150}
                       />
                     </Animated.View>
                   </View>
@@ -1851,8 +1856,12 @@ const styles = StyleSheet.create({
   },
   // Share-this-card button inside Card Detail modal
   modalFlipWrap: {
-    width: '100%',
-    aspectRatio: 1,
+    // Match the explicit image size so the absolutely-positioned faces
+    // have real dimensions to fill. Earlier this was `width: '100%'`
+    // inside a parent with no width, which collapsed to 0×0 and
+    // silently hid the front/back card images.
+    width: width * 0.7,
+    height: width * 1.05,
     alignItems: 'center',
     justifyContent: 'center',
   },
