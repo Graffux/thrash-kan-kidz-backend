@@ -706,6 +706,13 @@ CARD_IMAGE_URLS = {
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
     # Series 8 Rare Reward (epic) — Slam Edition
     "crisp_chris": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/khrorjzs_Screenshot_20260603_051424_ChatGPT.png",
+    # ---- Series 8 — Slam Edition (base + variant fronts) ----
+    # Deflowerment / Rubber Ruben (Frontman)
+    "rubber_ruben": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fx6c62e6_enhanced-1780098706026.jpg",
+    "rubber_ruben_holographic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/866yqj72_Screenshot_20260602_014936_ChatGPT.png",
+    "rubber_ruben_comic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hmjih433_Screenshot_20260602_021257_ChatGPT.png",
+    "rubber_ruben_graffiti": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/b7kpz7dv_Screenshot_20260602_021331_ChatGPT.png",
+    "rubber_ruben_neon": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7sluimey_Screenshot_20260602_021623_ChatGPT.png",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -1030,6 +1037,8 @@ CARD_BACK_IMAGE_URLS = {
     "variant_back_comic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xdo0xjou_enhanced-1780571804270.jpg",
     "variant_back_graffiti": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sejyn6u7_enhanced-1780571872918.jpg",
     "variant_back_neon": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tnldwg74_enhanced-1780571972567.jpg",
+    # ---- Series 8 — Slam Edition (base card backs) ----
+    "rubber_ruben": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uba3netc_enhanced-1780098829928.jpg",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
     # Series 8 Rare Reward (epic) — Slam Edition
@@ -10063,5 +10072,87 @@ INITIAL_CARDS = [
         "is_variant": True,
         "base_card_id": "card_skeet_sandoval",
         "variant_name": "Melted"
+    },
+    # =====================
+    # SERIES 8 — Slam Edition
+    # =====================
+    # ---- Deflowerment / Rubber Ruben (Frontman) — base card ----
+    {
+        "id": "card_rubber_ruben",
+        "name": "Rubber Ruben",
+        "description": "The Flexible Frontman of Deflowerment. Squishy, stretchy, and ready to slam! Rubber Ruben can take a beating and bounce right back. Nothing sticks to him except brutal riffs and bad attitudes. SLAM: 10 | SQUISH: 10 | FLEX: 10 | DURABILITY: 9 | ATTITUDE: 10 | RIFFS: 10 | GROSS FACTOR: 9. Special Move: RUBBERIZED SLAM -- stretches his body to the limit and delivers a devastating slam that bounces back with double impact!",
+        "rarity": "common",
+        "front_image_url": CARD_IMAGE_URLS["rubber_ruben"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["rubber_ruben"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 8,
+        "band": "Deflowerment",
+        "card_type": "A"
+    },
+    # ---- Rubber Ruben variants (Series 8 / Slam Edition) ----
+    {
+        "id": "card_rubber_ruben_holographic",
+        "name": "Rubber Ruben (Holographic)",
+        "description": "Iridescent rubber-flesh refracting every stage light into a rainbow of filth. The Holographic variant of Rubber Ruben bounces in 7 dimensions at once. Each slam echoes through a different prism of pain.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rubber_ruben_holographic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_holographic"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 8,
+        "band": "Deflowerment",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_rubber_ruben",
+        "variant_name": "Holographic"
+    },
+    {
+        "id": "card_rubber_ruben_comic",
+        "name": "Rubber Ruben (Comic)",
+        "description": "KA-POW! SPLAT! BAM! The Comic variant of Rubber Ruben slams in halftone dots and bold black outlines. Every riff is a panel. Every breakdown a splash page. Slam approved -- print edition only.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rubber_ruben_comic"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_comic"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 8,
+        "band": "Deflowerment",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_rubber_ruben",
+        "variant_name": "Comic"
+    },
+    {
+        "id": "card_rubber_ruben_graffiti",
+        "name": "Rubber Ruben (Graffiti)",
+        "description": "Spray-painted across every dive bar bathroom from Detroit to Tampa. The Graffiti variant of Rubber Ruben tags the pit before he tears it apart. Drips of neon. Cans of fury. Slam till the wall comes down.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rubber_ruben_graffiti"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_graffiti"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 8,
+        "band": "Deflowerment",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_rubber_ruben",
+        "variant_name": "Graffiti"
+    },
+    {
+        "id": "card_rubber_ruben_neon",
+        "name": "Rubber Ruben (Neon)",
+        "description": "Glowing electric purple under a flickering club sign. The Neon variant of Rubber Ruben buzzes louder than the amps. Voltage: maxed. Rubber: still 100% pure. Slam until the breaker trips.",
+        "rarity": "variant",
+        "front_image_url": CARD_IMAGE_URLS["rubber_ruben_neon"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_neon"],
+        "coin_cost": 50,
+        "available": True,
+        "series": 8,
+        "band": "Deflowerment",
+        "card_type": "A",
+        "is_variant": True,
+        "base_card_id": "card_rubber_ruben",
+        "variant_name": "Neon"
     },
 ]
