@@ -83,6 +83,17 @@ SERIES_CONFIG: Dict[int, dict] = {
         "rare_reward": "card_alien_dubin",
         "description": "Grind Edition",
     },
+    # Series 8 — coming soon. Variant scratch covers (Holographic, Comic,
+    # Graffiti, Neon) are wired up; base cards + rare reward will be
+    # filled in once the artwork ships. Leaving release_date unset keeps
+    # this in "coming_soon" status (hidden from /api/cards but the
+    # frontend's "Coming Soon" tile will still render via /api/series/list).
+    8: {
+        "name": "Series 8",
+        "cards_required": 16,
+        "rare_reward": None,  # TODO: set once the S8 epic reward card is defined
+        "description": "Coming Soon",
+    },
 }
 
 # Highest series number declared in code. NOT the same as the highest

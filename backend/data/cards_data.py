@@ -1083,6 +1083,11 @@ VARIANT_SCRATCH_COVERS = {
     "chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bcbmpuzx_enhanced-1778623874780.jpg",
     "digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/heods8iy_enhanced-1778623983567.jpg",
     "melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zz9ztaov_enhanced-1778624016085.jpg",
+    # Series 8 variants
+    "neon": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ox2j4xea_file_00000000f14c71fdb121b8f2d764701e.png",
+    "graffiti": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8ma0g46d_file_00000000fa4471fdaac588e2b79edb4b.png",
+    "comic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uht7n709_file_00000000ca2871fd926fe3683dcd2969.png",
+    "holographic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sxk6r53h_file_000000003dd871fd94179510f3cebe70.png",
 }
 
 INITIAL_CARDS = [

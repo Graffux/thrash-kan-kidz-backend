@@ -8,8 +8,9 @@ FastAPI + MongoDB.
 ## Status
 - **Live on Google Play Production**.
 - Current live build on devices: **v1.20.0 / versionCode 111**.
-- Next build prepared in repo: **v1.20.0 / versionCode 114**.
+- Next build prepared in repo: **v1.20.0 / versionCode 130**.
 - **567 cards seeded**, Series 1–7 fully released.
+- Series 8 scaffolded (variants Holographic/Comic/Graffiti/Neon registered, status=coming_soon, awaiting card definitions).
 - Backend hosted on Render (`https://thrash-kan-kidz-api.onrender.com`).
 - MongoDB Atlas (`thrash_kan_kidz` DB).
 - Custom domain `thrashkankidz.com` via Cloudflare Pages.
