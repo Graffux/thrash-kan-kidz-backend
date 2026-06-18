@@ -5,12 +5,13 @@ Gated by a simple username query param (?user=Graffux) — not strong auth, but
 prevents random scrapers from harvesting stack traces. Upgrade to JWT-gated
 admin role post-launch if needed.
 """
-from fastapi import APIRouter, HTTPException, Body
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, HTTPException, Body, Form
+from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timezone
 import os
+import uuid
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from series_config import (
@@ -371,7 +372,149 @@ async def mosh_cleanup_view(user: str = "", keyword: str = "", confirm: int = 0)
     <p style="color:#555;font-size:11px;margin-top:32px;border-top:1px solid #222;padding-top:12px;">
     Logged in as <code style="color:#ffd24a;">{_esc(user)}</code>.
     Also available as JSON: <code>/api/admin/mosh/cleanup?user={_esc(user)}&keyword=…&confirm=1</code>
+    | <a href="/api/admin/mosh/post/view?user={_esc(user)}" style="color:#7ab8ff;">Create / Pin a post →</a>
     </p>
     </body></html>
     """
     return HTMLResponse(page)
+
+
+# ---------------------------------------------------------------------------
+# MOSH PIT POST CREATOR — one-click admin post with optional pin-to-top.
+# Open in any browser:
+#   {BACKEND_URL}/api/admin/mosh/post/view?user=Graffux
+# Type content, optionally tick "Pin to top", hit Post. Pinned posts float
+# above everything else on the feed (server-side sort) until you prune them
+# via the cleanup endpoint.
+# ---------------------------------------------------------------------------
+async def _resolve_admin_user_doc(username: str) -> dict:
+    """Look up the user record so we can store user_id + real username
+    on the post. Falls back to a synthetic anchor doc only as a safety
+    net — every admin in ADMIN_USERNAMES should already have a real
+    user record in production."""
+    user_doc = await db.users.find_one({"username": username})
+    if user_doc:
+        return user_doc
+    # Last-resort fallback: create a stable system user_id so posts don't
+    # break the feed serializer's user_id requirement.
+    return {"id": f"system-admin-{username.lower()}", "username": username}
+
+
+@router.get("/admin/mosh/post/view", response_class=HTMLResponse)
+async def mosh_post_view(user: str = "", success: int = 0, pinned: int = 0):
+    """Browser-based composer for admin announcements."""
+    if user not in ADMIN_USERNAMES:
+        return HTMLResponse(
+            "<h1>403 Forbidden</h1><p>Pass ?user=&lt;admin username&gt;</p>",
+            status_code=403,
+        )
+
+    success_banner = ""
+    if success:
+        label = "📌 Pinned to top" if pinned else "Posted"
+        success_banner = (
+            f"<div style='background:#1e3a1e;border:1px solid #3a7a3a;"
+            f"padding:12px;border-radius:8px;margin:12px 0;color:#9fe39f;'>"
+            f"✅ {label} — your message is live on the Mosh Pit feed."
+            f"</div>"
+        )
+
+    # Show currently pinned posts so admin can see what's already up.
+    pinned_now = await db.mosh_posts.find(
+        {"is_pinned": True}, {"_id": 0, "id": 1, "content": 1, "created_at": 1}
+    ).sort("created_at", -1).to_list(10)
+
+    pinned_rows = ""
+    for p in pinned_now:
+        ts = p.get("created_at", "")
+        if not isinstance(ts, str):
+            ts = ts.isoformat() if ts else ""
+        pinned_rows += (
+            f"<li style='padding:8px;border-bottom:1px solid #333;color:#ddd;'>"
+            f"<code style='color:#888;font-size:11px;'>{_esc(p.get('id','')[:8])}…</code> "
+            f"<span style='color:#ffd24a;'>📌</span> {_esc(p.get('content','')[:140])}"
+            f"</li>"
+        )
+    pinned_block = (
+        f"<h2 style='color:#ffd24a;margin-top:24px;'>Currently Pinned ({len(pinned_now)})</h2>"
+        f"<ul style='background:#1a1a1a;padding:8px 16px;border-radius:8px;list-style:none;'>"
+        f"{pinned_rows or '<li style=color:#666;padding:8px;>No pinned posts. Use the form above to create one.</li>'}"
+        f"</ul>"
+        f"<p style='color:#888;font-size:12px;'>To unpin/remove, use the "
+        f"<a href='/api/admin/mosh/cleanup/view?user={_esc(user)}' style='color:#7ab8ff;'>"
+        f"cleanup tool</a>.</p>"
+    )
+
+    page = f"""
+    <!doctype html>
+    <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mosh Pit — Create Post</title></head>
+    <body style="background:#0d0d0d;color:#eee;font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:0;padding:16px;max-width:900px;margin:0 auto;">
+    <h1 style="color:#ffd24a;border-bottom:2px solid #444;padding-bottom:8px;">📣 Mosh Pit — Create Post</h1>
+    <p style="color:#aaa;">Posts as <code style="color:#ffd24a;">{_esc(user)}</code>. Tick "Pin to top" for announcements that should float above all other posts.</p>
+
+    {success_banner}
+
+    <form method="post" action="/api/admin/mosh/post?user={_esc(user)}"
+      style="background:#1a1a1a;padding:16px;border-radius:8px;border:1px solid #333;">
+      <label style="display:block;margin-bottom:8px;color:#bbb;font-size:14px;">Content (max 200 chars):</label>
+      <textarea name="content" required maxlength="200" rows="4" autofocus placeholder="🤘 SERIES 9 IS LIVE — Rip Open New Packs! \\,,/"
+        style="width:100%;padding:10px;background:#222;color:#fff;border:1px solid #444;border-radius:6px;font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
+
+      <label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer;color:#ddd;">
+        <input type="checkbox" name="pin" value="1" checked style="width:18px;height:18px;cursor:pointer;">
+        <span>📌 Pin to top of feed (always-on-top until removed)</span>
+      </label>
+
+      <button type="submit" style="margin-top:16px;background:#3a7a3a;color:#fff;padding:12px 24px;border:none;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer;">
+        📣 POST TO MOSH PIT
+      </button>
+    </form>
+
+    {pinned_block}
+
+    <p style="color:#555;font-size:11px;margin-top:32px;border-top:1px solid #222;padding-top:12px;">
+    <a href="/api/admin/mosh/cleanup/view?user={_esc(user)}" style="color:#7ab8ff;">← Cleanup tool</a>
+    | JSON variant: <code>POST /api/admin/mosh/post?user={_esc(user)}&content=…&pin=1</code>
+    </p>
+    </body></html>
+    """
+    return HTMLResponse(page)
+
+
+@router.post("/admin/mosh/post")
+async def mosh_post_create(
+    user: str = "",
+    content: str = Form(""),
+    pin: Optional[str] = Form(None),
+):
+    """Form-encoded post creator. Used by the /view page; also scriptable."""
+    if user not in ADMIN_USERNAMES:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    content = (content or "").strip()
+    if not content:
+        raise HTTPException(status_code=400, detail="content required")
+    if len(content) > 200:
+        raise HTTPException(status_code=400, detail="content too long (max 200)")
+
+    is_pinned = pin in ("1", "true", "on", "yes")
+    admin_user = await _resolve_admin_user_doc(user)
+
+    post = {
+        "id": str(uuid.uuid4()),
+        "user_id": admin_user["id"],
+        "username": admin_user.get("username", user),
+        "content": content,
+        "image": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "reactors": [],
+        "comment_count": 0,
+        "is_pinned": is_pinned,
+    }
+    await db.mosh_posts.insert_one(post)
+    # Browser users get redirected back to the composer with a success banner;
+    # curl users see the JSON serializer hint via Location header.
+    return RedirectResponse(
+        url=f"/api/admin/mosh/post/view?user={user}&success=1&pinned={1 if is_pinned else 0}",
+        status_code=303,
+    )
