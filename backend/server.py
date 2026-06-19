@@ -66,6 +66,7 @@ class Card(BaseModel):
     is_variant: bool = False  # Whether this is a variant card
     base_card_id: Optional[str] = None  # The base card this is a variant of
     variant_name: Optional[str] = None  # Name of the variant (e.g., "Toxic", "Electric")
+    is_daily_reward: bool = False  # True for cards earnable only via Daily Challenges
     scratch_cover_url: Optional[str] = None  # Variant-themed scratch-off overlay (only for variants on pack open)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 

@@ -29,6 +29,14 @@ from data.daily_challenges import (
 
 router = APIRouter()
 
+# Date-keyed daily reward card schedule. Today gets I-Gore; tomorrow Chris
+# Pervalicious. Add more entries as new cards land. If today's date isn't in
+# this map, falls back to whatever bonus_card_id is set on the catalog.
+DAILY_REWARD_BY_DATE: dict[str, str] = {
+    "2026-06-19": "card_i_gore_cavahorror",
+    "2026-06-20": "card_chris_pervalicious",
+}
+
 mongo_url = os.environ["MONGO_URL"]
 db_name = os.environ["DB_NAME"]
 _client = AsyncIOMotorClient(mongo_url)
@@ -255,9 +263,13 @@ async def claim_daily_challenge(user_id: str):
     if update_doc:
         await db.users.update_one({"id": user_id}, {"$set": update_doc})
 
-    # Bonus card (random variant on "*" sentinel)
+    # Bonus card (date-keyed rotation takes precedence; "*" sentinel falls
+    # back to a random variant if no scheduled card for today)
     bcid = rewards.get("bonus_card_id")
-    if bcid == "*":
+    scheduled = DAILY_REWARD_BY_DATE.get(date_iso)
+    if scheduled:
+        bcid = scheduled
+    elif bcid == "*":
         bcid = await _pick_bonus_card_id()
     if bcid:
         import uuid

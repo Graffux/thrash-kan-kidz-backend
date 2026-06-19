@@ -733,6 +733,7 @@ CARD_IMAGE_URLS = {
     "maddy_no_way_neon":         "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bdnp1wa3_file_000000002e4071f8ac90bf44135f0d9f.png",
     # ---- DAILY REWARD CARDS (rare, available: False, only granted via daily challenges) ----
     "i_gore_cavahorror": "TODO_URL_i_gore_cavahorror_front",
+    "chris_pervalicious": "TODO_URL_chris_pervalicious_front",
 }
 
 CARD_BACK_IMAGE_URLS = {
@@ -1064,6 +1065,7 @@ CARD_BACK_IMAGE_URLS = {
     "maddy_no_way":  "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vasxm41h_enhanced-1780336063741.jpg",
     # ---- DAILY REWARD CARDS (back) ----
     "i_gore_cavahorror":  "TODO_URL_i_gore_cavahorror_back",
+    "chris_pervalicious": "TODO_URL_chris_pervalicious_back",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
     # Series 8 Rare Reward (epic) — Slam Edition
@@ -10434,6 +10436,19 @@ INITIAL_CARDS = [
         "available": False,
         "series": 8,
         "band": "Sepulcabra",
+        "is_daily_reward": True
+    },
+    {
+        "id": "card_chris_pervalicious",
+        "name": "Chris Pervalicious",
+        "description": "Chris Pervalicious spends more time checking himself out than practicing guitar. Somehow he still writes crushing riffs and shows up to every gig smelling like discount cologne and bad decisions. STATS: GROOVE 9 / RIFFS 10 / CREEP FACTOR 10 / STENCH 6 / SOCIAL SKILLS 1 / SLAM POWER 8. BAND: INFERNAL BLEEDING. TRASH FACTS: Owns 47 mirrors. Takes longer to do his hair than the whole band takes to soundcheck. Carries emergency hair gel. Thinks every photo is his best angle. Calls himself \"The Handsome One\".",
+        "rarity": "rare",
+        "front_image_url": CARD_IMAGE_URLS["chris_pervalicious"],
+        "back_image_url": CARD_BACK_IMAGE_URLS["chris_pervalicious"],
+        "coin_cost": 200,
+        "available": False,
+        "series": 8,
+        "band": "Infernal Bleeding",
         "is_daily_reward": True
     },
 ]
