@@ -836,6 +836,24 @@ INITIAL_GOALS = [
         "target_value": 7,
         "reward_coins": 500,
         "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s8",
+        "title": "Series 8 Variant Master",
+        "description": "Collect every variant in Series 8",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 8,
+        "reward_coins": 500,
+        "reward_card_id": None
+    },
+    {
+        "id": "goal_all_variants_s9",
+        "title": "Series 9 Variant Master",
+        "description": "Collect every variant in Series 9",
+        "goal_type": "collect_all_variants_series",
+        "target_value": 9,
+        "reward_coins": 500,
+        "reward_card_id": None
     }
 ]
 
