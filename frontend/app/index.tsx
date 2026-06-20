@@ -320,7 +320,7 @@ export default function HomeScreen() {
           onPress={() => router.push("/daily-challenges")}
           style={styles.dailyTile}
         >
-          <Ionicons name="flame" size={22} color="#ffd24a" />
+          <Ionicons name="trophy" size={22} color="#ffd24a" />
           <View style={{ flex: 1 }}>
             <Text style={styles.dailyTileTitle}>DAILY CHALLENGES</Text>
             <Text style={styles.dailyTileSub}>Pick your slam. Earn the daily rare.</Text>
