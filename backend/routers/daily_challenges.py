@@ -301,3 +301,11 @@ async def claim_daily_challenge(user_id: str):
         "granted": granted,
         "claimed_at": claimed_iso,
     }
+
+@router.delete("/admin/daily-challenges/{user_id}/{date_iso}")
+async def admin_reset_daily_challenge(user_id: str, date_iso: str):
+    result = await db.user_daily_challenges.delete_one({
+        "user_id": user_id,
+        "date_utc": date_iso,
+    })
+    return {"ok": True, "deleted_count": result.deleted_count}
