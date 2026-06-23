@@ -2147,7 +2147,10 @@ async def spin_wheel(user_id: str, series: int = None):
         if existing_user_card:
             await db.user_cards.update_one(
                 {"id": existing_user_card["id"]},
-                {"$inc": {"quantity": 1}}
+                {
+    "$inc": {"quantity": 1},
+    "$set": {"acquired_at": datetime.now(timezone.utc)}
+}
             )
         else:
             user_card = UserCard(user_id=user_id, card_id=won_card["id"])
