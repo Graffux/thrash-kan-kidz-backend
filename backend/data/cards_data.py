@@ -10481,7 +10481,7 @@ INITIAL_CARDS = [
 ] + [
     # 9 batch daily-reward cards sharing the universal "DAILY CHALLENGE CLASSICS" back
     {
-        "id": f"card_{slug}",
+        "id": f"card_daily_classic_{slug}",
         "name": name,
         "description": f"{name} — Daily Challenge Classic. Earned via weekly Daily Challenge rotation.",
         "rarity": "rare",
