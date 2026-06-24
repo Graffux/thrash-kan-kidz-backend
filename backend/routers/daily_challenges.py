@@ -69,15 +69,12 @@ async def _compute_progress(user_id: str, challenge: dict) -> int:
     ctype = challenge["type"]
 
     if ctype == "open_packs":
-        # Every user_card row inserted today represents a pulled card. Pack
-        # opens, scratches, wheel rewards, and card-picker prizes all
-        # write here, so this proxy is "you played the game today" rather
-        # than strictly pack-only. Good enough for v1; tighten later by
-        # tagging the source field on each insert.
-        return await db.user_cards.count_documents({
+        today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        stats = await db.daily_user_stats.find_one({
             "user_id": user_id,
-            "acquired_at": {"$gte": today_start},
+            "date_utc": today_iso,
         })
+        return int((stats or {}).get("pack_opens", 0))
 
     if ctype == "collect_variants":
         # Need to filter user_cards by referenced card's is_variant flag.

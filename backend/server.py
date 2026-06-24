@@ -2133,6 +2133,13 @@ async def spin_wheel(user_id: str, series: int = None):
         {"id": user_id},
         {"$set": {"coins": new_coins, "total_spent_coins": new_total_spent}}
     )
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    await db.daily_user_stats.update_one(
+        {"user_id": user_id, "date_utc": today_iso},
+        {"$inc": {"pack_opens": 1}},
+        upsert=True,
+    )
     
     # Add each card to collection
     cards_result = []
