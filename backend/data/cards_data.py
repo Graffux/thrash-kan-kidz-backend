@@ -736,7 +736,7 @@ CARD_IMAGE_URLS = {
     "chris_pervalicious": "TODO_URL_chris_pervalicious_front",
     "jeff_handyman": "TODO_URL_jeff_handyman_front",
     # 9 batch daily-reward fronts (universal back shared via daily_reward_universal_back)
-    "paul_bawl_off":      "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/paul_bawl_off_classic.jpg",
+   "daily_classic_paul_bawl_off": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/paul_bawl_off_classic.jpg",
     "chum_araya":         "TODO_URL_chum_araya_front",
     "musty_dave":         "TODO_URL_musty_dave_front",
     "daves_mustang":      "TODO_URL_daves_mustang_front",
@@ -10485,7 +10485,7 @@ INITIAL_CARDS = [
         "name": name,
         "description": f"{name} — Daily Challenge Classic. Earned via weekly Daily Challenge rotation.",
         "rarity": "rare",
-        "front_image_url": CARD_IMAGE_URLS[slug],
+       "front_image_url": CARD_IMAGE_URLS[f"daily_classic_{slug}"],
         "back_image_url": CARD_BACK_IMAGE_URLS["daily_reward_universal_back"],
         "coin_cost": 200,
         "available": False,
