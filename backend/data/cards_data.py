@@ -736,7 +736,7 @@ CARD_IMAGE_URLS = {
     "chris_pervalicious": "TODO_URL_chris_pervalicious_front",
     "jeff_handyman": "TODO_URL_jeff_handyman_front",
     # 9 batch daily-reward fronts (universal back shared via daily_reward_universal_back)
-    "paul_bawl_off":      "TODO_URL_paul_bawl_off_front",
+    "paul_bawl_off":      "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/paul_bawl_off_classic.jpg",
     "chum_araya":         "TODO_URL_chum_araya_front",
     "musty_dave":         "TODO_URL_musty_dave_front",
     "daves_mustang":      "TODO_URL_daves_mustang_front",
@@ -1079,7 +1079,7 @@ CARD_BACK_IMAGE_URLS = {
     "chris_pervalicious": "TODO_URL_chris_pervalicious_back",
     "jeff_handyman": "TODO_URL_jeff_handyman_back",
     # Universal back for all 9 batch daily-reward cards (DAILY CHALLENGE CLASSICS branding)
-    "daily_reward_universal_back": "TODO_URL_daily_reward_universal_back",
+"daily_reward_universal_back": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
     # Series 8 Rare Reward (epic) — Slam Edition
