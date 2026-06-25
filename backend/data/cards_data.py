@@ -10485,7 +10485,7 @@ INITIAL_CARDS = [
         "name": name,
         "description": f"{name} — Daily Challenge Classic. Earned via weekly Daily Challenge rotation.",
         "rarity": "rare",
-       "front_image_url": CARD_IMAGE_URLS[f"daily_classic_{slug}"],
+       "front_image_url": CARD_IMAGE_URLS.get(f"daily_classic_{slug}", CARD_IMAGE_URLS[slug]),
         "back_image_url": CARD_BACK_IMAGE_URLS["daily_reward_universal_back"],
         "coin_cost": 200,
         "available": False,
