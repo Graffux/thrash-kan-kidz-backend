@@ -288,13 +288,13 @@ async def claim_daily_challenge(user_id: str):
 
             if existing_user_card:
                 await db.user_cards.update_one(
-                    {"id": existing_user_card["id"]},
+                    {"_id": existing_user_card["_id"]},
                     {
                         "": {"quantity": 1},
                         "": {"acquired_at": datetime.now(timezone.utc)},
                     },
                 )
-                print(f"[daily-claim] incremented existing user_card id={existing_user_card.get('id')}")
+                print(f"[daily-claim] incremented existing user_card card_id={bcid}")
             else:
                 import uuid
                 await db.user_cards.insert_one({
@@ -331,4 +331,5 @@ async def admin_reset_daily_challenge(user_id: str, date_iso: str):
         "date_utc": date_iso,
     })
     return {"ok": True, "deleted_count": result.deleted_count}
+
 
