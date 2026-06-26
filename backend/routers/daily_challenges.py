@@ -270,21 +270,46 @@ async def claim_daily_challenge(user_id: str):
         break
 
     if scheduled:
-     bcid = scheduled
+        bcid = scheduled
     elif bcid == "*":
-     bcid = await _pick_bonus_card_id()
+        bcid = await _pick_bonus_card_id()
+
+    print(f"[daily-claim] user={user_id} selected={selected_id} date={date_iso} bonus_card_id={bcid}")
+
     if bcid:
-        import uuid
-        await db.user_cards.insert_one({
-            "id": str(uuid.uuid4()),
-            "user_id": user_id,
-            "card_id": bcid,
-            "quantity": 1,
-            "acquired_at": datetime.now(timezone.utc),
-        })
-        granted["bonus_card_id"] = bcid
         bonus_card = await db.cards.find_one({"id": bcid}, {"_id": 0})
-        granted["bonus_card"] = bonus_card
+        print(f"[daily-claim] bonus card exists={bool(bonus_card)} id={bcid}")
+
+        if bonus_card:
+            existing_user_card = await db.user_cards.find_one({
+                "user_id": user_id,
+                "card_id": bcid,
+            })
+
+            if existing_user_card:
+                await db.user_cards.update_one(
+                    {"id": existing_user_card["id"]},
+                    {
+                        "": {"quantity": 1},
+                        "": {"acquired_at": datetime.now(timezone.utc)},
+                    },
+                )
+                print(f"[daily-claim] incremented existing user_card id={existing_user_card.get('id')}")
+            else:
+                import uuid
+                await db.user_cards.insert_one({
+                    "id": str(uuid.uuid4()),
+                    "user_id": user_id,
+                    "card_id": bcid,
+                    "quantity": 1,
+                    "acquired_at": datetime.now(timezone.utc),
+                })
+                print(f"[daily-claim] inserted new user_card card_id={bcid}")
+
+            granted["bonus_card_id"] = bcid
+            granted["bonus_card"] = bonus_card
+        else:
+            print(f"[daily-claim] WARNING bonus card id not found in cards collection: {bcid}")
 
     claimed_iso = datetime.now(timezone.utc).isoformat()
     await db.user_daily_challenges.update_one(
@@ -306,3 +331,4 @@ async def admin_reset_daily_challenge(user_id: str, date_iso: str):
         "date_utc": date_iso,
     })
     return {"ok": True, "deleted_count": result.deleted_count}
+
