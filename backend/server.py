@@ -867,16 +867,26 @@ async def seed_database():
     # Quick check - if we already have the right number of cards, skip the full seed
     card_count = await db.cards.count_documents({})
     expected_count = len(INITIAL_CARDS)
-    
-    # Always insert any cards from INITIAL_CARDS that aren't already in the DB.
-    # Do not rely on total card_count because Mongo may contain extra old/stale cards.
-    existing_ids = {c["id"] for c in await db.cards.find({}, {"id": 1, "_id": 0}).to_list(5000)}
+        # Remove stale cards that are no longer in INITIAL_CARDS.
+    valid_ids = {c["id"] for c in INITIAL_CARDS}
+
+    deleted = await db.cards.delete_many({
+        "id": {"$nin": list(valid_ids)}
+    })
+
+    if deleted.deleted_count:
+        logger.info(f"Removed {deleted.deleted_count} stale card(s)")
+        card_count = await db.cards.count_documents({})
+    # Insert any cards from INITIAL_CARDS that aren't already in the DB.
+    # This lets us add new bands/series without wiping the existing collection.
+    existing_ids = {c["id"] for c in await db.cards.find({}, {"id": 1, "_id": 0}).to_list(2000)}
+
     to_insert = [c for c in INITIAL_CARDS if c["id"] not in existing_ids]
     if to_insert:
         for c in to_insert:
             card_obj = Card(**c)
             await db.cards.insert_one(card_obj.dict())
-            logger.info(f"Inserted missing card: {c['name']}")
+            logger.info(f"Inserted new card: {c['name']}")
         card_count = await db.cards.count_documents({})
     
     if card_count >= expected_count:
@@ -893,8 +903,7 @@ async def seed_database():
             existing = await db.cards.find_one(
                 {"id": card_data["id"]},
                 {"_id": 0, "front_image_url": 1, "back_image_url": 1,
-                 "description": 1, "rarity": 1, "series": 1,
-                 "is_daily_reward": 1, "available": 1, "coin_cost": 1},
+                 "description": 1, "rarity": 1, "series": 1},
             )
             if not existing:
                 continue
@@ -909,12 +918,6 @@ async def seed_database():
                 patch["rarity"] = card_data["rarity"]
             if card_data.get("series") != existing.get("series"):
                 patch["series"] = card_data.get("series")
-            if card_data.get("is_daily_reward", False) != existing.get("is_daily_reward", False):
-                patch["is_daily_reward"] = card_data.get("is_daily_reward", False)
-            if card_data.get("available", True) != existing.get("available", True):
-                patch["available"] = card_data.get("available", True)
-            if card_data.get("coin_cost", 100) != existing.get("coin_cost", 100):
-                patch["coin_cost"] = card_data.get("coin_cost", 100)
             if patch:
                 await db.cards.update_one({"id": card_data["id"]}, {"$set": patch})
                 url_fixes += 1
@@ -1320,15 +1323,12 @@ async def _evaluate_badge(badge: dict, user: dict) -> bool:
 
     if ct == COND_SERIES_BASE_COMPLETE:
         series_num = p.get("series_num")
-        # Count only TRUE base cards: exclude variants, exclude epic series
-        # rewards (Alien Dubin / Crisp Chris), and exclude daily-reward cards
-        # (I-Gore, Chris Pervalicious, Jeff Handyman, etc.) which share the
-        # same `series: N` field but are earnable only via Daily Challenges.
+        # Series 7 stores band cards with rarity "rare"/"epic" plus the reward
+        # — we only count base band cards (not variants, not the rare reward).
         base_card_ids = await db.cards.distinct("id", {
             "series": series_num,
             "is_variant": {"$ne": True},
             "series_reward": None,
-            "is_daily_reward": {"$ne": True},
         })
         if not base_card_ids:
             return False
@@ -2139,13 +2139,6 @@ async def spin_wheel(user_id: str, series: int = None):
         {"id": user_id},
         {"$set": {"coins": new_coins, "total_spent_coins": new_total_spent}}
     )
-
-    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    await db.daily_user_stats.update_one(
-        {"user_id": user_id, "date_utc": today_iso},
-        {"$inc": {"pack_opens": 1}},
-        upsert=True,
-    )
     
     # Add each card to collection
     cards_result = []
@@ -2160,10 +2153,7 @@ async def spin_wheel(user_id: str, series: int = None):
         if existing_user_card:
             await db.user_cards.update_one(
                 {"id": existing_user_card["id"]},
-                {
-    "$inc": {"quantity": 1},
-    "$set": {"acquired_at": datetime.now(timezone.utc)}
-}
+                {"$inc": {"quantity": 1}}
             )
         else:
             user_card = UserCard(user_id=user_id, card_id=won_card["id"])
@@ -3382,7 +3372,7 @@ async def admin_add_coins(user_id: str, request: Request):
 
 
 @api_router.post("/admin/set-streak/{user_id}")
-async def admin_set_streak(user_id: str, streak: int = 1):
+async def admin_set_streak(user_id: str, request: Request):
     """Admin endpoint to restore a user's daily login streak.
 
     Used to make users whole after they were locked out of the app for several
@@ -3391,6 +3381,8 @@ async def admin_set_streak(user_id: str, streak: int = 1):
     the new value to the user's `daily_login` goal progress so the Goals tab
     reflects the restored streak (and any streak-milestone goals can complete).
     """
+    body = await request.json()
+    streak = body.get("streak", 0)
     if streak < 0 or streak > 9999:
         raise HTTPException(status_code=400, detail="Streak out of range")
     user = await db.users.find_one({"id": user_id})
