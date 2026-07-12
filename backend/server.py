@@ -2140,6 +2140,20 @@ async def spin_wheel(user_id: str, series: int = None):
         {"$set": {"coins": new_coins, "total_spent_coins": new_total_spent}}
     )
     
+    # Count this successful pack toward today's Daily Challenge.
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    await db.daily_user_stats.update_one(
+        {"user_id": user_id, "date_utc": today_iso},
+        {
+            "$inc": {"pack_opens": 1},
+            "$setOnInsert": {
+                "user_id": user_id,
+                "date_utc": today_iso,
+            },
+        },
+        upsert=True,
+    )
+
     # Add each card to collection
     cards_result = []
     for won_card in won_cards:
@@ -3686,6 +3700,20 @@ async def redeem_free_pack(user_id: str, request: Request):
             await db.user_cards.insert_one(user_card.dict())
         cards_result.append({"card": Card(**_with_scratch_cover(won_card)), "is_duplicate": is_duplicate})
     
+    # Count this successful pack toward today's Daily Challenge.
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    await db.daily_user_stats.update_one(
+        {"user_id": user_id, "date_utc": today_iso},
+        {
+            "$inc": {"pack_opens": 1},
+            "$setOnInsert": {
+                "user_id": user_id,
+                "date_utc": today_iso,
+            },
+        },
+        upsert=True,
+    )
+
     # Check series completion
     series_completion = await check_series_completion(user_id, series)
     
