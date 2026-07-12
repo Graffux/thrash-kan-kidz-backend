@@ -34,6 +34,7 @@ router = APIRouter()
 # this map, falls back to whatever bonus_card_id is set on the catalog.
 DAILY_REWARD_BY_DATE: dict[str, str] = {
     "2026-06-22": "card_daily_classic_paul_bawl_off",
+    "2026-07-11": "card_daily_uncle_slam",
 }
 
 
