@@ -3386,7 +3386,7 @@ async def admin_add_coins(user_id: str, request: Request):
 
 
 @api_router.post("/admin/set-streak/{user_id}")
-async def admin_set_streak(user_id: str, request: Request):
+async def admin_set_streak(user_id: str, streak: int):
     """Admin endpoint to restore a user's daily login streak.
 
     Used to make users whole after they were locked out of the app for several
@@ -3395,8 +3395,6 @@ async def admin_set_streak(user_id: str, request: Request):
     the new value to the user's `daily_login` goal progress so the Goals tab
     reflects the restored streak (and any streak-milestone goals can complete).
     """
-    body = await request.json()
-    streak = body.get("streak", 0)
     if streak < 0 or streak > 9999:
         raise HTTPException(status_code=400, detail="Streak out of range")
     user = await db.users.find_one({"id": user_id})
