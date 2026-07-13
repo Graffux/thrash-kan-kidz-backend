@@ -2181,12 +2181,23 @@ async def spin_wheel(user_id: str, series: int = None):
     # Check for series completion
     series_completion = await check_series_completion(user_id, current_series)
     
-    # Check for achievements after spin
-    unique_cards = await db.user_cards.count_documents({"user_id": user_id})
-    await check_and_update_goals(user_id, "collect_cards", unique_cards)
-    await check_all_rarities_goal(user_id)
-    await check_all_variants_series_goals(user_id)
-    engagement_unlock = await check_engagement_milestones(user_id)
+    # Run non-critical achievement scans after returning the pack response.
+    # These scans can take a long time on Render and must not block opening.
+    import asyncio
+
+    engagement_unlock = None
+
+    async def _post_spin_updates() -> None:
+        try:
+            unique_cards = await db.user_cards.count_documents({"user_id": user_id})
+            await check_and_update_goals(user_id, "collect_cards", unique_cards)
+            await check_all_rarities_goal(user_id)
+            await check_all_variants_series_goals(user_id)
+            await check_engagement_milestones(user_id)
+        except Exception:
+            logger.exception("Post-spin achievement update failed for user %s", user_id)
+
+    asyncio.create_task(_post_spin_updates())
     
     return {
         "success": True,
