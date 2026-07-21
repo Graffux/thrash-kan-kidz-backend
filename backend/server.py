@@ -15,6 +15,7 @@ import random
 import bcrypt
 import stripe
 from data.cards_data import INITIAL_CARDS, CARD_IMAGE_URLS, CARD_BACK_IMAGE_URLS, RARE_CARD_ACHIEVEMENTS, VARIANT_SCRATCH_COVERS
+from data.trivia_data import TRIVIA_QUESTIONS
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env', override=False)
@@ -3736,6 +3737,416 @@ async def redeem_free_pack(user_id: str, request: Request):
         "remaining_free_packs": updated_user.get("free_packs", 0),
         "series_completion": series_completion,
     }
+
+
+# =====================
+# Metal Musick Trivia
+# =====================
+
+TRIVIA_QUESTION_COUNT = 5
+TRIVIA_PERFECT_DAYS_FOR_PACK = 3
+
+
+def _public_trivia_question(question: dict) -> dict:
+    """Return a question without exposing its correct answer."""
+    return {
+        "id": question["id"],
+        "category": question["category"],
+        "difficulty": question["difficulty"],
+        "question": question["question"],
+        "answers": question["answers"],
+    }
+
+
+@api_router.get("/users/{user_id}/trivia/status")
+async def get_trivia_status(user_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    session = await db.trivia_sessions.find_one({
+        "user_id": user_id,
+        "date_utc": today_iso,
+    })
+
+    progress = await db.trivia_progress.find_one({"user_id": user_id}) or {}
+
+    return {
+        "played_today": bool(session and session.get("submitted")),
+        "session_started": bool(session),
+        "perfect_days": int(progress.get("perfect_days", 0)),
+        "perfect_days_toward_next_pack": (
+            int(progress.get("perfect_days", 0))
+            % TRIVIA_PERFECT_DAYS_FOR_PACK
+        ),
+        "perfect_days_required": TRIVIA_PERFECT_DAYS_FOR_PACK,
+        "no_dupes_packs": int(user.get("no_dupes_packs", 0)),
+        "last_score": session.get("score") if session else None,
+    }
+
+
+@api_router.get("/users/{user_id}/trivia/questions")
+async def get_trivia_questions(user_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    existing = await db.trivia_sessions.find_one({
+        "user_id": user_id,
+        "date_utc": today_iso,
+    })
+
+    question_lookup = {q["id"]: q for q in TRIVIA_QUESTIONS}
+
+    if existing:
+        if existing.get("submitted"):
+            raise HTTPException(
+                status_code=400,
+                detail="Today's Metal Musick Trivia game has already been completed.",
+            )
+
+        questions = [
+            question_lookup[qid]
+            for qid in existing.get("question_ids", [])
+            if qid in question_lookup
+        ]
+    else:
+        if len(TRIVIA_QUESTIONS) < TRIVIA_QUESTION_COUNT:
+            raise HTTPException(
+                status_code=500,
+                detail="Not enough trivia questions configured.",
+            )
+
+        questions = random.sample(TRIVIA_QUESTIONS, TRIVIA_QUESTION_COUNT)
+
+        await db.trivia_sessions.insert_one({
+            "id": str(uuid.uuid4()),
+            "user_id": user_id,
+            "date_utc": today_iso,
+            "question_ids": [q["id"] for q in questions],
+            "submitted": False,
+            "created_at": datetime.now(timezone.utc),
+        })
+
+    return {
+        "title": "Metal Musick Trivia",
+        "question_count": len(questions),
+        "questions": [_public_trivia_question(q) for q in questions],
+    }
+
+
+@api_router.post("/users/{user_id}/trivia/submit")
+async def submit_trivia_answers(user_id: str, request: Request):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    session = await db.trivia_sessions.find_one({
+        "user_id": user_id,
+        "date_utc": today_iso,
+    })
+
+    if not session:
+        raise HTTPException(
+            status_code=400,
+            detail="Start today's trivia game before submitting answers.",
+        )
+
+    if session.get("submitted"):
+        raise HTTPException(
+            status_code=400,
+            detail="Today's trivia answers have already been submitted.",
+        )
+
+    body = await request.json()
+    submitted_answers = body.get("answers", [])
+
+    if not isinstance(submitted_answers, list):
+        raise HTTPException(status_code=400, detail="Answers must be a list.")
+
+    answer_map = {}
+    for answer in submitted_answers:
+        if not isinstance(answer, dict):
+            continue
+
+        question_id = answer.get("question_id")
+        answer_index = answer.get("answer_index")
+
+        if isinstance(question_id, str) and isinstance(answer_index, int):
+            answer_map[question_id] = answer_index
+
+    question_lookup = {q["id"]: q for q in TRIVIA_QUESTIONS}
+    question_ids = session.get("question_ids", [])
+
+    score = 0
+    results = []
+
+    for question_id in question_ids:
+        question = question_lookup.get(question_id)
+        if not question:
+            continue
+
+        selected_index = answer_map.get(question_id)
+        is_correct = selected_index == question["correct_answer"]
+
+        if is_correct:
+            score += 1
+
+        results.append({
+            "question_id": question_id,
+            "selected_answer": selected_index,
+            "correct_answer": question["correct_answer"],
+            "is_correct": is_correct,
+        })
+
+    if score <= 1:
+        coins_awarded = 25
+    elif score == 2:
+        coins_awarded = 50
+    elif score == 3:
+        coins_awarded = 100
+    elif score == 4:
+        coins_awarded = 150
+    else:
+        coins_awarded = 200
+
+    perfect = score == len(question_ids) and len(question_ids) > 0
+
+    # Prevent two submissions from both granting rewards.
+    submission_update = await db.trivia_sessions.update_one(
+        {
+            "id": session["id"],
+            "submitted": False,
+        },
+        {
+            "$set": {
+                "submitted": True,
+                "score": score,
+                "perfect": perfect,
+                "results": results,
+                "submitted_at": datetime.now(timezone.utc),
+            }
+        },
+    )
+
+    if submission_update.modified_count != 1:
+        raise HTTPException(
+            status_code=400,
+            detail="Today's trivia answers have already been submitted.",
+        )
+
+    no_dupes_pack_awarded = False
+    perfect_days = 0
+
+    progress = await db.trivia_progress.find_one({"user_id": user_id}) or {}
+    previous_perfect_days = int(progress.get("perfect_days", 0))
+    perfect_days = previous_perfect_days
+
+    if perfect:
+        perfect_days += 1
+
+        await db.trivia_progress.update_one(
+            {"user_id": user_id},
+            {
+                "$set": {
+                    "user_id": user_id,
+                    "perfect_days": perfect_days,
+                    "last_perfect_date": today_iso,
+                    "updated_at": datetime.now(timezone.utc),
+                }
+            },
+            upsert=True,
+        )
+
+        previous_pack_level = (
+            previous_perfect_days // TRIVIA_PERFECT_DAYS_FOR_PACK
+        )
+        new_pack_level = perfect_days // TRIVIA_PERFECT_DAYS_FOR_PACK
+
+        if new_pack_level > previous_pack_level:
+            no_dupes_pack_awarded = True
+
+    user_increment = {"coins": coins_awarded}
+
+    if no_dupes_pack_awarded:
+        user_increment["no_dupes_packs"] = 1
+
+    await db.users.update_one(
+        {"id": user_id},
+        {"$inc": user_increment},
+    )
+
+    updated_user = await db.users.find_one({"id": user_id})
+
+    return {
+        "success": True,
+        "score": score,
+        "total_questions": len(question_ids),
+        "perfect": perfect,
+        "coins_awarded": coins_awarded,
+        "total_coins": int(updated_user.get("coins", 0)),
+        "perfect_days": perfect_days,
+        "perfect_days_toward_next_pack": (
+            perfect_days % TRIVIA_PERFECT_DAYS_FOR_PACK
+        ),
+        "perfect_days_required": TRIVIA_PERFECT_DAYS_FOR_PACK,
+        "no_dupes_pack_awarded": no_dupes_pack_awarded,
+        "no_dupes_packs": int(updated_user.get("no_dupes_packs", 0)),
+        "results": results,
+    }
+
+
+@api_router.post("/users/{user_id}/open-no-dupes-pack")
+async def open_no_dupes_pack(user_id: str, request: Request):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    no_dupes_packs = int(user.get("no_dupes_packs", 0))
+    if no_dupes_packs < 1:
+        raise HTTPException(
+            status_code=400,
+            detail="No No-Dupes Packs available.",
+        )
+
+    body = await request.json()
+    series = int(body.get("series", 1))
+
+    unlocked_series = user.get("unlocked_series", [1])
+    if series not in unlocked_series:
+        raise HTTPException(
+            status_code=400,
+            detail="That series is not unlocked.",
+        )
+
+    eligible_cards = await db.cards.find({
+        "series": series,
+        "rarity": {"$in": ["common", "variant"]},
+        "available": True,
+        "engagement_milestone": None,
+        "is_daily_reward": {"$ne": True},
+    }).to_list(500)
+
+    if not eligible_cards:
+        raise HTTPException(
+            status_code=400,
+            detail="No eligible cards are available for this series.",
+        )
+
+    owned_rows = await db.user_cards.find(
+        {"user_id": user_id},
+        {"_id": 0, "card_id": 1},
+    ).to_list(5000)
+
+    owned_ids = {row["card_id"] for row in owned_rows}
+    unowned_cards = [
+        card for card in eligible_cards
+        if card["id"] not in owned_ids
+    ]
+
+    guaranteed_count = min(3, len(unowned_cards))
+    won_cards = (
+        random.sample(unowned_cards, guaranteed_count)
+        if guaranteed_count
+        else []
+    )
+
+    # When fewer than three unowned cards remain, fill the rest normally.
+    # The response tells the frontend that the collection exhausted the
+    # guarantee for this series.
+    guarantee_exhausted = guaranteed_count < 3
+
+    if len(won_cards) < 3:
+        selected_ids = {card["id"] for card in won_cards}
+        fallback_pool = [
+            card for card in eligible_cards
+            if card["id"] not in selected_ids
+        ]
+
+        if not fallback_pool:
+            fallback_pool = eligible_cards
+
+        needed = 3 - len(won_cards)
+
+        if len(fallback_pool) >= needed:
+            won_cards.extend(random.sample(fallback_pool, needed))
+        else:
+            won_cards.extend(random.choices(fallback_pool, k=needed))
+
+    # Consume the token only after a valid pack has been generated.
+    consume_result = await db.users.update_one(
+        {
+            "id": user_id,
+            "no_dupes_packs": {"$gte": 1},
+        },
+        {"$inc": {"no_dupes_packs": -1}},
+    )
+
+    if consume_result.modified_count != 1:
+        raise HTTPException(
+            status_code=400,
+            detail="No No-Dupes Packs available.",
+        )
+
+    cards_result = []
+
+    for won_card in won_cards:
+        existing_user_card = await db.user_cards.find_one({
+            "user_id": user_id,
+            "card_id": won_card["id"],
+        })
+
+        is_duplicate = existing_user_card is not None
+
+        if existing_user_card:
+            await db.user_cards.update_one(
+                {"id": existing_user_card["id"]},
+                {"$inc": {"quantity": 1}},
+            )
+        else:
+            user_card = UserCard(
+                user_id=user_id,
+                card_id=won_card["id"],
+            )
+            await db.user_cards.insert_one(user_card.dict())
+
+        cards_result.append({
+            "card": Card(**_with_scratch_cover(won_card)),
+            "is_duplicate": is_duplicate,
+        })
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    await db.daily_user_stats.update_one(
+        {"user_id": user_id, "date_utc": today_iso},
+        {
+            "$inc": {"pack_opens": 1},
+            "$setOnInsert": {
+                "user_id": user_id,
+                "date_utc": today_iso,
+            },
+        },
+        upsert=True,
+    )
+
+    series_completion = await check_series_completion(user_id, series)
+    updated_user = await db.users.find_one({"id": user_id})
+
+    return {
+        "success": True,
+        "pack_type": "no_dupes",
+        "series": series,
+        "won_cards": cards_result,
+        "guaranteed_new_cards": guaranteed_count,
+        "guarantee_exhausted": guarantee_exhausted,
+        "remaining_no_dupes_packs": int(
+            updated_user.get("no_dupes_packs", 0)
+        ),
+        "series_completion": series_completion,
+    }
+
 
 @api_router.get("/users/{user_id}/medals")
 async def get_medals(user_id: str):
