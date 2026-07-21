@@ -3758,6 +3758,69 @@ def _public_trivia_question(question: dict) -> dict:
     }
 
 
+@api_router.delete("/admin/trivia/{user_id}/today")
+async def admin_reset_trivia_today(user_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    result = await db.trivia_sessions.delete_many({
+        "user_id": user_id,
+        "date_utc": today_iso,
+    })
+
+    progress = await db.trivia_progress.find_one({"user_id": user_id}) or {}
+
+    return {
+        "success": True,
+        "username": user.get("username"),
+        "date_utc": today_iso,
+        "sessions_deleted": result.deleted_count,
+        "perfect_days": int(progress.get("perfect_days", 0)),
+        "message": "Today's trivia game was reset. Perfect-day progress was preserved.",
+    }
+
+
+@api_router.put("/admin/trivia/{user_id}/perfect-days/{count}")
+async def admin_set_trivia_perfect_days(user_id: str, count: int):
+    if count < 0 or count > 9999:
+        raise HTTPException(
+            status_code=400,
+            detail="Perfect-day count out of range",
+        )
+
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    now = datetime.now(timezone.utc)
+
+    await db.trivia_progress.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                "user_id": user_id,
+                "perfect_days": count,
+                "updated_at": now,
+            },
+            "$setOnInsert": {
+                "created_at": now,
+            },
+        },
+        upsert=True,
+    )
+
+    return {
+        "success": True,
+        "username": user.get("username"),
+        "perfect_days": count,
+        "perfect_days_toward_next_pack": (
+            count % TRIVIA_PERFECT_DAYS_FOR_PACK
+        ),
+        "perfect_days_required": TRIVIA_PERFECT_DAYS_FOR_PACK,
+    }
 @api_router.get("/users/{user_id}/trivia/status")
 async def get_trivia_status(user_id: str):
     user = await db.users.find_one({"id": user_id})
