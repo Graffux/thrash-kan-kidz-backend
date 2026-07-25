@@ -16,6 +16,7 @@ import bcrypt
 import stripe
 from data.cards_data import INITIAL_CARDS, CARD_IMAGE_URLS, CARD_BACK_IMAGE_URLS, RARE_CARD_ACHIEVEMENTS, VARIANT_SCRATCH_COVERS
 from data.trivia_data import TRIVIA_QUESTIONS
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env', override=False)
@@ -1591,20 +1592,47 @@ async def update_featured_cards(user_id: str, request: UpdateFeaturedCardsReques
     return User(**updated_user)
 
 @api_router.post("/users/{user_id}/daily-login")
-async def claim_daily_login(user_id: str):
-    """Claim daily login bonus"""
+async def claim_daily_login(user_id: str, request: Request):
+    """Claim daily login bonus using the player's local timezone."""
     user = await db.users.find_one({"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    timezone_name = body.get("timezone") or user.get("timezone") or "UTC"
+
+    try:
+        user_timezone = ZoneInfo(timezone_name)
+    except (ZoneInfoNotFoundError, ValueError, TypeError):
+        timezone_name = "UTC"
+        user_timezone = ZoneInfo("UTC")
+
+    local_now = datetime.now(user_timezone)
+    today_date = local_now.date()
+    yesterday_date = today_date - timedelta(days=1)
+
+    today = today_date.isoformat()
+    yesterday = yesterday_date.isoformat()
     last_login = user.get("last_login_date")
-    
+
+    logger.info(
+        f"Daily login: user={user_id}, timezone={timezone_name}, "
+        f"today={today}, yesterday={yesterday}, "
+        f"last_login={last_login}, "
+        f"current_streak={user.get('daily_login_streak', 0)}"
+    )
+
     if last_login == today:
         raise HTTPException(status_code=400, detail="Already claimed today")
-    
-    # Calculate streak
-    yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
+
+    if last_login == yesterday:
+        new_streak = user.get("daily_login_streak", 0) + 1
+    else:
+        new_streak = 1
     if last_login == yesterday:
         new_streak = user.get("daily_login_streak", 0) + 1
     else:
@@ -1621,8 +1649,8 @@ async def claim_daily_login(user_id: str):
     new_coins = user.get("coins", 0) + bonus_coins
     
     # Track monthly logins for Monthly Master milestone
-    current_month = datetime.utcnow().strftime("%Y-%m")
-    today_day = datetime.utcnow().day
+    current_month = local_now.strftime("%Y-%m")
+    today_day = local_now.day
     monthly_logins = user.get("monthly_logins", {})
     
     # Get or create the list for this month
@@ -1634,14 +1662,15 @@ async def claim_daily_login(user_id: str):
         monthly_logins[current_month].append(today_day)
     
     await db.users.update_one(
-        {"id": user_id},
-        {"$set": {
-            "last_login_date": today,
-            "daily_login_streak": new_streak,
-            "coins": new_coins,
-            "monthly_logins": monthly_logins
-        }}
-    )
+    {"id": user_id},
+    {"$set": {
+        "last_login_date": today,
+        "daily_login_streak": new_streak,
+        "coins": new_coins,
+        "monthly_logins": monthly_logins,
+        "timezone": timezone_name,
+    }}
+)
     
     # Check daily login goals
     await check_and_update_goals(user_id, "daily_login", new_streak)
@@ -1967,13 +1996,14 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     if user.get("coins", 0) < card["coin_cost"]:
         raise HTTPException(status_code=400, detail="Not enough coins")
     
-    # Deduct coins and track total spent
-    new_coins = user.get("coins", 0) - card["coin_cost"]
-    new_total_spent = user.get("total_spent_coins", 0) + card["coin_cost"]
     await db.users.update_one(
-        {"id": user_id}, 
-        {"$set": {"coins": new_coins, "total_spent_coins": new_total_spent}}
-    )
+    {"id": user_id},
+    {"$set": {
+        "coins": new_coins,
+        "total_spent_coins": new_total_spent,
+        "duplicate_pack_streak": new_duplicate_streak,
+    }}
+)
     
     # Add card to collection
     existing_user_card = await db.user_cards.find_one({
@@ -2129,8 +2159,97 @@ async def spin_wheel(user_id: str, series: int = None):
         raise HTTPException(status_code=400, detail="No cards available to spin in current series")
     
     # Pick 3 random cards (duplicates allowed across the pack)
-    PACK_SIZE = 3
-    won_cards = random.choices(series_cards, k=PACK_SIZE)
+PACK_SIZE = 3
+won_cards = random.choices(series_cards, k=PACK_SIZE)
+
+# Get the cards the user already owns from this series before this pack opens.
+series_card_ids = [card["id"] for card in series_cards]
+
+owned_user_cards = await db.user_cards.find({
+    "user_id": user_id,
+    "card_id": {"$in": series_card_ids},
+}).to_list(500)
+
+owned_card_ids = {
+    user_card["card_id"]
+    for user_card in owned_user_cards
+}
+
+# Check whether all three selected cards were already owned.
+all_duplicates = all(
+    won_card["id"] in owned_card_ids
+    for won_card in won_cards
+)
+
+current_duplicate_streak = user.get("duplicate_pack_streak", 0)
+new_duplicate_streak = 0
+pity_triggered = False
+
+if all_duplicates:
+    new_duplicate_streak = current_duplicate_streak + 1
+
+    # On the third consecutive all-duplicate pack, replace one card
+    # with a missing card from this same series.
+    if new_duplicate_streak >= 3:
+        missing_cards = [
+            card
+            for card in series_cards
+            if card["id"] not in owned_card_ids
+        ]
+
+        if missing_cards:
+            replacement_index = random.randrange(PACK_SIZE)
+            won_cards[replacement_index] = random.choice(missing_cards)
+            pity_triggered = True
+            new_duplicate_streak = 0
+else:
+    new_duplicate_streak = 0s
+
+# Get the cards the user already owns from this series before processing
+# the newly opened pack.
+series_card_ids = [card["id"] for card in series_cards]
+
+owned_user_cards = await db.user_cards.find({
+    "user_id": user_id,
+    "card_id": {"$in": series_card_ids},
+}).to_list(500)
+
+owned_card_ids = {
+    user_card["card_id"]
+    for user_card in owned_user_cards
+}
+
+# A pack counts as an all-duplicate pack only when every selected card was
+# already owned before this pack was opened.
+all_duplicates = all(
+    won_card["id"] in owned_card_ids
+    for won_card in won_cards
+)
+
+current_duplicate_streak = user.get("duplicate_pack_streak", 0)
+new_duplicate_streak = 0
+pity_triggered = False
+
+if all_duplicates:
+    new_duplicate_streak = crent_duplicate_streak + 1
+
+    # On the third consecutive all-duplicate pack, replace one duplicate
+    # with a card the user is missing from this series.
+    if new_duplicate_streak >= 3:
+        missing_cards = [
+            card
+            for card in series_cards
+            if card["id"] not in owned_card_ids
+        ]
+
+        if missing_cards:
+            replacement_index = random.randrange(PACK_SIZE)
+            won_cards[replacement_index] = random.choice(missing_cards)
+            pity_triggered = True
+            new_duplicate_streak = 0
+else:
+    # Any pack containing a new card naturally resets the streak.
+    new_duplicate_streak = 0
     
     # Deduct coins and track spending
     new_coins = user.get("coins", 0) - SPIN_COST
@@ -2210,7 +2329,9 @@ async def spin_wheel(user_id: str, series: int = None):
         "pack_size": PACK_SIZE,
         "current_series": current_series,
         "series_completion": series_completion,
-        "engagement_unlock": engagement_unlock
+        "engagement_unlock": engagement_unlock,
+"duplicate_pack_streak": new_duplicate_streak,
+"pity_triggered": pity_triggered,
     }
 
 async def check_series_completion(user_id: str, series_num: int):
