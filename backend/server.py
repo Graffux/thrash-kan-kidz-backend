@@ -2001,7 +2001,6 @@ async def purchase_card(user_id: str, request: PurchaseCardRequest):
     {"$set": {
         "coins": new_coins,
         "total_spent_coins": new_total_spent,
-        "duplicate_pack_streak": new_duplicate_streak,
     }}
 )
     
@@ -2157,99 +2156,43 @@ async def spin_wheel(user_id: str, series: int = None):
     
     if not series_cards:
         raise HTTPException(status_code=400, detail="No cards available to spin in current series")
-    
-    # Pick 3 random cards (duplicates allowed across the pack)
-PACK_SIZE = 3
-won_cards = random.choices(series_cards, k=PACK_SIZE)
 
-# Get the cards the user already owns from this series before this pack opens.
-series_card_ids = [card["id"] for card in series_cards]
+          # Pick 3 random cards (duplicates allowed across the pack)
+    PACK_SIZE = 3
+    won_cards = random.sample(series_cards, k=min(PACK_SIZE, len(series_cards)))
 
-owned_user_cards = await db.user_cards.find({
-    "user_id": user_id,
-    "card_id": {"$in": series_card_ids},
-}).to_list(500)
+    # Get cards already owned from this series.
+    series_card_ids = [card["id"] for card in series_cards]
 
-owned_card_ids = {
-    user_card["card_id"]
-    for user_card in owned_user_cards
-}
+    owned_user_cards = await db.user_cards.find({
+        "user_id": user_id,
+        "card_id": {"$in": series_card_ids},
+    }).to_list(500)
 
-# Check whether all three selected cards were already owned.
-all_duplicates = all(
-    won_card["id"] in owned_card_ids
-    for won_card in won_cards
-)
+    owned_card_ids = {
+        user_card["card_id"]
+        for user_card in owned_user_cards
+    }
 
-current_duplicate_streak = user.get("duplicate_pack_streak", 0)
-new_duplicate_streak = 0
-pity_triggered = False
+    # Find cards the user is still missing.
+    missing_cards = [
+        card
+        for card in series_cards
+        if card["id"] not in owned_card_ids
+    ]
 
-if all_duplicates:
-    new_duplicate_streak = current_duplicate_streak + 1
+    # Guarantee at least one new card while the series is incomplete.
+    pack_contains_new_card = any(
+        won_card["id"] not in owned_card_ids
+        for won_card in won_cards
+    )
 
-    # On the third consecutive all-duplicate pack, replace one card
-    # with a missing card from this same series.
-    if new_duplicate_streak >= 3:
-        missing_cards = [
-            card
-            for card in series_cards
-            if card["id"] not in owned_card_ids
-        ]
+    guaranteed_new_card = False
 
-        if missing_cards:
-            replacement_index = random.randrange(PACK_SIZE)
-            won_cards[replacement_index] = random.choice(missing_cards)
-            pity_triggered = True
-            new_duplicate_streak = 0
-else:
-    new_duplicate_streak = 0s
-
-# Get the cards the user already owns from this series before processing
-# the newly opened pack.
-series_card_ids = [card["id"] for card in series_cards]
-
-owned_user_cards = await db.user_cards.find({
-    "user_id": user_id,
-    "card_id": {"$in": series_card_ids},
-}).to_list(500)
-
-owned_card_ids = {
-    user_card["card_id"]
-    for user_card in owned_user_cards
-}
-
-# A pack counts as an all-duplicate pack only when every selected card was
-# already owned before this pack was opened.
-all_duplicates = all(
-    won_card["id"] in owned_card_ids
-    for won_card in won_cards
-)
-
-current_duplicate_streak = user.get("duplicate_pack_streak", 0)
-new_duplicate_streak = 0
-pity_triggered = False
-
-if all_duplicates:
-    new_duplicate_streak = crent_duplicate_streak + 1
-
-    # On the third consecutive all-duplicate pack, replace one duplicate
-    # with a card the user is missing from this series.
-    if new_duplicate_streak >= 3:
-        missing_cards = [
-            card
-            for card in series_cards
-            if card["id"] not in owned_card_ids
-        ]
-
-        if missing_cards:
-            replacement_index = random.randrange(PACK_SIZE)
-            won_cards[replacement_index] = random.choice(missing_cards)
-            pity_triggered = True
-            new_duplicate_streak = 0
-else:
-    # Any pack containing a new card naturally resets the streak.
-    new_duplicate_streak = 0
+    if missing_cards and not pack_contains_new_card:
+        replacement_index = random.randrange(PACK_SIZE)
+        won_cards[replacement_index] = random.choice(missing_cards)
+        guaranteed_new_card = True
     
     # Deduct coins and track spending
     new_coins = user.get("coins", 0) - SPIN_COST
@@ -2330,8 +2273,7 @@ else:
         "current_series": current_series,
         "series_completion": series_completion,
         "engagement_unlock": engagement_unlock,
-"duplicate_pack_streak": new_duplicate_streak,
-"pity_triggered": pity_triggered,
+        "guaranteed_new_card": guaranteed_new_card,
     }
 
 async def check_series_completion(user_id: str, series_num: int):
