@@ -1629,13 +1629,48 @@ async def claim_daily_login(user_id: str, request: Request):
     if last_login == today:
         raise HTTPException(status_code=400, detail="Already claimed today")
 
-    if last_login == yesterday:
-        new_streak = user.get("daily_login_streak", 0) + 1
-    else:
+    current_streak = user.get("daily_login_streak", 0)
+    streak_save_available = False
+    streak_before_reset = 0
+
+    try:
+        last_login_date = datetime.fromisoformat(last_login).date() if last_login else None
+    except (ValueError, TypeError):
+        last_login_date = None
+
+    last_save_used = user.get("streak_save_last_used")
+
+    try:
+        last_save_date = (
+            datetime.fromisoformat(str(last_save_used).replace("Z", "+00:00")).date()
+            if last_save_used
+            else None
+        )
+    except (ValueError, TypeError):
+        last_save_date = None
+
+    save_ready = (
+        last_save_date is None
+        or (today_date - last_save_date).days >= 7
+    )
+
+    if last_login_date == yesterday_date:
+        # Normal consecutive-day login.
+        new_streak = current_streak + 1
+
+    elif (
+        last_login_date == today_date - timedelta(days=2)
+        and current_streak > 1
+        and save_ready
+    ):
+        # Exactly one calendar day was missed.
+        # Reset normally, but allow the player to restore the old streak.
+        streak_before_reset = current_streak
+        streak_save_available = True
         new_streak = 1
-    if last_login == yesterday:
-        new_streak = user.get("daily_login_streak", 0) + 1
+
     else:
+        # First login or more than one missed day.
         new_streak = 1
     
     # Calculate bonus coins.
@@ -1669,6 +1704,8 @@ async def claim_daily_login(user_id: str, request: Request):
         "coins": new_coins,
         "monthly_logins": monthly_logins,
         "timezone": timezone_name,
+        "pending_streak_save": streak_before_reset if streak_save_available else None,
+        "pending_streak_save_date": today if streak_save_available else None,
     }}
 )
     
@@ -1697,7 +1734,136 @@ async def claim_daily_login(user_id: str, request: Request):
             else f"Day {new_streak} streak! +{bonus_coins} coins"
         ),
         "newly_unlocked_epic_card": newly_unlocked_epic,
-        "engagement_unlock": engagement_unlock
+        "engagement_unlock": engagement_unlock,
+        "streak_save_available": streak_save_available,
+        "streak_before_reset": streak_before_reset,
+    }
+@api_router.post("/users/{user_id}/save-login-streak")
+async def save_login_streak(user_id: str):
+    """Restore a streak after exactly one missed day, once every 7 days."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    pending_streak = user.get("pending_streak_save")
+    pending_date = user.get("pending_streak_save_date")
+
+    if not pending_streak or not pending_date:
+        raise HTTPException(
+            status_code=400,
+            detail="No login streak is currently available to save.",
+        )
+
+    timezone_name = user.get("timezone") or "UTC"
+
+    try:
+        user_timezone = ZoneInfo(timezone_name)
+    except (ZoneInfoNotFoundError, ValueError, TypeError):
+        user_timezone = ZoneInfo("UTC")
+
+    today = datetime.now(user_timezone).date().isoformat()
+
+    if pending_date != today:
+        await db.users.update_one(
+            {"id": user_id},
+            {"$set": {
+                "pending_streak_save": None,
+                "pending_streak_save_date": None,
+            }},
+        )
+        raise HTTPException(
+            status_code=400,
+            detail="This Streak Save offer has expired.",
+        )
+
+    last_save_used = user.get("streak_save_last_used")
+
+    try:
+        last_save_date = (
+            datetime.fromisoformat(
+                str(last_save_used).replace("Z", "+00:00")
+            ).date()
+            if last_save_used
+            else None
+        )
+    except (ValueError, TypeError):
+        last_save_date = None
+
+    today_date = datetime.now(user_timezone).date()
+
+    if last_save_date and (today_date - last_save_date).days < 7:
+        raise HTTPException(
+            status_code=400,
+            detail="Your weekly Streak Save is not available yet.",
+        )
+
+    restored_streak = int(pending_streak) + 1
+
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {
+            "daily_login_streak": restored_streak,
+            "streak_save_last_used": today,
+            "pending_streak_save": None,
+            "pending_streak_save_date": None,
+        }},
+    )
+
+    await check_and_update_goals(
+        user_id,
+        "daily_login",
+        restored_streak,
+    )
+
+    newly_unlocked_epic = await check_epic_streak_unlocks(
+        user_id,
+        restored_streak,
+    )
+
+    return {
+        "success": True,
+        "streak_saved": True,
+        "streak": restored_streak,
+        "message": f"Streak saved! Your streak is now {restored_streak} days.",
+        "newly_unlocked_epic_card": newly_unlocked_epic,
+    }
+@api_router.post("/admin/test-streak-save/{user_id}")
+async def admin_test_streak_save(user_id: str):
+    """Temporarily set up a user so the Streak Save popup can be tested."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    timezone_name = user.get("timezone") or "UTC"
+
+    try:
+        user_timezone = ZoneInfo(timezone_name)
+    except (ZoneInfoNotFoundError, ValueError, TypeError):
+        timezone_name = "UTC"
+        user_timezone = ZoneInfo("UTC")
+
+    today_date = datetime.now(user_timezone).date()
+    two_days_ago = (today_date - timedelta(days=2)).isoformat()
+
+    await db.users.update_one(
+        {"id": user_id},
+        {
+            "$set": {
+                "last_login_date": two_days_ago,
+                "daily_login_streak": 12,
+                "streak_save_last_used": None,
+                "pending_streak_save": None,
+                "pending_streak_save_date": None,
+                "timezone": timezone_name,
+            }
+        },
+    )
+
+    return {
+        "success": True,
+        "message": "User prepared for Streak Save testing.",
+        "last_login_date": two_days_ago,
+        "daily_login_streak": 12,
     }
 
 # =====================
