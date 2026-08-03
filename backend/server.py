@@ -1828,6 +1828,44 @@ async def save_login_streak(user_id: str):
         "newly_unlocked_epic_card": newly_unlocked_epic,
     }
 
+@api_router.post("/admin/grant-card/{user_id}/{card_id}")
+async def admin_grant_card(user_id: str, card_id: str):
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    card = await db.cards.find_one({"id": card_id})
+    if not card:
+        raise HTTPException(status_code=404, detail="Card not found")
+
+    existing = await db.user_cards.find_one({
+        "user_id": user_id,
+        "card_id": card_id,
+    })
+
+    if existing:
+        await db.user_cards.update_one(
+            {"_id": existing["_id"]},
+            {
+                "$inc": {"quantity": 1},
+                "$set": {"acquired_at": datetime.now(timezone.utc)},
+            },
+        )
+    else:
+        await db.user_cards.insert_one({
+            "id": str(uuid.uuid4()),
+            "user_id": user_id,
+            "card_id": card_id,
+            "quantity": 1,
+            "acquired_at": datetime.now(timezone.utc),
+        })
+
+    return {
+        "success": True,
+        "user_id": user_id,
+        "card_id": card_id,
+    }
+
 
 # =====================
 # Epic Streak Card Achievement System
