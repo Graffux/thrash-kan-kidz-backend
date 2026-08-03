@@ -1827,8 +1827,7 @@ async def save_login_streak(user_id: str):
         "message": f"Streak saved! Your streak is now {restored_streak} days.",
         "newly_unlocked_epic_card": newly_unlocked_epic,
     }
-@api_router.post("/admin/test-streak-save/{user_id}")
-async def admin_test_streak_save(user_id: str):
+
     """Temporarily set up a user so the Streak Save popup can be tested."""
     user = await db.users.find_one({"id": user_id})
     if not user:
