@@ -11448,4 +11448,17 @@ INITIAL_CARDS = [
         "band": "Butchered Taint",
         "card_type": None,
         "is_daily_reward": True
-    },]
+    },{
+    "id": "card_daily_uncle_slam",
+    "name": "Uncle Slam",
+    "description": "Uncle Slam shreds for Slamerika, delivering brutal breakdowns from sea to shining sea.",
+    "rarity": "common",
+    "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/uncle_slam_daily.jpg",
+    "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/uncle_slam_daily_back.jpg",
+    "coin_cost": 0,
+    "available": False,
+    "series": None,
+    "band": "Slamerika",
+    "card_type": None,
+    "is_daily_reward": True
+},]
