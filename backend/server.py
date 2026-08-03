@@ -1828,42 +1828,6 @@ async def save_login_streak(user_id: str):
         "newly_unlocked_epic_card": newly_unlocked_epic,
     }
 
-    """Temporarily set up a user so the Streak Save popup can be tested."""
-    user = await db.users.find_one({"id": user_id})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    timezone_name = user.get("timezone") or "UTC"
-
-    try:
-        user_timezone = ZoneInfo(timezone_name)
-    except (ZoneInfoNotFoundError, ValueError, TypeError):
-        timezone_name = "UTC"
-        user_timezone = ZoneInfo("UTC")
-
-    today_date = datetime.now(user_timezone).date()
-    two_days_ago = (today_date - timedelta(days=2)).isoformat()
-
-    await db.users.update_one(
-        {"id": user_id},
-        {
-            "$set": {
-                "last_login_date": two_days_ago,
-                "daily_login_streak": 12,
-                "streak_save_last_used": None,
-                "pending_streak_save": None,
-                "pending_streak_save_date": None,
-                "timezone": timezone_name,
-            }
-        },
-    )
-
-    return {
-        "success": True,
-        "message": "User prepared for Streak Save testing.",
-        "last_login_date": two_days_ago,
-        "daily_login_streak": 12,
-    }
 
 # =====================
 # Epic Streak Card Achievement System
