@@ -1664,12 +1664,13 @@ async def claim_daily_login(user_id: str, request: Request):
         new_streak = current_streak + 1
 
     elif (
-        last_login_date == today_date - timedelta(days=2)
+        last_login_date is not None
+        and last_login_date < yesterday_date
         and current_streak > 1
         and save_ready
     ):
-        # Exactly one calendar day was missed.
-        # Reset normally, but allow the player to restore the old streak.
+        # One or more calendar days were missed.
+        # Allow the weekly Streak Save to restore the old streak.
         streak_before_reset = current_streak
         streak_save_available = True
         new_streak = 1
