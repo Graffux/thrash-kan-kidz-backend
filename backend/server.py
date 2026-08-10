@@ -2543,27 +2543,38 @@ async def check_series_completion(user_id: str, series_num: int):
         rare_reward_card = None
         
         if rare_reward_id:
-            # Add rare reward to user's collection
+            # Guarantee the configured series reward exists in the user's collection.
+            # Upsert makes this safe if completion is checked multiple times.
             rare_card = await db.cards.find_one({"id": rare_reward_id})
+
             if rare_card:
-                # Check if user already owns it
-                existing = await db.user_cards.find_one({
-                    "user_id": user_id,
-                    "card_id": rare_reward_id
-                })
-                if not existing:
-                    user_card = UserCard(user_id=user_id, card_id=rare_reward_id)
-                    await db.user_cards.insert_one(user_card.dict())
-                    rare_reward_card = Card(**rare_card)
-                
-                # Also add to unlocked_rare_cards
-                unlocked_rares = user.get("unlocked_rare_cards", [])
-                if rare_reward_id not in unlocked_rares:
-                    unlocked_rares.append(rare_reward_id)
-                    await db.users.update_one(
-                        {"id": user_id},
-                        {"$set": {"unlocked_rare_cards": unlocked_rares}}
-                    )
+                reward_user_card = UserCard(
+                    user_id=user_id,
+                    card_id=rare_reward_id
+                )
+
+                await db.user_cards.update_one(
+                    {
+                        "user_id": user_id,
+                        "card_id": rare_reward_id,
+                    },
+                    {
+                        "$setOnInsert": reward_user_card.dict()
+                    },
+                    upsert=True,
+                )
+
+                rare_reward_card = Card(**rare_card)
+
+                # Keep reward-unlock bookkeeping in sync with actual ownership.
+                await db.users.update_one(
+                    {"id": user_id},
+                    {"$addToSet": {"unlocked_rare_cards": rare_reward_id}}
+                )
+            else:
+                logger.error(
+                    f"Series {series_num} reward card not found in DB: {rare_reward_id}"
+                )
         
         await db.users.update_one(
             {"id": user_id},
@@ -4323,7 +4334,7 @@ async def open_no_dupes_pack(user_id: str, request: Request):
 
     eligible_cards = await db.cards.find({
         "series": series,
-        "rarity": {"$in": ["common", "variant"]},
+        "rarity": "common",
         "available": True,
         "engagement_milestone": None,
         "is_daily_reward": {"$ne": True},
