@@ -905,7 +905,8 @@ async def seed_database():
             existing = await db.cards.find_one(
                 {"id": card_data["id"]},
                 {"_id": 0, "front_image_url": 1, "back_image_url": 1,
-                 "description": 1, "rarity": 1, "series": 1},
+                 "description": 1, "rarity": 1, "series": 1,
+                 "band": 1, "card_type": 1},
             )
             if not existing:
                 continue
@@ -920,6 +921,10 @@ async def seed_database():
                 patch["rarity"] = card_data["rarity"]
             if card_data.get("series") != existing.get("series"):
                 patch["series"] = card_data.get("series")
+            if card_data.get("band") != existing.get("band"):
+                patch["band"] = card_data.get("band")
+            if card_data.get("card_type") != existing.get("card_type"):
+                patch["card_type"] = card_data.get("card_type")
             if patch:
                 await db.cards.update_one({"id": card_data["id"]}, {"$set": patch})
                 url_fixes += 1
