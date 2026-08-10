@@ -1,4 +1,4 @@
-﻿# =====================
+# =====================
 # Seed Data - Series 1 Cards (8 bands, 16 cards)
 # =====================
 
@@ -12801,6 +12801,20 @@ INITIAL_CARDS = [
     # =====================
     # DAILY CHALLENGE REWARDS
     # =====================
+    {
+        "id": "card_daily_classic_died",
+        "name": "Died",
+        "description": "Classic Daily Challenge edition of Died.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/died_daily.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/died_daily_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": None,
+        "card_type": None,
+        "is_daily_reward": True
+    },
     {
     
         "id": "card_daily_classic_ronstrocity",

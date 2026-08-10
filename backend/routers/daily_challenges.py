@@ -35,7 +35,7 @@ router = APIRouter()
 DAILY_REWARD_BY_DATE: dict[str, str] = {
     "2026-06-22": "card_daily_classic_paul_bawl_off",
     "2026-07-11": "card_daily_uncle_slam",
-    "2026-08-01": "card_daily_classic_ronstrocity",
+    "2026-08-09": "card_daily_classic_died",
 }
 
 
