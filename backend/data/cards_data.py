@@ -1,4 +1,4 @@
-# =====================
+﻿# =====================
 # Seed Data - Series 1 Cards (8 bands, 16 cards)
 # =====================
 
@@ -609,7 +609,7 @@ CARD_IMAGE_URLS = {
     "frantic_howler_camouflage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/g5lvw0r1_file_00000000b7c871f89b0969e869668549.png",
     "frantic_howler_vintage": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/exv5qso2_file_00000000b80c71fd923353c8e7053779.png",
     # =====================
-    # SERIES 7 â€” Grind Edition
+    # SERIES 7 Ã¢â‚¬â€ Grind Edition
     # =====================
     # Band 1: Napalm Breath  (parody of Napalm Death)
     "messy_pintado": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/l5mbvoy8_enhanced-1777938677399.jpg",
@@ -619,7 +619,7 @@ CARD_IMAGE_URLS = {
     "messy_pintado_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tp9nivly_enhanced-1777942768452.jpg",
     "messy_pintado_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0r7pqv1i_enhanced-1777942718894.jpg",
     "messy_pintado_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/r4c4m6o7_enhanced-1777942623471.jpg",
-    # Jesse PiÃ±ata Variants
+    # Jesse PiÃƒÂ±ata Variants
     "jesse_pinata_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gtg9oim6_file_00000000faa871f79faa3ae86ddf6b41.png",
     "jesse_pinata_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p1aedg85_Screenshot_20260505_094740_ChatGPT.png",
     "jesse_pinata_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ayhqi1du_enhanced-1778017744707.jpg",
@@ -704,9 +704,9 @@ CARD_IMAGE_URLS = {
     "skeet_sandoval_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rsjb0tpt_Screenshot_20260516_204040_ChatGPT.png",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
-    # Series 8 Rare Reward (epic) â€” Slam Edition
+    # Series 8 Rare Reward (epic) Ã¢â‚¬â€ Slam Edition
     "crisp_chris": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/khrorjzs_Screenshot_20260603_051424_ChatGPT.png",
-    # ---- Series 8 â€” Slam Edition (base + variant fronts) ----
+    # ---- Series 8 Ã¢â‚¬â€ Slam Edition (base + variant fronts) ----
     # Deflowerment / Rubber Ruben (Frontman)
     "rubber_ruben": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fx6c62e6_enhanced-1780098706026.jpg",
     "rubber_ruben_holographic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/866yqj72_Screenshot_20260602_014936_ChatGPT.png",
@@ -1174,7 +1174,7 @@ CARD_BACK_IMAGE_URLS = {
     "moses_howler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6dbgtw1e_enhanced-1777692377435.jpg",
     "frantic_howler": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/64mavwcx_enhanced-1777693007678.jpg",
     # =====================
-    # SERIES 7 â€” Grind Edition
+    # SERIES 7 Ã¢â‚¬â€ Grind Edition
     # =====================
     # Band 1: Napalm Breath
     "messy_pintado": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jwv591rv_enhanced-1777939259003.jpg",
@@ -1200,19 +1200,19 @@ CARD_BACK_IMAGE_URLS = {
     # Band 8: Horrorizer
     "pete_slamdoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/674yclmp_enhanced-1778978749272.jpg",
     "skeet_sandoval": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u0fdzfq0_enhanced-1778980953533.jpg",
-    # Universal Series 7 (Grind Edition) variant backs â€” shared across ALL
+    # Universal Series 7 (Grind Edition) variant backs Ã¢â‚¬â€ shared across ALL
     # Series 7 variant cards, same way Series 6 has stormy/decayed/etc backs.
     "variant_back_blacklight": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fl4sjpqj_enhanced-1777972963939.jpg",
     "variant_back_chrome": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4xtenwkt_enhanced-1777973266535.jpg",
     "variant_back_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rwqpqj2r_enhanced-1777973091465.jpg",
     "variant_back_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9rtg9pzl_enhanced-1777973441663.jpg",
-    # Universal Series 8 (Slam Edition) variant backs â€” shared across ALL
+    # Universal Series 8 (Slam Edition) variant backs Ã¢â‚¬â€ shared across ALL
     # Series 8 variant cards (Holographic / Comic / Graffiti / Neon).
     "variant_back_holographic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xdo0xjou_enhanced-1780571804270.jpg",
     "variant_back_comic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/y1asb6mt_enhanced-1780571734508.jpg",
     "variant_back_graffiti": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sejyn6u7_enhanced-1780571872918.jpg",
     "variant_back_neon": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tnldwg74_enhanced-1780571972567.jpg",
-    # ---- Series 8 â€” Slam Edition (base card backs) ----
+    # ---- Series 8 Ã¢â‚¬â€ Slam Edition (base card backs) ----
     "maddy_no_way": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series8/maddy_no_way/maddy_no_way_back.png.jpg",
     "matted_away": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series8/matted_away/matted_away_back.png.jpg",
     "rubber_ruben": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/uba3netc_enhanced-1780098829928.jpg",
@@ -1231,7 +1231,7 @@ CARD_BACK_IMAGE_URLS = {
     "damontel": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series8/damontel_williams/damontel_back.png.jpg",
     # Series 7 Rare Reward (epic)
     "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vu8xlmum_enhanced-1778561623250.jpg",
-    # Series 8 Rare Reward (epic) â€” Slam Edition
+    # Series 8 Rare Reward (epic) Ã¢â‚¬â€ Slam Edition
     "crisp_chris": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xom7s0gr_Screenshot_20260603_052107_ChatGPT.png",
     "count_grossnackh_epic": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series9/reward/count_grossnackh_epic_back.jpg",
 
@@ -1339,7 +1339,7 @@ INITIAL_CARDS = [
     {
         "id": "card_tom_da_playa",
         "name": "Tom Da Playa",
-        "description": "Tom Da Playa spends more time flossing gold chains than tuning his bass. Watch outâ€”he'll sell you merch AND steal your girlfriend.",
+        "description": "Tom Da Playa spends more time flossing gold chains than tuning his bass. Watch outÃ¢â‚¬â€he'll sell you merch AND steal your girlfriend.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["tom_da_playa"],
         "back_image_url": CARD_BACK_IMAGE_URLS["tom_da_playa"],
@@ -1417,7 +1417,7 @@ INITIAL_CARDS = [
     {
         "id": "card_chum_araya",
         "name": "Chum Araya",
-        "description": "When Chum steps on stage, it smells Raining Blood. Watch yourselfâ€”he'll kick your face and eat all your pizza.",
+        "description": "When Chum steps on stage, it smells Raining Blood. Watch yourselfÃ¢â‚¬â€he'll kick your face and eat all your pizza.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["chum_araya"],
         "back_image_url": CARD_BACK_IMAGE_URLS["chum_araya"],
@@ -1666,7 +1666,7 @@ INITIAL_CARDS = [
     {
         "id": "card_maximum",
         "name": "Maximum",
-        "description": "Maximum is pissed off about everything â€“ except the size of his ego. He's so angry that even his rage is loud enough to make your grandma cover her ears.",
+        "description": "Maximum is pissed off about everything Ã¢â‚¬â€œ except the size of his ego. He's so angry that even his rage is loud enough to make your grandma cover her ears.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["maximum"],
         "back_image_url": CARD_BACK_IMAGE_URLS["maximum"],
@@ -3226,7 +3226,7 @@ INITIAL_CARDS = [
     {
         "id": "card_bully_milano",
         "name": "Bully Milano",
-        "description": "Infecting others is Bully's idea of a good timeâ€”and he's got the drippy, crusty, itchy, paining symptoms to prove it. Be careful who you casual contact!",
+        "description": "Infecting others is Bully's idea of a good timeÃ¢â‚¬â€and he's got the drippy, crusty, itchy, paining symptoms to prove it. Be careful who you casual contact!",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["bully_milano"],
         "back_image_url": CARD_BACK_IMAGE_URLS["bully_milano"],
@@ -4115,7 +4115,7 @@ INITIAL_CARDS = [
         "band": "Celtic Frosty"
     },
     # =====================
-    # EPIC CARD - Series 3 completion reward (swapped from S5 â€” see series_config.py)
+    # EPIC CARD - Series 3 completion reward (swapped from S5 Ã¢â‚¬â€ see series_config.py)
     # =====================
     {
         "id": "card_sean_kill_again",
@@ -4195,7 +4195,7 @@ INITIAL_CARDS = [
         "band": "Black Metal Edition"
     },
     # =====================
-    # SERIES 3 VARIANTS (16 base cards Ã— 4 variants = 64 cards)
+    # SERIES 3 VARIANTS (16 base cards Ãƒâ€” 4 variants = 64 cards)
     # =====================
     # Nobby Blitz Variants
     {
@@ -5872,7 +5872,7 @@ INITIAL_CARDS = [
     {
         "id": "card_scrawny_ronnie",
         "name": "Scrawny Ronnie",
-        "description": "The malnutrition riff master of Butchered Taint. Once mistaken for a microphone stand mid-set. Do not lean on himâ€”he will tip over.",
+        "description": "The malnutrition riff master of Butchered Taint. Once mistaken for a microphone stand mid-set. Do not lean on himÃ¢â‚¬â€he will tip over.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["scrawny_ronnie"],
         "back_image_url": CARD_BACK_IMAGE_URLS["scrawny_ronnie"],
@@ -9032,7 +9032,7 @@ INITIAL_CARDS = [
         "variant_name": "Vintage"
     },
     # =====================
-    # SERIES 7 â€” Grind Edition  (cards stay hidden until Sun May 17 @ 12:00 AM CDT,
+    # SERIES 7 Ã¢â‚¬â€ Grind Edition  (cards stay hidden until Sun May 17 @ 12:00 AM CDT,
     # gated server-side by series_config.is_series_released)
     # =====================
     # Band 1: Napalm Breath  (parody of Napalm Death)
@@ -9051,8 +9051,8 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_jesse_pinata",
-        "name": "Jesse PiÃ±ata",
-        "description": "Stuffed with noise. Packed with chaos. Jesse PiÃ±ata explodes with rife shreds, crushing bass and sweet sweet destruction. You can't break him -- you can only hope to survive the candy-coated carnage.",
+        "name": "Jesse PiÃƒÂ±ata",
+        "description": "Stuffed with noise. Packed with chaos. Jesse PiÃƒÂ±ata explodes with rife shreds, crushing bass and sweet sweet destruction. You can't break him -- you can only hope to survive the candy-coated carnage.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["jesse_pinata"],
         "back_image_url": CARD_BACK_IMAGE_URLS["jesse_pinata"],
@@ -9128,11 +9128,11 @@ INITIAL_CARDS = [
         "base_card_id": "card_messy_pintado",
         "variant_name": "Melted"
     },
-    # ---- Jesse PiÃ±ata variants (Series 7 / Grind Edition) ----
+    # ---- Jesse PiÃƒÂ±ata variants (Series 7 / Grind Edition) ----
     {
         "id": "card_jesse_pinata_blacklight",
-        "name": "Jesse PiÃ±ata (Blacklight)",
-        "description": "Glowing under blacklight, dripping in neon chaos. Jesse PiÃ±ata erupts in technicolor noise that paints the pit in poison-bright hues.",
+        "name": "Jesse PiÃƒÂ±ata (Blacklight)",
+        "description": "Glowing under blacklight, dripping in neon chaos. Jesse PiÃƒÂ±ata erupts in technicolor noise that paints the pit in poison-bright hues.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["jesse_pinata_blacklight"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_blacklight"],
@@ -9147,8 +9147,8 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_jesse_pinata_chrome",
-        "name": "Jesse PiÃ±ata (Chrome)",
-        "description": "Polished to a brutal shine. Jesse PiÃ±ata reflects every riff and rejects every break -- a chrome-plated explosion of grindcore mayhem.",
+        "name": "Jesse PiÃƒÂ±ata (Chrome)",
+        "description": "Polished to a brutal shine. Jesse PiÃƒÂ±ata reflects every riff and rejects every break -- a chrome-plated explosion of grindcore mayhem.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["jesse_pinata_chrome"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_chrome"],
@@ -9163,8 +9163,8 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_jesse_pinata_digital",
-        "name": "Jesse PiÃ±ata (Digital)",
-        "description": "Pixelated and processed. Jesse PiÃ±ata glitches through the speakers in 8-bit fury -- corrupted data, candy-coated carnage.",
+        "name": "Jesse PiÃƒÂ±ata (Digital)",
+        "description": "Pixelated and processed. Jesse PiÃƒÂ±ata glitches through the speakers in 8-bit fury -- corrupted data, candy-coated carnage.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["jesse_pinata_digital"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_digital"],
@@ -9179,8 +9179,8 @@ INITIAL_CARDS = [
     },
     {
         "id": "card_jesse_pinata_melted",
-        "name": "Jesse PiÃ±ata (Melted)",
-        "description": "Dripping in heat and hatred. Jesse PiÃ±ata oozes through the pit, leaving sticky destruction in the wake of every breakdown.",
+        "name": "Jesse PiÃƒÂ±ata (Melted)",
+        "description": "Dripping in heat and hatred. Jesse PiÃƒÂ±ata oozes through the pit, leaving sticky destruction in the wake of every breakdown.",
         "rarity": "variant",
         "front_image_url": CARD_IMAGE_URLS["jesse_pinata_melted"],
         "back_image_url": CARD_BACK_IMAGE_URLS["variant_back_melted"],
@@ -10309,9 +10309,9 @@ INITIAL_CARDS = [
         "variant_name": "Melted"
     },
     # =====================
-    # SERIES 8 â€” Slam Edition
+    # SERIES 8 Ã¢â‚¬â€ Slam Edition
     # =====================
-    # ---- Deflowerment / Rubber Ruben (Frontman) â€” base card ----
+    # ---- Deflowerment / Rubber Ruben (Frontman) Ã¢â‚¬â€ base card ----
     {
         "id": "card_rubber_ruben",
         "name": "Rubber Ruben",
@@ -10390,7 +10390,7 @@ INITIAL_CARDS = [
         "base_card_id": "card_rubber_ruben",
         "variant_name": "Neon"
     },
-    # ---- Deflowerment / Ruben Grossas (Card B) â€” base card ----
+    # ---- Deflowerment / Ruben Grossas (Card B) Ã¢â‚¬â€ base card ----
     {
         "id": "card_ruben_grossas",
         "name": "Ruben Grossas",
@@ -10625,11 +10625,11 @@ INITIAL_CARDS = [
         "base_card_id": "card_matted_away",
         "variant_name": "Neon"
     },
-    # ---- Prophetic / James Sparks (Card A) â€” base card ----
+    # ---- Prophetic / James Sparks (Card A) Ã¢â‚¬â€ base card ----
     {
         "id": "card_james_sparks",
         "name": "James Sparks",
-        "description": "James Sparks is the shock-slinging prophet of Prophetic, throwing stage sparks like he was wired directly into the pit. Every riff crackles, every breakdown flashes, and every crowd chant sounds like thunder trapped in a busted amp. Signature Move: Voltage Vision â€” predicts the next pit eruption one second before it happens.",
+        "description": "James Sparks is the shock-slinging prophet of Prophetic, throwing stage sparks like he was wired directly into the pit. Every riff crackles, every breakdown flashes, and every crowd chant sounds like thunder trapped in a busted amp. Signature Move: Voltage Vision Ã¢â‚¬â€ predicts the next pit eruption one second before it happens.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["james_sparks"],
         "back_image_url": CARD_BACK_IMAGE_URLS["james_sparks"],
@@ -10703,11 +10703,11 @@ INITIAL_CARDS = [
         "base_card_id": "card_james_sparks",
         "variant_name": "Neon"
     },
-    # ---- Prophetic / James Barks (Card B) â€” base card ----
+    # ---- Prophetic / James Barks (Card B) Ã¢â‚¬â€ base card ----
     {
         "id": "card_james_barks",
         "name": "James Barks",
-        "description": "James Barks is the growling menace of Prophetic, barking riffs at the crowd until the whole pit howls back. Mail carriers fear his tour schedule, neighborhood cats vanish when the amps turn on, and every breakdown sounds like a kennel full of chaos. Signature Move: Bark Breakdown â€” one savage howl that sends the front row running.",
+        "description": "James Barks is the growling menace of Prophetic, barking riffs at the crowd until the whole pit howls back. Mail carriers fear his tour schedule, neighborhood cats vanish when the amps turn on, and every breakdown sounds like a kennel full of chaos. Signature Move: Bark Breakdown Ã¢â‚¬â€ one savage howl that sends the front row running.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["james_barks"],
         "back_image_url": CARD_BACK_IMAGE_URLS["james_barks"],
@@ -10785,7 +10785,7 @@ INITIAL_CARDS = [
     {
         "id": "card_rank_reekley",
         "name": "Rank Reekley",
-        "description": "Rank Reekley is the rotten stench machine of Drooping. Every note leaks like a busted sewer pipe, and every breakdown smells worse than the last. Signature Move: Reek Release â€” clears the pit with one toxic blast.",
+        "description": "Rank Reekley is the rotten stench machine of Drooping. Every note leaks like a busted sewer pipe, and every breakdown smells worse than the last. Signature Move: Reek Release Ã¢â‚¬â€ clears the pit with one toxic blast.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["rank_reekley"],
         "back_image_url": CARD_BACK_IMAGE_URLS["rank_reekley"],
@@ -10863,7 +10863,7 @@ INITIAL_CARDS = [
     {
         "id": "card_mr_beakly",
         "name": "Mr. Beakly",
-        "description": "Mr. Beakly pecks through Droopingâ€™s riffs with bird-brained brutality. His shrieks split amps, crack eggs, and send the front row flapping backward. Signature Move: Beak Beatdown â€” rapid-fire pecks timed perfectly to the breakdown.",
+        "description": "Mr. Beakly pecks through DroopingÃ¢â‚¬â„¢s riffs with bird-brained brutality. His shrieks split amps, crack eggs, and send the front row flapping backward. Signature Move: Beak Beatdown Ã¢â‚¬â€ rapid-fire pecks timed perfectly to the breakdown.",
         "rarity": "common",
         "front_image_url": CARD_IMAGE_URLS["mr_beakly"],
         "back_image_url": CARD_BACK_IMAGE_URLS["mr_beakly"],
@@ -12192,7 +12192,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True,
         "series": 9,
-        "band": "Beshemeth",
+        "band": "Beshemoth",
         "card_type": "A"
     },
     {
@@ -12205,7 +12205,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True,
         "series": 9,
-        "band": "Beshemeth",
+        "band": "Beshemoth",
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_nerdgal",
@@ -12221,7 +12221,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True,
         "series": 9,
-        "band": "Beshemeth",
+        "band": "Beshemoth",
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_nerdgal",
@@ -12237,7 +12237,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True,
         "series": 9,
-        "band": "Beshemeth",
+        "band": "Beshemoth",
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_nerdgal",
@@ -12253,7 +12253,7 @@ INITIAL_CARDS = [
         "coin_cost": 50,
         "available": True,
         "series": 9,
-        "band": "Beshemeth",
+        "band": "Beshemoth",
         "card_type": "A",
         "is_variant": True,
         "base_card_id": "card_nerdgal",
@@ -12829,4 +12829,5 @@ INITIAL_CARDS = [
     "card_type": None,
     "is_daily_reward": True
 },]
+
 
