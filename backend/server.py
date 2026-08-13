@@ -2478,15 +2478,31 @@ async def check_series_completion(user_id: str, series_num: int):
     series_config = SERIES_CONFIG.get(series_num, {})
     rare_reward_id = series_config.get("rare_reward")
 
-    # Determine whether the user is *missing* the reward they should have.
-    # We previously gated on "series_num not in completed_series" but that
-    # caused the reward to be permanently skipped if the series was added to
-    # SERIES_CONFIG *after* the user already completed it (e.g., Series 6
-    # users who finished it before the config entry existed).
+    # Determine whether the user actually OWNS the configured series reward.
+    #
+    # IMPORTANT:
+    # `unlocked_rare_cards` means a card is unlocked/eligible; it does NOT
+    # guarantee the card exists in the user's collection. Achievement-based
+    # unlocks can add an ID there before the card is owned. Series completion
+    # must therefore check db.user_cards directly.
     unlocked_rares = user.get("unlocked_rare_cards", [])
-    reward_already_granted = (
-        rare_reward_id is not None and rare_reward_id in unlocked_rares
-    )
+
+    reward_owned = None
+    if rare_reward_id:
+        reward_owned = await db.user_cards.find_one({
+            "user_id": user_id,
+            "card_id": rare_reward_id,
+        })
+
+    reward_already_granted = reward_owned is not None
+
+    # Keep unlock bookkeeping synchronized for players who already own the
+    # reward but are missing its unlocked_rare_cards entry.
+    if reward_already_granted and rare_reward_id not in unlocked_rares:
+        await db.users.update_one(
+            {"id": user_id},
+            {"$addToSet": {"unlocked_rare_cards": rare_reward_id}},
+        )
 
     series_complete = owned_count >= required_count
 
