@@ -27,7 +27,7 @@ CHALLENGE_POOL = [
             "coins": 100,
             "free_packs": 1,
             "wheel_tickets": 0,
-            "bonus_card_id": "card_paul_bawl_off",
+            "bonus_card_id": "card_daily_classic_tank_mullen",
         },
     },
     {
@@ -55,7 +55,7 @@ CHALLENGE_POOL = [
             "coins": 150,
             "free_packs": 3,
             "wheel_tickets": 1,
-            "bonus_card_id": "card_paul_bawl_off",  # daily reward card
+            "bonus_card_id": "card_daily_classic_tank_mullen",  # daily reward card
         },
     },
     # ---------- VARIANT-COLLECT CHALLENGES ----------
@@ -98,7 +98,7 @@ CHALLENGE_POOL = [
             "coins": 200,
             "free_packs": 2,
             "wheel_tickets": 1,
-            "bonus_card_id": "card_paul_bawl_off",
+            "bonus_card_id": "card_daily_classic_tank_mullen",
         },
     },
     # ---------- TRADE CHALLENGES ----------
@@ -141,7 +141,7 @@ CHALLENGE_POOL = [
             "coins": 250,
             "free_packs": 2,
             "wheel_tickets": 1,
-            "bonus_card_id": "card_paul_bawl_off",
+            "bonus_card_id": "card_daily_classic_tank_mullen",
         },
     },
 ]

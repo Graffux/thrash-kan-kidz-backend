@@ -12842,6 +12842,21 @@ INITIAL_CARDS = [
     "band": "Slamerika",
     "card_type": None,
     "is_daily_reward": True
-},]
+},
+{
+    "id": "card_daily_classic_tank_mullen",
+    "name": "Tank Mullen",
+    "description": "Classic Daily Challenge edition of Tank Mullen.",
+    "rarity": "common",
+    "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/tank_mullen_classic.png",
+    "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
+    "coin_cost": 0,
+    "available": False,
+    "series": None,
+    "band": None,
+    "card_type": None,
+    "is_daily_reward": True
+},
+]
 
 
