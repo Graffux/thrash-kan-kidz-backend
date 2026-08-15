@@ -115,6 +115,10 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+
+class ReferralRedeemRequest(BaseModel):
+    code: str
+
 class FriendRequest(BaseModel):
     from_user_id: str
     to_user_id: str
@@ -1402,6 +1406,255 @@ def verify_password(password: str, password_hash: str) -> bool:
     """Verify a password against its hash"""
     return bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8'))
 
+
+# =====================
+# Refer-a-Friend System
+# =====================
+
+REFERRAL_REWARD_COINS = 500
+REFERRAL_REWARD_FREE_PACKS = 1
+REFERRAL_CARD_MILESTONE = 5
+
+
+async def _ensure_referral_code(user_id: str) -> str:
+    """Return the user's friend_code, creating one for legacy users if needed."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    existing_code = str(user.get("friend_code") or "").strip().upper()
+    if existing_code:
+        return existing_code
+
+    import random
+    import string
+
+    while True:
+        code = ''.join(
+            random.choices(string.ascii_uppercase + string.digits, k=6)
+        )
+        if not await db.users.find_one({"friend_code": code}):
+            break
+
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"friend_code": code}},
+    )
+    return code
+
+
+async def _complete_referral_if_pending(user_id: str):
+    """Award a pending referral after the referred player opens a pack.
+
+    Each side uses an atomic reward marker. If one database update succeeds
+    and the other fails temporarily, a later pack open can safely retry the
+    missing side without duplicating the side that already received rewards.
+    """
+    referred_user = await db.users.find_one({"id": user_id})
+    if not referred_user:
+        return None
+
+    referrer_id = referred_user.get("referred_by_user_id")
+    if not referrer_id:
+        return None
+
+    reward_key = f"referral:{user_id}"
+    now = datetime.now(timezone.utc)
+
+    referred_result = await db.users.update_one(
+        {
+            "id": user_id,
+            "referral_reward_keys": {"$ne": reward_key},
+        },
+        {
+            "$inc": {
+                "coins": REFERRAL_REWARD_COINS,
+                "free_packs": REFERRAL_REWARD_FREE_PACKS,
+            },
+            "$addToSet": {
+                "referral_reward_keys": reward_key,
+            },
+            "$set": {
+                "referral_rewarded": True,
+                "referral_completed_at": now,
+            },
+        },
+    )
+
+    referrer_result = await db.users.update_one(
+        {
+            "id": referrer_id,
+            "referral_reward_keys": {"$ne": reward_key},
+        },
+        {
+            "$inc": {
+                "coins": REFERRAL_REWARD_COINS,
+                "free_packs": REFERRAL_REWARD_FREE_PACKS,
+                "successful_referrals": 1,
+            },
+            "$addToSet": {
+                "referral_reward_keys": reward_key,
+            },
+        },
+    )
+
+    referrer = await db.users.find_one({"id": referrer_id})
+    successful_referrals = int(
+        (referrer or {}).get("successful_referrals", 0)
+    )
+
+    milestone_unlocked = successful_referrals >= REFERRAL_CARD_MILESTONE
+
+    if milestone_unlocked:
+        await db.users.update_one(
+            {"id": referrer_id},
+            {
+                "$set": {
+                    "referral_5_card_unlocked": True,
+                }
+            },
+        )
+
+    awarded_now = bool(
+        referred_result.modified_count or referrer_result.modified_count
+    )
+
+    return {
+        "awarded_now": awarded_now,
+        "coins_each": REFERRAL_REWARD_COINS,
+        "free_packs_each": REFERRAL_REWARD_FREE_PACKS,
+        "successful_referrals": successful_referrals,
+        "five_referral_milestone_unlocked": milestone_unlocked,
+    }
+
+
+@api_router.get("/users/{user_id}/referral")
+async def get_referral_status(user_id: str):
+    """Get a player's referral code and referral progress."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    referral_code = await _ensure_referral_code(user_id)
+
+    referred_by_username = None
+    referred_by_user_id = user.get("referred_by_user_id")
+
+    if referred_by_user_id:
+        referrer = await db.users.find_one(
+            {"id": referred_by_user_id},
+            {"_id": 0, "username": 1},
+        )
+        if referrer:
+            referred_by_username = referrer.get("username")
+
+    successful_referrals = int(user.get("successful_referrals", 0))
+
+    return {
+        "referral_code": referral_code,
+        "successful_referrals": successful_referrals,
+        "reward": {
+            "coins_each": REFERRAL_REWARD_COINS,
+            "free_packs_each": REFERRAL_REWARD_FREE_PACKS,
+        },
+        "milestone": {
+            "required_referrals": REFERRAL_CARD_MILESTONE,
+            "current_referrals": successful_referrals,
+            "unlocked": bool(
+                user.get("referral_5_card_unlocked", False)
+                or successful_referrals >= REFERRAL_CARD_MILESTONE
+            ),
+        },
+        "code_used": user.get("referral_code_used"),
+        "referred_by_username": referred_by_username,
+        "referral_rewarded": bool(user.get("referral_rewarded", False)),
+    }
+
+
+@api_router.post("/users/{user_id}/referral/redeem")
+async def redeem_referral_code(
+    user_id: str,
+    request: ReferralRedeemRequest,
+):
+    """Attach a referral code before the player's first pack opening."""
+    user = await db.users.find_one({"id": user_id})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    code = request.code.strip().upper()
+    if not code:
+        raise HTTPException(
+            status_code=400,
+            detail="Referral code is required.",
+        )
+
+    referrer = await db.users.find_one({"friend_code": code})
+    if not referrer:
+        raise HTTPException(
+            status_code=404,
+            detail="Referral code not found.",
+        )
+
+    if referrer["id"] == user_id:
+        raise HTTPException(
+            status_code=400,
+            detail="You cannot use your own referral code.",
+        )
+
+    if user.get("referred_by_user_id") or user.get("referral_code_used"):
+        raise HTTPException(
+            status_code=400,
+            detail="A referral code has already been used on this account.",
+        )
+
+    # Referral codes must be entered BEFORE the player's first successful pack.
+    prior_pack = await db.daily_user_stats.find_one({
+        "user_id": user_id,
+        "pack_opens": {"$gt": 0},
+    })
+
+    if prior_pack:
+        raise HTTPException(
+            status_code=400,
+            detail="Referral codes must be entered before opening your first pack.",
+        )
+
+    result = await db.users.update_one(
+        {
+            "id": user_id,
+            "$or": [
+                {"referred_by_user_id": {"$exists": False}},
+                {"referred_by_user_id": None},
+            ],
+        },
+        {
+            "$set": {
+                "referred_by_user_id": referrer["id"],
+                "referral_code_used": code,
+                "referral_rewarded": False,
+                "referral_redeemed_at": datetime.now(timezone.utc),
+            }
+        },
+    )
+
+    if result.modified_count != 1:
+        raise HTTPException(
+            status_code=400,
+            detail="A referral code has already been used on this account.",
+        )
+
+    return {
+        "success": True,
+        "message": (
+            "Referral accepted. Open your first pack and both players "
+            "will receive 500 coins and 1 free pack."
+        ),
+        "referrer_username": referrer.get("username"),
+        "coins_each": REFERRAL_REWARD_COINS,
+        "free_packs_each": REFERRAL_REWARD_FREE_PACKS,
+    }
+
+
 @api_router.post("/auth/register")
 async def register(request: RegisterRequest):
     """Register a new user with username and password"""
@@ -2416,6 +2669,10 @@ async def spin_wheel(user_id: str, series: int = None):
     
     # Check for series completion
     series_completion = await check_series_completion(user_id, current_series)
+
+    # A referred player's first successful pack completes the referral.
+    referral_reward = await _complete_referral_if_pending(user_id)
+    updated_user_after_referral = await db.users.find_one({"id": user_id})
     
     # Run non-critical achievement scans after returning the pack response.
     # These scans can take a long time on Render and must not block opening.
@@ -2440,7 +2697,8 @@ async def spin_wheel(user_id: str, series: int = None):
         "won_cards": cards_result,
         "won_card": cards_result[0]["card"],  # Backwards compat
         "is_duplicate": cards_result[0]["is_duplicate"],  # Backwards compat
-        "remaining_coins": new_coins,
+        "remaining_coins": updated_user_after_referral.get("coins", new_coins),
+        "referral_reward": referral_reward,
         "spin_cost": SPIN_COST,
         "pack_size": PACK_SIZE,
         "current_series": current_series,
@@ -3989,6 +4247,9 @@ async def redeem_free_pack(user_id: str, request: Request):
 
     # Check series completion
     series_completion = await check_series_completion(user_id, series)
+
+    # A referred player's first successful pack completes the referral.
+    referral_reward = await _complete_referral_if_pending(user_id)
     
     updated_user = await db.users.find_one({"id": user_id})
     
@@ -3998,6 +4259,7 @@ async def redeem_free_pack(user_id: str, request: Request):
         "remaining_coins": updated_user.get("coins", 0),
         "remaining_medals": updated_user.get("medals", 0),
         "remaining_free_packs": updated_user.get("free_packs", 0),
+        "referral_reward": referral_reward,
         "series_completion": series_completion,
     }
 
