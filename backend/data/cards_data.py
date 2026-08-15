@@ -12857,6 +12857,52 @@ INITIAL_CARDS = [
     "card_type": None,
     "is_daily_reward": True
 },
+    # =====================
+    # FRIEND REFERRAL EXCLUSIVE REWARDS
+    # =====================
+    {
+        "id": "card_referral_reffer_madness",
+        "name": "Reffer Madness",
+        "description": "Friend Referral Exclusive reward for successfully referring 5 metalheads.",
+        "rarity": "rare",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/reffer_madness.jpg",
+        "back_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/referral_exclusive_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "Friend Referral Exclusive",
+        "card_type": None,
+        "is_daily_reward": False
+    },
+    {
+        "id": "card_referral_pit_pal",
+        "name": "Pit Pal",
+        "description": "Friend Referral Exclusive reward for successfully referring 10 metalheads.",
+        "rarity": "rare",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/pit_pal.jpg",
+        "back_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/referral_exclusive_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "Friend Referral Exclusive",
+        "card_type": None,
+        "is_daily_reward": False
+    },
+    {
+        "id": "card_referral_refernal",
+        "name": "Refernal",
+        "description": "Friend Referral Exclusive reward for successfully referring 20 metalheads.",
+        "rarity": "rare",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/refernal.jpg",
+        "back_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/referral_exclusive_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "Friend Referral Exclusive",
+        "card_type": None,
+        "is_daily_reward": False
+    },
+
 ]
 
 

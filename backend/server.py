@@ -1415,6 +1415,12 @@ REFERRAL_REWARD_COINS = 500
 REFERRAL_REWARD_FREE_PACKS = 1
 REFERRAL_CARD_MILESTONE = 5
 
+REFERRAL_CARD_MILESTONES = {
+    5: "card_referral_reffer_madness",
+    10: "card_referral_pit_pal",
+    20: "card_referral_refernal",
+}
+
 
 async def _ensure_referral_code(user_id: str) -> str:
     """Return the user's friend_code, creating one for legacy users if needed."""
@@ -1441,6 +1447,48 @@ async def _ensure_referral_code(user_id: str) -> str:
         {"$set": {"friend_code": code}},
     )
     return code
+
+
+async def _award_referral_milestone_cards(
+    referrer_id: str,
+    successful_referrals: int,
+):
+    """Grant earned referral-exclusive cards exactly once."""
+    awarded = []
+
+    for required, card_id in sorted(REFERRAL_CARD_MILESTONES.items()):
+        if successful_referrals < required:
+            continue
+
+        card_exists = await db.cards.find_one(
+            {"id": card_id},
+            {"_id": 0, "id": 1},
+        )
+
+        if not card_exists:
+            logger.warning(
+                "Referral milestone card missing from db.cards: %s",
+                card_id,
+            )
+            continue
+
+        existing = await db.user_cards.find_one({
+            "user_id": referrer_id,
+            "card_id": card_id,
+        })
+
+        if existing:
+            continue
+
+        reward_card = UserCard(
+            user_id=referrer_id,
+            card_id=card_id,
+        )
+
+        await db.user_cards.insert_one(reward_card.dict())
+        awarded.append(card_id)
+
+    return awarded
 
 
 async def _complete_referral_if_pending(user_id: str):
@@ -1505,7 +1553,13 @@ async def _complete_referral_if_pending(user_id: str):
 
     milestone_unlocked = successful_referrals >= REFERRAL_CARD_MILESTONE
 
-    if milestone_unlocked:
+    milestone_cards_awarded = await _award_referral_milestone_cards(
+        referrer_id,
+        successful_referrals,
+    )
+
+    # Preserve the old 5-referral flag so the current frontend keeps working.
+    if successful_referrals >= 5:
         await db.users.update_one(
             {"id": referrer_id},
             {
@@ -1516,7 +1570,9 @@ async def _complete_referral_if_pending(user_id: str):
         )
 
     awarded_now = bool(
-        referred_result.modified_count or referrer_result.modified_count
+        referred_result.modified_count
+        or referrer_result.modified_count
+        or milestone_cards_awarded
     )
 
     return {
@@ -1525,6 +1581,7 @@ async def _complete_referral_if_pending(user_id: str):
         "free_packs_each": REFERRAL_REWARD_FREE_PACKS,
         "successful_referrals": successful_referrals,
         "five_referral_milestone_unlocked": milestone_unlocked,
+        "milestone_cards_awarded": milestone_cards_awarded,
     }
 
 
