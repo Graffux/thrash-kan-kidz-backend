@@ -27,6 +27,8 @@ COND_TOTAL_SPENT = "total_spent"                     # params: {"min": int}
 COND_FRIEND_COUNT = "friend_count"                   # params: {"min": int}
 COND_OWN_SPECIFIC_CARD = "own_specific_card"         # params: {"card_id": str}
 COND_GRANTED = "granted"                             # params: {}; admin/founder-granted via users.granted_badges
+COND_SUCCESSFUL_REFERRALS = "successful_referrals"       # params: {"min": int}
+COND_TRIVIA_PERFECT_DAYS = "trivia_perfect_days"         # params: {"min": int}
 
 
 BADGES = [
@@ -226,6 +228,38 @@ BADGES = [
         "condition_params": {"min": 25000},
         "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yaz6fygi_enhanced-1779154497137.png",
     },
+
+    {
+        "id": "series_10_master",
+        "name": "Series 10 Master",
+        "description": "Collect every base card from Series 10",
+        "icon": "ribbon",
+        "tint": "#FFD700",
+        "condition_type": COND_SERIES_BASE_COMPLETE,
+        "condition_params": {"series_num": 10},
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/master_10.jpg",
+    },
+    {
+        "id": "heavy_metal_brainiac",
+        "name": "Heavy Metal Brainiac",
+        "description": "Earn your first No-Dupes Pack from Metal Musick Trivia",
+        "icon": "school",
+        "tint": "#39ff14",
+        "condition_type": COND_TRIVIA_PERFECT_DAYS,
+        "condition_params": {"min": 3},
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/heavy_metal_brainiac.jpg",
+    },
+    {
+        "id": "pit_pal",
+        "name": "Pit Pal",
+        "description": "Successfully refer your first metalhead",
+        "icon": "people",
+        "tint": "#00BFFF",
+        "condition_type": COND_SUCCESSFUL_REFERRALS,
+        "condition_params": {"min": 1},
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/pit_pal.jpg",
+    },
+
     # Founders' badge — granted to every existing internal tester at
     # the moment of release. Not auto-earnable; stamped on user docs
     # via the `granted_badges` array.
