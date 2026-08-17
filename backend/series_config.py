@@ -62,12 +62,14 @@ SERIES_CONFIG: Dict[int, dict] = {
         "cards_required": 16,
         "rare_reward": "card_jeff_wanker",
         "description": "Death Metal Edition",
+        "release_date": datetime(2026, 4, 11, 17, 37, 59, tzinfo=timezone.utc),
     },
     5: {
         "name": "Series 5",
         "cards_required": 16,
         "rare_reward": "card_martin_generic_aint",
         "description": "Thrash Metal Edition",
+       
     },
     6: {
         "name": "Series 6",
