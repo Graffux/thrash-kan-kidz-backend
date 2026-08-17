@@ -75,6 +75,31 @@ RANKS = [
         "min_series_cleared": 8,
         "crest_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4mpm4tbo_enhanced-1778792207655.jpg",
     },
+
+    {
+        "id": "pit_destroyer",
+        "name": "Pit Destroyer",
+        "min_series_cleared": 9,
+        "crest_url": "https://thrash-kan-kidz-api.onrender.com/static/ranks/pit_destroyer.jpg",
+    },
+    {
+        "id": "riff_warlord",
+        "name": "Riff Warlord",
+        "min_series_cleared": 10,
+        "crest_url": "https://thrash-kan-kidz-api.onrender.com/static/ranks/riff_warlord.jpg",
+    },
+    {
+        "id": "shred_lord",
+        "name": "Shred Lord",
+        "min_series_cleared": 11,
+        "crest_url": "https://thrash-kan-kidz-api.onrender.com/static/ranks/shred_lord.jpg",
+    },
+    {
+        "id": "battle_jacket_elite",
+        "name": "Battle Jacket Elite",
+        "min_series_cleared": 12,
+        "crest_url": "https://thrash-kan-kidz-api.onrender.com/static/ranks/battle_jacket_elite.jpg",
+    },
 ]
 
 
