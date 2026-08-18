@@ -94,6 +94,9 @@ class User(BaseModel):
     coins: int = 0
     daily_login_streak: int = 0
     last_login_date: Optional[str] = None
+    pending_streak_save: Optional[int] = None
+    pending_streak_save_date: Optional[str] = None
+    streak_save_last_used: Optional[str] = None 
     profile_completed: bool = False
     bio: str = ""
     avatar_url: str = ""
