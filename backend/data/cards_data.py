@@ -12857,6 +12857,20 @@ INITIAL_CARDS = [
     "card_type": None,
     "is_daily_reward": True
 },
+{
+    "id": "card_daily_classic_buddy_freddy",
+    "name": "Buddy Freddy",
+    "description": "Classic Daily Challenge edition of Buddy Freddy.",
+    "rarity": "common",
+    "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/daily_classics/card_daily_classic_buddy_freddy.png",
+    "back_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/daily_classics/buddy_freddy_back.png",
+    "coin_cost": 0,
+    "available": False,
+    "series": None,
+    "band": "Bud Spill",
+    "card_type": None,
+    "is_daily_reward": True
+},
     # =====================
     # FRIEND REFERRAL EXCLUSIVE REWARDS
     # =====================
