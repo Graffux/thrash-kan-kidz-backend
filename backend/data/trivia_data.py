@@ -565,7 +565,7 @@ TRIVIA_QUESTIONS = [
     "difficulty": "hard",
     "question": "Which thrash band's mascot is named Knarrenheinz?",
     "answers": ["Sodom", "Kreator", "Destruction", "Tankard"],
-    "correct_answer": 2,
+    "correct_answer": 0,
 },
 {
     "id": "metal_0097",
@@ -604,7 +604,7 @@ TRIVIA_QUESTIONS = [
     "category": "grind",
     "difficulty": "medium",
     "question": "Who originally performed vocals on Napalm Death's Scum Side A?",
-    "answers": ["Barney Greenway", "Lee Dorrian", "Nic Bullen", "Mitch Harris"],
+    "answers": ["Barney Greenway", "Mick Harris", "Nic Bullen", "Mitch Harris"],
     "correct_answer": 2,
 },
 {
@@ -732,7 +732,7 @@ TRIVIA_QUESTIONS = [
     "category": "grind",
     "difficulty": "medium",
     "question": "Which band featured both Shane Embury and Jesse Pintado?",
-    "answers": ["Lock Up", "Brujeria", "Terrorizer", "All of the above"],
+    "answers": ["Lock Up", "Carcass", "Morbid Angel", "Napalm Death"],
     "correct_answer": 3,
 },
 {
@@ -821,7 +821,7 @@ TRIVIA_QUESTIONS = [
     "difficulty": "medium",
     "question": "Abominable Putridity is from which country?",
     "answers": ["Russia", "Czech Republic", "United Kingdom", "Germany"],
-    "correct_answer": 2,
+    "correct_answer": 0,
 },
 {
     "id": "metal_0129",
@@ -849,10 +849,10 @@ TRIVIA_QUESTIONS = [
 },
 {
     "id": "metal_0132",
-    "category": "slam",
+    "category": "death",
     "difficulty": "medium",
     "question": "Which Portuguese band blends brutal death metal with slam on Carnal Pleasures?",
-    "answers": ["Analepsy", "Organectomy", "Stillbirth", "Acranius"],
+    "answers": ["Carnal Decay", "Organectomy", "Stillbirth", "Acranius"],
     "correct_answer": 0,
 },
 {
@@ -867,7 +867,7 @@ TRIVIA_QUESTIONS = [
     "id": "metal_0134",
     "category": "slam",
     "difficulty": "easy",
-    "question": "Which band released the album Eviscerated?",
+    "question": "Which band released the album She Lay Gutted?",
     "answers": ["Disgorge (US)", "Internal Bleeding", "Devourment", "Pyrexia"],
     "correct_answer": 0,
 },
@@ -885,7 +885,7 @@ TRIVIA_QUESTIONS = [
     "difficulty": "easy",
     "question": "Which band released the album Perverse Recollections of a Necromangler?",
     "answers": ["Waking the Cadaver", "Cephalotripsy", "Epicardiectomy", "Kraanium"],
-    "correct_answer": 1,
+    "correct_answer": 0,
 },
 {
     "id": "metal_0137",
@@ -899,7 +899,7 @@ TRIVIA_QUESTIONS = [
     "id": "metal_0138",
     "category": "slam",
     "difficulty": "medium",
-    "question": "Which band released Lurking Gloom?",
+    "question": "Which band released Intercranial Purgatory?",
     "answers": ["Guttural Slug", "Organectomy", "Stillbirth", "Acranius"],
     "correct_answer": 0,
 },
@@ -1025,10 +1025,10 @@ TRIVIA_QUESTIONS = [
 },
 {
     "id": "metal_0154",
-    "category": "slam",
+    "category": "death",
     "difficulty": "medium",
     "question": "Which band released the album 'Inheritance of Evilness'?",
-    "answers": ["Epicardiectomy", "Devourment", "Cephalotripsy", "Analepsy"],
+    "answers": ["Hail", "Devourment", "Cephalotripsy", "Asphyx"],
     "correct_answer": 0,
 },
 {
@@ -1041,10 +1041,10 @@ TRIVIA_QUESTIONS = [
 },
 {
     "id": "metal_0156",
-    "category": "slam",
+    "category": "death",
     "difficulty": "medium",
     "question": "Which band released the album 'Chapter of Accidents'?",
-    "answers": ["Cephalotripsy", "Epicardiectomy", "Analepsy", "Devourment"],
+    "answers": ["Dead Infection", "Rotted", "Grave Ritual", "Devourment"],
     "correct_answer": 0,
 },
 {
@@ -1252,5 +1252,11 @@ TRIVIA_QUESTIONS = [
     "answers": ["Born Again", "Headless Cross", "Seventh Star", "Cross Purposes"],
     "correct_answer": 0,
 },
-        
-]
+{
+    "id": "metal_0202",
+    "category": "death",
+    "difficulty": "hard",
+    "question": "What was the original band name for Burial Shroud before it changed in 2012?",
+    "answers": ["Defiled Crypt", "Imbrued Messiah", "Butchered Saint", "Pious Levus"],
+    "correct_answer": 2,
+},
