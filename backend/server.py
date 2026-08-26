@@ -882,6 +882,11 @@ INITIAL_GOALS = [
 
 async def seed_database():
     """Seed the database with initial cards and goals - skip if already seeded"""
+    # Remove bogus incomplete Series 9 Variant Master for Graffux.
+    await db.user_goals.delete_one({
+        "id": "a0c849cf-69f6-4cca-a931-a15aef55f883"
+    })
+
     # Quick check - if we already have the right number of cards, skip the full seed
     card_count = await db.cards.count_documents({})
     expected_count = len(INITIAL_CARDS)
