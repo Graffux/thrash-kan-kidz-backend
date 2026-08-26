@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI, APIRouter, HTTPException, Request
+from fastapi import FastAPI, APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -221,7 +221,7 @@ DAILY_WHEEL_PRIZES = [
 # in `series_config.py` so `routers/cards.py` can import them without forming
 # a circular dependency through `server.py`. Anything operating on the
 # series catalog (validation, completion handlers, /api/series/list) goes
-# through these helpers â€” never hardcode the cap.
+# through these helpers — never hardcode the cap.
 from series_config import (  # noqa: E402
     SERIES_CONFIG,
     MAX_DECLARED_SERIES,
@@ -1348,7 +1348,7 @@ async def _evaluate_badge(badge: dict, user: dict) -> bool:
     if ct == COND_SERIES_BASE_COMPLETE:
         series_num = p.get("series_num")
         # Series 7 stores band cards with rarity "rare"/"epic" plus the reward
-        # â€” we only count base band cards (not variants, not the rare reward).
+        # — we only count base band cards (not variants, not the rare reward).
         base_card_ids = await db.cards.distinct("id", {
             "series": series_num,
             "is_variant": {"$ne": True},
@@ -1401,7 +1401,7 @@ async def _evaluate_badge(badge: dict, user: dict) -> bool:
 
 @api_router.get("/badges")
 async def list_badges():
-    """Return all badge definitions (icons, descriptions) â€” no per-user state."""
+    """Return all badge definitions (icons, descriptions) — no per-user state."""
     return {"badges": BADGES}
 
 
@@ -1786,7 +1786,7 @@ async def login(request: LoginRequest):
     # Self-heal: re-evaluate series completion for every released series so
     # users who finished a series before the unlock logic was deployed (or
     # before a new series went live) get their next-series unlock + reward
-    # backfilled on next login. Idempotent â€” function no-ops if reward
+    # backfilled on next login. Idempotent — function no-ops if reward
     # already granted. Failures are logged but don't block login.
     try:
         for sn in released_series_nums():
@@ -2015,7 +2015,7 @@ async def claim_daily_login(user_id: str, request: Request):
     # Calculate bonus coins.
     # Base is 10/day. After ANY coin pack purchase, the user enters a
     # 30-day "VIP SUPPORTER" boost window where daily login is 25/day.
-    # Note: streak milestone / wheel / pack rewards are NOT scaled â€” by
+    # Note: streak milestone / wheel / pack rewards are NOT scaled — by
     # design (Q4a in batch-feature spec).
     boost_active = _is_vip_active(user)
     bonus_coins = 25 if boost_active else 10
@@ -2579,7 +2579,7 @@ async def post_crash_log(report: CrashReport, request: Request):
     payload = report.dict()
     payload["id"] = str(uuid.uuid4())
     payload["received_at"] = datetime.now(timezone.utc)
-    # Trim runaway payloads â€” clients are untrusted.
+    # Trim runaway payloads — clients are untrusted.
     if payload.get("stack") and len(payload["stack"]) > 8000:
         payload["stack"] = payload["stack"][:8000] + "...[truncated]"
     if payload.get("component_stack") and len(payload["component_stack"]) > 8000:
@@ -2598,7 +2598,7 @@ async def get_series_list():
     """
     Public series catalog. Frontend reads this to know how many series exist
     and their metadata, so adding a new series only requires a backend
-    SERIES_CONFIG entry and a redeploy â€” no app rebuild needed.
+    SERIES_CONFIG entry and a redeploy — no app rebuild needed.
     """
     series_entries = []
     for num, cfg in sorted(SERIES_CONFIG.items()):
@@ -2851,7 +2851,7 @@ async def check_series_completion(user_id: str, series_num: int):
     # series, picked up the reward in the same call, but the write that
     # appended `next_series` to `unlocked_series` somehow lost (mongo
     # hiccup, partial migration, code path that skipped this branch on a
-    # prior version), the bookkeeping was permanently broken â€” the next
+    # prior version), the bookkeeping was permanently broken — the next
     # call would short-circuit on `reward_already_granted` and never
     # backfill the unlock.
     #
@@ -2883,7 +2883,7 @@ async def check_series_completion(user_id: str, series_num: int):
         if series_num not in completed_series:
             completed_series.append(series_num)
 
-        # Unlock next series â€” but only if it's been released. Scheduled
+        # Unlock next series — but only if it's been released. Scheduled
         # / coming-soon series stay locked even if the user finishes the
         # one before them; they auto-unlock at release time via the startup
         # backfill below.
@@ -3446,7 +3446,7 @@ async def trade_in_for_variant(user_id: str, card_id: str):
     
     logger.info(f"User {user_id} traded in 5x {base_card['name']} for variant: {won_variant['name']}")
     
-    # Check if all 4 variants are now collected â€” award 200 coin bonus
+    # Check if all 4 variants are now collected — award 200 coin bonus
     variants_now_owned = len(owned_variant_ids) + 1
     all_variants_complete = variants_now_owned >= len(variants)
     coin_bonus = 0
@@ -3493,7 +3493,7 @@ async def get_user_goals(user_id: str):
     users who already owned variants before the goal was introduced see the
     correct progress on next load (no manual backfill script required).
     """
-    # Lazy backfill â€” cheap (one query per series + one set intersection).
+    # Lazy backfill — cheap (one query per series + one set intersection).
     try:
         await check_all_variants_series_goals(user_id)
     except Exception as e:
@@ -4015,7 +4015,7 @@ async def admin_set_streak(user_id: str, streak: int):
         raise HTTPException(status_code=404, detail="User not found")
     # Set last_login_date to YESTERDAY so the next /login bumps streak to N+1
     # rather than resetting to 1. If we set today, the next login would short-
-    # circuit ("already logged in today") and leave the value alone â€” fine but
+    # circuit ("already logged in today") and leave the value alone — fine but
     # less satisfying. Yesterday gives the user immediate "Day N+1!" gratification.
     yesterday = (datetime.utcnow() - timedelta(days=1)).strftime("%Y-%m-%d")
     await db.users.update_one(
@@ -5212,7 +5212,7 @@ async def startup_event():
     # completed the prior series must get the new series added to
     # unlocked_series (the old completion handler hard-capped the unlock at
     # the previous max). Runs against `current_max_series()` so unreleased /
-    # scheduled series are NOT auto-unlocked â€” they flip live the next time
+    # scheduled series are NOT auto-unlocked — they flip live the next time
     # the backend boots after their release_date has passed.
     max_visible = current_max_series()
     if max_visible > 1:
@@ -5231,7 +5231,7 @@ async def startup_event():
     # Series-reward backfill: grant the rare reward card to any user who owns
     # all required commons of a series but never received the reward (this can
     # happen when a series was added to SERIES_CONFIG *after* users already
-    # completed it â€” e.g., Series 6).
+    # completed it — e.g., Series 6).
     reward_grants = 0
     for series_num, cfg in SERIES_CONFIG.items():
         rare_reward_id = cfg.get("rare_reward")
@@ -5307,4 +5307,5 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
 
