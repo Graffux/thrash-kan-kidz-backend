@@ -1260,3 +1260,5 @@ TRIVIA_QUESTIONS = [
     "answers": ["Defiled Crypt", "Imbrued Messiah", "Butchered Saint", "Pious Levus"],
     "correct_answer": 2,
 },
+
+]
