@@ -3599,6 +3599,14 @@ async def check_all_variants_series_goals(user_id: str):
             "user_id": user_id, "goal_id": goal["id"]
         })
         if not user_goal:
+            # Graffux already completed Series 9 Variant Master.
+            # Do not recreate the newer incomplete duplicate.
+            if (
+                user_id == "64267524-4e3b-4278-a30e-9561474198b1"
+                and goal["id"] == "goal_all_variants_s9"
+            ):
+                continue
+
             user_goal_obj = UserGoal(user_id=user_id, goal_id=goal["id"])
             await db.user_goals.insert_one(user_goal_obj.dict())
             user_goal = user_goal_obj.dict()
