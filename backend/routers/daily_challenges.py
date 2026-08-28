@@ -38,6 +38,7 @@ DAILY_REWARD_BY_DATE: dict[str, str] = {
     "2026-08-09": "card_daily_classic_died",
     "2026-08-14": "card_daily_classic_tank_mullen",
     "2026-08-21": "card_daily_classic_buddy_freddy",
+    "2026-08-28": "antifa_daily",
 }
 
 
@@ -335,6 +336,8 @@ async def admin_reset_daily_challenge(user_id: str, date_iso: str):
         "date_utc": date_iso,
     })
     return {"ok": True, "deleted_count": result.deleted_count}
+
+
 
 
 
