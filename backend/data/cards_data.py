@@ -12917,6 +12917,21 @@ INITIAL_CARDS = [
         "is_daily_reward": False
     },
 
+    {
+        "id": "antifa_daily",
+        "name": "Antifa",
+        "description": "Daily Challenge edition of Antifa.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/antifa_daily.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/antifa_back_daily.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "Antifa",
+        "card_type": None,
+        "is_daily_reward": True
+    },
 ]
+
 
 
