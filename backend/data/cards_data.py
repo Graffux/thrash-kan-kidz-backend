@@ -108,8 +108,8 @@ CARD_IMAGE_URLS = {
     "blood_bonder_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x2b5h7d0_file_00000000beb071f59440c7ab80f96f0a.png",
     "blood_bonder_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zkg799uk_file_00000000357071f58e97192639f90e1b.png",
     # Rare achievement cards (Series completion rewards)
-    "kerry_the_king": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/gfh1huso_file_000000001f5071fd88973aa9c05bebac.png",
-    "strap_on_taylor": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/ruqqtjrv_file_00000000ca38722f86b98bf35e6892e2.png",
+    "kerry_the_king": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_kerry_the_king.png",
+    "strap_on_taylor": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_strap_on_taylor.jpg",
     # =====================
     # SERIES 2 CARDS - Front Images
     # =====================
@@ -245,11 +245,11 @@ CARD_IMAGE_URLS = {
     "rob_urinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/sir3iy8h_enhanced-1773074599887.jpg",
     "slob_urbinati": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/at4glnr4_enhanced-1774075087938.jpg",
     # Epic reward card (Series 3)
-    "martin_generic_aint": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ex5auxl7_file_00000000fb7471fd8c4b8702e4819de7.png",
+    "martin_generic_aint": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_martin_generic_aint.jpg",
     # Epic reward card (Series 5 - moved from S3)
-    "sean_kill_again": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bczdtpd6_file_00000000586471f7a0c781bec98345ab.png",
+    "sean_kill_again": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_sean_kill_again.jpg",
     # Epic reward card (Series 6)
-    "nicklebag_darrell": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xgjownj5_enhanced-1776820526028.jpg",
+    "nicklebag_darrell": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_nicklebag_darrell.jpg",
     # =====================
     # SERIES 3 VARIANTS - Front Images
     # =====================
@@ -338,7 +338,7 @@ CARD_IMAGE_URLS = {
     # SERIES 4 - DEATH METAL EDITION (8 bands, 16 cards)
     # =====================
     # Rare reward card (Series 4)
-    "jeff_wanker": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q2j5vt8i_file_0000000000c071fda5587a2727740c8e.png",
+    "jeff_wanker": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_jeff_wanker.jpg",
     # Band 1: Obitchuary
     "tardy_donald": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fmef8kju_enhanced-1771260495032.jpg",
     "tardy_donald_skeletal": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sit8byml_enhanced-1775339848666.jpg",
@@ -703,9 +703,9 @@ CARD_IMAGE_URLS = {
     "skeet_sandoval_digital": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sxu28ats_Screenshot_20260516_203808_ChatGPT.png",
     "skeet_sandoval_melted": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rsjb0tpt_Screenshot_20260516_204040_ChatGPT.png",
     # Series 7 Rare Reward (epic)
-    "alien_dubin": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/i4e0c7o8_enhanced-1778561784058.jpg",
+    "alien_dubin": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_alien_dubin.jpg",
     # Series 8 Rare Reward (epic) Ã¢â‚¬â€ Slam Edition
-    "crisp_chris": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/khrorjzs_Screenshot_20260603_051424_ChatGPT.png",
+    "crisp_chris": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_crisp_chris.jpg",
     # ---- Series 8 Ã¢â‚¬â€ Slam Edition (base + variant fronts) ----
     # Deflowerment / Rubber Ruben (Frontman)
     "rubber_ruben": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fx6c62e6_enhanced-1780098706026.jpg",
@@ -888,7 +888,7 @@ CARD_IMAGE_URLS = {
     "vile_vikernose_negative": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series9/vile_vikernose/vile_vikernose_negative.png",
     "vile_vikernose_porcelain": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series9/vile_vikernose/vile_vikernose_porcelain.png",
     "chum_araya_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t7rcvvon_enhanced-1774166884359.jpg",
-    "count_grossnackh_epic": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/series9/reward/count_grossnackh_epic.jpg",
+    "count_grossnackh_epic": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_count_grossnackh.jpg",
 }
 CARD_BACK_IMAGE_URLS = {
     # =====================
@@ -12806,7 +12806,7 @@ INITIAL_CARDS = [
         "name": "Died",
         "description": "Classic Daily Challenge edition of Died.",
         "rarity": "common",
-        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/died_daily.png",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_daily_classic_died.jpg",
         "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/died_daily_back.png",
         "coin_cost": 0,
         "available": False,
@@ -12821,7 +12821,7 @@ INITIAL_CARDS = [
         "name": "Ronstrocity",
         "description": "Classic Daily Challenge edition of Ronstrocity.",
         "rarity": "common",
-        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/ronstrocity_classic.jpg",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_daily_classic_ronstrocity.jpg",
         "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
         "coin_cost": 0,
         "available": False,
@@ -12834,7 +12834,7 @@ INITIAL_CARDS = [
     "name": "Uncle Slam",
     "description": "Uncle Slam shreds for Slamerika, delivering brutal breakdowns from sea to shining sea.",
     "rarity": "common",
-    "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/uncle_slam_daily.jpg",
+    "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_daily_uncle_slam.jpg",
     "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/uncle_slam_daily_back.jpg",
     "coin_cost": 0,
     "available": False,
@@ -12848,7 +12848,7 @@ INITIAL_CARDS = [
     "name": "Tank Mullen",
     "description": "Classic Daily Challenge edition of Tank Mullen.",
     "rarity": "common",
-    "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/tank_mullen_classic.png",
+    "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/card_daily_classic_tank_mullen.png",
     "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
     "coin_cost": 0,
     "available": False,
@@ -12922,7 +12922,7 @@ INITIAL_CARDS = [
         "name": "Antifa",
         "description": "Daily Challenge edition of Antifa.",
         "rarity": "common",
-        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/antifa_daily.png",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/rewards/antifa_daily.png",
         "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/antifa_back_daily.png",
         "coin_cost": 0,
         "available": False,
