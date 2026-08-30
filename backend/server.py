@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import ReturnDocument, UpdateOne
 import os
 import logging
 from pathlib import Path
@@ -882,10 +883,15 @@ INITIAL_GOALS = [
 
 async def seed_database():
     """Seed the database with initial cards and goals - skip if already seeded"""
-    # Remove bogus incomplete Series 9 Variant Master for Graffux.
-    await db.user_goals.delete_one({
-        "id": "a0c849cf-69f6-4cca-a931-a15aef55f883"
-    })
+    # Prevent duplicate goal rows for the same user and goal.
+    try:
+        await db.user_goals.create_index(
+            [("user_id", 1), ("goal_id", 1)],
+            unique=True,
+            name="uniq_user_goal",
+        )
+    except Exception as e:
+        logger.warning(f"Could not create unique index on user_goals: {e}")
 
     # Quick check - if we already have the right number of cards, skip the full seed
     card_count = await db.cards.count_documents({})
@@ -1074,10 +1080,15 @@ async def seed_database():
                 # Goals tab without them having to re-register.
                 user_ids = await db.users.distinct("id")
                 if user_ids:
-                    await db.user_goals.insert_many([
-                        UserGoal(user_id=uid, goal_id=goal.id).dict()
+                    ops = [
+                        UpdateOne(
+                            {"user_id": uid, "goal_id": goal.id},
+                            {"$setOnInsert": UserGoal(user_id=uid, goal_id=goal.id).dict()},
+                            upsert=True,
+                        )
                         for uid in user_ids
-                    ])
+                    ]
+                    await db.user_goals.bulk_write(ops, ordered=False)
                     logger.info(
                         f"Backfilled '{goal.title}' for {len(user_ids)} existing user(s)"
                     )
@@ -1159,11 +1170,18 @@ async def create_user(request: CreateUserRequest):
     user = User(username=request.username, coins=5000)  # Start with 5000 coins for testing
     await db.users.insert_one(user.dict())
     
-    # Initialize user goals
+    # Initialize user goals with atomic upserts to prevent duplicates
     goals = await db.goals.find().to_list(100)
-    for goal in goals:
-        user_goal = UserGoal(user_id=user.id, goal_id=goal["id"])
-        await db.user_goals.insert_one(user_goal.dict())
+    if goals:
+        ops = [
+            UpdateOne(
+                {"user_id": user.id, "goal_id": goal["id"]},
+                {"$setOnInsert": UserGoal(user_id=user.id, goal_id=goal["id"]).dict()},
+                upsert=True,
+            )
+            for goal in goals
+        ]
+        await db.user_goals.bulk_write(ops, ordered=False)
     
     return user
 
@@ -3525,16 +3543,13 @@ async def check_all_rarities_goal(user_id: str):
     if not goal:
         return
     
-    # Get user's goal progress
-    user_goal = await db.user_goals.find_one({
-        "user_id": user_id,
-        "goal_id": goal["id"]
-    })
-    
-    if not user_goal:
-        user_goal_obj = UserGoal(user_id=user_id, goal_id=goal["id"])
-        await db.user_goals.insert_one(user_goal_obj.dict())
-        user_goal = user_goal_obj.dict()
+    # Get/create user goal atomically to prevent duplicates
+    user_goal = await db.user_goals.find_one_and_update(
+        {"user_id": user_id, "goal_id": goal["id"]},
+        {"$setOnInsert": UserGoal(user_id=user_id, goal_id=goal["id"]).dict()},
+        upsert=True,
+        return_document=ReturnDocument.AFTER,
+    )
     
     if user_goal.get("completed"):
         return
@@ -3599,22 +3614,13 @@ async def check_all_variants_series_goals(user_id: str):
         total = len(all_variants)
         owned = sum(1 for v in all_variants if v["id"] in user_card_ids)
         
-        # Get/create user_goal
-        user_goal = await db.user_goals.find_one({
-            "user_id": user_id, "goal_id": goal["id"]
-        })
-        if not user_goal:
-            # Graffux already completed Series 9 Variant Master.
-            # Do not recreate the newer incomplete duplicate.
-            if (
-                user_id == "64267524-4e3b-4278-a30e-9561474198b1"
-                and goal["id"] == "goal_all_variants_s9"
-            ):
-                continue
-
-            user_goal_obj = UserGoal(user_id=user_id, goal_id=goal["id"])
-            await db.user_goals.insert_one(user_goal_obj.dict())
-            user_goal = user_goal_obj.dict()
+        # Get/create user goal atomically to prevent duplicates
+        user_goal = await db.user_goals.find_one_and_update(
+            {"user_id": user_id, "goal_id": goal["id"]},
+            {"$setOnInsert": UserGoal(user_id=user_id, goal_id=goal["id"]).dict()},
+            upsert=True,
+            return_document=ReturnDocument.AFTER,
+        )
         
         if user_goal.get("completed"):
             continue
@@ -3640,15 +3646,12 @@ async def check_and_update_goals(user_id: str, goal_type: str, current_value: in
     goals = await db.goals.find({"goal_type": goal_type}).to_list(100)
     
     for goal in goals:
-        user_goal = await db.user_goals.find_one({
-            "user_id": user_id,
-            "goal_id": goal["id"]
-        })
-        
-        if not user_goal:
-            user_goal_obj = UserGoal(user_id=user_id, goal_id=goal["id"])
-            await db.user_goals.insert_one(user_goal_obj.dict())
-            user_goal = user_goal_obj.dict()
+        user_goal = await db.user_goals.find_one_and_update(
+            {"user_id": user_id, "goal_id": goal["id"]},
+            {"$setOnInsert": UserGoal(user_id=user_id, goal_id=goal["id"]).dict()},
+            upsert=True,
+            return_document=ReturnDocument.AFTER,
+        )
         
         if user_goal.get("completed"):
             continue
@@ -5320,5 +5323,4 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
-
 
