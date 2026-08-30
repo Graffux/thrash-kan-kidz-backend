@@ -41,7 +41,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 1},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/5g83qmi2_enhanced-1779076898405.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_1_master.png",
     },
     {
         "id": "streak_100",
@@ -51,7 +51,7 @@ BADGES = [
         "tint": "#FF4500",
         "condition_type": COND_LOGIN_STREAK,
         "condition_params": {"min": 100},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/928oqvaj_enhanced-1779097988195.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/streak_100.png",
     },
     {
         "id": "trade_addict",
@@ -61,7 +61,7 @@ BADGES = [
         "tint": "#00BFFF",
         "condition_type": COND_TRADES_ACCEPTED,
         "condition_params": {"min": 25},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/teb3l3je_enhanced-1779098063309.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/trade_addict.png",
     },
     {
         "id": "variant_hunter",
@@ -71,7 +71,7 @@ BADGES = [
         "tint": "#C770FF",
         "condition_type": COND_VARIANTS_OWNED,
         "condition_params": {"min": 10},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m74kq8ac_enhanced-1779098162990.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/variant_hunter.png",
     },
     {
         "id": "og_collector",
@@ -81,7 +81,7 @@ BADGES = [
         "tint": "#B87333",
         "condition_type": COND_CREATED_BEFORE_SERIES,
         "condition_params": {"series_num": 4},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/pt7eqpwu_enhanced-1779098273380.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/og_collector.png",
     },
 
     # --- Series 2-7 Master mirrors ---
@@ -93,7 +93,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 2},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tugzi06r_enhanced-1779077203881.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_2_master.png",
     },
     {
         "id": "series_3_master",
@@ -103,7 +103,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 3},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/bjdtkz6n_enhanced-1779077356786.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_3_master.png",
     },
     {
         "id": "series_4_master",
@@ -113,7 +113,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 4},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/de6uw9qg_enhanced-1779077568638.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_4_master.png",
     },
     {
         "id": "series_5_master",
@@ -123,7 +123,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 5},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ym5bexzi_enhanced-1779077842748.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_5_master.png",
     },
     {
         "id": "series_6_master",
@@ -133,7 +133,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 6},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/clxtquwo_enhanced-1779078150758.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_6_master.png",
     },
     {
         "id": "series_7_master",
@@ -143,7 +143,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 7},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/b8qfgszs_enhanced-1779078359336.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_7_master.png",
     },
     {
         "id": "series_8_master",
@@ -153,7 +153,7 @@ BADGES = [
         "tint": "#39ff14",  # neon green to match the badge art
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 8},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ys2a0zds_file_0000000024a871fda2c8f23705204a9c.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_8_master.png",
     },
     {
         "id": "series_9_master",
@@ -163,7 +163,7 @@ BADGES = [
         "tint": "#ffd700",  # gold to match the badge art
         "condition_type": COND_SERIES_BASE_COMPLETE,
         "condition_params": {"series_num": 9},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/p6upndw7_file_00000000388471fd96baba97e39cf724.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/series_9_master.png",
     },
 
     # --- Easy wins (proactive additions) ---
@@ -175,7 +175,7 @@ BADGES = [
         "tint": "#4CAF50",
         "condition_type": COND_OWN_ANY_CARD,
         "condition_params": {},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8pfbiq6o_enhanced-1779097079250.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/first_pull.png",
     },
     {
         "id": "big_spender",
@@ -185,7 +185,7 @@ BADGES = [
         "tint": "#FFD700",
         "condition_type": COND_TOTAL_SPENT,
         "condition_params": {"min": 50000},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xphfw3tl_enhanced-1779098352745.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/big_spender.png",
     },
     {
         "id": "friend_magnet",
@@ -195,7 +195,7 @@ BADGES = [
         "tint": "#00CED1",
         "condition_type": COND_FRIEND_COUNT,
         "condition_params": {"min": 10},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/h9zielj3_enhanced-1779098964603.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/friend_magnet.png",
     },
     {
         "id": "alien_believer",
@@ -205,7 +205,7 @@ BADGES = [
         "tint": "#9C27B0",
         "condition_type": COND_OWN_SPECIFIC_CARD,
         "condition_params": {"card_id": "card_alien_dubin"},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e2quc12v_enhanced-1779099024275.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/alien_believer.png",
     },
     # --- New badges (placeholder conditions until proper tracking is added) ---
     {
@@ -216,7 +216,7 @@ BADGES = [
         "tint": "#9C27B0",
         "condition_type": COND_LOGIN_STREAK,
         "condition_params": {"min": 30},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t2cq4tsp_enhanced-1779153899003.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/midnight_maniac.png",
     },
     {
         "id": "weekend_warrior",
@@ -226,7 +226,7 @@ BADGES = [
         "tint": "#4CAF50",
         "condition_type": COND_TOTAL_SPENT,
         "condition_params": {"min": 25000},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yaz6fygi_enhanced-1779154497137.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/weekend_warrior.png",
     },
 
     {
@@ -271,7 +271,7 @@ BADGES = [
         "tint": "#FFD24A",
         "condition_type": COND_GRANTED,
         "condition_params": {},
-        "image_url": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/5lqglpcu_Screenshot_20260530_171350_ChatGPT.png",
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/founding_thrasher.png",
     },
 ]
 

@@ -18,6 +18,7 @@ import stripe
 from data.cards_data import INITIAL_CARDS, CARD_IMAGE_URLS, CARD_BACK_IMAGE_URLS, RARE_CARD_ACHIEVEMENTS, VARIANT_SCRATCH_COVERS
 from data.trivia_data import TRIVIA_QUESTIONS
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+import asyncio
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env', override=False)
@@ -1434,10 +1435,13 @@ async def get_user_badges(user_id: str):
     user = await db.users.find_one({"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    result = []
-    for badge in BADGES:
-        earned = await _evaluate_badge(badge, user)
-        result.append({**badge, "earned": earned})
+    earned_results = await asyncio.gather(
+        *[_evaluate_badge(badge, user) for badge in BADGES]
+    )
+    result = [
+        {**badge, "earned": earned}
+        for badge, earned in zip(BADGES, earned_results)
+    ]
     return {"badges": result, "earned_count": sum(1 for b in result if b["earned"])}
 
 # =====================
