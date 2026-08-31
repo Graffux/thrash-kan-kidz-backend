@@ -39,6 +39,7 @@ DAILY_REWARD_BY_DATE: dict[str, str] = {
     "2026-08-14": "card_daily_classic_tank_mullen",
     "2026-08-21": "card_daily_classic_buddy_freddy",
     "2026-08-28": "antifa_daily",
+    "2026-08-31": "card_daily_classic_chris_pervalicious",
 }
 
 

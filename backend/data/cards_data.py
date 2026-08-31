@@ -12917,6 +12917,22 @@ INITIAL_CARDS = [
         "is_daily_reward": False
     },
 
+
+    {
+        "id": "card_daily_classic_chris_pervalicious",
+        "name": "Chris Pervalicious",
+        "description": "Daily Challenge edition of Chris Pervalicious.",
+        "rarity": "common",
+        "front_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/daily_classics/chris_pervalicious_daily.jpg",
+        "back_image_url": "https://thrash-kan-kidz-api.onrender.com/static/cards/daily_classics/chris_pervalicious_daily_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
     {
         "id": "antifa_daily",
         "name": "Antifa",
