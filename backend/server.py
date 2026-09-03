@@ -884,6 +884,24 @@ INITIAL_GOALS = [
 
 async def seed_database():
     """Seed the database with initial cards and goals - skip if already seeded"""
+
+    # Safety check: card IDs are permanent identities.
+    # Never allow two source definitions to share the same ID.
+    seen_card_ids = set()
+    duplicate_card_ids = set()
+
+    for card_data in INITIAL_CARDS:
+        card_id = card_data["id"]
+        if card_id in seen_card_ids:
+            duplicate_card_ids.add(card_id)
+        seen_card_ids.add(card_id)
+
+    if duplicate_card_ids:
+        duplicates = ", ".join(sorted(duplicate_card_ids))
+        raise RuntimeError(
+            f"Duplicate card IDs detected in INITIAL_CARDS: {duplicates}"
+        )
+
     # Prevent duplicate goal rows for the same user and goal.
     try:
         await db.user_goals.create_index(
@@ -935,7 +953,8 @@ async def seed_database():
                 {"id": card_data["id"]},
                 {"_id": 0, "front_image_url": 1, "back_image_url": 1,
                  "description": 1, "rarity": 1, "series": 1,
-                 "band": 1, "card_type": 1},
+                 "band": 1, "card_type": 1, "available": 1,
+                 "base_card_id": 1, "is_variant": 1, "series_reward": 1},
             )
             if not existing:
                 continue
@@ -954,6 +973,14 @@ async def seed_database():
                 patch["band"] = card_data.get("band")
             if card_data.get("card_type") != existing.get("card_type"):
                 patch["card_type"] = card_data.get("card_type")
+            if card_data.get("available") != existing.get("available"):
+                patch["available"] = card_data.get("available")
+            if card_data.get("base_card_id") != existing.get("base_card_id"):
+                patch["base_card_id"] = card_data.get("base_card_id")
+            if card_data.get("is_variant") != existing.get("is_variant"):
+                patch["is_variant"] = card_data.get("is_variant")
+            if card_data.get("series_reward") != existing.get("series_reward"):
+                patch["series_reward"] = card_data.get("series_reward")
             if patch:
                 await db.cards.update_one({"id": card_data["id"]}, {"$set": patch})
                 url_fixes += 1
