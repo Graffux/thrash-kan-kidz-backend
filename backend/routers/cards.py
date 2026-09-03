@@ -62,6 +62,9 @@ def _attach_scratch_cover(card_doc: dict) -> dict:
     variants without a registered cover return None (frontend will skip the
     scratch overlay entirely in that case).
     """
+    if card_doc.get("is_variant") is None:
+        card_doc["is_variant"] = False
+
     if card_doc.get("is_variant") and card_doc.get("variant_name"):
         key = str(card_doc["variant_name"]).lower()
         card_doc["scratch_cover_url"] = VARIANT_SCRATCH_COVERS.get(key)

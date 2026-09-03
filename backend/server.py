@@ -977,8 +977,9 @@ async def seed_database():
                 patch["available"] = card_data.get("available")
             if card_data.get("base_card_id") != existing.get("base_card_id"):
                 patch["base_card_id"] = card_data.get("base_card_id")
-            if card_data.get("is_variant") != existing.get("is_variant"):
-                patch["is_variant"] = card_data.get("is_variant")
+            source_is_variant = card_data.get("is_variant", False)
+            if source_is_variant != existing.get("is_variant"):
+                patch["is_variant"] = source_is_variant
             if card_data.get("series_reward") != existing.get("series_reward"):
                 patch["series_reward"] = card_data.get("series_reward")
             if patch:
@@ -2484,10 +2485,22 @@ async def check_user_engagement_milestones(user_id: str):
 async def get_user_cards(user_id: str):
     """Get all cards owned by user"""
     user_cards = await db.user_cards.find({"user_id": user_id}).to_list(1000)
-    
+
+    if not user_cards:
+        return []
+
+    card_ids = list({uc["card_id"] for uc in user_cards})
+    cards = await db.cards.find({"id": {"$in": card_ids}}).to_list(None)
+
+    cards_by_id = {}
+    for card in cards:
+        if card.get("is_variant") is None:
+            card["is_variant"] = False
+        cards_by_id[card["id"]] = card
+
     result = []
     for uc in user_cards:
-        card = await db.cards.find_one({"id": uc["card_id"]})
+        card = cards_by_id.get(uc["card_id"])
         if card:
             result.append({
                 "user_card_id": uc["id"],
@@ -2495,7 +2508,7 @@ async def get_user_cards(user_id: str):
                 "quantity": uc.get("quantity", 1),
                 "acquired_at": uc.get("acquired_at", datetime.utcnow().isoformat())
             })
-    
+
     return result
 
 @api_router.post("/users/{user_id}/purchase-card")
