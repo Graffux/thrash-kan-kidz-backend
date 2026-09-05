@@ -12919,6 +12919,20 @@ INITIAL_CARDS = [
 
 
     {
+        "id": "card_daily_classic_daves_mustang",
+        "name": "Dave's Mustang",
+        "description": "Daily Challenge edition of Dave's Mustang.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daves_mustang_classic.jpg",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+    {
         "id": "card_daily_classic_chris_pervalicious",
         "name": "Chris Pervalicious",
         "description": "Daily Challenge edition of Chris Pervalicious.",
