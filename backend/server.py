@@ -2053,11 +2053,11 @@ async def claim_daily_login(user_id: str, request: Request):
 
     elif (
         last_login_date is not None
-        and last_login_date < yesterday_date
+        and last_login_date == (today_date - timedelta(days=2))
         and current_streak > 1
         and save_ready
     ):
-        # One or more calendar days were missed.
+        # Exactly one calendar day was missed.
         # Allow the weekly Streak Save to restore the old streak.
         streak_before_reset = current_streak
         streak_save_available = True
@@ -5367,4 +5367,5 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
 
