@@ -103,6 +103,13 @@ SERIES_CONFIG: Dict[int, dict] = {
         "description": "Black Metal Edition",
         "release_date": datetime(2026, 8, 9, 5, 0, 0, tzinfo=timezone.utc),
     },
+    10: {
+        "name": "Series 10",
+        "cards_required": 16,
+        "rare_reward": "card_phlegmy",
+        "description": "Series 10",
+        "release_date": datetime(2026, 9, 12, 5, 0, 0, tzinfo=timezone.utc),
+    },
 }
 
 # Highest series number declared in code. NOT the same as the highest
