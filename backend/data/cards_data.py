@@ -14336,6 +14336,20 @@ INITIAL_CARDS = [
         "card_type": None,
         "is_daily_reward": True
     },
+    {
+        "id": "card_daily_classic_chum_araya",
+        "name": "Chum Araya",
+        "description": "Daily Challenge edition of Chum Araya.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/chum_araya_classic.jpg",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "",
+        "card_type": None,
+        "is_daily_reward": True
+    },
 ]
 
 
