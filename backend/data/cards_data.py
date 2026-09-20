@@ -14350,6 +14350,20 @@ INITIAL_CARDS = [
         "card_type": None,
         "is_daily_reward": True
     },
+    {
+        "id": "card_daily_classic_silly_mille",
+        "name": "Silly Mille",
+        "description": "Daily Challenge edition of Silly Mille.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/silly_mille_classic.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "",
+        "card_type": None,
+        "is_daily_reward": True
+    },
 ]
 
 
