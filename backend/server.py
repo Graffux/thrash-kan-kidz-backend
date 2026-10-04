@@ -108,6 +108,7 @@ class User(BaseModel):
     completed_series: List[int] = Field(default_factory=list)  # Series user has fully completed
     series_milestone_claimed: List[int] = Field(default_factory=list)  # Series the user has claimed the 100% completion milestone bonus for
     featured_card_ids: List[str] = Field(default_factory=list)  # Up to 5 card IDs the player has pinned to their Profile showcase
+    show_reward_cards: bool = True  # Whether earned reward cards are visible on the public Profile
     coin_boost_expires_at: Optional[datetime] = None  # Activated by ANY coin pack purchase. While in the future, daily login bonus is 25/day and the user gets a "VIP SUPPORTER" tag in Mosh Pit. Resets (not stacks) on each new purchase.
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -171,6 +172,7 @@ class CreateUserRequest(BaseModel):
 class UpdateProfileRequest(BaseModel):
     bio: Optional[str] = None
     avatar_url: Optional[str] = None
+    show_reward_cards: Optional[bool] = None
 
 class UpdateFeaturedCardsRequest(BaseModel):
     # Up to 5 user-owned card IDs to pin on the Profile showcase. Empty list clears the slots.
@@ -1928,6 +1930,8 @@ async def update_profile(user_id: str, request: UpdateProfileRequest):
             update_data["profile_completed"] = True
     if request.avatar_url is not None:
         update_data["avatar_url"] = request.avatar_url
+    if request.show_reward_cards is not None:
+        update_data["show_reward_cards"] = request.show_reward_cards
     
     if update_data:
         await db.users.update_one({"id": user_id}, {"$set": update_data})
