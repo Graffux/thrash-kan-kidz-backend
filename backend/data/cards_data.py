@@ -14394,6 +14394,36 @@ INITIAL_CARDS = [
         "card_type": None,
         "is_daily_reward": True
     },
+
+    {
+        "id": "card_daily_halloween_steve_boo_maker",
+        "name": "Steve Boo-Maker",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h3_steve_boo_maker.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "Haunted Eve",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_terror_trevor",
+        "name": "Terror Trevor",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h4_terror_trevor.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "OBITU-EERIE",
+        "card_type": None,
+        "is_daily_reward": True
+    },
 ]
 
 
