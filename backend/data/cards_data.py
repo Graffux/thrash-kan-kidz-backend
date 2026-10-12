@@ -14424,6 +14424,81 @@ INITIAL_CARDS = [
         "card_type": None,
         "is_daily_reward": True
     },
+    {
+        "id": "card_daily_halloween_patrik_jekyllsen",
+        "name": "Patrik Jekyllsen",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h5_patrik_jekyllsen.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "THE HAUNTING",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_ronnie_grave_in",
+        "name": "Ronnie Grave-In",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h6_ronnie_grave_in.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "BURIAL SHROUD",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_devil_townsend",
+        "name": "Devil Townsend",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h7_devil_townsend.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "SPOOKY YOUNG LAD",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_scary_holt",
+        "name": "Scary Holt",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h8_scary_holt.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "HEXODUS",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_alex_hellish",
+        "name": "Alex Hellish",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h9_alex_hellish.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "TOMBED",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
 ]
 
 
