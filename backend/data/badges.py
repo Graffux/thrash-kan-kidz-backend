@@ -29,6 +29,7 @@ COND_OWN_SPECIFIC_CARD = "own_specific_card"         # params: {"card_id": str}
 COND_GRANTED = "granted"                             # params: {}; admin/founder-granted via users.granted_badges
 COND_SUCCESSFUL_REFERRALS = "successful_referrals"       # params: {"min": int}
 COND_TRIVIA_PERFECT_DAYS = "trivia_perfect_days"         # params: {"min": int}
+COND_HALLOWEEN_COLLECTION_COMPLETE = "halloween_collection_complete"  # All Halloween 2026 cards
 
 
 BADGES = [
@@ -258,6 +259,17 @@ BADGES = [
         "condition_type": COND_SUCCESSFUL_REFERRALS,
         "condition_params": {"min": 1},
         "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/pit_pal.jpg",
+    },
+
+    {
+        "id": "halloween_2026_master",
+        "name": "Halloween 2026 Master",
+        "description": "Collect every Halloween 2026 reward card to master the haunted kollection!",
+        "icon": "skull",
+        "tint": "#FF7518",
+        "condition_type": COND_HALLOWEEN_COLLECTION_COMPLETE,
+        "condition_params": {},
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/halloween_2026_master.png",
     },
 
     # Founders' badge — granted to every existing internal tester at

@@ -238,7 +238,7 @@ from series_config import (  # noqa: E402
     persist_release_date as persist_series_release_date,
 )
 from data.ranks import RANKS, compute_user_rank  # noqa: E402
-from data.badges import BADGES, COND_SERIES_BASE_COMPLETE, COND_LOGIN_STREAK, COND_TRADES_ACCEPTED, COND_VARIANTS_OWNED, COND_CREATED_BEFORE_SERIES, COND_OWN_ANY_CARD, COND_TOTAL_SPENT, COND_FRIEND_COUNT, COND_OWN_SPECIFIC_CARD, COND_GRANTED, COND_SUCCESSFUL_REFERRALS, COND_TRIVIA_PERFECT_DAYS  # noqa: E402
+from data.badges import BADGES, COND_SERIES_BASE_COMPLETE, COND_LOGIN_STREAK, COND_TRADES_ACCEPTED, COND_VARIANTS_OWNED, COND_CREATED_BEFORE_SERIES, COND_OWN_ANY_CARD, COND_TOTAL_SPENT, COND_FRIEND_COUNT, COND_OWN_SPECIFIC_CARD, COND_GRANTED, COND_SUCCESSFUL_REFERRALS, COND_TRIVIA_PERFECT_DAYS, COND_HALLOWEEN_COLLECTION_COMPLETE  # noqa: E402
 
 class CoinPurchaseRequest(BaseModel):
     user_id: str
@@ -1398,6 +1398,26 @@ async def _evaluate_badge(badge: dict, user: dict) -> bool:
             "card_id": {"$in": variant_card_ids},
         })
         return owned >= p.get("min", 0)
+
+    if ct == COND_HALLOWEEN_COLLECTION_COMPLETE:
+        # Halloween 2026 Master cannot unlock before October 31.
+        if datetime.now(timezone.utc).date().isoformat() < "2026-10-31":
+            return False
+
+        halloween_ids = await db.cards.distinct("id", {
+            "id": {"$regex": "^card_daily_halloween_"}
+        })
+
+        # Prevent an incomplete Halloween catalog from unlocking the badge.
+        if len(halloween_ids) < 14:
+            return False
+
+        owned_ids = await db.user_cards.distinct("card_id", {
+            "user_id": user_id,
+            "card_id": {"$in": halloween_ids},
+        })
+
+        return set(halloween_ids).issubset(set(owned_ids))
 
     if ct == COND_SERIES_BASE_COMPLETE:
         series_num = p.get("series_num")
