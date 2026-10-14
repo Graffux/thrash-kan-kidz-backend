@@ -55,6 +55,16 @@ BADGES = [
         "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/streak_100.png",
     },
     {
+        "id": "streak_200",
+        "name": "200 Day Streak",
+        "description": "Log in for 200 consecutive days",
+        "icon": "flame",
+        "tint": "#FF4500",
+        "condition_type": COND_LOGIN_STREAK,
+        "condition_params": {"min": 200},
+        "image_url": "https://thrash-kan-kidz-api.onrender.com/static/badges/streak_200.png",
+    },
+    {
         "id": "trade_addict",
         "name": "Trade Addict",
         "description": "Complete 25 accepted trades",
