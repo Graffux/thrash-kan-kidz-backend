@@ -14499,6 +14499,66 @@ INITIAL_CARDS = [
         "is_daily_reward": True
     },
 
+    {
+        "id": "card_daily_halloween_ola_grimgren",
+        "name": "Ola Grimgren",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h10_ola_grimgren.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "GRAVEN",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_chagoyle",
+        "name": "Chagoyle",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h12_chagoyle.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "ANTISMAUL",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_rick_or_treat",
+        "name": "Rick or Treat",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h11_rick_or_treat.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "ANTISMAUL",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
+    {
+        "id": "card_daily_halloween_rene_animator",
+        "name": "Rene Animator",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h13_rene_animator.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "ANTISMAUL",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
 ]
 
 
