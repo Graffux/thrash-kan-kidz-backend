@@ -14559,6 +14559,22 @@ INITIAL_CARDS = [
         "is_daily_reward": True
     },
 
+
+    {
+        "id": "card_daily_halloween_gene_hobgoblin",
+        "name": "Gene Hobgoblin",
+        "description": "Halloween 2026 Daily Challenge reward.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/h14_gene_hobgoblin.jpg",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/halloween_universal_back.png",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "DARK FANGEL",
+        "card_type": None,
+        "is_daily_reward": True
+    },
+
 ]
 
 
