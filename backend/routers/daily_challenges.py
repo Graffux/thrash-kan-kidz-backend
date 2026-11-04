@@ -57,6 +57,7 @@ DAILY_REWARD_BY_DATE: dict[str, str] = {
     "2026-10-26": "card_daily_halloween_rick_or_treat",
     "2026-10-28": "card_daily_halloween_rene_animator",
     "2026-10-30": "card_daily_halloween_gene_hobgoblin",
+    "2026-11-03": "card_daily_classic_bobby_blitzed",
 }
 
 
