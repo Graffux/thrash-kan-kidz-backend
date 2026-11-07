@@ -114,72 +114,72 @@ CARD_IMAGE_URLS = {
     # SERIES 2 CARDS - Front Images
     # =====================
     # Band 1: Construction
-    "smeared_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jshleumx_enhanced-1771278042580.jpg",
+    "smeared_schmier": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/9b_smeared_schmier.png",
     # Smeared Schmier Variants
     "smeared_schmier_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1kge2loz_file_00000000caa071fdbe4eb5d61e2f9138.png",
     "smeared_schmier_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7ky8bjoa_file_000000009c3071fd844145018bca9441.png",
     "smeared_schmier_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ok3xdw4b_file_00000000ab4071fda2bcb5f8eb22a220.png",
     "smeared_schmier_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/a9oasf2f_file_00000000432071fdb28eabcd111ceaa1.png",
-    "beer_schmier": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/4lnsur9c_enhanced-1771278098766.jpg",
+    "beer_schmier": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/9a_beer_schmier.png",
     # Beer Schmier Variants
     "beer_schmier_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/9t6m1r4d_file_00000000333471fd9e68b65a1c5fefe0.png",
     "beer_schmier_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/k8v188j5_file_00000000faf071fda77eb92f27226ff0.png",
     "beer_schmier_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/kthvupwq_file_00000000bd9871f5a03ad06c03c4cbbb.png",
     "beer_schmier_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/83x9qu5o_file_00000000c3d071fd964f422deec4fecc.png",
     # Band 2: Voivodka
-    "piggy_in_a_blanket": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/0bqomm5i_enhanced-1771278196496.jpg",
+    "piggy_in_a_blanket": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/16a_piggy_in_blanket.png",
     # Piggy in a Blanket Variants
     "piggy_in_a_blanket_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7ausfquy_file_000000007b4071f5b73d200c35225f35.png",
     "piggy_in_a_blanket_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3os4mgu1_file_00000000a35c722fb4e343a7069b26ba.png",
     "piggy_in_a_blanket_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sb7p4pej_file_000000006534722f96b6b7103c74b005.png",
     "piggy_in_a_blanket_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7zknda8j_file_00000000a1fc71f5890e45a8cca1352e.png",
-    "rotting_away": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/dpfv01yo_enhanced-1771278142034.jpg",
+    "rotting_away": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/16b_rotting_away.jpg",
     # Rotting Away Variants
     "rotting_away_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/zp2cnvz4_file_000000009c4c722f9c290211c77abc32.png",
     "rotting_away_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/rcqmp28y_file_00000000740871f580fc8a4537496ebc.png",
     "rotting_away_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ulu36sy8_file_00000000e240722f924f92f4b0b4f50f.png",
     "rotting_away_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1brkt1la_file_000000003a9c722f8c67113dd520abd0.png",
     # Band 3: Hallows Heave
-    "tommy_stewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/k4dqnji8_enhanced-1771278246182.jpg",
+    "tommy_stewart": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/11a_tommy_ste_wart.png",
     # Tommy Stewart Variants
     "tommy_stewart_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/e4uik3pv_file_00000000f6e071f8882de66a8557a169.png",
     "tommy_stewart_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xxv96r0f_file_00000000b43871fda4c35295cf7390db.png",
     "tommy_stewart_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vpzhq4cm_file_00000000612871f88b5f91b298325a76.png",
     "tommy_stewart_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/adraiy0y_file_00000000446071f8864335af1f30030a.png",
-    "tommy_spewart": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/f61hd5kz_enhanced-1771278293743.jpg",
+    "tommy_spewart": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/11b_tommy_spewart.png",
     # Tommy Spewart Variants
     "tommy_spewart_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/l9cehmsx_file_0000000032e471f8b3bb69e79bb36030.png",
     "tommy_spewart_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0qbjl54p_file_00000000e4b871fdb1054996d5bbce6f.png",
     "tommy_spewart_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/c5x56s9a_file_000000003c4471f8bedd0b1b70e8df4a.png",
     "tommy_spewart_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/25jwdchg_file_00000000448c71fdbe6c4f2338bcf41c.png",
     # Band 4: Pussessed
-    "jeff_possess_ya_s2": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/iz6crfrh_enhanced-1771278405486.jpg",
+    "jeff_possess_ya_s2": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/12a_jeff_possess_ya.png",
     # Jeff Possess Ya Variants
     "jeff_possess_ya_s2_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/sko2mg1w_file_00000000e43c722facc931a950c73822.png",
     "jeff_possess_ya_s2_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/7ra8qofd_file_00000000b85c71f5b52b0e719aa774d8.png",
     "jeff_possess_ya_s2_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0wcfw7ln_file_00000000414c71f5b0779143a7f60123.png",
     "jeff_possess_ya_s2_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cu4c31u3_file_0000000047d4722fa70d135c54f6eeb8.png",
-    "chef_becerra": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/jzgfyc6y_enhanced-1771278343087.jpg",
+    "chef_becerra": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/12b_chef_becerra.png",
     # Jeff Possess Ya (B) Variants
     "chef_becerra_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x7y4u9qv_file_000000003dcc722f9493a7b764ccbd7a.png",
     "chef_becerra_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ylq0jem0_file_00000000561071f59a0d40c1717ff235.png",
     "chef_becerra_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ocoxl9fb_file_000000002968722f9b43e07d92424afe.png",
     "chef_becerra_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ieq76zc7_file_00000000466471f5b296a59b24a0e552.png",
     # Band 5: S.T.D.
-    "bully_milano": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/rrqcmuzv_enhanced-1771278534417.jpg",
+    "bully_milano": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/13a_bully_milano.png",
     # Bully Milano Variants
     "bully_milano_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xg9q7tmu_file_000000002ff0722fa1bcec7fdecc3a58.png",
     "bully_milano_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1s53wnt7_file_00000000a4fc722fb1fbb27de3f0cec5.png",
     "bully_milano_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mhg2fovw_file_00000000af84722fb0ab4b66f6f00771.png",
     "bully_milano_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ih7ih44l_file_00000000a6d071f5bff6136380f6f8cc.png",
-    "billy_mylanta": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/5mr9wy38_enhanced-1771278589241.jpg",
+    "billy_mylanta": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/13b_billy_mylanta.png",
     # Billy Mylanta Variants
     "billy_mylanta_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/fad7md56_file_00000000f0b4722f99ff248a683bda81.png",
     "billy_mylanta_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tix9wkpe_file_0000000005b071f5b38bdd77f001aeb5.png",
     "billy_mylanta_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/crzi5bte_file_000000005250722f87d13de42f4c702f.png",
     "billy_mylanta_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4lzzq94u_file_00000000f1ac71f586e113e856bdde57.png",
     # Band 6: Sodumb
-    "tom_angeltipper": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/kopt4n28_enhanced-1771278644576.jpg",
+    "tom_angeltipper": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/15a_tom_angeltipper.png",
     # Tom Angeltipper Variants
     "tom_angeltipper_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yrxwxwg8_file_000000004458722fafb993524e957280.png",
     "tom_angeltipper_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/5u7rau5t_file_000000004c6071f5879ceb73630534e4.png",
@@ -192,26 +192,26 @@ CARD_IMAGE_URLS = {
     "tom_angelflipper_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/35ri9jnz_file_000000001d78722f95d7a5a44a627feb.png",
     "tom_angelflipper_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t64siqy9_file_00000000ebe071f5812f8e6817887525.png",
     # Band 7: Sacrud Ryche
-    "philled_up": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/535v6r16_enhanced-1771278999569.jpg",
+    "philled_up": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/14a_philled_up.png",
     # Philled Up Variants
     "philled_up_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/x0yr166c_file_00000000ce2471fda82439cc818dd6b5.png",
     "philled_up_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/15r3ssr0_file_000000002bb8722fa57b9562422f87b7.png",
     "philled_up_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/89gx29li_file_000000001ec471f5908b351ce1209fad.png",
     "philled_up_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/xhmhc77w_file_0000000037d0722fac383d7ad8ea4d3a.png",
-    "phil_grind": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/a4luonk7_enhanced-1771278919638.jpg",
+    "phil_grind": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/14b_phil_grind.png",
     # Phil Grind Variants
     "phil_grind_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/z5cuo22s_file_00000000ac88722fa1b156df4828028d.png",
     "phil_grind_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/joed1hef_file_00000000bf4071f58a8a96f6ab628567.png",
     "phil_grind_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ugt3jsoa_file_0000000047c871f5b916416de198a3c8.png",
     "phil_grind_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wboewn3l_file_00000000012071f8818bc88eb150b4e6.png",
     # Band 8: Dork Angel
-    "don_doody": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/zb0sa00g_enhanced-1771279108828.jpg",
+    "don_doody": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/10a_don_doody.png",
     # Don Doody Variants
     "don_doody_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/agbprfjp_file_00000000749c722f90cd6da49dbfd536.png",
     "don_doody_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/1g2s5129_file_000000008d14722f93f4775fef82125e.png",
     "don_doody_psychedelic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/804wwp3d_file_000000009430722f8696911ebe26c81b.png",
     "don_doody_biomechanical": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/m8zezmdk_file_00000000567871f5914537bed5604952.png",
-    "don_rotty": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/im3hu6sw_enhanced-1771279057803.jpg",
+    "don_rotty": "https://thrash-kan-kidz-api.onrender.com/static/cards/series2/10b_don_rotty.png",
     # Don Rotty Variants
     "don_rotty_bloodbath": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ttif47x7_file_000000005160722fbceac1f2323fad0e.png",
     "don_rotty_ice": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/83wu0ydg_file_00000000fbe0722fa6e67badbf2932ee.png",
