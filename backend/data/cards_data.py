@@ -4,8 +4,8 @@
 
 CARD_IMAGE_URLS = {
     # Band 1: $LAYA
-    "tom_da_playa": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8p3eb259_file_00000000172471f8a3d8c4e632f699f7.png",
-    "chum_araya": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/19mw7g72_file_000000008df471f5b300702b42b32cd0.png",
+    "tom_da_playa": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/1a_tom_da_playa.png",
+    "chum_araya": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/1b_chum_araya.png",
     # Tom Da Playa Variants
     "tom_da_playa_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8ijovlfp_enhanced-1773602336149.jpg",
     "tom_da_playa_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3q3w1vwe_enhanced-1773602540143.jpg",
@@ -17,8 +17,8 @@ CARD_IMAGE_URLS = {
     "chum_araya_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/d0ln8fri_enhanced-1774166976308.jpg",
     "chum_araya_cosmc": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/t7rcvvon_enhanced-1774166884359.jpg",
     # Band 2: Megadef
-    "musty_dave": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/nggi41l4_file_00000000319871f583003b0145086e96.png",
-    "daves_mustang": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/8t15nt7u_file_0000000079ec71fdbe0a31c88426db30.png",
+    "musty_dave": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/5a_musty_dave.jpg",
+    "daves_mustang": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/5b_daves_mustang.png",
     # Dave's Mustang Variants
     "daves_mustang_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/hmkamrxq_enhanced-1774169523717.jpg",
     "daves_mustang_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/prdcq3g3_enhanced-1774169621597.jpg",
@@ -30,8 +30,8 @@ CARD_IMAGE_URLS = {
     "musty_dave_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/yw3e73lp_enhanced-1774167306194.jpg",
     "musty_dave_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/cazix3sc_enhanced-1774167385926.jpg",
     # Band 3: Sepulchura
-    "maxi_pad": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/6cc9oltm_file_000000000a5471f5ae6a72ba59efab72.png",
-    "maximum": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/2revzgsz_file_000000000f8c71f5a1ceebe96981364d.png",
+    "maxi_pad": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/7a_maxi_pad.jpg",
+    "maximum": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/7b_maximum.png",
     # Maxi Pad Variants
     "maxi_pad_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/itufg769_file_00000000ce5071fd9678d1143ae8b19c.png",
     "maxi_pad_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jnosp4ca_file_00000000636c722faa0ead59b1aab559.png",
@@ -43,8 +43,8 @@ CARD_IMAGE_URLS = {
     "maximum_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qen1z2pk_file_000000003f60722f934e1828af65a56d.png",
     "maximum_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/3k1a9dub_file_00000000684071f5956c32e7b432127d.png",
     # Band 4: Testyment
-    "billy_chuck": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/wyz5xr3e_file_00000000fb00722fa6b9aa0e95bdfee0.png",
-    "chuck_roast": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/tt9zf49y_file_000000009cf471fd9f9ec310d1d825f1%20%282%29.png",
+    "billy_chuck": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/8a_billy_chuck.png",
+    "chuck_roast": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/8b_chuck_roast.jpg",
     # Billy Chuck Variants
     "billy_chuck_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/4elgkv20_enhanced-1774205918055.jpg",
     "billy_chuck_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tg5h8pxn_enhanced-1774206040191.jpg",
@@ -56,8 +56,8 @@ CARD_IMAGE_URLS = {
     "chuck_roast_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/ppaobxx7_enhanced-1774206845954.jpg",
     "chuck_roast_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/lsc02h95_enhanced-1774206935519.jpg",
     # Band 5: Metallikuh
-    "cliff_diver": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/3253t70u_file_00000000da2c71f8a3882344e443bca5.png",
-    "cliff_burpin": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/vj8zbqec_file_00000000efb871f8aff2dad98e7da9e0.png",
+    "cliff_diver": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/6a_cliff_diver.png",
+    "cliff_burpin": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/6b_cliff_burpin.png",
     # Cliff Diver Variants
     "cliff_diver_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/mc5ce0am_file_00000000b28471f59ee4f09204ae8b4c.png",
     "cliff_diver_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/gvht2fcl_file_00000000e45871f58bb0cd737a148e65.png",
@@ -69,21 +69,21 @@ CARD_IMAGE_URLS = {
     "cliff_burpin_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/irnn5899_file_00000000d8f471fd957140f6f64fbc5e.png",
     "cliff_burpin_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/2kd1s8h7_file_00000000b06071f8803d4356e2c07470.png",
     # Band 6: Anthrash
-    "scotch_ian": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/wfx5afyp_file_0000000067c071fd8fbea79ea1359879.png",
+    "scotch_ian": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/2a_scotch_ian.png",
     # Scotch Ian Variants
     "scotch_ian_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/0vxhdv3x_file_00000000a2cc71fd9e0d49ab78036784.png",
     "scotch_ian_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/979s4bg7_file_000000000f4871f8a0e8899b1e56bc1f.png",
     "scotch_ian_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/puhuton7_file_000000001964722fbd1c833ab3337e12.png",
     "scotch_ian_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vvma6lix_file_000000003cdc71fbae9f27b5061a4d98.png",
-    "scott_eaten": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g7kyk9s9_file_00000000d70c71fdb7b87b53d2b770cd.png",
+    "scott_eaten": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/2b_scott_eaten.jpg",
     # Scott Eaten Variants
     "scott_eaten_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8wm9sb0k_file_00000000ee6c71fd8223cc73a03471a6.png",
     "scott_eaten_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/u6tv4vgp_file_00000000bc7c71fdba47c183ea1bd559.png",
     "scott_eaten_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/dmse8kub_file_00000000dd60722f970c4f446e24ed56.png",
     "scott_eaten_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/6c4kgqg4_file_00000000dc18722f93a43028ec656e4f.png",
     # Band 7: Kreaturd
-    "silly_mille": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/8u8d1laz_file_00000000b8cc71fd995dc5490bb39137.png",
-    "mille_gorezza": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/g91wp9yv_file_000000002b6871f8adc873413d3619f3.png",
+    "silly_mille": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/4a_mille_vanille.png",
+    "mille_gorezza": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/4b_mille_gorezza.jpg",
     # Mille Vanille Variants
     "silly_mille_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wwgnflpv_enhanced-1775799159617.jpg",
     "silly_mille_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/jv49m4ea_enhanced-1775799218430.jpg",
@@ -95,13 +95,13 @@ CARD_IMAGE_URLS = {
     "mille_gorezza_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/tub6n8uk_file_00000000242071fd8bfc8c00e401fbe3.png",
     "mille_gorezza_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/vub685gp_file_000000003f0471f59809c0b94b90116d.png",
     # Band 8: Eggsodus
-    "paul_bawl_off": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/qwai8wue_file_00000000442871fd8945003a4fd9662a.png",
+    "paul_bawl_off": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/3a_paul_bawl_off.png",
     # Paul Bawl Off Variants
     "paul_bawl_off_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/qpl9cxot_file_00000000d00471fb8822de231e69e17e.png",
     "paul_bawl_off_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/wa8zr17p_file_00000000d48871fd82860c470018e081.png",
     "paul_bawl_off_hellfire": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/q9u38yoo_file_00000000c50071f8ab272c1ec07d5bf3.png",
     "paul_bawl_off_cosmic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/epkvtm5w_file_00000000526471f89cb084328cb8f62f.png",
-    "blood_bonder": "https://customer-assets.emergentagent.com/job_d9b7563a-44d0-4dcc-ab9c-25c405b50d3f/artifacts/63m30i4q_file_00000000a374722f8343b54e3a06558f.png",
+    "blood_bonder": "https://thrash-kan-kidz-api.onrender.com/static/cards/series1/3b_blood_bonder.jpg",
     # Blood Bonder Variants
     "blood_bonder_toxic": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/g1gj4638_file_000000009c7c722fa8d83b8cb6c61f3b.png",
     "blood_bonder_electric": "https://customer-assets.emergentagent.com/job_1bc0dac8-eaf6-4ea9-b00d-e58826a0a195/artifacts/w8bozxys_file_000000005390722faad4ad5fc2e117aa.png",
