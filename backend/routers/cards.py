@@ -10,6 +10,8 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime
 from io import BytesIO
+from pathlib import Path
+from urllib.parse import urlparse
 from functools import lru_cache
 import uuid
 import os
@@ -150,9 +152,22 @@ async def get_card(card_id: str):
 @lru_cache(maxsize=600)
 def _resize_image(url: str, width: int) -> bytes:
     """Synchronously fetch + resize. Cached by (url, width)."""
-    r = requests.get(url, timeout=15)
-    r.raise_for_status()
-    img = Image.open(BytesIO(r.content))
+    parsed = urlparse(url)
+    local_root = (Path(__file__).resolve().parent.parent / "static").resolve()
+    local_path = (local_root / parsed.path.removeprefix("/static/")).resolve()
+
+    if (
+        parsed.hostname == "thrash-kan-kidz-api.onrender.com"
+        and parsed.path.startswith("/static/")
+        and local_path.is_relative_to(local_root)
+        and local_path.is_file()
+    ):
+        with Image.open(local_path) as source:
+            img = source.copy()
+    else:
+        r = requests.get(url, timeout=15)
+        r.raise_for_status()
+        img = Image.open(BytesIO(r.content))
     # Flatten alpha to white so JPEG conversion doesn't trash transparent pixels.
     if img.mode in ("RGBA", "LA", "P"):
         bg = Image.new("RGB", img.size, (255, 255, 255))
