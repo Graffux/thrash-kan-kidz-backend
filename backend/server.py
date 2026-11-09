@@ -917,16 +917,11 @@ async def seed_database():
     # Quick check - if we already have the right number of cards, skip the full seed
     card_count = await db.cards.count_documents({})
     expected_count = len(INITIAL_CARDS)
-        # Remove stale cards that are no longer in INITIAL_CARDS.
+    # Keep the catalog IDs for reference; do not delete existing cards.
     valid_ids = {c["id"] for c in INITIAL_CARDS}
 
-    deleted = await db.cards.delete_many({
-        "id": {"$nin": list(valid_ids)}
-    })
-
-    if deleted.deleted_count:
-        logger.info(f"Removed {deleted.deleted_count} stale card(s)")
-        card_count = await db.cards.count_documents({})
+    # Safety: preserve existing catalog cards and player collection references.
+    # New cards are inserted below without deleting older cards.
     # Insert any cards from INITIAL_CARDS that aren't already in the DB.
     # This lets us add new bands/series without wiping the existing collection.
     existing_ids = {c["id"] for c in await db.cards.find({}, {"id": 1, "_id": 0}).to_list(2000)}

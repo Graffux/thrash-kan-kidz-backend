@@ -14588,8 +14588,18 @@ INITIAL_CARDS = [
         "card_type": None,
         "is_daily_reward": True
     },
-
+    {
+        "id": "card_daily_king_foul",
+        "name": "King Foul",
+        "description": "Daily Challenge edition of King Foul.",
+        "rarity": "common",
+        "front_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/king_foul_daily_optimized.png",
+        "back_image_url": "https://raw.githubusercontent.com/Graffux/thrash-kan-kidz-frontend/main/frontend/assets/cards/daily_classics/daily_challenge_classic_back.jpg",
+        "coin_cost": 0,
+        "available": False,
+        "series": None,
+        "band": "",
+        "card_type": None,
+        "is_daily_reward": True
+    },
 ]
-
-
-
